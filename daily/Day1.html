@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>Day 1 · 今日任务</title>
+<style>
+  :root{ --teal:#0f766e; --teal2:#14b8a6; --ink:#1c2430; --mut:#64748b; --line:#e2e8f0; --bg:#f8fafc; --rose:#be123c; --gold:#d97706; }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
+  body{font-family:"PingFang SC","Hiragino Sans GB",-apple-system,"Helvetica Neue",Arial,sans-serif; color:var(--ink); background:var(--bg); margin:0; line-height:1.5;}
+  .wrap{max-width:720px; margin:0 auto; padding:16px 14px 70px;}
+  h1{font-size:19px; margin:0 0 2px; color:var(--teal);}
+  .muted{color:var(--mut); font-size:12.5px;}
+  .overall{background:#fff; border:1px solid var(--line); border-radius:14px; padding:13px 15px; margin:10px 0 16px;}
+  .ov-top{display:flex; justify-content:space-between; align-items:baseline; margin-bottom:8px;}
+  .ov-num{font-size:15px; font-weight:700;} .ov-num b{color:var(--teal); font-size:20px;}
+  .bar{height:9px; background:#eef2f6; border-radius:99px; overflow:hidden;}
+  .bar>i{display:block; height:100%; background:linear-gradient(90deg,var(--teal),var(--teal2)); border-radius:99px; transition:width .35s;}
+  .card{background:#fff; border:1px solid var(--line); border-radius:14px; padding:12px 14px; margin-bottom:10px; cursor:pointer; display:flex; align-items:center; gap:12px;}
+  .card:active{transform:scale(.99);}
+  .badge{flex:0 0 40px; height:40px; border-radius:11px; background:#ecfdf5; color:var(--teal); font-size:20px; display:flex; align-items:center; justify-content:center; border:1px solid #c7f0e8;}
+  .card.done .badge{background:var(--teal); color:#fff; border-color:var(--teal);}
+  .card.w .badge{background:#fff1f2; color:var(--rose); border-color:#fecdd3;}
+  .card.w.done .badge{background:var(--rose); color:#fff; border-color:var(--rose);}
+  .c-body{flex:1; min-width:0;}
+  .c-title{font-weight:700; font-size:14.5px;}
+  .c-sub{color:var(--mut); font-size:11.5px; margin:1px 0 6px;}
+  .tick{flex:0 0 auto; font-size:12px; color:var(--mut);} .card.done .tick{color:var(--teal); font-weight:700;}
+  .back{display:inline-flex; gap:5px; background:none; border:none; color:var(--teal); font-size:14px; font-weight:600; padding:6px 0; cursor:pointer;}
+  .d-title{font-size:18px; font-weight:800; margin:4px 0 2px;}
+  .d-cue{color:var(--mut); font-size:12.5px; font-style:italic; margin-bottom:10px;}
+  .chain{background:#ecfdf5; border:1px dashed #5eead4; border-radius:10px; padding:9px 12px; font-size:13.5px; margin:6px 0; line-height:1.6;}
+  .chain .lab{font-size:11px; color:var(--teal); font-weight:700; display:block; margin-bottom:3px;}
+  .row{display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin:10px 0;}
+  .btn{border:1px solid var(--line); background:#fff; border-radius:10px; padding:9px 13px; font-size:13px; cursor:pointer; color:var(--ink); font-weight:600;}
+  .btn.primary{background:var(--teal); color:#fff; border-color:var(--teal);}
+  .btn.rose{background:var(--rose); color:#fff; border-color:var(--rose);}
+  .btn.on{background:var(--gold); color:#fff; border-color:var(--gold);}
+  .btn.ghost{color:var(--mut);} .btn:active{transform:scale(.97);}
+  audio{height:34px; vertical-align:middle; max-width:100%;}
+  .step{background:#fff; border:1px solid var(--line); border-radius:12px; padding:11px 13px; margin:9px 0;}
+  .step.full{border-color:var(--teal); background:#f0fdfa;}
+  .step-top{display:flex; justify-content:space-between; align-items:center; gap:10px;}
+  .step-name{font-weight:700; font-size:14px;} .step-name .sub{font-weight:400; color:var(--mut); font-size:11.5px;}
+  .dots{display:flex; gap:5px; align-items:center;}
+  .dot{width:15px; height:15px; border-radius:50%; border:2px solid #cbd5e1; background:#fff;} .dot.on{background:var(--teal); border-color:var(--teal);}
+  .plus{width:34px; height:34px; border-radius:9px; border:1px solid var(--teal); background:#fff; color:var(--teal); font-size:20px; font-weight:700; cursor:pointer;} .plus:disabled{opacity:.3;}
+  .script{background:#fffdf7; border:1px solid #e7d9b8; border-radius:12px; padding:12px 14px; margin:8px 0; font-size:15px; line-height:1.72; color:#22302c;}
+  .script p{margin:0 0 9px;} .script p:last-child{margin:0;}
+  .script.hidden{filter:blur(7px); user-select:none;}
+  .w{border-radius:3px; padding:0 1px;}
+  .annot .w{cursor:pointer;}
+  .annot .w:hover{background:#fef3c7;}
+  .w.hl{background:#fde68a;}
+  .tools{display:flex; gap:8px; flex-wrap:wrap; margin:8px 0 2px;}
+  textarea{width:100%; min-height:130px; border:1px solid var(--line); border-radius:10px; padding:11px; font-size:15px; font-family:inherit; line-height:1.55; resize:vertical;}
+  .hint{font-size:11.5px; color:var(--mut); margin:4px 2px;}
+  .diff{background:#fff; border:1px solid var(--line); border-radius:12px; padding:11px 13px; margin:8px 0; font-size:15px; line-height:1.7;}
+  .diff .miss{color:#dc2626; text-decoration:underline; text-decoration-style:wavy; text-underline-offset:2px;}
+  .diff .sum{font-size:13px; font-weight:700; margin-bottom:7px;}
+  .diff .sum .g{color:var(--teal);} .diff .sum .r{color:#dc2626;}
+  .qa .q{background:#fafafa; border-left:3px solid #94a3b8; padding:4px 9px; font-style:italic; margin:8px 0 4px; font-size:13px;}
+  .qa .a{font-size:14.5px; line-height:1.55;}
+  .skel{background:#fff1f2; border:1px solid #fecdd3; border-radius:10px; padding:9px 12px; font-size:14px; margin:8px 0;}
+  .congrats{background:#ecfdf5; border:1px solid #5eead4; color:#0f766e; border-radius:12px; padding:10px 13px; font-size:13.5px; margin:8px 0; font-weight:600; text-align:center;}
+  .foot{text-align:center; color:#94a3b8; font-size:11px; margin-top:22px;}
+</style>
+</head>
+<body>
+<div class="wrap" id="app"></div>
+<script>
+const KEY='ielts_day1_v1';
+let state=JSON.parse(localStorage.getItem(KEY)||'{}');
+function save(){ localStorage.setItem(KEY,JSON.stringify(state)); }
+function st(id){ return state[id]||(state[id]={}); }
+let hide=false, annot=false, view={name:'list',id:null};
+
+const ITEMS=[
+{id:'B',type:'memo',icon:'🎤',title:'母题 B · 科技/AI（主背）',sub:'读×3 → 关键词×2 → 默写×1',
+ cue:'Describe an app or program you use',audio:'../audio-B.m4a',
+ chain:'GPT+Codex → 用了半年 → 处理 data/图像/workflow → 例子 cell segmentation → 问好问题、拆解问题 → 想做多面手',
+ script:[
+"The app I'd like to talk about is ChatGPT — and more recently a coding tool called Codex. I started using ChatGPT quite early, and I've been using Codex more seriously in the past half year or so. At first I thought they were just interesting, but they've actually changed the way I do research.",
+"As a PhD student in dentistry, I use these tools for all kinds of things — analysing data, processing biomedical images, building workflows, and making small demos. The part I really like is that I can just describe what I want in plain English, and the tool helps me turn it into code or a clear set of steps.",
+"For example, in one project I had to deal with cell segmentation in embryo images. The original images weren't very clear, so the results were poor at first. Instead of doing everything by hand, I labelled a small batch of images, used them to train the model, and let the AI help me fix the workflow. In the end it worked a lot better.",
+"More importantly, it kind of changed how I think. I realised that these days it's not just about one specific skill — it's about knowing how to ask good questions, break problems down, and use the tools wisely.",
+"So honestly, these tools changed what I want to be — not just a dentist, but someone who can use AI and coding to solve real problems too."]},
+{id:'A',type:'review',icon:'🔁',title:'母题 A · 重要决定（复习）',sub:'看关键词链复述 1 遍',
+ cue:'Describe an important decision you made',audio:'../audio-A.m4a',
+ chain:'HKU PhD → 不选 residency → broaden horizons → 怕生活成本 → Excel 追导师 → 春节 offer → turning point',
+ script:[
+"The important decision I'd like to talk about was my decision to go to Hong Kong for a PhD, instead of starting clinical residency immediately in mainland China.",
+"I made this decision in 2025, when I was close to finishing my master's. Clinical residency seemed like a more stable, traditional path, but I also had the chance to apply for a PhD at HKU. I wanted to broaden my horizons, study in a more international environment, and learn something beyond traditional dentistry.",
+"To be honest, it wasn't an easy decision. I was worried about the high cost of living in Hong Kong, and afraid that if I didn't get the offer, I might lose a whole year. During that time, I built an Excel sheet to track the supervisors I contacted, and checked my email almost every day.",
+"The offer came during the Spring Festival — I felt nervous, excited and relieved all at once.",
+"Looking back, it was a real turning point. And honestly, it taught me that if you just keep at it and don't give up, things tend to work out."]},
+{id:'P1',type:'p1',icon:'🗣️',title:'P1 · Music + Food',sub:'读 2 遍 + 各说 1 遍（像聊天）',
+ qa:[
+ {q:'Do you prefer sad or happy music?',a:"I usually prefer happy, upbeat music, because it gives me energy — especially when I'm walking, commuting, or trying to start a task."},
+ {q:'Does happy music make you feel more excited?',a:"Yes, definitely. When I feel tired or lazy, a positive song can really put me in a better mood."},
+ {q:'What is your favourite food?',a:"My favourite food is hot pot — it's spicy and warm, and honestly it's really social; everyone sits around the same pot, chatting and picking food together."},
+ {q:'What food did you like when you were young? / Has it changed?',a:"When I was young I really liked spicy snacks, especially latiao. My taste hasn't changed much — I still love spicy food, like malatang or maocai now."}]},
+{id:'SH',type:'shadow',icon:'🎬',title:'跟读老友记 1 段',sub:'学会方法,以后每天用',
+ steps:["选 30–90 秒片段(听懂≈80%)","带字幕听 2–3 遍,听懂意思和节奏","慢半秒跟读:模仿语调 / 重音 / 连读(gonna, wanna)","录音和原声对比,记 1–2 个差异","跟完用自己的话把这段复述一遍"]},
+{id:'W',type:'writing',icon:'✍️',title:'大作文 · 科技题',sub:'今天有空就写整篇 → 发我批改',
+ prompt:'The increasing use of technology has a negative effect on young people. To what extent do you agree?',
+ skel:'One major drawback is that 【论点】. This is because 【解释】. For instance, 【例子】. As a result, 【小结】.',
+ idea:'论点=过度依赖、技能退化 ｜ 解释=答案一点就有,不再独立思考 ｜ 例子=学生用 AI 写作业却不真正理解 ｜ 小结=方便,但削弱了真正的学习。先花 5 分钟拆题(它问的所有部分),再动笔。',
+ model:"One major drawback of relying too much on technology is that it can weaken young people's own abilities. This is because when answers are always one click away, they gradually stop thinking critically for themselves. For instance, many students now use AI tools to finish their assignments without truly understanding the content. Although technology is undeniably convenient, this kind of over-dependence may actually hinder genuine learning."}
+];
+
+function isDone(i){ const s=st(i.id);
+ if(i.type==='memo') return (s.read||0)>=3&&(s.recall||0)>=2&&(s.dictate||0)>=1;
+ if(i.type==='review') return !!s.done;
+ return !!s.done; }
+function frac(i){ const s=st(i.id);
+ if(i.type==='memo') return (Math.min(s.read||0,3)+Math.min(s.recall||0,2)+Math.min(s.dictate||0,1))/6;
+ return isDone(i)?1:0; }
+const app=document.getElementById('app');
+
+/* ---------- highlight-able script ---------- */
+function esc(t){ return t.replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+function scriptHTML(i){
+ const s=st(i.id); const set=new Set(s.hl||[]);
+ const ps=i.script.map((para,pi)=>{
+   let wi=0;
+   const html=esc(para).replace(/[A-Za-z0-9'’\-]+/g,(w)=>{
+     const k=pi+'-'+wi; wi++;
+     const on=set.has(k)?' hl':'';
+     return `<span class="w${on}" ${annot?`onclick="hl(this,'${i.id}','${k}')"`:''}>${w}</span>`;
+   });
+   return `<p>${html}</p>`;
+ }).join('');
+ return `<div class="tools">
+   <button class="btn ${annot?'on':''}" onclick="toggleAnnot()">✏️ 标注关键词 ${annot?'(开)':'(关)'}</button>
+   <button class="btn ghost" onclick="toggleHide()">${hide?'👁 显示原文':'🙈 隐藏原文'}</button>
+  </div>
+  <div class="hint">${annot?'点任意单词高亮/取消,自动保存。':'点上面"标注关键词"后即可点词高亮。复述/默写时点"隐藏原文"。'}</div>
+  <div class="script ${hide?'hidden':''}">${ps}</div>`;
+}
+function hl(el,id,k){ const s=st(id); s.hl=s.hl||[]; const set=new Set(s.hl);
+ if(set.has(k)){set.delete(k); el.classList.remove('hl');} else {set.add(k); el.classList.add('hl');}
+ s.hl=[...set]; save(); }
+function toggleAnnot(){ annot=!annot; if(annot) hide=false; renderDetail(); }
+function toggleHide(){ hide=!hide; if(hide) annot=false; renderDetail(); }
+
+/* ---------- dictation auto-check (word diff) ---------- */
+function norm(arr){ return arr.map(w=>w.toLowerCase().replace(/’/g,"'")); }
+function toks(t){ return (t.match(/[A-Za-z0-9'’\-]+/g)||[]); }
+function lcsMatched(o,u){
+ const n=o.length,m=u.length;
+ const dp=Array.from({length:n+1},()=>new Int16Array(m+1));
+ for(let a=n-1;a>=0;a--)for(let b=m-1;b>=0;b--)dp[a][b]=o[a]===u[b]?dp[a+1][b+1]+1:Math.max(dp[a+1][b],dp[a][b+1]);
+ const matched=new Array(n).fill(false); let a=0,b=0;
+ while(a<n&&b<m){ if(o[a]===u[b]){matched[a]=true;a++;b++;} else if(dp[a+1][b]>=dp[a][b+1])a++; else b++; }
+ return matched;
+}
+function checkDict(id){
+ const i=ITEMS.find(x=>x.id===id); const ta=document.getElementById('dict');
+ st(id).dictText=ta.value; save();
+ const full=i.script.join(' ');
+ const oRaw=toks(full), oN=norm(oRaw), uN=norm(toks(ta.value));
+ if(uN.length===0){ document.getElementById('dictRes').innerHTML='<div class="hint">先在框里写点东西再对照~</div>'; return; }
+ const matched=lcsMatched(oN,uN);
+ const correct=matched.filter(Boolean).length, total=oRaw.length, missed=total-correct, extra=Math.max(0,uN.length-correct);
+ let wi=0; const disp=esc(full).replace(/[A-Za-z0-9'’\-]+/g,(w)=>{ const c=matched[wi]?'':' class="miss"'; wi++; return `<span${c}>${w}</span>`; });
+ document.getElementById('dictRes').innerHTML=
+   `<div class="diff"><div class="sum">对了 <span class="g">${correct}/${total}</span> 词 · 漏或错 <span class="r">${missed}</span> 词${extra?` · 多写约 ${extra} 词`:''}</div>
+     ${disp}<div class="hint" style="margin-top:8px">红色波浪 = 你漏掉或记错的词。记住:这是帮你把句型装进脑子,考试用自己的话说就行,不必一字不差。</div></div>`;
+}
+function saveDict(){ st('W').text=document.getElementById('essay').value; save(); }
+function saveDictBox(id){ st(id).dictText=document.getElementById('dict').value; save(); }
+
+function renderList(){
+ const done=ITEMS.filter(isDone).length;
+ const ov=Math.round(ITEMS.reduce((a,i)=>a+frac(i),0)/ITEMS.length*100);
+ let h=`<h1>📍 Day 1 · 今日任务</h1><div class="muted">6/15 · 只放今天该做的。点开逐项完成。</div>
+  <div class="overall"><div class="ov-top"><div class="ov-num"><b>${done}</b> / ${ITEMS.length} 完成</div><div class="muted">今日进度 ${ov}%</div></div><div class="bar"><i style="width:${ov}%"></i></div></div>`;
+ ITEMS.forEach(i=>{ h+=`<div class="card ${isDone(i)?'done':''} ${i.type==='writing'?'w':''}" onclick="open_('${i.id}')">
+   <div class="badge">${i.icon}</div>
+   <div class="c-body"><div class="c-title">${i.title}</div><div class="c-sub">${i.sub}</div><div class="bar" style="height:6px"><i style="width:${Math.round(frac(i)*100)}%"></i></div></div>
+   <div class="tick">${isDone(i)?'✓':Math.round(frac(i)*100)+'%'}</div></div>`; });
+ h+=`<div class="foot">进度自动存本机 · 作文写完把草稿发我批改</div>`;
+ app.innerHTML=h;
+}
+function open_(id){ view={name:'detail',id}; hide=false; annot=false; renderDetail(); scrollTo(0,0); }
+function goList(){ view={name:'list'}; renderList(); scrollTo(0,0); }
+
+function renderDetail(){
+ const i=ITEMS.find(x=>x.id===view.id); const s=st(i.id);
+ let h=`<button class="back" onclick="goList()">← 返回今日任务</button><div class="d-title">${i.icon} ${i.title}</div>`;
+ if(i.cue)h+=`<div class="d-cue">${i.cue}</div>`;
+ h+=`<div class="bar"><i style="width:${Math.round(frac(i)*100)}%"></i></div>`;
+
+ if(i.type==='memo'){
+   if(i.audio)h+=`<div class="row"><audio controls preload="none" src="${i.audio}"></audio><span class="hint">边听边读</span></div>`;
+   h+=`<div class="chain"><span class="lab">关键词链(背这串)</span>${i.chain}</div>`;
+   if(isDone(i))h+=`<div class="congrats">🎉 母题 B 练熟了!</div>`;
+   [['read','朗读全文','出声读',3],['recall','看关键词链复述','盖住原文,自己的话',2],['dictate','默写检验','写完点 + 记一遍',1]].forEach(([k,n,sub,t])=>{
+     const v=s[k]||0,full=v>=t; let d=''; for(let x=0;x<t;x++)d+=`<span class="dot ${x<v?'on':''}"></span>`;
+     h+=`<div class="step ${full?'full':''}"><div class="step-top"><div class="step-name">${full?'✓ ':''}${n} <span class="sub">· ${sub}</span></div><div class="dots">${d}<button class="plus" ${full?'disabled':''} onclick="inc('${i.id}','${k}',${t})">+</button></div></div></div>`;
+   });
+   h+=`<div class="step"><div class="step-name">✍️ 默写框（自动改错）</div>
+     <div class="hint">凭记忆写这段(记多少写多少),点"对照改错"自动标出漏/错的词。</div>
+     <textarea id="dict" placeholder="在这里默写母题 B…" oninput="saveDictBox('${i.id}')">${s.dictText||''}</textarea>
+     <div class="row"><button class="btn primary" onclick="checkDict('${i.id}')">对照改错</button></div>
+     <div id="dictRes"></div></div>`;
+   h+=scriptHTML(i);
+ }
+ else if(i.type==='review'){
+   if(i.audio)h+=`<div class="row"><audio controls preload="none" src="${i.audio}"></audio></div>`;
+   h+=`<div class="chain"><span class="lab">关键词链</span>${i.chain}</div><div class="hint">先盖住原文复述一遍,卡了再看。</div>`;
+   h+=scriptHTML(i);
+   h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?'✓ 已复述(点取消)':'复述完了 ✓'}</button></div>`;
+ }
+ else if(i.type==='p1'){
+   h+=`<div class="hint">P1 答 2–3 句、像聊天。每题读 2 遍、说 1 遍。⚠️ "it's not just about… it's about…" 全程最多用一次。</div><div class="qa">`;
+   i.qa.forEach(x=>h+=`<div class="q">${x.q}</div><div class="a">${x.a}</div>`); h+=`</div>`;
+   h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?'✓ 已说一遍':'两个话题都说了 ✓'}</button></div>`;
+ }
+ else if(i.type==='shadow'){
+   h+=`<div class="hint">研究证实跟读能提升流利和语调(不是改口音)。步骤:</div><ol style="font-size:14px;line-height:1.7;padding-left:20px">`;
+   i.steps.forEach(x=>h+=`<li>${x}</li>`); h+=`</ol>`;
+   h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?'✓ 跟读完成':'跟读完成 ✓'}</button></div>`;
+ }
+ else if(i.type==='writing'){
+   h+=`<div class="d-cue" style="font-style:normal;color:#22302c;font-size:14px;background:#fafafa;border-left:3px solid #94a3b8;padding:6px 10px;border-radius:0 8px 8px 0">${i.prompt}</div>`;
+   h+=`<div class="skel"><b>主体段骨架:</b><br>${i.skel}</div><div class="hint">${i.idea}</div>`;
+   h+=`<div class="hint">在下面打草稿(自动保存)。今天有空就写整篇,写完发我批改。</div>
+       <textarea id="essay" placeholder="在这里写你的作文…" oninput="saveDict()">${s.text||''}</textarea>`;
+   h+=`<div class="row"><button class="btn ghost" onclick="toggleHide()">${hide?'隐藏参考范段':'看参考范段'}</button>
+        <button class="btn rose" onclick="toggleDone('${i.id}')">${isDone(i)?'✓ 已完成(发我批改)':'写完了 ✓'}</button></div>`;
+   if(hide)h+=`<div class="script"><b style="color:#be123c">参考范段(自己先写,再对比):</b><p style="margin-top:6px">${i.model}</p></div>`;
+ }
+ app.innerHTML=h;
+}
+function inc(id,k,t){ const s=st(id); s[k]=Math.min((s[k]||0)+1,t); save(); renderDetail(); }
+function toggleDone(id){ const s=st(id); s.done=!s.done; save(); renderDetail(); }
+renderList();
+</script>
+</body>
+</html>
