@@ -105,6 +105,7 @@ const ITEMS=[
  prompt:'The increasing use of technology has a negative effect on young people. To what extent do you agree?',
  skel:'4 段:① 引言(改写题目+表态) ② 主体一 ③ 主体二 ④ 结论。主体段套:One major drawback is that 【论点】. This is because 【解释】. For instance, 【例子】. As a result, 【小结】.',
  idea:'先花 5 分钟拆题。建议立场="部分同意":写一段负面(过度依赖→技能退化;例:学生用 AI 写作业不真正理解),写一段正面(连接/获取知识),结尾=利大但需引导。≥250 词。',
+ frame:'【引言】It is often argued that 〔把题目换句话说〕. While some people believe 〔对立的一方〕, I personally think that 〔你的立场〕.\n【主体1·承认一面】On the one hand, it is true that 〔对方有理的一点〕. This is mainly because 〔为什么〕. For example, 〔具体例子〕.\n【主体2·你的立场】On the other hand, however, I would argue that 〔你的主张〕. The main reason is that 〔解释〕. A good example of this is 〔例子〕. As a result, 〔小结〕.\n【结论】In conclusion, although 〔让步:对方那句〕, I believe that 〔重申立场〕, especially if 〔条件/建议〕.',
  model:"One major drawback of relying too much on technology is that it can weaken young people's own abilities. This is because when answers are always one click away, they gradually stop thinking critically for themselves. For instance, many students now use AI tools to finish their assignments without truly understanding the content. Although technology is undeniably convenient, this kind of over-dependence may actually hinder genuine learning."},
 {id:'W1',type:'writing',icon:'📊',title:'小作文 · 折线/柱状（限时 20min）',sub:'把背过的范文转成"自己写"',
  prompt:'The line graph shows the number of visitors (in millions) to three London museums — the British Museum, the Science Museum and the Natural History Museum — between 2010 and 2020.（数据自拟合理即可）',
@@ -186,7 +187,9 @@ function renderDetail(){
  else if(i.type==='writing'){
    if(i.must)h+=`<div class="must">🔥 ${i.must}</div>`;
    h+=`<div class="d-cue" style="font-style:normal;color:#22302c;font-size:14px;background:#fafafa;border-left:3px solid #94a3b8;padding:6px 10px;border-radius:0 8px 8px 0">${i.prompt}</div>`;
-   h+=`<div class="skel"><b>写法/骨架:</b><br>${i.skel}</div><div class="hint">${i.idea}</div>`;
+   h+=`<div class="skel"><b>写法/骨架:</b><br>${i.skel}</div>`;
+   if(i.frame)h+=`<div class="chain" style="background:#eff6ff;border-color:#bfdbfe"><span class="lab" style="color:#1d4ed8">🧩 万能框架(背连接句,〔〕里现填)</span>${i.frame.split('\n').filter(Boolean).map(l=>`<div style="margin:4px 0">${l}</div>`).join('')}</div>`;
+   h+=`<div class="hint">${i.idea}</div>`;
    h+=`<div class="hint">在下面打草稿(自动保存)。写完发我批改。</div>
        <textarea id="essay" placeholder="在这里写…" oninput="saveEssay('${i.id}')">${s.text||''}</textarea>`;
    h+=`<div class="row"><button class="btn ghost" onclick="toggleHide()">${hide?'隐藏参考范文':'看参考范文'}</button>
