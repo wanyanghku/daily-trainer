@@ -188,7 +188,7 @@ function renderDetail(){
  h+=`<div class="bar"><i style="width:${Math.round(frac(i)*100)}%"></i></div>`;
 
  if(i.type==='memo'){
-   if(i.audio)h+=`<div class="row"><audio controls preload="none" src="${i.audio}"></audio><span class="hint">边听边读</span></div>`;
+   if(i.audio)h+=`<div class="row"><audio controls preload="none" src="${i.audio}"></audio><button class="btn loop" onclick="lp(this)">🔁</button><span class="hint">边听边读</span></div>`;
    h+=`<div class="chain"><span class="lab">关键词链(背这串)</span>${i.chain}</div>`;
    if(isDone(i))h+=`<div class="congrats">🎉 这篇练熟了!</div>`;
    [['read','朗读全文','出声读',3],['recall','看关键词链复述','盖住原文,自己的话',2],['dictate','默写检验','写完点 + 记一遍',1]].forEach(([k,n,sub,t])=>{
@@ -203,7 +203,7 @@ function renderDetail(){
    h+=scriptHTML(i);
  }
  else if(i.type==='review'){
-   if(i.audio)h+=`<div class="row"><audio controls preload="none" src="${i.audio}"></audio></div>`;
+   if(i.audio)h+=`<div class="row"><audio controls preload="none" src="${i.audio}"></audio><button class="btn loop" onclick="lp(this)">🔁</button></div>`;
    h+=`<div class="chain"><span class="lab">关键词链</span>${i.chain}</div><div class="hint">先盖住原文复述一遍,卡了再看。</div>`;
    h+=scriptHTML(i);
    h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?'✓ 已复述(点取消)':'复述完了 ✓'}</button></div>`;
@@ -231,6 +231,7 @@ function renderDetail(){
 }
 function inc(id,k,t){ const s=st(id); s[k]=Math.min((s[k]||0)+1,t); save(); renderDetail(); }
 function toggleDone(id){ const s=st(id); s.done=!s.done; save(); renderDetail(); }
+function lp(b){ var a=b.parentNode.querySelector('audio'); if(!a)return; a.loop=!a.loop; b.textContent=a.loop?'🔁 循环中':'🔁'; b.classList.toggle('on',a.loop); if(a.loop&&a.paused)a.play(); }
 renderList();
 </script>
 </body>
