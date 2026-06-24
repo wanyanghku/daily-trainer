@@ -77,7 +77,7 @@ let hide=false, annot=false, view={name:'list',id:null};
 
 const ITEMS=[
 {id:'C',type:'review',icon:'🔁',title:'母题 C · 师兄帮我（复习）',sub:'看关键词链复述 1 遍 + 录音',
- cue:'Describe a time someone helped you',audio:'../audio-C.m4a?v=ava',
+ cue:'Describe a time someone helped you',audio:'../audio-C.m4a?v=ms',
  chain:'师兄 → 我刚到香港很迷茫 → 带我逛西营盘 → 帮我找学校附近的房 → 哪条街上下坡/哪里吃饭便宜 → 让我没那么孤单 → 适应更快',
  script:[
 "The person I'd like to talk about is a senior labmate in my research group at HKU. I met him when I first arrived in Hong Kong about a month ago.",
@@ -86,7 +86,7 @@ const ITEMS=[
 "What helped most, though, wasn't the practical stuff — it was that he made me feel less alone in a new city. After that I settled in much faster, and I could actually focus on my research instead of worrying about daily life.",
 "I'm really grateful to him. It taught me that a small bit of help at the right moment can make a huge difference — and now I try to do the same for new students who've just arrived."]},
 {id:'B',type:'review',icon:'🔁',title:'母题 B · 科技/AI（复习）',sub:'看关键词链复述 1 遍',
- cue:'Describe an app or program you use',audio:'../audio-B.m4a?v=ava',
+ cue:'Describe an app or program you use',audio:'../audio-B.m4a?v=ms',
  chain:'GPT+Codex → 用了半年 → 处理 data/图像/workflow → 例子 cell segmentation → 问好问题、拆解问题 → 想做多面手',
  script:[
 "The app I'd like to talk about is ChatGPT — and more recently a coding tool called Codex. I started using ChatGPT quite early, and I've been using Codex more seriously in the past half year or so. At first I thought they were just interesting, but they've actually changed the way I do research.",
@@ -106,13 +106,13 @@ const ITEMS=[
  skel:'4 段:① 引言(改写题目+表态) ② 主体一 ③ 主体二 ④ 结论。主体段套:One major drawback is that 【论点】. This is because 【解释】. For instance, 【例子】. As a result, 【小结】.',
  idea:'先花 5 分钟拆题。建议立场="部分同意":写一段负面(过度依赖→技能退化;例:学生用 AI 写作业不真正理解),写一段正面(连接/获取知识),结尾=利大但需引导。≥250 词。',
  frame:'【引言】It is often argued that 〔把题目换句话说〕. While some people believe 〔对立的一方〕, I personally think that 〔你的立场〕.\n【主体1·承认一面】On the one hand, it is true that 〔对方有理的一点〕. This is mainly because 〔为什么〕. For example, 〔具体例子〕.\n【主体2·你的立场】On the other hand, however, I would argue that 〔你的主张〕. The main reason is that 〔解释〕. A good example of this is 〔例子〕. As a result, 〔小结〕.\n【结论】In conclusion, although 〔让步:对方那句〕, I believe that 〔重申立场〕, especially if 〔条件/建议〕.',
- maudio:'../essay-tech.m4a?v=ava',
+ maudio:'../essay-tech.m4a?v=ms',
  model:"One major drawback of relying too much on technology is that it can weaken young people's own abilities. This is because when answers are always one click away, they gradually stop thinking critically for themselves. For instance, many students now use AI tools to finish their assignments without truly understanding the content. Although technology is undeniably convenient, this kind of over-dependence may actually hinder genuine learning."},
 {id:'W1',type:'writing',icon:'📊',title:'小作文 · 折线/柱状（限时 20min）',sub:'把背过的范文转成"自己写"',
  prompt:'The line graph shows the number of visitors (in millions) to three London museums — the British Museum, the Science Museum and the Natural History Museum — between 2010 and 2020.（数据自拟合理即可）',
  skel:'4 句结构:① 改写题目(The line graph illustrates…) ② Overview(Overall, it is clear that… 只写大方向,不写数字) ③ 细节段1 ④ 细节段2。≥150 词。',
  idea:'参考数据:British Museum 最高,从约 5 → 6.5 百万稳升;Science Museum 从约 2 → 3.5;Natural History 约 3,波动后到约 4。趋势词:rose steadily / increased sharply / fluctuated / reached a peak of。',
- maudio:'../essay-line.m4a?v=ava',
+ maudio:'../essay-line.m4a?v=ms',
  model:"The line graph illustrates the number of visitors to three museums in London between 2010 and 2020. Overall, it is clear that all three museums saw an increase, with the British Museum remaining the most popular throughout. In 2010, the British Museum received around 5 million visitors, and this figure rose steadily to about 6.5 million in 2020. The Science Museum, meanwhile, started at just 2 million and climbed gradually to 3.5 million, while the Natural History Museum fluctuated around 3 million before ending at roughly 4 million."},
 {id:'SH',type:'shadow',icon:'🎬',title:'跟读老友记 1 段',sub:'选 30–90 秒,慢半秒跟读',
  steps:["选 30–90 秒片段(听懂≈80%)","带字幕听 2–3 遍","慢半秒跟读:模仿语调 / 重音 / 连读","录音对比,记 1–2 个差异","用自己的话复述一遍"]}
