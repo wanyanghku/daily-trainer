@@ -77,7 +77,7 @@ let hide=false, annot=false, view={name:'list',id:null};
 
 const ITEMS=[
 {id:'D',type:'memo',icon:'🎤',title:'母题 D · 团队合作（主背·新）',sub:'读×3 → 关键词×2 → 默写×1',
- cue:'Describe a time you worked in a team',audio:'../audio-D.m4a?v=ms2',
+ cue:'Describe a time you worked in a team',audio:'../audio-D.m4a?v=3',
  chain:'合作项目 embryo 图像 → 我导师+另一个 lab → 我方负责 computation/标注/workflow → 赶论文的图 → 图像差+时间紧 → 先做小版本 workflow → 高效沟通',
  script:[
 "The teamwork experience I'd like to talk about was a collaborative research project on embryo image analysis. I worked with my supervisor, and also another lab. Their lab came up with the biological idea and ran the experiments, while my team mainly handled the computation, the image analysis, and building the workflow.",
@@ -85,7 +85,7 @@ const ITEMS=[
 "At first the plan kept changing because the real data was a lot messier than we expected. Later we decided to build a small version of the workflow first, test if it worked, and then scale it up. That made the whole thing much more manageable.",
 "In the end the workflow worked and we got the figure done. I felt proud and relieved. Honestly, it just showed me how much smoother things go when a team actually talks to each other."]},
 {id:'C',type:'review',icon:'🔁',title:'母题 C · 师兄帮我（复习）',sub:'看关键词链复述 1 遍',
- cue:'Describe a time someone helped you',audio:'../audio-C.m4a?v=ms2',
+ cue:'Describe a time someone helped you',audio:'../audio-C.m4a?v=3',
  chain:'师兄 → 我刚到香港很迷茫 → 带我逛西营盘 → 帮我找学校附近的房 → 哪条街上下坡/哪里吃饭便宜 → 让我没那么孤单 → 适应更快',
  script:[
 "The person I'd like to talk about is a senior labmate in my research group at HKU. I met him when I first arrived in Hong Kong about a month ago.",
@@ -105,7 +105,7 @@ const ITEMS=[
  skel:'4 段:① 引言(改写题目 + 我会讨论双方) ② A方:观点+理由+例子 ③ B方:观点+理由+例子 ④ 结论:表明你倾向。≥250 词。',
  frame:'【引言】Opinions differ on whether 〔A 还是 B〕. This essay will look at both views before giving my opinion.\n【主体1·A方】On the one hand, those who support 〔A〕 argue that 〔理由〕. For example, 〔例子〕.\n【主体2·B方】On the other hand, others believe that 〔B〕. This is because 〔理由〕. 〔例子〕.\n【结论·你的立场】In my opinion, although 〔让步〕, I believe that 〔你的倾向〕, especially if 〔条件〕.',
  idea:'拆题:早上学 vs 晚上学。早=早适应集体、早打基础;晚=多玩、心智成熟再学更高效(芬兰约7岁上学、成绩好)。建议立场:略晚更好,但学前要有轻松启蒙。',
- maudio:'../essay-edu.m4a?v=ms2',
+ maudio:'../essay-edu.m4a?v=3',
  model:"Opinions differ on whether children should begin formal schooling at a very early age or start later. This essay will look at both views before giving my own opinion. On the one hand, those who support an early start argue that young children learn quickly and adapt easily. Starting school early helps them develop social skills and get used to a structured environment. For example, many children who attend kindergarten settle into primary school more confidently. On the other hand, others believe children benefit from starting later, when they are more mature. At a very young age, children may learn better through play than through formal lessons, and too much early pressure can reduce their interest in learning. Countries such as Finland, where children start school around the age of seven, often achieve excellent results. In my opinion, although an early start has some social benefits, I believe a slightly later start is better, as long as young children are given a playful and supportive environment beforehand."},
 {id:'SH',type:'shadow',icon:'🎬',title:'跟读老友记 1 段',sub:'选 30–90 秒,慢半秒跟读',
  steps:["选 30–90 秒片段(听懂≈80%)","带字幕听 2–3 遍","慢半秒跟读:模仿语调 / 重音 / 连读","录音对比,记 1–2 个差异","用自己的话复述一遍"]}
@@ -190,7 +190,7 @@ function renderDetail(){
  h+=`<div class="bar"><i style="width:${Math.round(frac(i)*100)}%"></i></div>`;
 
  if(i.type==='memo'){
-   if(i.audio)h+=`<div class="row"><audio controls preload="none" src="${i.audio}"></audio><button class="btn loop" onclick="lp(this)">🔁</button><span class="hint">边听边读</span></div>`;
+   if(i.audio)h+=`<div class="row"><audio controls preload="auto" src="${i.audio}"></audio><button class="btn loop" onclick="lp(this)">🔁</button><button class="btn spd" onclick="spd(this)">1×</button><span class="hint">边听边读</span></div>`;
    h+=`<div class="chain"><span class="lab">关键词链(背这串)</span>${i.chain}</div>`;
    if(isDone(i))h+=`<div class="congrats">🎉 这篇练熟了!</div>`;
    [['read','朗读全文','出声读',3],['recall','看关键词链复述','盖住原文,自己的话',2],['dictate','默写检验','写完点 + 记一遍',1]].forEach(([k,n,sub,t])=>{
@@ -205,15 +205,15 @@ function renderDetail(){
    h+=scriptHTML(i);
  }
  else if(i.type==='review'){
-   if(i.audio)h+=`<div class="row"><audio controls preload="none" src="${i.audio}"></audio><button class="btn loop" onclick="lp(this)">🔁</button><span class="hint">边听边读</span></div>`;
+   if(i.audio)h+=`<div class="row"><audio controls preload="auto" src="${i.audio}"></audio><button class="btn loop" onclick="lp(this)">🔁</button><button class="btn spd" onclick="spd(this)">1×</button><span class="hint">边听边读</span></div>`;
    h+=`<div class="chain"><span class="lab">关键词链</span>${i.chain}</div><div class="hint">先盖住原文复述一遍,卡了再看。</div>`;
    h+=scriptHTML(i);
    h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?'✓ 已复述(点取消)':'复述完了 ✓'}</button></div>`;
  }
  else if(i.type==='p1'){
    h+=`<div class="hint">P1 答 2–3 句、像聊天。每个问答可单独点播放(男声问 + Ava 答)、可🔁循环。</div><div class="qa">`;
-   const P1AU={"Do you like singing?":"../p1-singing1.m4a?v=ms2","Do you think singing can make people happy?":"../p1-singing2.m4a?v=ms2","Do you prefer typing or handwriting?":"../p1-typing1.m4a?v=ms2","How did you improve your typing?":"../p1-typing2.m4a?v=ms2"};
-   i.qa.forEach(x=>{ var au=P1AU[x.q]; h+=`<div class="q">${x.q}</div><div class="a">${x.a}</div>`+(au?`<div class="row" style="margin:3px 0 12px"><audio controls preload="none" src="${au}"></audio><button class="btn loop" onclick="lp(this)">🔁</button></div>`:''); }); h+=`</div>`;
+   const P1AU={"Do you like singing?":"../p1-singing1.m4a?v=3","Do you think singing can make people happy?":"../p1-singing2.m4a?v=3","Do you prefer typing or handwriting?":"../p1-typing1.m4a?v=3","How did you improve your typing?":"../p1-typing2.m4a?v=3"};
+   i.qa.forEach(x=>{ var au=P1AU[x.q]; h+=`<div class="q">${x.q}</div><div class="a">${x.a}</div>`+(au?`<div class="row" style="margin:3px 0 12px"><audio controls preload="auto" src="${au}"></audio><button class="btn loop" onclick="lp(this)">🔁</button><button class="btn spd" onclick="spd(this)">1×</button></div>`:''); }); h+=`</div>`;
    h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?'✓ 已说一遍':'都说了 ✓'}</button></div>`;
  }
  else if(i.type==='shadow'){
@@ -231,13 +231,14 @@ function renderDetail(){
        <textarea id="essay" placeholder="在这里写…" oninput="saveEssay('${i.id}')">${s.text||''}</textarea>`;
    h+=`<div class="row"><button class="btn ghost" onclick="toggleHide()">${hide?'隐藏参考范文':'看参考范文(带朗读)'}</button>
         <button class="btn rose" onclick="toggleDone('${i.id}')">${isDone(i)?'✓ 已完成(发我批改)':'写完了 ✓'}</button></div>`;
-   if(hide)h+=`<div class="script"><b style="color:#be123c">参考范文(自己先写,再对比):</b>${i.maudio?`<div class="row" style="margin:7px 0"><audio controls preload="none" src="${i.maudio}"></audio><button class="btn loop" onclick="lp(this)">🔁</button><span class="hint">🐢 慢速 · 边听边背</span></div>`:''}<p style="margin-top:6px">${i.model}</p></div>`;
+   if(hide)h+=`<div class="script"><b style="color:#be123c">参考范文(自己先写,再对比):</b>${i.maudio?`<div class="row" style="margin:7px 0"><audio controls preload="auto" src="${i.maudio}"></audio><button class="btn loop" onclick="lp(this)">🔁</button><button class="btn spd" onclick="spd(this)">1×</button><span class="hint">🐢 慢速 · 边听边背</span></div>`:''}<p style="margin-top:6px">${i.model}</p></div>`;
  }
  app.innerHTML=h;
 }
 function inc(id,k,t){ const s=st(id); s[k]=Math.min((s[k]||0)+1,t); save(); renderDetail(); }
 function toggleDone(id){ const s=st(id); s.done=!s.done; save(); renderDetail(); }
 function lp(b){ var a=b.parentNode.querySelector('audio'); if(!a)return; a.loop=!a.loop; b.textContent=a.loop?'🔁 循环中':'🔁'; b.classList.toggle('on',a.loop); if(a.loop&&a.paused)a.play(); }
+function spd(b){ var a=b.parentNode.querySelector('audio'); if(!a)return; var r=[1,1.25,1.5,0.75], i=(r.indexOf(a.playbackRate)+1)%r.length; if(i<0)i=0; a.playbackRate=r[i]; b.textContent=r[i]+'×'; b.classList.toggle('on',r[i]!==1); }
 renderList();
 </script>
 </body>
