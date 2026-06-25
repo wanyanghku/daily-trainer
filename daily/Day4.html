@@ -190,7 +190,7 @@ function renderDetail(){
  h+=`<div class="bar"><i style="width:${Math.round(frac(i)*100)}%"></i></div>`;
 
  if(i.type==='memo'){
-   if(i.audio)h+=`<div class="row"><audio controls preload="auto" src="${i.audio}"></audio><button class="btn loop" onclick="lp(this)">🔁</button><button class="btn spd" onclick="spd(this)">1×</button><span class="hint">边听边读</span></div>`;
+   if(i.audio)h+=`<div class="row"><audio controls preload="auto" src="${i.audio}"></audio><button class="btn loop" onclick="lp(this)">🔁</button><select class="spd" style="border:1px solid #e2e8f0;border-radius:10px;padding:7px 4px;font-size:13px;font-weight:600;background:#fff;color:#1c2430" onchange="spdSel(this)" title="倍速"><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option></select><span class="hint">边听边读</span></div>`;
    h+=`<div class="chain"><span class="lab">关键词链(背这串)</span>${i.chain}</div>`;
    if(isDone(i))h+=`<div class="congrats">🎉 这篇练熟了!</div>`;
    [['read','朗读全文','出声读',3],['recall','看关键词链复述','盖住原文,自己的话',2],['dictate','默写检验','写完点 + 记一遍',1]].forEach(([k,n,sub,t])=>{
@@ -205,7 +205,7 @@ function renderDetail(){
    h+=scriptHTML(i);
  }
  else if(i.type==='review'){
-   if(i.audio)h+=`<div class="row"><audio controls preload="auto" src="${i.audio}"></audio><button class="btn loop" onclick="lp(this)">🔁</button><button class="btn spd" onclick="spd(this)">1×</button><span class="hint">边听边读</span></div>`;
+   if(i.audio)h+=`<div class="row"><audio controls preload="auto" src="${i.audio}"></audio><button class="btn loop" onclick="lp(this)">🔁</button><select class="spd" style="border:1px solid #e2e8f0;border-radius:10px;padding:7px 4px;font-size:13px;font-weight:600;background:#fff;color:#1c2430" onchange="spdSel(this)" title="倍速"><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option></select><span class="hint">边听边读</span></div>`;
    h+=`<div class="chain"><span class="lab">关键词链</span>${i.chain}</div><div class="hint">先盖住原文复述一遍,卡了再看。</div>`;
    h+=scriptHTML(i);
    h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?'✓ 已复述(点取消)':'复述完了 ✓'}</button></div>`;
@@ -213,7 +213,7 @@ function renderDetail(){
  else if(i.type==='p1'){
    h+=`<div class="hint">P1 答 2–3 句、像聊天。每个问答可单独点播放(男声问 + Ava 答)、可🔁循环。</div><div class="qa">`;
    const P1AU={"Do you like singing?":"../p1-singing1.m4a?v=3","Do you think singing can make people happy?":"../p1-singing2.m4a?v=3","Do you prefer typing or handwriting?":"../p1-typing1.m4a?v=3","How did you improve your typing?":"../p1-typing2.m4a?v=3"};
-   i.qa.forEach(x=>{ var au=P1AU[x.q]; h+=`<div class="q">${x.q}</div><div class="a">${x.a}</div>`+(au?`<div class="row" style="margin:3px 0 12px"><audio controls preload="auto" src="${au}"></audio><button class="btn loop" onclick="lp(this)">🔁</button><button class="btn spd" onclick="spd(this)">1×</button></div>`:''); }); h+=`</div>`;
+   i.qa.forEach(x=>{ var au=P1AU[x.q]; h+=`<div class="q">${x.q}</div><div class="a">${x.a}</div>`+(au?`<div class="row" style="margin:3px 0 12px"><audio controls preload="auto" src="${au}"></audio><button class="btn loop" onclick="lp(this)">🔁</button><select class="spd" style="border:1px solid #e2e8f0;border-radius:10px;padding:7px 4px;font-size:13px;font-weight:600;background:#fff;color:#1c2430" onchange="spdSel(this)" title="倍速"><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option></select></div>`:''); }); h+=`</div>`;
    h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?'✓ 已说一遍':'都说了 ✓'}</button></div>`;
  }
  else if(i.type==='shadow'){
@@ -231,14 +231,14 @@ function renderDetail(){
        <textarea id="essay" placeholder="在这里写…" oninput="saveEssay('${i.id}')">${s.text||''}</textarea>`;
    h+=`<div class="row"><button class="btn ghost" onclick="toggleHide()">${hide?'隐藏参考范文':'看参考范文(带朗读)'}</button>
         <button class="btn rose" onclick="toggleDone('${i.id}')">${isDone(i)?'✓ 已完成(发我批改)':'写完了 ✓'}</button></div>`;
-   if(hide)h+=`<div class="script"><b style="color:#be123c">参考范文(自己先写,再对比):</b>${i.maudio?`<div class="row" style="margin:7px 0"><audio controls preload="auto" src="${i.maudio}"></audio><button class="btn loop" onclick="lp(this)">🔁</button><button class="btn spd" onclick="spd(this)">1×</button><span class="hint">🐢 慢速 · 边听边背</span></div>`:''}<p style="margin-top:6px">${i.model}</p></div>`;
+   if(hide)h+=`<div class="script"><b style="color:#be123c">参考范文(自己先写,再对比):</b>${i.maudio?`<div class="row" style="margin:7px 0"><audio controls preload="auto" src="${i.maudio}"></audio><button class="btn loop" onclick="lp(this)">🔁</button><select class="spd" style="border:1px solid #e2e8f0;border-radius:10px;padding:7px 4px;font-size:13px;font-weight:600;background:#fff;color:#1c2430" onchange="spdSel(this)" title="倍速"><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option></select><span class="hint">🐢 慢速 · 边听边背</span></div>`:''}<p style="margin-top:6px">${i.model}</p></div>`;
  }
  app.innerHTML=h;
 }
 function inc(id,k,t){ const s=st(id); s[k]=Math.min((s[k]||0)+1,t); save(); renderDetail(); }
 function toggleDone(id){ const s=st(id); s.done=!s.done; save(); renderDetail(); }
 function lp(b){ var a=b.parentNode.querySelector('audio'); if(!a)return; a.loop=!a.loop; b.textContent=a.loop?'🔁 循环中':'🔁'; b.classList.toggle('on',a.loop); if(a.loop&&a.paused)a.play(); }
-function spd(b){ var a=b.parentNode.querySelector('audio'); if(!a)return; var r=[1,1.25,1.5,0.75], i=(r.indexOf(a.playbackRate)+1)%r.length; if(i<0)i=0; a.playbackRate=r[i]; b.textContent=r[i]+'×'; b.classList.toggle('on',r[i]!==1); }
+function spdSel(s){ var a=s.parentNode.querySelector('audio'); if(a)a.playbackRate=parseFloat(s.value); }
 renderList();
 </script>
 </body>
