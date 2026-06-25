@@ -77,15 +77,15 @@ let hide=false, annot=false, view={name:'list',id:null};
 
 const ITEMS=[
 {id:'D',type:'memo',icon:'🎤',title:'母题 D · 团队合作（主背·新）',sub:'读×3 → 关键词×2 → 默写×1',
- cue:'Describe a time you worked in a team',audio:'../audio-D.m4a?v=3',
- chain:'合作项目 embryo 图像 → 我导师+另一个 lab → 我方负责 computation/标注/workflow → 赶论文的图 → 图像差+时间紧 → 先做小版本 workflow → 高效沟通',
+ cue:'Describe a time you worked in a team',audio:'../audio-D.m4a?v=4',
+ chain:'组织班级篮球赛(3男2女混合)→ 我管整体安排 → 球衣没按时到 → 急中生智:借别学院队服区分 → 没特长生但团结、分工明确 → 我防守+垃圾话搞心态 → 1+1>2 → 季军、眼泪夺眶、脚磨泡、累但感动、为一个目标一起拼',
  script:[
-"The teamwork experience I'd like to talk about was a collaborative research project on embryo image analysis. I worked with my supervisor, and also another lab. Their lab came up with the biological idea and ran the experiments, while my team mainly handled the computation, the image analysis, and building the workflow.",
-"The goal was to finish one important figure for a paper — so it sounds like just one figure, but it actually involved a huge amount of data. My own tasks were labelling images, improving the workflow, and organising the data. The biggest challenges were the poor image quality and the time pressure, because we were aiming for a high-impact journal.",
-"At first the plan kept changing because the real data was a lot messier than we expected. Later we decided to build a small version of the workflow first, test if it worked, and then scale it up. That made the whole thing much more manageable.",
-"In the end the workflow worked and we got the figure done. I felt proud and relieved. Honestly, it just showed me how much smoother things go when a team actually talks to each other."]},
+"The teamwork experience I'd like to talk about was a basketball tournament I helped organise for my class. It was a mixed format — three boys and two girls on court at the same time — and I was in charge of the overall arrangements, like the schedule and the teams.",
+"One thing I still remember is that the jerseys we'd ordered didn't arrive in time. I had to think on my feet, so I borrowed a set of kits from another faculty's team, just so the two sides could tell each other apart. Crisis solved!",
+"In the games, honestly we had no star players, but we were really united — everyone had a clear role. I played defence, and I'll admit I also did a bit of friendly trash-talking to get into the other team's heads. Because everyone knew exactly what to do, it really felt like one plus one was greater than two.",
+"In the end, we came third. I actually teared up — my feet were covered in blisters and we were all exhausted, but it was so moving, because we'd fought for one goal together. That's something I'll never forget."]},
 {id:'C',type:'review',icon:'🔁',title:'母题 C · 师兄帮我（复习）',sub:'看关键词链复述 1 遍',
- cue:'Describe a time someone helped you',audio:'../audio-C.m4a?v=3',
+ cue:'Describe a time someone helped you',audio:'../audio-C.m4a?v=4',
  chain:'师兄 → 我刚到香港很迷茫 → 带我逛西营盘 → 帮我找学校附近的房 → 哪条街上下坡/哪里吃饭便宜 → 让我没那么孤单 → 适应更快',
  script:[
 "The person I'd like to talk about is a senior labmate in my research group at HKU. I met him when I first arrived in Hong Kong about a month ago.",
@@ -105,7 +105,7 @@ const ITEMS=[
  skel:'4 段:① 引言(改写题目 + 我会讨论双方) ② A方:观点+理由+例子 ③ B方:观点+理由+例子 ④ 结论:表明你倾向。≥250 词。',
  frame:'【引言】Opinions differ on whether 〔A 还是 B〕. This essay will look at both views before giving my opinion.\n【主体1·A方】On the one hand, those who support 〔A〕 argue that 〔理由〕. For example, 〔例子〕.\n【主体2·B方】On the other hand, others believe that 〔B〕. This is because 〔理由〕. 〔例子〕.\n【结论·你的立场】In my opinion, although 〔让步〕, I believe that 〔你的倾向〕, especially if 〔条件〕.',
  idea:'拆题:早上学 vs 晚上学。早=早适应集体、早打基础;晚=多玩、心智成熟再学更高效(芬兰约7岁上学、成绩好)。建议立场:略晚更好,但学前要有轻松启蒙。',
- maudio:'../essay-edu.m4a?v=3',
+ maudio:'../essay-edu.m4a?v=4',
  model:"Opinions differ on whether children should begin formal schooling at a very early age or start later. This essay will look at both views before giving my own opinion. On the one hand, those who support an early start argue that young children learn quickly and adapt easily. Starting school early helps them develop social skills and get used to a structured environment. For example, many children who attend kindergarten settle into primary school more confidently. On the other hand, others believe children benefit from starting later, when they are more mature. At a very young age, children may learn better through play than through formal lessons, and too much early pressure can reduce their interest in learning. Countries such as Finland, where children start school around the age of seven, often achieve excellent results. In my opinion, although an early start has some social benefits, I believe a slightly later start is better, as long as young children are given a playful and supportive environment beforehand."},
 {id:'SH',type:'shadow',icon:'🎬',title:'跟读老友记 1 段',sub:'选 30–90 秒,慢半秒跟读',
  steps:["选 30–90 秒片段(听懂≈80%)","带字幕听 2–3 遍","慢半秒跟读:模仿语调 / 重音 / 连读","录音对比,记 1–2 个差异","用自己的话复述一遍"]}
@@ -212,7 +212,7 @@ function renderDetail(){
  }
  else if(i.type==='p1'){
    h+=`<div class="hint">P1 答 2–3 句、像聊天。每个问答可单独点播放(男声问 + Ava 答)、可🔁循环。</div><div class="qa">`;
-   const P1AU={"Do you like singing?":"../p1-singing1.m4a?v=3","Do you think singing can make people happy?":"../p1-singing2.m4a?v=3","Do you prefer typing or handwriting?":"../p1-typing1.m4a?v=3","How did you improve your typing?":"../p1-typing2.m4a?v=3"};
+   const P1AU={"Do you like singing?":"../p1-singing1.m4a?v=4","Do you think singing can make people happy?":"../p1-singing2.m4a?v=4","Do you prefer typing or handwriting?":"../p1-typing1.m4a?v=4","How did you improve your typing?":"../p1-typing2.m4a?v=4"};
    i.qa.forEach(x=>{ var au=P1AU[x.q]; h+=`<div class="q">${x.q}</div><div class="a">${x.a}</div>`+(au?`<div class="row" style="margin:3px 0 12px"><audio controls preload="auto" src="${au}"></audio><button class="btn loop" onclick="lp(this)">🔁</button><select class="spd" style="border:1px solid #e2e8f0;border-radius:10px;padding:7px 4px;font-size:13px;font-weight:600;background:#fff;color:#1c2430" onchange="spdSel(this)" title="倍速"><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option></select></div>`:''); }); h+=`</div>`;
    h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?'✓ 已说一遍':'都说了 ✓'}</button></div>`;
  }
