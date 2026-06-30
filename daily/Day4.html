@@ -84,6 +84,14 @@ const ITEMS=[
 "Right from the start, we had to work together. The jerseys we had ordered didn't arrive in time, so I quickly borrowed some kits from another faculty so that the teams could be told apart. Sorting that problem out together actually helped us bond early on.",
 "What I'm most proud of is that, even though we had no outstanding players, we were extremely united. Everyone had a clear role: I took charge of defence, and I also used a bit of friendly trash-talk to distract the other team. Whenever someone got tired, we encouraged each other, and it really felt like we achieved far more as a team than we ever could have on our own.",
 "In the end, we finished third. I was so moved that I actually teared up — my feet were covered in blisters and everyone was exhausted, but we had worked towards the same goal together. It's an experience I'll never forget."]},
+{id:'E',type:'memo',icon:'🎤',title:'母题 E · 喜欢的城市（主背·新）',sub:'读×3 → 关键词×2 → 默写×1',
+ cue:'Describe a city you like / would recommend to visit',audio:'../audio-E.m4a?v=9',seg:'audio-E',
+ chain:'香港 → 来一个月、还新鲜 → 第一印象:拥挤/国际/贵 → 最爱:海+港大学术氛围+国际化、开眼界 → 住西营盘、街道上下坡、坡上能同时看到高楼和海 → 不完美:挤又贵、不会久住 → 但很适合年轻人来体验 → 推荐给同龄人',
+ script:[
+"The city I'd like to talk about is Hong Kong, where I'm currently living while I do my PhD. I arrived about a month ago, so it still feels quite new to me. My first impression was that it's an extremely crowded, international and rather expensive city.",
+"What I like most is the combination of the sea, the strong academic atmosphere at HKU, and the international environment. I get to meet people from all over the world, which has really broadened my perspective. I'm also fond of the area where I live, Sai Ying Pun, where the streets rise and fall steeply, and from a slope you can sometimes see the tall buildings and the sea at the same time.",
+"Of course, it isn't perfect. It's crowded and fairly expensive, so I probably wouldn't settle here permanently. Even so, it's a wonderful place to experience, especially for young people who want to study and enjoy a different way of life.",
+"Overall, I would happily recommend Hong Kong to almost anyone around my age."]},
 {id:'C',type:'review',icon:'🔁',title:'母题 C · 师兄帮我（复习）',sub:'看关键词链复述 1 遍',
  cue:'Describe a time someone helped you',audio:'../audio-C.m4a?v=9',seg:'audio-C',
  chain:'师兄 → 我刚到香港很迷茫 → 带我逛西营盘 → 帮我找学校附近的房 → 哪条街上下坡/哪里吃饭便宜 → 让我没那么孤单 → 适应更快',
@@ -99,14 +107,6 @@ const ITEMS=[
  {q:'Do you think singing can make people happy?',a:"Definitely. Singing allows people to express their emotions and release tension. You don't have to be good at it — sometimes simply singing along to a song you love can instantly lift your mood."},
  {q:'Do you prefer typing or handwriting?',a:"I definitely prefer typing. Almost everything I do now is on a keyboard, including notes, emails and coding. Handwriting is useful for jotting down quick ideas, but typing is far more efficient."},
  {q:'How did you improve your typing?',a:"Honestly, I never practised on purpose. Because I type so much every day for my research, it improved naturally over time, and chatting online when I was younger probably helped as well."}]},
-{id:'W',type:'writing',icon:'✍️',title:'大作文 · 教育 Discussion（新题型!）',sub:'完整一篇 → 发我批改',
- must:'这是"讨论双方 + 给观点"题型,和上次 Opinion 不同:A方一段、B方一段、最后表明你的倾向。(若科技 Opinion 那篇还没写,先补它。)',
- prompt:'Some people think children should start school at a very young age, while others believe they should start later. Discuss both views and give your opinion.',
- skel:'4 段:① 引言(改写题目 + 我会讨论双方) ② A方:观点+理由+例子 ③ B方:观点+理由+例子 ④ 结论:表明你倾向。≥250 词。',
- frame:'【引言】Opinions differ on whether 〔A 还是 B〕. This essay will look at both views before giving my opinion.\n【主体1·A方】On the one hand, those who support 〔A〕 argue that 〔理由〕. For example, 〔例子〕.\n【主体2·B方】On the other hand, others believe that 〔B〕. This is because 〔理由〕. 〔例子〕.\n【结论·你的立场】In my opinion, although 〔让步〕, I believe that 〔你的倾向〕, especially if 〔条件〕.',
- idea:'拆题:早上学 vs 晚上学。早=早适应集体、早打基础;晚=多玩、心智成熟再学更高效(芬兰约7岁上学、成绩好)。建议立场:略晚更好,但学前要有轻松启蒙。',
- maudio:'../essay-edu.m4a?v=9',
- model:"Opinions differ on whether children should begin formal schooling at a very early age or start later. This essay will look at both views before giving my own opinion. On the one hand, those who support an early start argue that young children learn quickly and adapt easily. Starting school early helps them develop social skills and get used to a structured environment. For example, many children who attend kindergarten settle into primary school more confidently. On the other hand, others believe children benefit from starting later, when they are more mature. At a very young age, children may learn better through play than through formal lessons, and too much early pressure can reduce their interest in learning. Countries such as Finland, where children start school around the age of seven, often achieve excellent results. In my opinion, although an early start has some social benefits, I believe a slightly later start is better, as long as young children are given a playful and supportive environment beforehand."},
 {id:'SH',type:'shadow',icon:'🎬',title:'跟读老友记 1 段',sub:'选 30–90 秒,慢半秒跟读',
  steps:["选 30–90 秒片段(听懂≈80%)","带字幕听 2–3 遍","慢半秒跟读:模仿语调 / 重音 / 连读","录音对比,记 1–2 个差异","用自己的话复述一遍"]}
 ];
@@ -176,7 +176,7 @@ function saveEssay(id){ st(id).text=document.getElementById('essay').value; save
 function renderList(){
  const done=ITEMS.filter(isDone).length;
  const ov=Math.round(ITEMS.reduce((a,i)=>a+frac(i),0)/ITEMS.length*100);
- let h=`<h1>📍 Day 4 · 今日任务</h1><div class="muted">推进度:新母题 D + 新 P1 + 新作文题型(Discussion)</div>
+ let h=`<h1>📍 Day 4 · 今日任务</h1><div class="muted">推进度:两个新母题 — D 团队 + E 城市(+ 复习 C、P1 Singing/Typing)</div>
   <div class="overall"><div class="ov-top"><div class="ov-num"><b>${done}</b> / ${ITEMS.length} 完成</div><div class="muted">今日进度 ${ov}%</div></div><div class="bar"><i style="width:${ov}%"></i></div></div>`;
  ITEMS.forEach(i=>{ h+=`<div class="card ${isDone(i)?'done':''} ${(i.type==='writing')?'w':''}" onclick="open_('${i.id}')">
    <div class="badge">${i.icon}</div>
