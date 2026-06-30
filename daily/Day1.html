@@ -77,7 +77,7 @@ let hide=false, annot=false, view={name:'list',id:null};
 
 const ITEMS=[
 {id:'B',type:'memo',icon:'🎤',title:'母题 B · 科技/AI（主背）',sub:'读×3 → 关键词×2 → 默写×1',
- cue:'Describe an app or program you use',audio:'../audio-B.m4a?v=3',
+ cue:'Describe an app or program you use',audio:'../audio-B.m4a?v=7',seg:'audio-B',
  chain:'GPT+Codex → 用了半年 → 处理 data/图像/workflow → 例子 cell segmentation → 问好问题、拆解问题 → 想做多面手',
  script:[
 "The app I'd like to talk about is ChatGPT — and more recently a coding tool called Codex. I started using ChatGPT quite early, and I've been using Codex more seriously in the past half year or so. At first I thought they were just interesting, but they've actually changed the way I do research.",
@@ -86,7 +86,7 @@ const ITEMS=[
 "More importantly, it kind of changed how I think. I realised that these days it's not just about one specific skill — it's about knowing how to ask good questions, break problems down, and use the tools wisely.",
 "So honestly, these tools changed what I want to be — not just a dentist, but someone who can use AI and coding to solve real problems too."]},
 {id:'A',type:'review',icon:'🔁',title:'母题 A · 重要决定（复习）',sub:'看关键词链复述 1 遍',
- cue:'Describe an important decision you made',audio:'../audio-A.m4a?v=3',
+ cue:'Describe an important decision you made',audio:'../audio-A.m4a?v=7',seg:'audio-A',
  chain:'HKU PhD → 不选 residency → broaden horizons → 怕生活成本 → Excel 追导师 → 春节 offer → turning point',
  script:[
 "The important decision I'd like to talk about was my decision to go to Hong Kong for a PhD, instead of starting clinical residency immediately in mainland China.",
@@ -122,6 +122,11 @@ const app=document.getElementById('app');
 function esc(t){ return t.replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
 function scriptHTML(i){
  const s=st(i.id); const set=new Set(s.hl||[]);
+ var SPD='<select class="spd" style="border:1px solid #e2e8f0;border-radius:8px;padding:4px;font-size:12px" onchange="spdSel(this)"><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option></select>';
+ let segs='';
+ if(i.seg){ segs='<div class="hint" style="margin-top:8px">🎧 分段跟读(每段可单独播放 / 倍速 / 循环):</div>';
+   i.script.forEach((para,pi)=>{ segs+=`<div class="row" style="gap:6px;margin:4px 0"><span style="font-size:12px;color:#64748b;flex:0 0 40px">第${pi+1}段</span><audio controls preload="auto" src="../${i.seg}-${pi+1}.m4a" style="flex:1;min-width:110px;height:32px"></audio><button class="btn loop" onclick="lp(this)">🔁</button>${SPD}</div>`; });
+ }
  const ps=i.script.map((para,pi)=>{
    let wi=0;
    const html=esc(para).replace(/[A-Za-z0-9'’\-]+/g,(w)=>{
@@ -131,7 +136,7 @@ function scriptHTML(i){
    });
    return `<p>${html}</p>`;
  }).join('');
- return `<div class="tools">
+ return `${segs}<div class="tools">
    <button class="btn ${annot?'on':''}" onclick="toggleAnnot()">✏️ 标注关键词 ${annot?'(开)':'(关)'}</button>
    <button class="btn ghost" onclick="toggleHide()">${hide?'👁 显示原文':'🙈 隐藏原文'}</button>
   </div>
@@ -215,7 +220,7 @@ function renderDetail(){
  }
  else if(i.type==='p1'){
    h+=`<div class="hint">P1 答 2–3 句、像聊天。每题读 2 遍、说 1 遍。⚠️ "it's not just about… it's about…" 全程最多用一次。</div><div class="qa">`;
-   const P1AU={"Do you prefer sad or happy music?":"../p1-music1.m4a?v=3","Does happy music make you feel more excited?":"../p1-music2.m4a?v=3","What is your favourite food?":"../p1-food1.m4a?v=3","What food did you like when you were young? / Has it changed?":"../p1-food2.m4a?v=3","What food did you like when you were young, and has it changed?":"../p1-food2.m4a?v=3","Do you like shopping?":"../p1-shop1.m4a?v=3","Online or in-store shopping?":"../p1-shop2.m4a?v=3"};
+   const P1AU={"Do you prefer sad or happy music?":"../p1-music1.m4a?v=7","Does happy music make you feel more excited?":"../p1-music2.m4a?v=7","What is your favourite food?":"../p1-food1.m4a?v=7","What food did you like when you were young? / Has it changed?":"../p1-food2.m4a?v=7","What food did you like when you were young, and has it changed?":"../p1-food2.m4a?v=7","Do you like shopping?":"../p1-shop1.m4a?v=7","Online or in-store shopping?":"../p1-shop2.m4a?v=7"};
    i.qa.forEach(x=>{ var au=P1AU[x.q]; h+=`<div class="q">${x.q}</div><div class="a">${x.a}</div>`+(au?`<div class="row" style="margin:3px 0 12px"><audio controls preload="auto" src="${au}"></audio><button class="btn loop" onclick="lp(this)">🔁</button><select class="spd" style="border:1px solid #e2e8f0;border-radius:10px;padding:7px 4px;font-size:13px;font-weight:600;background:#fff;color:#1c2430" onchange="spdSel(this)" title="倍速"><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option></select></div>`:''); }); h+=`</div>`;
    h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?'✓ 已说一遍':'两个话题都说了 ✓'}</button></div>`;
  }
