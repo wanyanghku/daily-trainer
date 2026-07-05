@@ -98,14 +98,11 @@ const ITEMS=[
  {q:'Do you like your hometown?',a:"Yes, I do. I feel a strong connection to it because I grew up there. What I like most is its relaxed pace of life and how down-to-earth the people are. I probably won't live there permanently, but I always enjoy going back."},
  {q:'Are there any tall buildings near your home?',a:"Yes, there are plenty. Hong Kong is incredibly dense, so there are tall buildings almost everywhere. It's very convenient, although it can feel a little crowded at times."},
  {q:'Is there a building you would like to visit?',a:"I'd love to visit some famous university libraries. To me, a library is more than just a building; it reflects the history and atmosphere of a place, and I really enjoy the quietness inside."}]},
-{id:'W',type:'writing',icon:'✍️',title:'小作文 · 流程图 Process（新题型!）',sub:'完整一篇 → 发我批改',
- must:'流程图/Process:不写数据大小对比,而是"按顺序描述每一步"。核心=被动语态(is collected, is sorted)+顺序词(First / Then / After that / Finally);Overview 必写"共几个阶段、是循环还是线性"。',
- prompt:'The diagram below shows how paper is recycled. Summarise the information by selecting and reporting the main features.（按合理步骤自拟:收集 → 分类清洗 → 打浆 → 压干成纸 → 送回商店 → 循环）',
- skel:'4 段:① 引言(改写题目 + 共几个阶段) ② Overview:整体是循环还是线性、从哪开始到哪结束 ③ 主体1:前几步(被动+顺序词) ④ 主体2:后几步,最后说明循环。约 150 词。',
- frame:'【引言】The diagram illustrates the process of 〔做什么〕, which involves 〔几个〕 main stages.\n【Overview】Overall, the process is 〔a continuous cycle / linear〕, beginning with 〔起点〕 and ending with 〔终点〕.\n【主体1】First, 〔step1 被动〕. It is then 〔step2〕. After that, 〔step3〕.\n【主体2】Next, 〔step4〕. Finally, 〔step5〕, and the whole cycle repeats.',
- idea:'万能动词(全用被动):is collected / is sorted / is cleaned / is mixed with water / is pressed / is dried / is delivered。顺序词别重复:First → Then → After that → Next → Finally。Overview 一定要有:几个阶段 + 循环还是线性(本题是循环 cycle)。',
- maudio:'../essay-process.m4a?v=9',
- model:"The diagram illustrates the process of recycling paper, which involves several main stages and forms a continuous cycle. First, used paper is collected from homes and offices and taken to a recycling plant. It is then sorted by type and cleaned to remove any ink or contaminants. After that, the cleaned paper is mixed with water to create a pulp, which is pressed and dried to form new sheets of paper. Finally, the recycled paper is rolled up and delivered to shops, where it can be used again, and the whole process repeats."},
+{id:'CR',type:'chartrev',icon:'📊',title:'小作文复习 · 折线图 + 柱状图',sub:'读范文 + 听,复习结构与趋势/比较词',
+ charts:[
+  {label:'📈 折线图',audio:'../essay-line.m4a?v=9',model:"The line graph illustrates the number of visitors to three museums in London between 2010 and 2020. Overall, it is clear that all three museums saw an increase, with the British Museum remaining the most popular throughout. In 2010, the British Museum received around 5 million visitors, and this figure rose steadily to about 6.5 million in 2020. The Science Museum, meanwhile, started at just 2 million and climbed gradually to 3.5 million, while the Natural History Museum fluctuated around 3 million before ending at roughly 4 million."},
+  {label:'📊 柱状图',audio:'../essay-bar.m4a?v=9',model:"The bar chart compares the percentage of households with internet access in four countries — the UK, Germany, France and Italy — in 2010 and 2020. Overall, it is clear that internet access increased in all four countries over the decade, with the UK having the highest level in both years. In 2010, around 70% of UK households had internet access, and this rose to roughly 95% by 2020. Germany followed a similar pattern, climbing from about 65% to 90%. France and Italy started lower, at approximately 55% and 50% respectively, but both saw significant growth, reaching around 80% and 75% by the end of the period."}
+ ]},
 {id:'SH',type:'shadow',icon:'🎬',title:'跟读老友记 1 段',sub:'选 30–90 秒,慢半秒跟读',
  steps:["选 30–90 秒片段(听懂≈80%)","带字幕听 2–3 遍","慢半秒跟读:模仿语调 / 重音 / 连读","录音对比,记 1–2 个差异","用自己的话复述一遍"]}
 ];
@@ -175,7 +172,7 @@ function saveEssay(id){ st(id).text=document.getElementById('essay').value; save
 function renderList(){
  const done=ITEMS.filter(isDone).length;
  const ov=Math.round(ITEMS.reduce((a,i)=>a+frac(i),0)/ITEMS.length*100);
- let h=`<h1>📍 Day 5 · 今日任务</h1><div class="muted">推进度:新母题 E(城市) + 新 P1(家乡/建筑) + 新作文题型(流程图 Process)</div>
+ let h=`<h1>📍 Day 5 · 今日任务</h1><div class="muted">推进度:新母题 E 城市 + 复习(母题 D、P1、小作文 折线/柱状)</div>
   <div class="overall"><div class="ov-top"><div class="ov-num"><b>${done}</b> / ${ITEMS.length} 完成</div><div class="muted">今日进度 ${ov}%</div></div><div class="bar"><i style="width:${ov}%"></i></div></div>`;
  ITEMS.forEach(i=>{ h+=`<div class="card ${isDone(i)?'done':''} ${(i.type==='writing')?'w':''}" onclick="open_('${i.id}')">
    <div class="badge">${i.icon}</div>
@@ -224,6 +221,13 @@ function renderDetail(){
    h+=`<div class="hint">研究证实跟读能提升流利和语调(不是改口音)。步骤:</div><ol style="font-size:14px;line-height:1.7;padding-left:20px">`;
    i.steps.forEach(x=>h+=`<li>${x}</li>`); h+=`</ol>`;
    h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?'✓ 跟读完成':'跟读完成 ✓'}</button></div>`;
+ }
+ else if(i.type==='chartrev'){
+   h+=`<div class="hint">复习:读一遍范文 + 听音频,记住结构(改写题目 → Overview → 细节 2 段)和趋势/比较词。</div>`;
+   i.charts.forEach(c=>{
+     h+=`<div class="script"><b style="color:#0f766e">${c.label} · 范文</b><div class="row" style="margin:7px 0"><audio controls preload="auto" src="${c.audio}"></audio><button class="btn loop" onclick="lp(this)">🔁</button><select class="spd" style="border:1px solid #e2e8f0;border-radius:10px;padding:7px 4px;font-size:13px;font-weight:600;background:#fff;color:#1c2430" onchange="spdSel(this)" title="倍速"><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option></select><span class="hint">🐢 慢速</span></div><p style="margin-top:6px">${c.model}</p></div>`;
+   });
+   h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?'✓ 已复习(点取消)':'复习完成 ✓'}</button></div>`;
  }
  else if(i.type==='writing'){
    if(i.must)h+=`<div class="must">🔥 ${i.must}</div>`;

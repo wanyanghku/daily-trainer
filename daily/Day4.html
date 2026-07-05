@@ -84,14 +84,6 @@ const ITEMS=[
 "Right from the start, we had to work together. The jerseys we had ordered didn't arrive in time, so I quickly borrowed some kits from another faculty so that the teams could be told apart. Sorting that problem out together actually helped us bond early on.",
 "What I'm most proud of is that, even though we had no outstanding players, we were extremely united. Everyone had a clear role: I took charge of defence, and I also used a bit of friendly trash-talk to distract the other team. Whenever someone got tired, we encouraged each other, and it really felt like we achieved far more as a team than we ever could have on our own.",
 "In the end, we finished third. I was so moved that I actually teared up — my feet were covered in blisters and everyone was exhausted, but we had worked towards the same goal together. It's an experience I'll never forget."]},
-{id:'E',type:'memo',icon:'🎤',title:'母题 E · 喜欢的城市（主背·新）',sub:'读×3 → 关键词×2 → 默写×1',
- cue:'Describe a city you like / would recommend to visit',audio:'../audio-E.m4a?v=9',seg:'audio-E',
- chain:'香港 → 来一个月、还新鲜 → 第一印象:拥挤/国际/贵 → 最爱:海+港大学术氛围+国际化、开眼界 → 住西营盘、街道上下坡、坡上能同时看到高楼和海 → 不完美:挤又贵、不会久住 → 但很适合年轻人来体验 → 推荐给同龄人',
- script:[
-"The city I'd like to talk about is Hong Kong, where I'm currently living while I do my PhD. I arrived about a month ago, so it still feels quite new to me. My first impression was that it's an extremely crowded, international and rather expensive city.",
-"What I like most is the combination of the sea, the strong academic atmosphere at HKU, and the international environment. I get to meet people from all over the world, which has really broadened my perspective. I'm also fond of the area where I live, Sai Ying Pun, where the streets rise and fall steeply, and from a slope you can sometimes see the tall buildings and the sea at the same time.",
-"Of course, it isn't perfect. It's crowded and fairly expensive, so I probably wouldn't settle here permanently. Even so, it's a wonderful place to experience, especially for young people who want to study and enjoy a different way of life.",
-"Overall, I would happily recommend Hong Kong to almost anyone around my age."]},
 {id:'C',type:'review',icon:'🔁',title:'母题 C · 师兄帮我（复习）',sub:'看关键词链复述 1 遍',
  cue:'Describe a time someone helped you',audio:'../audio-C.m4a?v=9',seg:'audio-C',
  chain:'师兄 → 我刚到香港很迷茫 → 带我逛西营盘 → 帮我找学校附近的房 → 哪条街上下坡/哪里吃饭便宜 → 让我没那么孤单 → 适应更快',
@@ -107,6 +99,11 @@ const ITEMS=[
  {q:'Do you think singing can make people happy?',a:"Definitely. Singing allows people to express their emotions and release tension. You don't have to be good at it — sometimes simply singing along to a song you love can instantly lift your mood."},
  {q:'Do you prefer typing or handwriting?',a:"I definitely prefer typing. Almost everything I do now is on a keyboard, including notes, emails and coding. Handwriting is useful for jotting down quick ideas, but typing is far more efficient."},
  {q:'How did you improve your typing?',a:"Honestly, I never practised on purpose. Because I type so much every day for my research, it improved naturally over time, and chatting online when I was younger probably helped as well."}]},
+{id:'CR',type:'chartrev',icon:'📊',title:'小作文复习 · 折线图 + 柱状图',sub:'读范文 + 听,复习结构与趋势/比较词',
+ charts:[
+  {label:'📈 折线图',audio:'../essay-line.m4a?v=9',model:"The line graph illustrates the number of visitors to three museums in London between 2010 and 2020. Overall, it is clear that all three museums saw an increase, with the British Museum remaining the most popular throughout. In 2010, the British Museum received around 5 million visitors, and this figure rose steadily to about 6.5 million in 2020. The Science Museum, meanwhile, started at just 2 million and climbed gradually to 3.5 million, while the Natural History Museum fluctuated around 3 million before ending at roughly 4 million."},
+  {label:'📊 柱状图',audio:'../essay-bar.m4a?v=9',model:"The bar chart compares the percentage of households with internet access in four countries — the UK, Germany, France and Italy — in 2010 and 2020. Overall, it is clear that internet access increased in all four countries over the decade, with the UK having the highest level in both years. In 2010, around 70% of UK households had internet access, and this rose to roughly 95% by 2020. Germany followed a similar pattern, climbing from about 65% to 90%. France and Italy started lower, at approximately 55% and 50% respectively, but both saw significant growth, reaching around 80% and 75% by the end of the period."}
+ ]},
 {id:'SH',type:'shadow',icon:'🎬',title:'跟读老友记 1 段',sub:'选 30–90 秒,慢半秒跟读',
  steps:["选 30–90 秒片段(听懂≈80%)","带字幕听 2–3 遍","慢半秒跟读:模仿语调 / 重音 / 连读","录音对比,记 1–2 个差异","用自己的话复述一遍"]}
 ];
@@ -176,7 +173,7 @@ function saveEssay(id){ st(id).text=document.getElementById('essay').value; save
 function renderList(){
  const done=ITEMS.filter(isDone).length;
  const ov=Math.round(ITEMS.reduce((a,i)=>a+frac(i),0)/ITEMS.length*100);
- let h=`<h1>📍 Day 4 · 今日任务</h1><div class="muted">推进度:两个新母题 — D 团队 + E 城市(+ 复习 C、P1 Singing/Typing)</div>
+ let h=`<h1>📍 Day 4 · 今日任务</h1><div class="muted">推进度:新母题 D 团队 + 复习(母题 C、P1、小作文 折线/柱状)</div>
   <div class="overall"><div class="ov-top"><div class="ov-num"><b>${done}</b> / ${ITEMS.length} 完成</div><div class="muted">今日进度 ${ov}%</div></div><div class="bar"><i style="width:${ov}%"></i></div></div>`;
  ITEMS.forEach(i=>{ h+=`<div class="card ${isDone(i)?'done':''} ${(i.type==='writing')?'w':''}" onclick="open_('${i.id}')">
    <div class="badge">${i.icon}</div>
@@ -225,6 +222,13 @@ function renderDetail(){
    h+=`<div class="hint">研究证实跟读能提升流利和语调(不是改口音)。步骤:</div><ol style="font-size:14px;line-height:1.7;padding-left:20px">`;
    i.steps.forEach(x=>h+=`<li>${x}</li>`); h+=`</ol>`;
    h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?'✓ 跟读完成':'跟读完成 ✓'}</button></div>`;
+ }
+ else if(i.type==='chartrev'){
+   h+=`<div class="hint">复习:读一遍范文 + 听音频,记住结构(改写题目 → Overview → 细节 2 段)和趋势/比较词。</div>`;
+   i.charts.forEach(c=>{
+     h+=`<div class="script"><b style="color:#0f766e">${c.label} · 范文</b><div class="row" style="margin:7px 0"><audio controls preload="auto" src="${c.audio}"></audio><button class="btn loop" onclick="lp(this)">🔁</button><select class="spd" style="border:1px solid #e2e8f0;border-radius:10px;padding:7px 4px;font-size:13px;font-weight:600;background:#fff;color:#1c2430" onchange="spdSel(this)" title="倍速"><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option></select><span class="hint">🐢 慢速</span></div><p style="margin-top:6px">${c.model}</p></div>`;
+   });
+   h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?'✓ 已复习(点取消)':'复习完成 ✓'}</button></div>`;
  }
  else if(i.type==='writing'){
    if(i.must)h+=`<div class="must">🔥 ${i.must}</div>`;
