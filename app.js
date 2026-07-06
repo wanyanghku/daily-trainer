@@ -22,13 +22,14 @@ async function boot(){
     fetch('../data-ref.json?v='+VERSION).then(r=>r.json())]);
   P1=a; P3=c; b.forEach(m=>P2[m.id]=m); d.forEach(r=>REF[r.id]=r);
   ITEMS=[];
-  if(cfg.newP2){ const m=P2[cfg.newP2]; ITEMS.push({type:'memo',id:'new_'+m.id,m,title:`母题 ${m.id} · ${m.cn}（主背·新）`,icon:'🎤',sub:'读×3 → 关键词×2 → 默写×1'}); }
-  (cfg.reviewP2||[]).forEach(id=>{ const m=P2[id]; ITEMS.push({type:'review',id:'rev_'+id,m,title:`母题 ${id} · ${m.cn}（复习）`,icon:'🔁',sub:'看关键词链复述 + 听'}); });
-  if(cfg.p1&&cfg.p1.length){ ITEMS.push({type:'p1review',id:'p1',idxs:cfg.p1,title:'P1 复习 · '+cfg.p1.length+' 个话题',icon:'🗣️',sub:'你的手册 · 读+听,答2-3句像聊天'}); }
-  if(cfg.p3!=null){ const t=P3[cfg.p3]; ITEMS.push({type:'p3',id:'p3',t,idx:cfg.p3,title:'P3 · '+t.cn,icon:'💬',sub:'四步法:观点+because+例子+让步'}); }
-  if(cfg.ref&&cfg.ref.length){ ITEMS.push({type:'refcard',id:'REFC',ids:cfg.ref,title:'套用速查卡 · '+cfg.ref.length+' 张',icon:'🗂️',sub:'考前翻:开头+关键词链+短版'}); }
-  if(cfg.chart){ ITEMS.push({type:'chartrev',id:'CR',title:'小作文复习 · 折线图 + 柱状图',icon:'📊',sub:'读范文+听,记结构与趋势词'}); }
-  ITEMS.push({type:'record',id:'REC',title:'今日母题录音自查',icon:'🎙️',sub:'录一遍 → 回放挑错(替代跟读)'});
+  if(cfg.newP2){ const m=P2[cfg.newP2]; ITEMS.push({type:'memo',tier:'core',id:'new_'+m.id,m,title:`母题 ${m.id} · ${m.cn}（主背·新）`,icon:'🎤',sub:'读×3 → 关键词×2 → 默写×1'}); }
+  (cfg.reviewP2||[]).forEach(id=>{ const m=P2[id]; ITEMS.push({type:'review',tier:'core',id:'rev_'+id,m,title:`母题 ${id} · ${m.cn}（复习）`,icon:'🔁',sub:'看关键词链复述 + 听'}); });
+  if(cfg.p1&&cfg.p1.length){ ITEMS.push({type:'p1review',tier:'core',id:'p1',idxs:cfg.p1,title:'P1 复习 · '+cfg.p1.length+' 个话题',icon:'🗣️',sub:'你的手册 · 读+听,答2-3句像聊天'}); }
+  if(cfg.p1prev&&cfg.p1prev.length){ ITEMS.push({type:'p1quick',tier:'bonus',id:'p1q',idxs:cfg.p1prev,title:'P1 快速回扫 · 昨日 '+cfg.p1prev.length+' 题',icon:'🔁',sub:'只听+扫开头,防遗忘'}); }
+  if(cfg.p3!=null){ const t=P3[cfg.p3]; ITEMS.push({type:'p3',tier:'bonus',id:'p3',t,idx:cfg.p3,title:'P3 · '+t.cn,icon:'💬',sub:'四步法:观点+because+例子+让步'}); }
+  if(cfg.ref&&cfg.ref.length){ ITEMS.push({type:'refcard',tier:'bonus',id:'REFC',ids:cfg.ref,title:'套用速查卡 · '+cfg.ref.length+' 张',icon:'🗂️',sub:'考前翻:开头+关键词链+短版'}); }
+  if(cfg.chart){ ITEMS.push({type:'chartrev',tier:'bonus',id:'CR',title:'小作文复习 · 折线图 + 柱状图',icon:'📊',sub:'读范文+听,记结构与趋势词'}); }
+  ITEMS.push({type:'record',tier:'bonus',id:'REC',title:'今日母题录音自查',icon:'🎙️',sub:'录一遍 → 回放挑错(替代跟读)'});
   renderList();
 }
 
@@ -78,9 +79,10 @@ function renderList(){
   const done=ITEMS.filter(isDone).length, ov=Math.round(ITEMS.reduce((a,i)=>a+frac(i),0)/ITEMS.length*100);
   let h=`<div class="top"><a class="home" href="../plan.html">🎯 总览</a><a class="home" href="../m.html">菜单</a></div>
    <h1>📍 ${cfg.title} · 今日口语</h1><div class="muted">${cfg.note||''}</div>
-   <div class="overall"><div class="ov-top"><div class="ov-num"><b>${done}</b> / ${ITEMS.length} 完成</div><div class="muted">今日 ${ov}%</div></div><div class="bar"><i style="width:${ov}%"></i></div></div>`;
+   <div class="overall"><div class="ov-top"><div class="ov-num"><b>${done}</b> / ${ITEMS.length} 完成</div><div class="muted">今日 ${ov}%</div></div><div class="bar"><i style="width:${ov}%"></i></div></div>
+   <div class="tierhint">🔋 累了?只做 <b>核心</b>(新母题 + 复习 + P1)也不掉链子;有精力再做 <b>加分</b>。</div>`;
   ITEMS.forEach((i,x)=>{ h+=`<div class="card ${isDone(i)?'done':''}" onclick="open_(${x})"><div class="badge">${i.icon}</div>
-    <div class="c-body"><div class="c-title">${i.title}</div><div class="c-sub">${i.sub}</div><div class="bar" style="height:6px"><i style="width:${Math.round(frac(i)*100)}%"></i></div></div>
+    <div class="c-body"><div class="c-title">${i.title} <span class="t2 ${i.tier}">${i.tier==='core'?'核心':'加分'}</span></div><div class="c-sub">${i.sub}</div><div class="bar" style="height:6px"><i style="width:${Math.round(frac(i)*100)}%"></i></div></div>
     <div class="tick">${isDone(i)?'✓':Math.round(frac(i)*100)+'%'}</div></div>`; });
   h+=`<div class="foot">进度自动存本机 · 每天做完回总览打勾</div>`;
   app.innerHTML=h;
@@ -120,6 +122,14 @@ function renderDetail(){
       t.qa.forEach(x=>{ h+=`<div class="q">${x.q}</div><div class="a">${x.a}</div>`; });
       h+=`</div></div>`; });
     h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?'✓ 已过一遍':'都过了 ✓'}</button></div>`;
+  }
+  else if(i.type==='p1quick'){
+    h+=`<div class="hint">昨天学过的 P1,快速听一遍 + 扫一眼开头,防遗忘。想不起来的回昨天的卡再看。</div>`;
+    i.idxs.forEach(idx=>{ const t=P1[idx];
+      h+=`<div class="p1t"><div class="p1t-h">📌 ${t.topic} <span class="cn">${t.cn}</span></div>
+        <div class="row seg">${player(aud('audio-p1-'+idx))}</div>
+        <div class="qa"><div class="a">${t.qa[0].a}</div></div></div>`; });
+    h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?'✓ 已回扫':'回扫完成 ✓'}</button></div>`;
   }
   else if(i.type==='p3'){ const t=i.t;
     h+=`<div class="hint">P3 = 观点 + <b>because</b> 理由 + <b>for example</b> 例子 + <b>that said</b> 让步。每题 30–60 秒,别背整段。</div>`;
