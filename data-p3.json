@@ -1,0 +1,27 @@
+[
+{"topic":"Technology / AI","cn":"科技 / AI","chunks":"boost efficiency · stay connected · over-reliance · face-to-face interaction · data privacy · automate tasks · screen time · a tool that assists rather than replaces","qa":[
+{"q":"What are the differences between online and face-to-face communication?","a":"Well, the biggest difference is that online is much more convenient — you can reach someone instantly, anywhere. But face-to-face feels more personal, because you can read body language and tone, so there's less misunderstanding. For example, a serious talk always goes better in person. That said, for quick daily stuff, online is just easier."},
+{"q":"Does technology have a negative effect on relationships?","a":"To some extent, yes. The main issue is people are often on their phones even when they're together — physically there but not really present. You see whole families at dinner staring at screens. But honestly it also helps, like keeping in touch with friends far away, so it really depends on how you use it."},
+{"q":"Should children be allowed to use AI tools?","a":"I'd say yes, but with limits. AI can be a great learning tool — it explains things simply. But the risk is kids rely on it and stop thinking for themselves. So it's fine as long as parents or teachers guide how they use it."}
+]},
+{"topic":"Education / Children","cn":"教育 / 孩子","chunks":"critical thinking · practical/hands-on skills · rote learning · well-rounded development · lifelong learning · academic pressure","qa":[
+{"q":"Is it better to study alone or in a group?","a":"It depends on the task, really. Group study is great for discussion and getting different ideas — you learn from others' mistakes. But for memorizing or deep focus, alone works better. Personally I do both — read alone, then discuss with classmates."},
+{"q":"Do rewards help children learn?","a":"Yes, up to a point. A small reward can motivate kids in the short term. But the danger is they start doing things only for the reward, not out of interest. So rewards are useful early on, but the real goal is genuine interest."},
+{"q":"How important is imagination for children?","a":"Really important, I'd say. It helps kids solve problems creatively, and it's the basis of art and even science — a lot of scientific ideas start as 'what if' questions. So schools should encourage it, not just focus on exams."}
+]},
+{"topic":"Environment","cn":"环境","chunks":"carbon emissions · renewable energy · sustainable development · plastic pollution · public transport · recycling · fines vs incentives","qa":[
+{"q":"What can individuals do to protect the environment?","a":"Quite a lot, actually — recycling, using public transport, cutting down on single-use plastic all add up. For example, I try to bring my own bag when I shop. But honestly individual action isn't enough on its own; governments and companies have to do the bigger part."},
+{"q":"Should governments use rewards or punishments?","a":"Both, but I'd lean towards rewards. Fines do work — people stop littering if it's costly. But rewards, like subsidies for electric cars, encourage people more positively and last longer. So a mix is probably best."},
+{"q":"Should schools teach environmental protection?","a":"Definitely. If kids learn it young, it becomes a lifelong habit — simple lessons about recycling or saving water really shape how they behave as adults."}
+]},
+{"topic":"City / Transport / Leisure","cn":"城市 / 交通 / 休闲","chunks":"traffic congestion · public transport · private vehicles · air pollution · electric cars · cost of living · green space · work-life balance","qa":[
+{"q":"Why do more people own private cars now?","a":"Mainly because incomes have gone up and cars are more affordable. A car also gives you freedom and comfort, especially for families. The downside is more traffic and pollution — which is exactly why cities are now pushing public transport and electric cars."},
+{"q":"Are parks important in cities?","a":"Yes, very. In a crowded city, parks give people space to relax, exercise, and get away from the concrete — families and elderly people use them every day. A city with no green space would feel really stressful."},
+{"q":"What's the future of electric cars?","a":"I think they'll become the norm — they're cleaner and governments are encouraging them. The main barriers now are price and charging stations, but those are improving fast, so I'm optimistic."}
+]},
+{"topic":"Work / Business / Rules","cn":"工作 / 商业 / 社会规则","chunks":"job satisfaction · flexible working · work pressure · teamwork · income inequality · follow/enforce the rules · solve a real problem","qa":[
+{"q":"Is salary the most important thing when choosing a job?","a":"For some people yes — especially with a family to support. But personally I think job satisfaction matters more in the long run; if you hate what you do, money won't make you happy. Ideally you want a balance of both."},
+{"q":"Why should people follow rules?","a":"Because rules keep society fair and safe — if everyone just did what they wanted, there'd be chaos. Traffic rules, for example, prevent accidents. That said, rules should be reasonable; people follow them more willingly when they understand the point."},
+{"q":"What makes a business successful?","a":"A few things — a good product that solves a real problem, and really understanding what customers need. Apple, for example, succeeded by focusing on user experience. Hard work and good communication in the team matter too."}
+]}
+]
