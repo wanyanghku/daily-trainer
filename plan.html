@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>IELTS 18 天冲刺总览</title>
+<title>IELTS 剩余 10 天冲刺总览</title>
 <style>
   :root{ --teal:#0f766e; --teal2:#14b8a6; --ink:#1c2430; --mut:#64748b; --line:#e2e8f0; --bg:#f8fafc;
     --green:#0f766e; --blue:#1d4ed8; --amber:#b45309; --rose:#be123c; }
@@ -44,32 +44,25 @@
 <body>
 <div class="wrap" id="app"></div>
 <script>
-const KEY='ielts_plan18_v1';
+const KEY='ielts_plan10_v1';
 let done=JSON.parse(localStorage.getItem(KEY)||'{}');
 const EXAM='2026-07-23';
 
 const DAYS=[
- {n:1,date:'07-06',ph:1,t:'口语 · 母题 D 团队(新)',link:'daily/Day1.html'},
- {n:2,date:'07-07',ph:1,t:'口语 · 母题 E 城市(新)',link:'daily/Day2.html'},
- {n:3,date:'07-08',ph:1,t:'口语 · ① 长久目标(新)',link:'daily/Day3.html'},
- {n:4,date:'07-09',ph:1,t:'口语 · ② 逆袭的人(新)',link:'daily/Day4.html'},
- {n:5,date:'07-10',ph:1,t:'口语 · ③ 改变想法(新)— 母题全背完 🎉',link:'daily/Day5.html'},
- {n:6,date:'07-11',ph:1,t:'口语 · F-1 发小(新)',link:'daily/Day6.html'},
- {n:7,date:'07-12',ph:1,t:'口语 · F-2 父亲(新)— 核心母题全背完 🎉',link:'daily/Day7.html'},
- {n:8,date:'07-13',ph:2,t:'写作 · 大作文 Discussion(写1篇→发我)'},
- {n:9,date:'07-14',ph:2,t:'写作 · 大作文 利弊'},
- {n:10,date:'07-15',ph:2,t:'写作 · 大作文 问题解决'},
- {n:11,date:'07-16',ph:2,t:'写作 · 大作文 双问题'},
- {n:12,date:'07-17',ph:2,t:'写作 · 小作文 饼图/表格'},
- {n:13,date:'07-18',ph:2,t:'写作 · 小作文 地图/混合'},
- {n:14,date:'07-19',ph:3,t:'模考 · 口语全真(全程录音)'},
- {n:15,date:'07-20',ph:3,t:'模考 · 写作全真 T1+T2 → 发我'},
- {n:16,date:'07-21',ph:3,t:'听力 / 阅读 各 2 套(计时)'},
- {n:17,date:'07-22',ph:3,t:'补最弱 1 项 + 口语重录 + 温火复习'},
+ {n:1,date:'07-11',ph:1,t:'G1 长久目标 + T2 Agree/Disagree',link:'daily/Day3.html'},
+ {n:2,date:'07-12',ph:1,t:'G2 逆袭的人 + T1 折线/柱状',link:'daily/Day4.html'},
+ {n:3,date:'07-13',ph:1,t:'G3 改变想法 + T2 Discussion',link:'daily/Day5.html'},
+ {n:4,date:'07-14',ph:1,t:'F1 发小 + T1 饼图/表格/混合',link:'daily/Day6.html'},
+ {n:5,date:'07-15',ph:1,t:'F2 父亲 + T2 Advantage/Disadvantage',link:'daily/Day7.html'},
+ {n:6,date:'07-16',ph:2,t:'10 篇 P2 轮转 + T1 流程图/地图'},
+ {n:7,date:'07-17',ph:2,t:'P1/P3 快答 + T2 Two-Part/Problem-Solution'},
+ {n:8,date:'07-18',ph:3,t:'口语全真模考 1 + 最弱 P2 重录'},
+ {n:9,date:'07-19',ph:3,t:'写作全真模考 T1 20′ + T2 40′'},
+ {n:10,date:'07-20',ph:3,t:'口语全真模考 2 + 最弱作文重写'},
 ];
-const PH={1:{cls:'p1',tag:'口语',name:'背诵冲刺',rng:'7/06 – 7/12 · 每天1篇新母题+复习'},
-         2:{cls:'p2',tag:'写作',name:'写作主攻',rng:'7/13 – 7/18 · 每天1篇→发我批改'},
-         3:{cls:'p3',tag:'模考',name:'模考+查漏',rng:'7/19 – 7/22'}};
+const PH={1:{cls:'p1',tag:'完成',name:'余下口语 + 写作交替',rng:'7/11 – 7/15'},
+         2:{cls:'p2',tag:'覆盖',name:'题型补齐',rng:'7/16 – 7/17'},
+         3:{cls:'p3',tag:'模考',name:'全真 + 查漏',rng:'7/18 – 7/20'}};
 
 function daysLeft(){ const t=new Date(); t.setHours(0,0,0,0); const e=new Date(EXAM+'T00:00:00');
   return Math.round((e-t)/86400000); }
@@ -77,9 +70,9 @@ function toggle(n){ done[n]=!done[n]; localStorage.setItem(KEY,JSON.stringify(do
 
 function render(){
  const total=DAYS.length, dn=DAYS.filter(d=>done[d.n]).length, pct=Math.round(dn/total*100);
- let h=`<h1>🎯 IELTS 18 天冲刺</h1><div class="sub">今天 7/06 起 · 考试 7/23 · 坚持就来得及</div>
+ let h=`<h1>🎯 IELTS 剩余 10 天冲刺</h1><div class="sub">7/11 起 · 7/20 完成复习 · 7/23 考试</div>
   <div class="hero"><div class="cd">距离考试还有</div><div class="big">${daysLeft()} 天</div>
-   <div class="goal">目标:总分 6.5 · 口语 6 · 写作 6.5</div>
+   <div class="goal">大陆考区 · 目标:口语 6.5 · 写作 6.5</div>
    <div class="pbar"><i style="width:${pct}%"></i></div>
    <div class="pmeta">已完成 ${dn} / ${total} 天 · ${pct}%</div></div>`;
  [1,2,3].forEach(p=>{
@@ -93,11 +86,11 @@ function render(){
    });
    h+=`</div>`;
  });
- h+=`<div class="exam">📝 7 / 23 考试日 · 温火朗读 + 早睡 🌙</div>`;
+ h+=`<div class="exam">📝 7 / 23 考试日 · 7/21–22 只做轻复习 + 早睡 🌙</div>`;
  h+=`<div class="lines"><b>3 条不能省的红线</b><ul>
-   <li>写作每天写、尽早发我 —— 攒着=来不及。</li>
-   <li>听/读别裸考 —— 至少 4 套计时,稳住平均分。</li>
-   <li>别断更 —— 累就只"听母题音频 + 过关键词链 + 扫 P1 手册"保底。</li></ul></div>`;
+   <li>口语不再逐字背：关键词链 → 1 分钟准备 → 录音 → 只修 3 处。</li>
+   <li>Task 2 占分更高：先答全题目，再追求复杂表达。</li>
+   <li>每天只留一张短错误单；第 10 天不再学新内容。</li></ul></div>`;
  h+=`<div class="foot"><a class="plain" href="m.html">← 回每日任务菜单</a> · 打勾自动存本机</div>`;
  document.getElementById('app').innerHTML=h;
 }
