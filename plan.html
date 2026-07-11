@@ -49,19 +49,19 @@ let done=JSON.parse(localStorage.getItem(KEY)||'{}');
 const EXAM='2026-07-23';
 
 const DAYS=[
- {n:1,date:'07-11',ph:1,t:'G1 长久目标 + T2 Agree/Disagree',link:'daily/Day3.html'},
- {n:2,date:'07-12',ph:1,t:'G2 逆袭的人 + T1 折线/柱状',link:'daily/Day4.html'},
- {n:3,date:'07-13',ph:1,t:'G3 改变想法 + T2 Discussion',link:'daily/Day5.html'},
- {n:4,date:'07-14',ph:1,t:'F1 发小 + T1 饼图/表格/混合',link:'daily/Day6.html'},
- {n:5,date:'07-15',ph:1,t:'F2 父亲 + T2 Advantage/Disadvantage',link:'daily/Day7.html'},
- {n:6,date:'07-16',ph:2,t:'10 篇 P2 轮转 + T1 流程图/地图'},
- {n:7,date:'07-17',ph:2,t:'P1/P3 快答 + T2 Two-Part/Problem-Solution'},
- {n:8,date:'07-18',ph:3,t:'口语全真模考 1 + 最弱 P2 重录'},
- {n:9,date:'07-19',ph:3,t:'写作全真模考 T1 20′ + T2 40′'},
- {n:10,date:'07-20',ph:3,t:'口语全真模考 2 + 最弱作文重写'},
+ {n:1,date:'07-11',ph:1,t:'G1 + P1 A复习/B起步｜环境 P3→T2 Opinion',link:'daily/Day3.html'},
+ {n:2,date:'07-12',ph:1,t:'G2 + P1 B级｜城市 P3主体段 + T1 折线/柱状',link:'daily/Day4.html'},
+ {n:3,date:'07-13',ph:1,t:'G3 + P1 B级｜工作 P3→T2 Discussion',link:'daily/Day5.html'},
+ {n:4,date:'07-14',ph:1,t:'F1 + P1 B/C级｜科技 P3主体段 + T1 图表',link:'daily/Day6.html'},
+ {n:5,date:'07-15',ph:1,t:'F2 + P1 C/A级｜教育 P3→T2 利弊',link:'daily/Day7.html'},
+ {n:6,date:'07-16',ph:2,t:'P2 人物套题 + P1 A级复习｜T1 流程/地图'},
+ {n:7,date:'07-17',ph:2,t:'P2 事件/地点/科技套题 + P1 A级｜T2 双问题/问题解决'},
+ {n:8,date:'07-18',ph:3,t:'G1/G2/G3 盲抽套题 + 口语模考 1'},
+ {n:9,date:'07-19',ph:3,t:'低频套题 + P1 B/C弱项｜写作全真模考'},
+ {n:10,date:'07-20',ph:3,t:'P1混合 + P2随机3题 + 口语模考 2｜弱文重写'},
 ];
-const PH={1:{cls:'p1',tag:'完成',name:'余下口语 + 写作交替',rng:'7/11 – 7/15'},
-         2:{cls:'p2',tag:'覆盖',name:'题型补齐',rng:'7/16 – 7/17'},
+const PH={1:{cls:'p1',tag:'完成',name:'母题 + P1 分级覆盖',rng:'7/11 – 7/15'},
+         2:{cls:'p2',tag:'套用',name:'P2 套题 + P1 A级复习',rng:'7/16 – 7/17'},
          3:{cls:'p3',tag:'模考',name:'全真 + 查漏',rng:'7/18 – 7/20'}};
 
 function daysLeft(){ const t=new Date(); t.setHours(0,0,0,0); const e=new Date(EXAM+'T00:00:00');
@@ -88,8 +88,9 @@ function render(){
  });
  h+=`<div class="exam">📝 7 / 23 考试日 · 7/21–22 只做轻复习 + 早睡 🌙</div>`;
  h+=`<div class="lines"><b>3 条不能省的红线</b><ul>
-   <li>口语不再逐字背：关键词链 → 1 分钟准备 → 录音 → 只修 3 处。</li>
-   <li>Task 2 占分更高：先答全题目，再追求复杂表达。</li>
+   <li>P1：A 级间隔复习；B/C 级按 Day3–7 后置覆盖。</li>
+   <li>P2：A–E 已背过且冻结；G1–F2 完成后只练母题套题。</li>
+   <li>P3→Task 2：同一观点先口答，再改成书面主体段。</li>
    <li>每天只留一张短错误单；第 10 天不再学新内容。</li></ul></div>`;
  h+=`<div class="foot"><a class="plain" href="m.html">← 回每日任务菜单</a> · 打勾自动存本机</div>`;
  document.getElementById('app').innerHTML=h;
