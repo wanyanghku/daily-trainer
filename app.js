@@ -1,5 +1,5 @@
 /* Shared engine for daily speaking apps — data-driven from data-p1/p2/p3.json */
-const VERSION='17';
+const VERSION='18';
 const KEY='ielts_'+(window.DAY_CONFIG?('day'+window.DAY_CONFIG.day):'x')+'_v2';
 let state=JSON.parse(localStorage.getItem(KEY)||'{}');
 function save(){ localStorage.setItem(KEY,JSON.stringify(state)); }
