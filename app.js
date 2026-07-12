@@ -1,48 +1,61 @@
-/* Shared engine for daily speaking apps — data-driven from data-p1/p2/p3.json */
-const VERSION='18';
-const KEY='ielts_'+(window.DAY_CONFIG?('day'+window.DAY_CONFIG.day):'x')+'_v2';
+/* Shared engine for the 10-day IELTS sprint — speaking + writing. */
+const VERSION='19';
+const DAY=window.DAY_CONFIG?window.DAY_CONFIG.day:'x';
+const KEY='ielts_sprint_20260712_day'+DAY+'_v1';
+const PROGRESS_KEY='ielts_sprint_20260712_progress';
 let state=JSON.parse(localStorage.getItem(KEY)||'{}');
-function save(){ localStorage.setItem(KEY,JSON.stringify(state)); }
+function save(){ localStorage.setItem(KEY,JSON.stringify(state)); syncProgress(); }
 function st(id){ return state[id]||(state[id]={}); }
 let hide=false, annot=false, view={name:'list',id:null};
-let P1=[],P3=[],P2={},REF={},ITEMS=[];
+let P1=[],P3=[],P2={},REF={},WRITING={},ITEMS=[];
 const app=document.getElementById('app');
 const aud=n=>`../${n}.m4a?v=${VERSION}`;
 const SPD='<select class="spd" onchange="spdSel(this)"><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option></select>';
 function player(src){ return `<audio controls preload="auto" src="${src}"></audio><button class="btn loop" onclick="lp(this)">🔁</button>${SPD}`; }
-function esc(t){ return t.replace(/&/g,'&amp;').replace(/</g,'&lt;'); }
+function esc(t){ return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function stars(t){ return t==='A'?'★★★':t==='B'?'★★':'★'; }
+function wordCount(t){ return (t.match(/[A-Za-z0-9'’\-]+/g)||[]).length; }
 
 async function boot(){
   const cfg=window.DAY_CONFIG;
-  const [a,b,c,d]=await Promise.all([
+  const [a,b,c,d,e]=await Promise.all([
     fetch('../data-p1.json?v='+VERSION).then(r=>r.json()),
     fetch('../data-p2.json?v='+VERSION).then(r=>r.json()),
     fetch('../data-p3.json?v='+VERSION).then(r=>r.json()),
-    fetch('../data-ref.json?v='+VERSION).then(r=>r.json())]);
-  P1=a; P3=c; b.forEach(m=>P2[m.id]=m); d.forEach(r=>REF[r.id]=r);
+    fetch('../data-ref.json?v='+VERSION).then(r=>r.json()),
+    fetch('../data-writing.json?v='+VERSION).then(r=>r.json())]);
+  P1=a; P3=c; b.forEach(m=>P2[m.id]=m); d.forEach(r=>REF[r.id]=r); e.forEach(w=>WRITING[w.id]=w);
   ITEMS=[];
-  if(cfg.newP2){ const m=P2[cfg.newP2]; ITEMS.push({type:'memo',tier:'core',id:'new_'+m.id,m,title:`母题 ${m.id} · ${m.cn}（主背·新）`,icon:'🎤',sub:'读×3 → 关键词×2 → 默写×1'}); }
+  if((cfg.newP2?1:0)+(cfg.newWriting?1:0)!==1) throw new Error('Each sprint day must have exactly one new item');
+  if(cfg.newP2){ const m=P2[cfg.newP2]; ITEMS.push({type:'memo',tier:'core',id:'new_'+m.id,m,title:`今日唯一新内容 · 母题 ${m.id} ${m.cn}`,icon:'🎤',sub:'朗读×3 → 关键词复述×2 → 默写检验×1'}); }
+  if(cfg.newWriting){ const w=WRITING[cfg.newWriting]; ITEMS.push({type:'writingmemo',tier:'core',id:'wnew_'+w.id,w,title:`今日唯一新内容 · ${w.task} ${w.type} · ${w.cn}`,icon:'✍️',sub:'范文学习 → 闭卷逻辑链 → 核心句 → 换题仿写'}); }
   (cfg.reviewP2||[]).forEach(id=>{ const m=P2[id]; ITEMS.push({type:'review',tier:'core',id:'rev_'+id,m,title:`母题 ${id} · ${m.cn}（复习）`,icon:'🔁',sub:'看关键词链复述 + 听'}); });
-  if(cfg.p1&&cfg.p1.length){ ITEMS.push({type:'p1review',tier:'core',id:'p1',idxs:cfg.p1,title:'P1 复习 · '+cfg.p1.length+' 个话题',icon:'🗣️',sub:'你的手册 · 读+听,答2-3句像聊天'}); }
+  if(cfg.reviewWriting&&cfg.reviewWriting.length){ const ws=cfg.reviewWriting.map(id=>WRITING[id]).filter(Boolean); ITEMS.push({type:'writingreview',tier:'core',id:'wrev',ws,title:`写作到期复习 · ${ws.length} 张`,icon:'↺',sub:'不看原文先复原结构，再核核心句'}); }
+  if(cfg.p1&&cfg.p1.length){ ITEMS.push({type:'p1review',tier:'core',id:'p1',idxs:cfg.p1,title:'P1 复习/口答 · '+cfg.p1.length+' 个话题',icon:'🗣️',sub:'3 个 A 级间隔复习 + 2 个 B/C 级口答，不背全文'}); }
   if(cfg.p1prev&&cfg.p1prev.length){ ITEMS.push({type:'p1quick',tier:'bonus',id:'p1q',idxs:cfg.p1prev,title:'P1 快速回扫 · 昨日 '+cfg.p1prev.length+' 题',icon:'🔁',sub:'只听+扫开头,防遗忘'}); }
   if(cfg.p3!=null){ const t=P3[cfg.p3]; ITEMS.push({type:'p3',tier:'bonus',id:'p3',t,idx:cfg.p3,title:'P3 · '+t.cn,icon:'💬',sub:'四步法:观点+because+例子+让步'}); }
   if(cfg.ref&&cfg.ref.length){ ITEMS.push({type:'refcard',tier:'bonus',id:'REFC',ids:cfg.ref,title:'套用速查卡 · '+cfg.ref.length+' 张',icon:'🗂️',sub:'考前翻:开头+关键词链+短版'}); }
-  if(cfg.chart){ ITEMS.push({type:'chartrev',tier:'bonus',id:'CR',title:'小作文复习 · 折线图 + 柱状图',icon:'📊',sub:'读范文+听,记结构与趋势词'}); }
-  ITEMS.push({type:'record',tier:'bonus',id:'REC',title:'今日母题录音自查',icon:'🎙️',sub:'录一遍 → 回放挑错(替代跟读)'});
+  if(cfg.outputs&&cfg.outputs.length){ ITEMS.push({type:'output',tier:'core',id:'OUT',outputs:cfg.outputs,title:'今日输出验收',icon:'✓',sub:'完成可见产出，避免只看不练'}); }
+  ITEMS.push({type:'record',tier:'bonus',id:'REC',title:'今日口语录音自查',icon:'🎙️',sub:'任选新母题或复习母题录一遍 → 回放挑错'});
+  syncProgress();
   renderList();
 }
 
 function isDone(i){ const s=st(i.id);
   if(i.type==='memo') return (s.read||0)>=3&&(s.recall||0)>=2&&(s.dictate||0)>=1;
+  if(i.type==='writingmemo') return (s.read||0)>=2&&(s.outline||0)>=2&&(s.core||0)>=1&&(s.transfer||0)>=1;
   return !!s.done; }
 function frac(i){ const s=st(i.id);
   if(i.type==='memo') return (Math.min(s.read||0,3)+Math.min(s.recall||0,2)+Math.min(s.dictate||0,1))/6;
+  if(i.type==='writingmemo') return (Math.min(s.read||0,2)+Math.min(s.outline||0,2)+Math.min(s.core||0,1)+Math.min(s.transfer||0,1))/6;
   return isDone(i)?1:0; }
+
+function progressPercent(){ const core=ITEMS.filter(i=>i.tier==='core'); return core.length?Math.round(core.reduce((a,i)=>a+frac(i),0)/core.length*100):0; }
+function syncProgress(){ if(!ITEMS.length||DAY==='x')return; const p=JSON.parse(localStorage.getItem(PROGRESS_KEY)||'{}'); p[DAY]=progressPercent(); localStorage.setItem(PROGRESS_KEY,JSON.stringify(p)); }
 
 function scriptHTML(m,id){
   const s=st(id); const set=new Set(s.hl||[]);
-  let segs='<div class="hint" style="margin-top:8px">🎧 分段跟读(每段可单独播放/倍速/循环):</div>';
+  let segs='<div class="hint" style="margin-top:8px">🎧 分段听读（每段可单独播放 / 倍速 / 循环）</div>';
   m.script.forEach((p,pi)=>{ segs+=`<div class="row seg"><span class="segn">第${pi+1}段</span>${player(aud(m.audio+'-'+(pi+1)))}</div>`; });
   const ps=m.script.map((para,pi)=>{ let wi=0;
     const html=esc(para).replace(/[A-Za-z0-9'’\-]+/g,(w)=>{ const k=pi+'-'+wi; wi++; const on=set.has(k)?' hl':'';
@@ -74,17 +87,32 @@ function checkDict(id,m){ const ta=document.getElementById('dict'); st(id).dictT
   document.getElementById('dictRes').innerHTML=`<div class="diff"><div class="sum">对了 <span class="g">${correct}/${total}</span> 词 · 漏或错 <span class="r">${missed}</span>${extra?` · 多写约 ${extra}`:''}</div>${disp}<div class="hint" style="margin-top:8px">红波浪=漏/错。考试用自己的话说就行。</div></div>`; }
 function saveDict(id){ st(id).dictText=document.getElementById('dict').value; save(); }
 
+function checkWriting(id,w){ const ta=document.getElementById('wcore'); st(id).coreText=ta.value; save();
+  const full=w.keySentences.join(' '),oRaw=toks(full),oN=norm(oRaw),uN=norm(toks(ta.value));
+  if(!uN.length){ document.getElementById('wcoreRes').innerHTML='<div class="hint">先凭记忆写核心句，再对照。</div>'; return; }
+  const mt=lcs(oN,uN),correct=mt.filter(Boolean).length,total=oRaw.length,missed=total-correct;
+  let wi=0; const disp=esc(full).replace(/[A-Za-z0-9'’\-]+/g,(word)=>{ const c=mt[wi]?'':' class="miss"'; wi++; return `<span${c}>${word}</span>`; });
+  document.getElementById('wcoreRes').innerHTML=`<div class="diff"><div class="sum">核心句匹配 <span class="g">${correct}/${total}</span> 词 · 待修 <span class="r">${missed}</span></div>${disp}<div class="hint" style="margin-top:8px">不要求逐字复制整篇；只修会迁移到新题的核心句。</div></div>`; }
+function saveWritingCore(id){ st(id).coreText=document.getElementById('wcore').value; save(); }
+function saveTransfer(id){ st(id).transferText=document.getElementById('transfer').value; save(); }
+
+function writingVisual(w){ const v=w.visual; if(!v)return '';
+  if(v.type==='process') return `<div class="visualbox"><div class="lab">训练用文字化流程图 · 左右滑动查看全部阶段</div><div class="processflow">${v.steps.map((x,n)=>`<div class="processstep"><b>${n+1}</b><span>${x}</span></div>`).join('<i>→</i>')}</div></div>`;
+  if(v.type==='map') return `<div class="visualbox"><div class="lab">训练用文字化地图信息</div>${v.fixed?`<div class="mapfixed"><b>固定方位</b>${v.fixed.join(' · ')}</div>`:''}<div class="mapcompare"><section><b>2000</b>${v.before.map(x=>`<span>${x}</span>`).join('')}</section><section><b>现在</b>${v.after.map(x=>`<span>${x}</span>`).join('')}</section></div></div>`;
+  return '';
+}
+
 function renderList(){
   const cfg=window.DAY_CONFIG;
   const done=ITEMS.filter(isDone).length, ov=Math.round(ITEMS.reduce((a,i)=>a+frac(i),0)/ITEMS.length*100);
-  let h=`<div class="top"><a class="home" href="../plan.html">🎯 总览</a><a class="home" href="../m.html">菜单</a></div>
-   <h1>📍 ${cfg.title} · 今日口语</h1><div class="muted">${cfg.note||''}</div>
+  let h=`<div class="top"><a class="home" href="../">← 10 天冲刺</a></div>
+   <div class="dayeyebrow">${cfg.date||''} · 建议 ${cfg.minutes||90} 分钟</div><h1>${cfg.title} · 今日冲刺</h1><div class="muted">${cfg.note||''}</div>
    <div class="overall"><div class="ov-top"><div class="ov-num"><b>${done}</b> / ${ITEMS.length} 完成</div><div class="muted">今日 ${ov}%</div></div><div class="bar"><i style="width:${ov}%"></i></div></div>
-   <div class="tierhint">🔋 累了?只做 <b>核心</b>(新母题 + 复习 + P1)也不掉链子;有精力再做 <b>加分</b>。</div>`;
-  ITEMS.forEach((i,x)=>{ h+=`<div class="card ${isDone(i)?'done':''}" onclick="open_(${x})"><div class="badge">${i.icon}</div>
+   <div class="tierhint"><b>先做核心：</b>今日唯一新内容 → 到期复习 → 输出；P1/P3 与录音按精力完成。</div>`;
+  ITEMS.forEach((i,x)=>{ h+=`<div class="card ${i.type} ${isDone(i)?'done':''}" onclick="open_(${x})"><div class="badge">${i.icon}</div>
     <div class="c-body"><div class="c-title">${i.title} <span class="t2 ${i.tier}">${i.tier==='core'?'核心':'加分'}</span></div><div class="c-sub">${i.sub}</div><div class="bar" style="height:6px"><i style="width:${Math.round(frac(i)*100)}%"></i></div></div>
     <div class="tick">${isDone(i)?'✓':Math.round(frac(i)*100)+'%'}</div></div>`; });
-  h+=`<div class="foot">进度自动存本机 · 每天做完回总览打勾</div>`;
+  h+=`<div class="foot">进度自动存手机浏览器，并同步回 10 天首页</div>`;
   app.innerHTML=h;
 }
 function open_(x){ view={name:'detail',id:x}; hide=false; annot=false; renderDetail(); scrollTo(0,0); }
@@ -94,6 +122,7 @@ function renderDetail(){
   const i=ITEMS[view.id]; const s=st(i.id);
   let h=`<button class="back" onclick="goList()">← 返回今日</button><div class="d-title">${i.icon} ${i.title}</div>`;
   if(i.m&&i.m.cue)h+=`<div class="d-cue">${i.m.cue}</div>`;
+  if(i.w&&i.w.prompt)h+=`<div class="d-cue">${i.w.prompt}</div>`;
   h+=`<div class="bar"><i style="width:${Math.round(frac(i)*100)}%"></i></div>`;
 
   if(i.type==='memo'){ const m=i.m;
@@ -108,14 +137,46 @@ function renderDetail(){
       <div class="row"><button class="btn primary" onclick="checkDict('${i.id}',ITEMS[${view.id}].m)">对照改错</button></div><div id="dictRes"></div></div>`;
     h+=scriptHTML(m,i.id);
   }
+  else if(i.type==='writingmemo'){ const w=i.w;
+    h+=`<div class="row">${player(aud(w.audio))}<span class="hint">先听懂结构，不追求逐字死背</span></div>`;
+    h+=`<div class="wordmeta">${w.task} · ${wordCount(w.script.join(' '))} words · 目标 6.5</div>`;
+    h+=writingVisual(w);
+    h+=`<div class="chain writingchain"><span class="lab">段落逻辑链（先背这个）</span>${w.chain}</div>`;
+    h+=`<div class="notice"><b>6.5 目标：</b>${w.note}</div>`;
+    [['read','精读并听范文','标出每段功能',2],['outline','闭卷复原逻辑链','只看题目说出四段',2],['core','默写核心句','不默写整篇',1]].forEach(([k,n,sub,t])=>{
+      const v=s[k]||0,full=v>=t; let d=''; for(let x=0;x<t;x++)d+=`<span class="dot ${x<v?'on':''}"></span>`;
+      h+=`<div class="step ${full?'full':''}"><div class="step-top"><div class="step-name">${full?'✓ ':''}${n} <span class="sub">· ${sub}</span></div><div class="dots">${d}<button class="plus" ${full?'disabled':''} onclick="inc('${i.id}','${k}',${t})">+</button></div></div></div>`;
+    });
+    h+=`<div class="step"><div class="step-name">核心句检验</div><div class="hint">凭记忆写 3–5 句，再点对照；允许同义表达。</div>
+      <textarea id="wcore" placeholder="在这里写核心句…" oninput="saveWritingCore('${i.id}')">${s.coreText||''}</textarea>
+      <div class="row"><button class="btn primary" onclick="checkWriting('${i.id}',ITEMS[${view.id}].w)">对照核心句</button></div><div id="wcoreRes"></div></div>`;
+    h+=`<details class="keybox"><summary>查看可迁移核心句</summary><ul>${w.keySentences.map(x=>`<li>${x}</li>`).join('')}</ul></details>`;
+    const transferDone=(s.transfer||0)>=1;
+    h+=`<div class="step ${transferDone?'full':''}"><div class="step-name">${transferDone?'✓ ':''}换题仿写 <span class="sub">· 当天完成迁移</span></div><div class="transferq">${w.transfer}</div>
+      <textarea id="transfer" placeholder="先列提纲；Task 2 写一个主体段，Task 1 写 Overview + 一个细节段…" oninput="saveTransfer('${i.id}')">${s.transferText||''}</textarea>
+      <div class="row"><button class="btn ${transferDone?'':'primary'}" onclick="inc('${i.id}','transfer',1)">${transferDone?'✓ 已完成':'完成仿写 ✓'}</button></div></div>`;
+    h+=scriptHTML(w,i.id);
+  }
   else if(i.type==='review'){ const m=i.m;
     h+=`<div class="row">${player(aud(m.audio))}<span class="hint">边听边读</span></div>`;
     h+=`<div class="chain"><span class="lab">关键词链</span>${m.chain}</div><div class="hint">先盖住原文复述一遍,卡了再看。</div>`;
     h+=scriptHTML(m,i.id);
     h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?'✓ 已复述(取消)':'复述完了 ✓'}</button></div>`;
   }
+  else if(i.type==='writingreview'){
+    h+=`<div class="hint">主动回忆（retrieval）：先只看题目说出结构，再展开查看。折线/柱状是已背短模板，真实考试仍须写到 150 词以上。</div>`;
+    i.ws.forEach(w=>{
+      const label=w.learned?'已背模板复习':'到期范文复习';
+      h+=`<div class="p1t writingrev"><div class="p1t-h">${w.task} · ${w.type} <span class="cn">${label}</span></div>
+        <div class="d-cue">${w.prompt}</div><div class="chain"><span class="lab">闭卷复原</span>${w.chain}</div>
+        <div class="row seg">${player(aud(w.audio))}<span class="hint">核对后再听</span></div>
+        <details class="keybox"><summary>展开核心句与原文</summary><ul>${w.keySentences.map(x=>`<li>${x}</li>`).join('')}</ul><div class="script">${w.script.map(p=>`<p>${p}</p>`).join('')}</div></details>
+        <div class="transferq"><b>迁移：</b>${w.transfer}</div>${w.note?`<div class="hint">${w.note}</div>`:''}</div>`;
+    });
+    h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?'✓ 已闭卷复原':'复习完成 ✓'}</button></div>`;
+  }
   else if(i.type==='p1review'){
-    h+=`<div class="hint">你自己准备的答案(手册)。每个话题:点音频听一遍 + 扫读答案。答 2–3 句、像聊天。</div>`;
+    h+=`<div class="hint">A 级是已背重点，先不看答案口答；B/C 级只练 2–3 句自然回答，不占“今日唯一新内容”。</div>`;
     i.idxs.forEach(idx=>{ const t=P1[idx];
       h+=`<div class="p1t"><div class="p1t-h">📌 ${t.topic} <span class="cn">${t.cn}</span> <span class="tier">${stars(t.tier)}</span></div>
         <div class="row seg">${player(aud('audio-p1-'+idx))}</div><div class="qa">`;
@@ -138,13 +199,6 @@ function renderDetail(){
     t.qa.forEach(x=>{ h+=`<div class="q">${x.q}</div><div class="a">${x.a}</div>`; }); h+=`</div>`;
     h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?'✓ 已练':'练完了 ✓'}</button></div>`;
   }
-  else if(i.type==='chartrev'){
-    const CH=[{l:'📈 折线图',au:'essay-line',m:"The line graph illustrates the number of visitors to three museums in London between 2010 and 2020. Overall, it is clear that all three museums saw an increase, with the British Museum remaining the most popular throughout. In 2010, the British Museum received around 5 million visitors, and this figure rose steadily to about 6.5 million in 2020. The Science Museum, meanwhile, started at just 2 million and climbed gradually to 3.5 million, while the Natural History Museum fluctuated around 3 million before ending at roughly 4 million."},
-      {l:'📊 柱状图',au:'essay-bar',m:"The bar chart compares the percentage of households with internet access in four countries — the UK, Germany, France and Italy — in 2010 and 2020. Overall, it is clear that internet access increased in all four countries over the decade, with the UK having the highest level in both years. In 2010, around 70% of UK households had internet access, and this rose to roughly 95% by 2020. Germany followed a similar pattern, climbing from about 65% to 90%. France and Italy started lower, at approximately 55% and 50% respectively, but both saw significant growth, reaching around 80% and 75% by the end of the period."}];
-    h+=`<div class="hint">复习:读范文+听,记结构(改写题目 → Overview → 细节2段)和趋势/比较词。</div>`;
-    CH.forEach(c=>{ h+=`<div class="script"><b style="color:#0f766e">${c.l} · 范文</b><div class="row seg">${player(aud(c.au))}<span class="hint">🐢 慢速</span></div><p style="margin-top:6px">${c.m}</p></div>`; });
-    h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?'✓ 已复习':'复习完成 ✓'}</button></div>`;
-  }
   else if(i.type==='refcard'){
     h+=`<div class="hint">「套用速查卡」——题库里的低频题都能套这些。考前翻,只记 <b>换题开头 + 关键词链</b>,能说 60–90 秒即可,<b>不用全背</b>。</div>`;
     i.ids.forEach(id=>{ const r=REF[id]; if(!r)return;
@@ -155,10 +209,14 @@ function renderDetail(){
         <div class="script" style="font-size:14px;margin-top:6px">${r.short}</div></div>`; });
     h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?'✓ 已过一遍':'过一遍 ✓'}</button></div>`;
   }
+  else if(i.type==='output'){
+    h+=`<div class="hint">完成这些可见产出后再打勾。质量标准：回应题目、结构完整、只修最影响理解的 1–2 个错误。</div><ol class="outputlist">${i.outputs.map(x=>`<li>${x}</li>`).join('')}</ol>`;
+    h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?'✓ 今日输出完成':'完成输出 ✓'}</button></div>`;
+  }
   else if(i.type==='record'){
-    h+=`<div class="hint">研究证实:自己录音+回放,是提升口语流利度最直接的方法(比跟读更贴考试)。</div>
+    h+=`<div class="hint">录音回放用来发现真实停顿、超时和反复出现的语法问题。</div>
       <ol style="font-size:14px;line-height:1.8;padding-left:20px">
-      <li>用手机把<b>今天的新母题</b>(或复习母题)完整说一遍并录音。</li>
+      <li>用手机把<b>今天的新母题</b>（若有）或最弱复习母题完整说一遍并录音。</li>
       <li>回放,只听 3 件事:① 有没有卡顿超过 3 秒 ② 有没有太长(超 2 分)③ 有没有明显中式翻译腔。</li>
       <li>只修最卡的 1–2 句,别推翻重背。</li>
       <li>再录一遍,对比是否更顺。</li></ol>`;

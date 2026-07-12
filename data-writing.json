@@ -1,0 +1,174 @@
+[
+  {
+    "id": "T1-LINE",
+    "task": "Task 1",
+    "type": "Line graph",
+    "cn": "折线图模板复习",
+    "learned": true,
+    "audio": "essay-line",
+    "prompt": "The line graph shows the number of visitors to three museums in London between 2010 and 2020.",
+    "chain": "改写题目 → Overview先写三馆都上升+British Museum始终最高 → 两组细节数据",
+    "script": [
+      "The line graph illustrates the number of visitors to three museums in London between 2010 and 2020. Overall, it is clear that all three museums saw an increase, with the British Museum remaining the most popular throughout. In 2010, the British Museum received around 5 million visitors, and this figure rose steadily to about 6.5 million in 2020. The Science Museum, meanwhile, started at just 2 million and climbed gradually to 3.5 million, while the Natural History Museum fluctuated around 3 million before ending at roughly 4 million."
+    ],
+    "keySentences": [
+      "Overall, it is clear that all three museums saw an increase.",
+      "The British Museum remained the most popular throughout.",
+      "This figure rose steadily from X to Y."
+    ],
+    "transfer": "不看模板，写出另一张折线图的改写句和两句 Overview。",
+    "note": "已背模板复习，不是完整答案；真实考试必须扩展到 150 词以上。"
+  },
+  {
+    "id": "T1-BAR",
+    "task": "Task 1",
+    "type": "Bar chart",
+    "cn": "柱状图模板复习",
+    "learned": true,
+    "audio": "essay-bar",
+    "prompt": "The bar chart compares household internet access in four countries in 2010 and 2020.",
+    "chain": "改写题目 → Overview写四国都上升+英国两年最高 → 按高低两组比较数据",
+    "script": [
+      "The bar chart compares the percentage of households with internet access in four countries — the UK, Germany, France and Italy — in 2010 and 2020. Overall, it is clear that internet access increased in all four countries over the decade, with the UK having the highest level in both years. In 2010, around 70% of UK households had internet access, and this rose to roughly 95% by 2020. Germany followed a similar pattern, climbing from about 65% to 90%. France and Italy started lower, at approximately 55% and 50% respectively, but both saw significant growth, reaching around 80% and 75% by the end of the period."
+    ],
+    "keySentences": [
+      "Overall, internet access increased in all four countries.",
+      "The UK had the highest level in both years.",
+      "Germany followed a similar pattern, climbing from X to Y."
+    ],
+    "transfer": "不看模板，给另一张柱状图写两句 Overview，并把数据按高低分成两组。",
+    "note": "已背模板复习，不是完整答案；真实考试必须扩展到 150 词以上。"
+  },
+  {
+    "id": "W-T2-OPINION-TECH",
+    "task": "Task 2",
+    "type": "Opinion",
+    "cn": "科技让生活复杂吗",
+    "learned": false,
+    "audio": "audio-writing-opinion-tech",
+    "prompt": "Some people believe that new technology makes life more complicated, so people should use less of it. To what extent do you agree or disagree?",
+    "chain": "立场:总体不同意 → 承认分心和依赖 → 科技节省时间并扩大服务可及性 → 选择性使用,而非全面拒绝",
+    "script": [
+      "It is often argued that modern technology has made daily life unnecessarily complex and that people should reduce their use of it. Although digital tools can create distraction and dependence, I largely disagree with this view because, when used sensibly, they save time and improve access to essential services.",
+      "Admittedly, technology can make life harder when people allow it to control their attention. Constant messages interrupt work, while frequent software updates and complicated settings can frustrate older users. In addition, relying on a phone for every small task may weaken basic skills, such as remembering directions or managing time independently. These problems explain why setting limits, especially during study and rest, is reasonable.",
+      "However, reducing technology in general would ignore its practical value. Online banking, navigation and appointment systems allow people to complete routine tasks quickly, which is particularly helpful for workers with limited free time. Technology also gives students access to courses and information that may not be available locally. In the workplace, shared documents and video meetings help teams cooperate without travelling, reducing travel costs and wasted time.",
+      "In my view, the better solution is selective use rather than broad rejection. People can turn off unnecessary notifications, choose simple applications and keep some screen-free periods while still using tools that clearly improve their lives. Schools and employers should also teach basic digital skills so that people can use technology confidently rather than find it stressful. Overall, the disadvantages come mainly from poor habits and design, not from technology itself, and these issues can be managed without giving up its benefits."
+    ],
+    "keySentences": [
+      "Although digital tools can create problems, I largely disagree with this view.",
+      "These problems explain why setting reasonable limits is necessary.",
+      "However, rejecting this development would ignore its practical value.",
+      "The better solution is selective use rather than broad rejection."
+    ],
+    "transfer": "Some people believe that schools should replace printed textbooks with digital devices. To what extent do you agree or disagree?",
+    "note": "目标是记住立场、两条论证链和核心句，再换题重建；不要在考场逐字套全文。"
+  },
+  {
+    "id": "W-T1-PROCESS-COMPOST",
+    "task": "Task 1",
+    "type": "Process",
+    "cn": "学校厨余制作堆肥",
+    "learned": false,
+    "audio": "audio-writing-process-compost",
+    "prompt": "The diagram shows how food waste from a school cafeteria is converted into compost for the school gardens.",
+    "chain": "改写题目 → Overview写起点/终点/约8周 → 收集并筛除杂物 → 切碎+混入干叶 → 通气翻动 → 筛分后用于花园",
+    "visual": {
+      "type": "process",
+      "steps": ["学生把水果、蔬菜等厨余投入专用分类桶", "工作人员移除塑料等杂物", "运至处理区并切碎", "与等量干叶混合", "放入侧面有通气孔的带盖容器", "每周翻动一次", "持续约8周形成深色堆肥", "筛除大块", "运至学校花园并铺在植物周围"]
+    },
+    "script": [
+      "The diagram illustrates how suitable food waste from a school cafeteria is processed into compost for use in the school gardens.",
+      "Overall, it is a multi-stage, man-made process. It starts with the separate collection of leftovers and finishes about eight weeks later, when screened compost is spread around plants.",
+      "Initially, students place leftover fruit, vegetables and other suitable food in special bins in the cafeteria. Staff remove plastic and other unsuitable material before the waste is carried to a preparation area. It is then cut into small pieces and mixed with an equal amount of dry leaves.",
+      "The mixture is transferred to a covered compost container, where air enters through holes in the sides. Once a week, the material is turned so that all parts receive enough air. After approximately eight weeks, it becomes dark compost. This material is passed through a screen to remove any large pieces, and the finished compost is finally transported to the school gardens and spread around plants as a natural soil improver."
+    ],
+    "keySentences": [
+      "The diagram illustrates how X is processed into Y.",
+      "Overall, it is a multi-stage, man-made process.",
+      "It starts with X and finishes when Y.",
+      "The material is then transferred to X, where Y.",
+      "Finally, the finished product is transported to X."
+    ],
+    "transfer": "The diagram shows how used paper is collected and processed into new notebooks. 只写流程链、Overview和一个细节段。",
+    "note": "重点背流程顺序、被动语态和 Overview，不加入图外原因或评价。"
+  },
+  {
+    "id": "W-T2-DISCUSSION-EDU",
+    "task": "Task 2",
+    "type": "Discussion",
+    "cn": "大学应就业导向还是广泛教育",
+    "learned": false,
+    "audio": "audio-writing-discussion-edu",
+    "prompt": "Some people think that the main purpose of university education is to prepare students for employment. Others believe that universities should provide a broad education. Discuss both views and give your own opinion.",
+    "chain": "两方都有价值+主张结合 → 就业技能回应成本和职场需要 → 广泛教育培养可迁移能力 → 基础知识+实习/职业任务",
+    "script": [
+      "People disagree about whether the main purpose of university is to prepare students for a specific career or to offer a wider education. Both aims are valuable, but I believe universities should combine them, with practical preparation built on a broad academic foundation.",
+      "Those who favour job-focused courses point to the high cost of higher education. Students often invest several years and a substantial amount of money in a degree, so they reasonably expect useful employment skills in return. Work placements, laboratory training and realistic group projects can make graduates more confident and reduce the amount of training employers must provide. This is especially important in professional fields such as engineering, nursing and teaching, where mistakes can have serious consequences.",
+      "On the other hand, a university is not simply a training centre for one current job. Industries change, and a narrow technical skill may become outdated within a few years. Subjects such as history, science and philosophy teach students to examine evidence, explain ideas and consider different viewpoints. These abilities can be transferred to many careers. A broader education also helps graduates make informed decisions as citizens, rather than judging every subject only by its immediate financial value.",
+      "In my opinion, the two purposes should support each other. Degree programmes can include a strong core of subject knowledge, together with optional internships and career-related assignments. This arrangement would help students enter the labour market while retaining the ability to learn and adapt later. Therefore, universities should not choose between employment and education; they should prepare students for their first job and for the changes that will follow it."
+    ],
+    "keySentences": [
+      "Both aims are valuable, but I believe they should be combined.",
+      "Supporters of this view point to the practical benefits.",
+      "On the other hand, a university is not simply a training centre for one current job.",
+      "The two purposes should support each other rather than compete."
+    ],
+    "transfer": "Some people think working from home benefits employees, while others believe it damages teamwork. Discuss both views and give your own opinion.",
+    "note": "两方都要解释和支持；个人立场从引言到结论保持一致。"
+  },
+  {
+    "id": "W-T1-MAP-RIVERSIDE",
+    "task": "Task 1",
+    "type": "Map",
+    "cn": "河畔区域改造",
+    "learned": false,
+    "audio": "audio-writing-map-riverside",
+    "prompt": "The maps show the Riverside district in 2000 and at present.",
+    "chain": "改写题目 → Overview写工业区变住宅休闲区+河流主路不变 → 过去布局 → 现在按原位置写替换/新增/保留",
+    "visual": {
+      "type": "map",
+      "fixed": ["河流东西向贯穿中部", "主路南北向位于西侧", "河流与主路位置不变"],
+      "before": ["河以北中部:3座工厂", "西侧主路旁:一排仓储建筑", "东北角:少量住宅", "南岸:狭窄公园", "两岸之间:无过河通道"],
+      "after": ["原工厂位置:公寓楼", "原仓储建筑位置:超市和停车场", "东北住宅保留", "住宅正西侧:新增学校", "南岸公园拓宽并新增咖啡馆和自行车道", "新增人行桥连接北侧住宅区和南岸公园"]
+    },
+    "script": [
+      "The maps compare the layout of the Riverside district in 2000 with its present-day arrangement.",
+      "Overall, the area has changed from a mainly industrial district into a mixed residential and leisure neighbourhood. The river and main road are unchanged, but factories and storage buildings have been replaced, while access across the river has improved.",
+      "In 2000, three factories occupied most of the land north of the river, with a row of storage buildings beside the main road in the west. A small group of houses stood in the northeast. The only green space was a narrow park along the southern bank, and there was no direct crossing between the two sides.",
+      "Today, apartment blocks stand on the former factory sites, and the old storage area has become a supermarket with a car park. The original houses remain, but a school has been built immediately to their west. The riverside park has been widened and now contains a café and a cycle path. Finally, a footbridge connects the new residential area to the park, whereas the main road follows the same route as before."
+    ],
+    "keySentences": [
+      "The maps compare the layout of X in two different periods.",
+      "Overall, the area has changed from X into Y.",
+      "X has been replaced by Y, while Z remains unchanged.",
+      "The former site of X is now occupied by Y.",
+      "The main road follows the same route as before."
+    ],
+    "transfer": "The maps show a public park in 1990 and after its recent redevelopment. 只写变化分组、Overview和一个细节段。",
+    "note": "重点背最大变化、保留项和位置表达；不要逐个设施机械点名。"
+  },
+  {
+    "id": "W-T2-PROBLEM-CITY",
+    "task": "Task 2",
+    "type": "Problem-Solution",
+    "cn": "城市拥堵与空气污染",
+    "learned": false,
+    "audio": "audio-writing-problem-city",
+    "prompt": "Traffic congestion and air pollution have become serious problems in many cities. What problems do they cause, and what measures can governments and individuals take to solve them?",
+    "chain": "概括相连问题 → 时间/健康/空间损失 → 政府改善公共交通并管理车流 → 个人改变出行+企业错峰 → 组合方案",
+    "script": [
+      "Many urban areas now suffer from heavy traffic and poor air quality. These connected problems damage health, waste time and reduce the amount of pleasant public space, but they can be controlled if governments improve alternatives to private cars and residents change some daily travel habits.",
+      "Congestion first creates a major loss of productive and personal time. Workers who spend long periods in queues arrive tired, while buses and deliveries also become less reliable. At the same time, idling and slow-moving vehicles release exhaust fumes close to homes, schools and workplaces. This can make outdoor activity unpleasant and may be particularly harmful to children and older people. A city designed around cars also devotes large areas to roads and parking, leaving less land for parks or housing.",
+      "The most effective response is to make public transport convenient, affordable and dependable. Governments can add bus lanes, connect rail and bus services, and provide safe paths for walking and cycling. They can also charge vehicles for entering the busiest areas at peak times, provided that good alternatives already exist. Individuals can help by using public transport, sharing journeys or walking short distances instead of driving alone. Employers may reduce rush-hour pressure by allowing flexible starting times or remote work where possible.",
+      "In conclusion, congestion wastes time and reduces urban space, while vehicle emissions harm health and daily life. These problems should be addressed together. A combination of reliable public transport, carefully designed charges and more flexible travel choices offers a fairer and more lasting answer than simply building more roads."
+    ],
+    "keySentences": [
+      "These connected problems affect both individuals and the wider community.",
+      "The most effective response is to make the alternative convenient and affordable.",
+      "Governments can address the issue by X, while individuals can help by Y.",
+      "A combination of public policy and personal choices offers a more lasting answer."
+    ],
+    "transfer": "Many cities are producing increasing amounts of household waste. What problems does this cause, and what measures can reduce it?",
+    "note": "这是双问题题的一种结构：主体一答问题，主体二答措施；其他 Two-Part 仍必须按实际两问更换全部论证内容。"
+  }
+]

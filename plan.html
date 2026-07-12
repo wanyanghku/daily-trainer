@@ -3,101 +3,209 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-<title>IELTS 剩余 10 天冲刺总览</title>
+<meta name="theme-color" content="#0b766e">
+<title>IELTS 10 天冲刺工作台</title>
 <style>
-  :root{ --teal:#0f766e; --teal2:#14b8a6; --ink:#1c2430; --mut:#64748b; --line:#e2e8f0; --bg:#f8fafc;
-    --green:#0f766e; --blue:#1d4ed8; --amber:#b45309; --rose:#be123c; }
-  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent;}
-  body{font-family:"PingFang SC","Hiragino Sans GB",-apple-system,"Helvetica Neue",Arial,sans-serif; color:var(--ink); background:var(--bg); margin:0; line-height:1.5;}
-  .wrap{max-width:720px; margin:0 auto; padding:16px 14px 70px;}
-  h1{font-size:20px; margin:0 0 2px; color:var(--teal);}
-  .sub{color:var(--mut); font-size:12.5px; margin-bottom:12px;}
-  .hero{background:linear-gradient(135deg,#0f766e,#14b8a6); color:#fff; border-radius:16px; padding:16px 18px; margin-bottom:14px;}
-  .hero .cd{font-size:13px; opacity:.9;}
-  .hero .big{font-size:34px; font-weight:800; line-height:1.1; margin:2px 0;}
-  .hero .goal{font-size:13px; opacity:.95;}
-  .pbar{height:8px; background:rgba(255,255,255,.3); border-radius:99px; overflow:hidden; margin-top:10px;}
-  .pbar>i{display:block; height:100%; background:#fff; border-radius:99px; transition:width .35s;}
-  .pmeta{font-size:11.5px; opacity:.9; margin-top:5px;}
-  .phase{margin:16px 0 4px; font-weight:800; font-size:15px; display:flex; align-items:center; gap:7px;}
-  .phase .tag{font-size:11px; font-weight:700; color:#fff; border-radius:6px; padding:1px 7px;}
-  .p1 .tag{background:var(--green);} .p2 .tag{background:var(--blue);} .p3 .tag{background:var(--amber);}
-  .phase .rng{font-size:11.5px; color:var(--mut); font-weight:500;}
-  .card{background:#fff; border:1px solid var(--line); border-radius:12px; padding:0; margin-bottom:8px; overflow:hidden;}
-  .row{display:flex; align-items:center; gap:11px; padding:11px 13px; cursor:pointer;}
-  .row+.row{border-top:1px solid #f1f5f9;}
-  .ck{flex:0 0 22px; width:22px; height:22px; border-radius:7px; border:2px solid #cbd5e1; display:flex; align-items:center; justify-content:center; font-size:14px; color:#fff; background:#fff;}
-  .row.done .ck{background:var(--teal); border-color:var(--teal);}
-  .row.done .ti{text-decoration:line-through; color:var(--mut);}
-  .meta{flex:1; min-width:0;}
-  .dnum{font-size:11px; color:var(--mut);}
-  .ti{font-size:14px; font-weight:600; margin-top:1px;}
-  .go{flex:0 0 auto; font-size:12px; color:var(--teal); font-weight:700; text-decoration:none; border:1px solid #c7f0e8; background:#ecfdf5; border-radius:8px; padding:5px 9px;}
-  .exam{background:#fff1f2; border:1px solid #fecdd3; color:var(--rose); border-radius:12px; padding:13px 15px; margin:12px 0; text-align:center; font-weight:800; font-size:15px;}
-  .lines{background:#fff; border:1px solid var(--line); border-radius:12px; padding:12px 14px; margin-top:14px;}
-  .lines b{color:var(--rose);}
-  .lines ul{margin:6px 0 0; padding-left:18px; font-size:13px; line-height:1.7;}
-  .foot{text-align:center; color:#94a3b8; font-size:11px; margin-top:18px;}
-  a.plain{color:inherit; text-decoration:none;}
+  :root{
+    --teal:#0b766e; --teal-dark:#075f59; --teal-soft:#e9f7f4;
+    --ink:#172126; --muted:#66757d; --line:#dce5e3; --paper:#fff;
+    --surface:#f4f7f6; --warm:#f7f3e9;
+  }
+  *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+  html{background:var(--surface)}
+  body{margin:0;color:var(--ink);background:var(--surface);font-family:"PingFang SC","Hiragino Sans GB",-apple-system,BlinkMacSystemFont,"Helvetica Neue",Arial,sans-serif;line-height:1.45}
+  button,a{font:inherit}
+  .shell{width:min(100%,760px);margin:0 auto;padding:18px 15px 72px}
+  .topbar{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;padding:4px 2px 14px;border-bottom:1px solid var(--line)}
+  .eyebrow{color:var(--teal);font-size:10px;font-weight:800;letter-spacing:.15em;text-transform:uppercase}
+  h1{margin:3px 0 2px;font-size:24px;line-height:1.2;letter-spacing:-.02em}
+  .goal{margin:0;color:var(--muted);font-size:12px}
+  .countdown{flex:0 0 auto;text-align:right;color:var(--teal-dark)}
+  .countdown strong{display:block;font-size:30px;line-height:1;font-variant-numeric:tabular-nums}
+  .countdown span{font-size:10px;font-weight:700}
+
+  .today{margin:14px 0 12px;padding:16px 17px 15px;color:#fff;background:var(--teal);border-radius:16px;animation:settle .35s ease-out both}
+  .today-top{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:11px;font-weight:700;color:rgba(255,255,255,.78)}
+  .today h2{margin:7px 0 3px;font-size:23px;line-height:1.25;letter-spacing:-.015em}
+  .today p{margin:0;color:rgba(255,255,255,.86);font-size:12.5px}
+  .today-action{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:13px;padding-top:12px;border-top:1px solid rgba(255,255,255,.2)}
+  .today-action small{font-size:11px;color:rgba(255,255,255,.74)}
+  .start{display:inline-flex;align-items:center;gap:7px;min-height:40px;padding:9px 14px;border-radius:10px;color:var(--teal-dark);background:#fff;text-decoration:none;font-size:13px;font-weight:800;box-shadow:0 5px 16px rgba(1,42,39,.16)}
+  .start:active{transform:translateY(1px)}
+
+  .progress-block{padding:0 2px 11px}
+  .progress-meta{display:flex;align-items:center;justify-content:space-between;margin-bottom:6px;color:var(--muted);font-size:11px}
+  .progress-meta strong{color:var(--ink);font-size:12px}
+  .track{height:6px;overflow:hidden;border-radius:99px;background:#dfe8e6}
+  .track i{display:block;height:100%;width:0;border-radius:inherit;background:var(--teal);transition:width .35s ease}
+
+  .phase{margin-top:16px}
+  .phase-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 2px 7px}
+  .phase-head h2{margin:0;font-size:14px;letter-spacing:.01em}
+  .phase-head span{color:var(--muted);font-size:10.5px}
+  .day-list{overflow:hidden;border:1px solid var(--line);border-radius:14px;background:var(--paper)}
+  .day-row{display:grid;grid-template-columns:38px minmax(0,1fr);align-items:stretch;min-height:104px;border-top:1px solid #e9efed;transition:background-color .18s ease,box-shadow .18s ease}
+  .day-row:first-child{border-top:0}
+  .day-row.current{background:var(--teal-soft);box-shadow:inset 3px 0 var(--teal)}
+  .day-row.done{background:#f7faf9}
+  .check{align-self:start;width:26px;height:26px;margin:14px 0 0 10px;padding:0;border:1.5px solid #bdcbc8;border-radius:8px;color:transparent;background:#fff;cursor:pointer;font-size:14px;font-weight:900;line-height:23px}
+  .check.done{border-color:var(--teal);color:#fff;background:var(--teal)}
+  .check:disabled{cursor:default;opacity:1}
+  .check:focus-visible,.day-link:focus-visible,.start:focus-visible{outline:3px solid rgba(11,118,110,.25);outline-offset:2px}
+  .day-link{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;padding:11px 13px 11px 3px;color:inherit;text-decoration:none}
+  .day-link:active{background:rgba(11,118,110,.035)}
+  .day-meta{display:flex;align-items:center;gap:7px;color:var(--muted);font-size:10.5px;font-variant-numeric:tabular-nums}
+  .new-kind{display:inline-flex;padding:1px 6px;border-radius:99px;color:var(--teal-dark);background:var(--teal-soft);font-size:9.5px;font-weight:800}
+  .current .new-kind{background:#d6eee9}
+  .new-title{margin:3px 0 5px;font-size:14px;font-weight:800}
+  .summary{display:grid;grid-template-columns:18px minmax(0,1fr);gap:3px;color:var(--muted);font-size:10.8px;line-height:1.4}
+  .summary b{color:var(--teal);font-size:9px;line-height:1.65}
+  .row-state{align-self:center;min-width:42px;text-align:right;color:var(--muted);font-size:10px;font-variant-numeric:tabular-nums}
+  .row-state strong{display:block;color:var(--teal);font-size:18px;line-height:1.1}
+  .row-state .arrow{font-size:17px;color:var(--teal)}
+
+  .light-day{margin:17px 2px 0;padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);font-size:12px}
+  .light-day strong{display:block;margin-bottom:2px;color:var(--teal-dark)}
+  .light-day span{color:var(--muted)}
+  .foot{margin-top:13px;color:#87938f;text-align:center;font-size:10px}
+  .load-error{margin:40px auto;padding:18px;max-width:420px;border:1px solid var(--line);border-radius:12px;background:#fff;text-align:center}
+  .load-error button{margin-top:10px;padding:8px 12px;border:0;border-radius:8px;color:#fff;background:var(--teal);font-weight:700}
+  @keyframes settle{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+  @media (max-width:430px){
+    .shell{padding:14px 12px 58px}
+    h1{font-size:22px}
+    .today{border-radius:14px;padding:15px}
+    .today h2{font-size:21px}
+    .day-row{grid-template-columns:36px minmax(0,1fr)}
+    .check{margin-left:8px}
+    .day-link{padding-right:11px}
+  }
+  @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 </style>
 </head>
 <body>
-<div class="wrap" id="app"></div>
+<main class="shell" id="app" aria-live="polite">加载 10 天计划…</main>
 <script>
-const KEY='ielts_plan10_v1';
-let done=JSON.parse(localStorage.getItem(KEY)||'{}');
-const EXAM='2026-07-23';
+const EXAM_DATE='2026-07-23';
+const LIGHT_DATE='2026-07-22';
+const PROGRESS_KEY='ielts_sprint_20260712_progress';
+const DONE_KEY='ielts_sprint_20260712_done';
+const PHASES={
+  1:{title:'阶段 1 · 建立输入',range:'Day 1–4 · 新口语与新范文交替'},
+  2:{title:'阶段 2 · 迁移巩固',range:'Day 5–8 · 背完立刻换题'},
+  3:{title:'阶段 3 · 收口输出',range:'Day 9–10 · 最后两项 + 限时练习'}
+};
+let DAYS=[];
 
-const DAYS=[
- {n:1,date:'07-11',ph:1,t:'G1 + P1 A复习/B起步｜环境 P3→T2 Opinion',link:'daily/Day3.html'},
- {n:2,date:'07-12',ph:1,t:'G2 妻子故事·人物外壳 + P1 B级｜城市 P3 + T1',link:'daily/Day4.html'},
- {n:3,date:'07-13',ph:1,t:'G3 同故事·观点外壳 + P1 B级｜工作 P3→T2',link:'daily/Day5.html'},
- {n:4,date:'07-14',ph:1,t:'F1 + P1 B/C级｜科技 P3主体段 + T1 图表',link:'daily/Day6.html'},
- {n:5,date:'07-15',ph:1,t:'F2 + P1 C/A级｜教育 P3→T2 利弊',link:'daily/Day7.html'},
- {n:6,date:'07-16',ph:2,t:'P2 人物套题 + P1 A级复习｜T1 流程/地图'},
- {n:7,date:'07-17',ph:2,t:'P2 事件/地点/科技套题 + P1 A级｜T2 双问题/问题解决'},
- {n:8,date:'07-18',ph:3,t:'G1/G2/G3 盲抽套题 + 口语模考 1'},
- {n:9,date:'07-19',ph:3,t:'P2 5个弱缺口核真 + P1 B/C弱项｜写作全真模考'},
- {n:10,date:'07-20',ph:3,t:'P1混合 + P2随机3题 + 口语模考 2｜弱文重写'},
-];
-const PH={1:{cls:'p1',tag:'完成',name:'母题 + P1 分级覆盖',rng:'7/11 – 7/15'},
-         2:{cls:'p2',tag:'套用',name:'P2 套题 + P1 A级复习',rng:'7/16 – 7/17'},
-         3:{cls:'p3',tag:'模考',name:'全真 + 查漏',rng:'7/18 – 7/20'}};
-
-function daysLeft(){ const t=new Date(); t.setHours(0,0,0,0); const e=new Date(EXAM+'T00:00:00');
-  return Math.round((e-t)/86400000); }
-function toggle(n){ done[n]=!done[n]; localStorage.setItem(KEY,JSON.stringify(done)); render(); }
-
-function render(){
- const total=DAYS.length, dn=DAYS.filter(d=>done[d.n]).length, pct=Math.round(dn/total*100);
- let h=`<h1>🎯 IELTS 剩余 10 天冲刺</h1><div class="sub">7/11 起 · 7/20 完成复习 · 7/23 考试</div>
-  <div class="hero"><div class="cd">距离考试还有</div><div class="big">${daysLeft()} 天</div>
-   <div class="goal">大陆考区 · 目标:口语 6.5 · 写作 6.5</div>
-   <div class="pbar"><i style="width:${pct}%"></i></div>
-   <div class="pmeta">已完成 ${dn} / ${total} 天 · ${pct}%</div></div>`;
- [1,2,3].forEach(p=>{
-   const info=PH[p];
-   h+=`<div class="phase ${info.cls}"><span class="tag">${info.tag}</span>${info.name}<span class="rng">· ${info.rng}</span></div><div class="card">`;
-   DAYS.filter(d=>d.ph===p).forEach(d=>{
-     h+=`<div class="row ${done[d.n]?'done':''}" onclick="toggle(${d.n})">
-       <div class="ck">${done[d.n]?'✓':''}</div>
-       <div class="meta"><div class="dnum">第 ${d.n} 天 · ${d.date}</div><div class="ti">${d.t}</div></div>
-       ${d.link?`<a class="go" href="${d.link}" onclick="event.stopPropagation()">打开 →</a>`:''}</div>`;
-   });
-   h+=`</div>`;
- });
- h+=`<div class="exam">📝 7 / 23 考试日 · 7/21–22 只做轻复习 + 早睡 🌙</div>`;
- h+=`<div class="lines"><b>3 条不能省的红线</b><ul>
-   <li>P1：A 级间隔复习；B/C 级按 Day3–7 后置覆盖。</li>
-   <li>P2：A–E 已背过且冻结；G1–F2 完成后只练母题套题。</li>
-   <li>G2/G3：共用妻子故事，但分别练“人物困难”和“观点变化”外壳。</li>
-   <li>覆盖审计：32 Strong / 17 Medium / 5 Weak；弱缺口先核真实经历。</li>
-   <li>P3→Task 2：同一观点先口答，再改成书面主体段。</li>
-   <li>每天只留一张短错误单；第 10 天不再学新内容。</li></ul></div>`;
- h+=`<div class="foot"><a class="plain" href="m.html">← 回每日任务菜单</a> · 打勾自动存本机</div>`;
- document.getElementById('app').innerHTML=h;
+function loadStore(key){
+  try{return JSON.parse(localStorage.getItem(key)||'{}')||{};}catch(_){return {};}
 }
-render();
+function saveStore(key,value){localStorage.setItem(key,JSON.stringify(value));}
+function localISO(){
+  const now=new Date();
+  const y=now.getFullYear(),m=String(now.getMonth()+1).padStart(2,'0'),d=String(now.getDate()).padStart(2,'0');
+  return `${y}-${m}-${d}`;
+}
+function localDate(iso){const [y,m,d]=iso.split('-').map(Number);return new Date(y,m-1,d);}
+function daysUntil(iso){
+  const now=new Date();now.setHours(0,0,0,0);
+  return Math.max(0,Math.round((localDate(iso)-now)/86400000));
+}
+function shortDate(iso){return iso.slice(5).replace('-','/');}
+function esc(value){
+  return String(value).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function rawProgress(day){
+  const value=Number(loadStore(PROGRESS_KEY)[day]||0);
+  return Math.max(0,Math.min(100,Number.isFinite(value)?Math.round(value):0));
+}
+function isManualDone(day){return !!loadStore(DONE_KEY)[day];}
+function effectiveProgress(day){return Math.max(rawProgress(day),isManualDone(day)?100:0);}
+function toggleDone(event,day){
+  event.preventDefault();event.stopPropagation();
+  if(rawProgress(day)>=100)return;
+  const done=loadStore(DONE_KEY);
+  done[day]=!done[day];
+  saveStore(DONE_KEY,done);
+  render();
+}
+function currentDay(today){return DAYS.find(day=>day.date===today)||null;}
+function ctaDay(today){
+  const exact=currentDay(today);
+  if(exact)return exact;
+  if(today<DAYS[0].date)return DAYS[0];
+  return DAYS[DAYS.length-1];
+}
+function renderRow(day,today){
+  const progress=rawProgress(day.day);
+  const done=progress>=100||isManualDone(day.day);
+  const current=day.date===today;
+  const kind=day.newP2?'口语新背':'写作新背';
+  const state=done?'<strong>✓</strong><span>完成</span>':progress?`<strong>${progress}%</strong><span>继续 →</span>`:'<span class="arrow">→</span>';
+  return `<div class="day-row${current?' current':''}${done?' done':''}">
+    <button class="check${done?' done':''}" type="button" aria-label="${done?'取消手动完成':'标记完成'} Day ${day.day}" onclick="toggleDone(event,${day.day})" ${progress>=100?'disabled':''}>✓</button>
+    <a class="day-link" href="daily/Day${day.day}.html" aria-label="打开 Day ${day.day}：${esc(day.newLabel)}">
+      <div>
+        <div class="day-meta"><span>DAY ${day.day} · ${shortDate(day.date)}</span><span>${day.minutes} 分钟</span><span class="new-kind">${kind}</span></div>
+        <div class="new-title">${esc(day.newLabel)}</div>
+        <div class="summary"><b>口语</b><span>${esc(day.speakingSummary)}</span></div>
+        <div class="summary"><b>写作</b><span>${esc(day.writingSummary)}</span></div>
+      </div>
+      <div class="row-state">${state}</div>
+    </a>
+  </div>`;
+}
+function render(){
+  if(!DAYS.length)return;
+  const today=localISO();
+  const focus=ctaDay(today);
+  const exact=currentDay(today);
+  const light=today===LIGHT_DATE;
+  const total=Math.round(DAYS.reduce((sum,day)=>sum+effectiveProgress(day.day),0)/DAYS.length);
+  const completed=DAYS.filter(day=>effectiveProgress(day.day)>=100).length;
+  const focusProgress=effectiveProgress(focus.day);
+  const todayKicker=light?'7/22 · 轻复习日':exact?`今天 · DAY ${focus.day} · ${shortDate(focus.date)} · ${focus.minutes} 分钟`:`建议从 DAY ${focus.day} 继续`;
+  const todayTitle=light?'不学新内容，只回看错误':esc(focus.newLabel);
+  const todayCopy=light?'口语随机热身、作文错误单、证件与路线确认；晚上提前休息。':`今日唯一新背诵内容 · 其余任务均为复习或迁移练习。`;
+  const ctaText=light?'打开 Day 10 回看':'开始今天';
+  let html=`<header class="topbar">
+      <div><div class="eyebrow">IELTS · Mainland</div><h1>10 天冲刺工作台</h1><p class="goal">口语 6.5 · 写作 6.5 · 每天只学 1 个新内容</p></div>
+      <div class="countdown"><strong>${daysUntil(EXAM_DATE)}</strong><span>天后考试</span></div>
+    </header>
+    <section class="today">
+      <div class="today-top"><span>${todayKicker}</span><span>${focusProgress}%</span></div>
+      <h2>${todayTitle}</h2><p>${todayCopy}</p>
+      <div class="today-action"><small>${light?'7/23 考试':esc(focus.speakingSummary)}</small><a class="start" href="daily/Day${focus.day}.html">${ctaText} <span>→</span></a></div>
+    </section>
+    <section class="progress-block" aria-label="十天总进度">
+      <div class="progress-meta"><strong>总进度 ${total}%</strong><span>${completed} / 10 天完成</span></div>
+      <div class="track"><i style="width:${total}%"></i></div>
+    </section>`;
+  [1,2,3].forEach(phase=>{
+    const info=PHASES[phase];
+    html+=`<section class="phase"><div class="phase-head"><h2>${info.title}</h2><span>${info.range}</span></div><div class="day-list">`;
+    DAYS.filter(day=>day.phase===phase).forEach(day=>{html+=renderRow(day,today);});
+    html+='</div></section>';
+  });
+  html+=`<section class="light-day"><strong>7/22 · 轻复习</strong><span>不再背新材料：回看错误单，口语热身 20 分钟，确认考试用品后早睡。</span></section>
+    <div class="foot">日页进度自动同步 · 左侧完成按钮仅用于手动补记 · 7/23 考试</div>`;
+  document.getElementById('app').innerHTML=html;
+}
+async function boot(){
+  try{
+    const response=await fetch('data-days.json?cb='+Date.now(),{cache:'no-store'});
+    if(!response.ok)throw new Error('HTTP '+response.status);
+    DAYS=await response.json();
+    if(!Array.isArray(DAYS)||DAYS.length!==10)throw new Error('计划数据不完整');
+    render();
+  }catch(error){
+    document.getElementById('app').innerHTML=`<div class="load-error"><strong>10 天计划加载失败</strong><div class="goal">${esc(error.message)}</div><button type="button" onclick="location.reload()">重新加载</button></div>`;
+  }
+}
+window.addEventListener('storage',event=>{if(event.key===PROGRESS_KEY||event.key===DONE_KEY)render();});
+window.addEventListener('pageshow',()=>{if(DAYS.length)render();});
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&DAYS.length)render();});
+boot();
 </script>
 </body>
 </html>
