@@ -1,5 +1,5 @@
 /* Shared engine for the 10-day IELTS sprint — speaking + writing. */
-const VERSION='19';
+const VERSION='20';
 const DAY=window.DAY_CONFIG?window.DAY_CONFIG.day:'x';
 const KEY='ielts_sprint_20260712_day'+DAY+'_v1';
 const PROGRESS_KEY='ielts_sprint_20260712_progress';
@@ -15,6 +15,49 @@ function player(src){ return `<audio controls preload="auto" src="${src}"></audi
 function esc(t){ return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
 function stars(t){ return t==='A'?'★★★':t==='B'?'★★':'★'; }
 function wordCount(t){ return (t.match(/[A-Za-z0-9'’\-]+/g)||[]).length; }
+
+function liveScope(){
+  const cfg=window.DAY_CONFIG;
+  const p1Questions=(cfg.p1||[]).slice(0,5).map(idx=>{ const t=P1[idx];
+    const qa=t&&t.qa&&t.qa.length?t.qa[0]:null;
+    const raw=qa?String(qa.q):(t?t.topic:'Part 1 question');
+    const alternative=raw.match(/^(.+?\?)\s*\/\s*.+$/);
+    const question=alternative?alternative[1]:raw;
+    return {topic:t?`${t.topic}（${t.cn}）`:'Part 1',question};
+  });
+  const p2id=cfg.newP2||((cfg.reviewP2||[])[0]);
+  const p2=p2id?P2[p2id]:null;
+  const p3=cfg.p3!=null?P3[cfg.p3]:null;
+  const label=`P1 ${p1Questions.length}题 · P2 ${p2id||'今日复习题'} · P3 ${p3?p3.cn:'今日主题'}`;
+  return {cfg,p1Questions,p2id,p2,p3,label};
+}
+
+function livePrompt(){
+  const x=liveScope();
+  const p1=x.p1Questions.map((q,n)=>`${n+1}. ${q.question}`).join('\n');
+  const p3=x.p3&&x.p3.qa?x.p3.qa.slice(0,3).map((q,n)=>`${n+1}. ${q.q}`).join('\n'):'1. Ask one relevant Part 3 question.\n2. Ask a second relevant question.\n3. Ask a third relevant question.';
+  const p2=x.p2?x.p2.cue:'Choose one Part 2 topic from today’s review.';
+  return `你是大陆雅思口语考官。我的目标是6.5。这是一场10–12分钟的模拟考，不是教学课。\n\n今天是 Day ${x.cfg.day}，只使用以下题目：\n\nPart 1（逐题问，问完等我回答）：\n${p1}\n\nPart 2：\n${p2}\n\nPart 3（逐题问）：\n${p3}\n\n规则：\n1. 全程用英语提问，不要先给示范答案。\n2. Part 1 每次只问一题，等我回答后再继续。\n3. Part 2 给我1分钟准备；我开始后目标回答2分钟。期间保持安静，即使我停顿也不要接话，直到我说 Done；不要声称计时绝对精确。\n4. Part 3 只问上面列出的3题，一次一题，不要生成新题。\n5. 全部结束后，用简短中文正好反馈最影响6.5的3点，覆盖流利度、词汇、语法或发音；每点给最小修改。然后从刚才的问题中选最弱的1题让我重答。不要承诺精确分数。\n6. 不要增加新背诵材料，不要重写我的整段答案，也不要提供完整范文。\n\n现在只说：Let's begin with Part 1.`;
+}
+
+function fallbackCopy(text){
+  const ta=document.createElement('textarea');
+  ta.value=text; ta.setAttribute('readonly',''); ta.style.position='fixed'; ta.style.opacity='0'; ta.style.fontSize='16px';
+  document.body.appendChild(ta); ta.focus(); ta.select(); ta.setSelectionRange(0,ta.value.length);
+  const ok=document.execCommand('copy'); ta.remove(); if(!ok)throw new Error('copy failed');
+}
+async function copyLivePrompt(btn,event){
+  if(event)event.stopPropagation();
+  const text=livePrompt(),base=btn.dataset.base||btn.textContent; btn.dataset.base=base;
+  try{
+    if(navigator.clipboard&&window.isSecureContext)await navigator.clipboard.writeText(text); else fallbackCopy(text);
+    btn.textContent='已复制 ✓'; btn.classList.add('copied');
+    setTimeout(()=>{btn.textContent=base;btn.classList.remove('copied');},1800);
+  }catch(err){
+    window.prompt('复制下面的提示词，再粘贴到 ChatGPT Live：',text);
+    btn.textContent='请手动复制'; setTimeout(()=>{btn.textContent=base;},1800);
+  }
+}
 
 async function boot(){
   const cfg=window.DAY_CONFIG;
@@ -36,7 +79,7 @@ async function boot(){
   if(cfg.p3!=null){ const t=P3[cfg.p3]; ITEMS.push({type:'p3',tier:'bonus',id:'p3',t,idx:cfg.p3,title:'P3 · '+t.cn,icon:'💬',sub:'四步法:观点+because+例子+让步'}); }
   if(cfg.ref&&cfg.ref.length){ ITEMS.push({type:'refcard',tier:'bonus',id:'REFC',ids:cfg.ref,title:'套用速查卡 · '+cfg.ref.length+' 张',icon:'🗂️',sub:'考前翻:开头+关键词链+短版'}); }
   if(cfg.outputs&&cfg.outputs.length){ ITEMS.push({type:'output',tier:'core',id:'OUT',outputs:cfg.outputs,title:'今日输出验收',icon:'✓',sub:'完成可见产出，避免只看不练'}); }
-  ITEMS.push({type:'record',tier:'bonus',id:'REC',title:'今日口语录音自查',icon:'🎙️',sub:'任选新母题或复习母题录一遍 → 回放挑错'});
+  ITEMS.push({type:'record',tier:'bonus',id:'REC',title:'Live 模拟考 / 录音自查',icon:'🎙️',sub:'复制今日题单 → 练 10–12 分钟；没有 Live 就录音回听'});
   syncProgress();
   renderList();
 }
@@ -108,10 +151,20 @@ function renderList(){
   let h=`<div class="top"><a class="home" href="../">← 10 天冲刺</a></div>
    <div class="dayeyebrow">${cfg.date||''} · 建议 ${cfg.minutes||90} 分钟</div><h1>${cfg.title} · 今日冲刺</h1><div class="muted">${cfg.note||''}</div>
    <div class="overall"><div class="ov-top"><div class="ov-num"><b>${done}</b> / ${ITEMS.length} 完成</div><div class="muted">今日 ${ov}%</div></div><div class="bar"><i style="width:${ov}%"></i></div></div>
-   <div class="tierhint"><b>先做核心：</b>今日唯一新内容 → 到期复习 → 输出；P1/P3 与录音按精力完成。</div>`;
-  ITEMS.forEach((i,x)=>{ h+=`<div class="card ${i.type} ${isDone(i)?'done':''}" onclick="open_(${x})"><div class="badge">${i.icon}</div>
-    <div class="c-body"><div class="c-title">${i.title} <span class="t2 ${i.tier}">${i.tier==='core'?'核心':'加分'}</span></div><div class="c-sub">${i.sub}</div><div class="bar" style="height:6px"><i style="width:${Math.round(frac(i)*100)}%"></i></div></div>
-    <div class="tick">${isDone(i)?'✓':Math.round(frac(i)*100)+'%'}</div></div>`; });
+   <div class="tierhint"><b>先做核心：</b>今日唯一新内容 → 到期复习 → P1 → 输出；P3 / Live 按精力完成。</div>`;
+  ITEMS.forEach((i,x)=>{
+    if(i.type==='record'){
+      const scope=liveScope();
+      h+=`<section class="livebar ${isDone(i)?'done':''}" onclick="open_(${x})">
+        <div class="livecopy"><div class="live-kicker">${i.icon} LIVE · ${isDone(i)?'已完成':'10–12 分钟'}</div><div class="live-title">${i.title}</div><div class="live-sub">${esc(scope.label)} · 替代额外录音，不增加时长</div></div>
+        <div class="live-actions"><button class="btn primary" aria-live="polite" onclick="copyLivePrompt(this,event)">复制 Live 提示词</button><a class="btn live-open" href="https://chatgpt.com/" target="_blank" rel="noopener" onclick="event.stopPropagation()">打开 ChatGPT ↗</a></div>
+      </section>`;
+      return;
+    }
+    h+=`<div class="card ${i.type} ${isDone(i)?'done':''}" onclick="open_(${x})"><div class="badge">${i.icon}</div>
+      <div class="c-body"><div class="c-title">${i.title} <span class="t2 ${i.tier}">${i.tier==='core'?'核心':'加分'}</span></div><div class="c-sub">${i.sub}</div><div class="bar" style="height:6px"><i style="width:${Math.round(frac(i)*100)}%"></i></div></div>
+      <div class="tick">${isDone(i)?'✓':Math.round(frac(i)*100)+'%'}</div></div>`;
+  });
   h+=`<div class="foot">进度自动存手机浏览器，并同步回 10 天首页</div>`;
   app.innerHTML=h;
 }
@@ -214,13 +267,14 @@ function renderDetail(){
     h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?'✓ 今日输出完成':'完成输出 ✓'}</button></div>`;
   }
   else if(i.type==='record'){
-    h+=`<div class="hint">录音回放用来发现真实停顿、超时和反复出现的语法问题。</div>
-      <ol style="font-size:14px;line-height:1.8;padding-left:20px">
-      <li>用手机把<b>今天的新母题</b>（若有）或最弱复习母题完整说一遍并录音。</li>
-      <li>回放,只听 3 件事:① 有没有卡顿超过 3 秒 ② 有没有太长(超 2 分)③ 有没有明显中式翻译腔。</li>
-      <li>只修最卡的 1–2 句,别推翻重背。</li>
-      <li>再录一遍,对比是否更顺。</li></ol>`;
-    h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?'✓ 已录音自查':'录音自查完成 ✓'}</button></div>`;
+    const scope=liveScope();
+    h+=`<div class="livebrief"><span>今日模拟范围</span>${esc(scope.label)}</div>
+      <div class="notice"><b>用途：</b>它替代今天的额外录音自查。先完成核心背诵，再用 Live 做 10–12 分钟真实输出；不要让它增加新范文。</div>
+      <div class="row live-detail-actions"><button class="btn primary" aria-live="polite" onclick="copyLivePrompt(this,event)">复制今日 Live 模拟考提示词</button><a class="btn live-open" href="https://chatgpt.com/" target="_blank" rel="noopener">打开 ChatGPT ↗</a></div>
+      <ol class="live-steps"><li>复制提示词，打开 ChatGPT 网页或手机端的 Voice → Live。</li><li>粘贴后直接开始；Part 2 停顿时让它保持安静，直到你说 Done。</li><li>最后只改最影响 6.5 的 3 点，并重答 1 题。</li></ol>
+      <details class="keybox"><summary>查看 / 手动复制今日提示词</summary><pre class="liveprompt">${esc(livePrompt())}</pre></details>
+      <details class="keybox"><summary>没有 Live？改用普通录音自查</summary><ol class="live-steps"><li>把今天的 P2 完整说一遍并录音。</li><li>回听卡顿超过 3 秒、超 2 分钟和明显翻译腔。</li><li>只修最卡的 1–2 句，再录一次。</li></ol></details>`;
+    h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?'✓ 已完成（取消）':'Live / 录音练习完成 ✓'}</button></div>`;
   }
   app.innerHTML=h;
 }
