@@ -38,6 +38,12 @@
   .progress-meta strong{color:var(--ink);font-size:12px}
   .track{height:6px;overflow:hidden;border-radius:99px;background:#dfe8e6}
   .track i{display:block;height:100%;width:0;border-radius:inherit;background:var(--teal);transition:width .35s ease}
+  .practice-strip{display:grid;grid-template-columns:42px minmax(0,1fr) auto;align-items:center;gap:11px;margin:5px 2px 15px;padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);color:inherit;text-decoration:none}
+  .practice-icon{display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:12px;color:#fff;background:var(--teal);font-size:19px}
+  .practice-copy strong{display:block;font-size:13.5px}
+  .practice-copy span{display:block;margin-top:1px;color:var(--muted);font-size:10.5px}
+  .practice-go{color:var(--teal);font-size:12px;font-weight:800}
+  .practice-strip:active{background:rgba(11,118,110,.035)}
 
   .phase{margin-top:16px}
   .phase-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 2px 7px}
@@ -51,7 +57,7 @@
   .check{align-self:start;width:26px;height:26px;margin:14px 0 0 10px;padding:0;border:1.5px solid #bdcbc8;border-radius:8px;color:transparent;background:#fff;cursor:pointer;font-size:14px;font-weight:900;line-height:23px}
   .check.done{border-color:var(--teal);color:#fff;background:var(--teal)}
   .check:disabled{cursor:default;opacity:1}
-  .check:focus-visible,.day-link:focus-visible,.start:focus-visible{outline:3px solid rgba(11,118,110,.25);outline-offset:2px}
+  .check:focus-visible,.day-link:focus-visible,.start:focus-visible,.practice-strip:focus-visible{outline:3px solid rgba(11,118,110,.25);outline-offset:2px}
   .day-link{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;padding:11px 13px 11px 3px;color:inherit;text-decoration:none}
   .day-link:active{background:rgba(11,118,110,.035)}
   .day-meta{display:flex;align-items:center;gap:7px;color:var(--muted);font-size:10.5px;font-variant-numeric:tabular-nums}
@@ -180,7 +186,10 @@ function render(){
     <section class="progress-block" aria-label="十天总进度">
       <div class="progress-meta"><strong>总进度 ${total}%</strong><span>${completed} / 10 天完成</span></div>
       <div class="track"><i style="width:${total}%"></i></div>
-    </section>`;
+    </section>
+    <a class="practice-strip" href="listening-time.html" aria-label="打开听力时间系列50题">
+      <span class="practice-icon">🎧</span><span class="practice-copy"><strong>听力专项 · 时间系列 50题</strong><span>月份 · 星期 · 序数词 · 日期 · 时间｜支持错题重练</span></span><span class="practice-go">开始 →</span>
+    </a>`;
   [1,2,3].forEach(phase=>{
     const info=PHASES[phase];
     html+=`<section class="phase"><div class="phase-head"><h2>${info.title}</h2><span>${info.range}</span></div><div class="day-list">`;
