@@ -74,6 +74,11 @@
     "chain": "改写题目 → Overview写起点/终点/约8周 → 收集并筛除杂物 → 切碎+混入干叶 → 通气翻动 → 筛分后用于花园",
     "visual": {
       "type": "process",
+      "image": "assets/writing/task1-process-compost.webp",
+      "imageWidth": 1536,
+      "imageHeight": 1024,
+      "alt": "Black-and-white process diagram showing six stages from collecting cafeteria food waste to using screened compost in school gardens",
+      "instruction": "Summarise the process by selecting and reporting its main stages.",
       "steps": ["学生把水果、蔬菜等厨余投入专用分类桶", "工作人员移除塑料等杂物", "运至处理区并切碎", "与等量干叶混合", "放入侧面有通气孔的带盖容器", "每周翻动一次", "持续约8周形成深色堆肥", "筛除大块", "运至学校花园并铺在植物周围"]
     },
     "script": [

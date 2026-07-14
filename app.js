@@ -1,5 +1,5 @@
 /* Shared engine for the 10-day IELTS sprint — speaking + writing. */
-const VERSION='20';
+const VERSION='21';
 const DAY=window.DAY_CONFIG?window.DAY_CONFIG.day:'x';
 const KEY='ielts_sprint_20260712_day'+DAY+'_v1';
 const PROGRESS_KEY='ielts_sprint_20260712_progress';
@@ -10,9 +10,11 @@ let hide=false, annot=false, view={name:'list',id:null};
 let P1=[],P3=[],P2={},REF={},WRITING={},ITEMS=[];
 const app=document.getElementById('app');
 const aud=n=>`../${n}.m4a?v=${VERSION}`;
+const asset=n=>`../${n}?v=${VERSION}`;
 const SPD='<select class="spd" onchange="spdSel(this)"><option value="0.75">0.75×</option><option value="1" selected>1×</option><option value="1.25">1.25×</option><option value="1.5">1.5×</option><option value="2">2×</option></select>';
 function player(src){ return `<audio controls preload="auto" src="${src}"></audio><button class="btn loop" onclick="lp(this)">🔁</button>${SPD}`; }
 function esc(t){ return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function escAttr(t){ return esc(t).replace(/"/g,'&quot;'); }
 function stars(t){ return t==='A'?'★★★':t==='B'?'★★':'★'; }
 function wordCount(t){ return (t.match(/[A-Za-z0-9'’\-]+/g)||[]).length; }
 
@@ -140,9 +142,19 @@ function saveWritingCore(id){ st(id).coreText=document.getElementById('wcore').v
 function saveTransfer(id){ st(id).transferText=document.getElementById('transfer').value; save(); }
 
 function writingVisual(w){ const v=w.visual; if(!v)return '';
-  if(v.type==='process') return `<div class="visualbox"><div class="lab">训练用文字化流程图 · 左右滑动查看全部阶段</div><div class="processflow">${v.steps.map((x,n)=>`<div class="processstep"><b>${n+1}</b><span>${x}</span></div>`).join('<i>→</i>')}</div></div>`;
-  if(v.type==='map') return `<div class="visualbox"><div class="lab">训练用文字化地图信息</div>${v.fixed?`<div class="mapfixed"><b>固定方位</b>${v.fixed.join(' · ')}</div>`:''}<div class="mapcompare"><section><b>2000</b>${v.before.map(x=>`<span>${x}</span>`).join('')}</section><section><b>现在</b>${v.after.map(x=>`<span>${x}</span>`).join('')}</section></div></div>`;
-  return '';
+  let fallback='';
+  if(v.type==='process') fallback=`<div class="visualbox"><div class="lab">中文流程核对 · 先看题图作答，卡住再展开</div><div class="processflow">${v.steps.map((x,n)=>`<div class="processstep"><b>${n+1}</b><span>${x}</span></div>`).join('<i>→</i>')}</div></div>`;
+  if(v.type==='map') fallback=`<div class="visualbox"><div class="lab">训练用文字化地图信息</div>${v.fixed?`<div class="mapfixed"><b>固定方位</b>${v.fixed.join(' · ')}</div>`:''}<div class="mapcompare"><section><b>2000</b>${v.before.map(x=>`<span>${x}</span>`).join('')}</section><section><b>现在</b>${v.after.map(x=>`<span>${x}</span>`).join('')}</section></div></div>`;
+  if(!v.image)return fallback;
+  const src=asset(v.image),alt=escAttr(v.alt||w.prompt),instruction=esc(v.instruction||'Summarise the information by selecting and reporting the main features.');
+  const sheet=`<section class="task-sheet" aria-label="IELTS Academic Writing Task 1 training question">
+    <p class="task-time">You should spend about 20 minutes on this task.</p>
+    <p>${esc(w.prompt)}</p>
+    <p>${instruction}</p>
+    <p><b>Write at least 150 words.</b></p>
+    <figure class="task-figure"><a href="${src}" target="_blank" rel="noopener" aria-label="打开并放大流程图"><img src="${src}" width="${v.imageWidth||1536}" height="${v.imageHeight||1024}" alt="${alt}" decoding="async"></a><figcaption>原创训练题图 · 点图可放大缩放</figcaption></figure>
+  </section>`;
+  return sheet+(fallback?`<details class="visual-fallback"><summary>卡住时查看中文流程步骤</summary>${fallback}</details>`:'');
 }
 
 function renderList(){
@@ -175,7 +187,7 @@ function renderDetail(){
   const i=ITEMS[view.id]; const s=st(i.id);
   let h=`<button class="back" onclick="goList()">← 返回今日</button><div class="d-title">${i.icon} ${i.title}</div>`;
   if(i.m&&i.m.cue)h+=`<div class="d-cue">${i.m.cue}</div>`;
-  if(i.w&&i.w.prompt)h+=`<div class="d-cue">${i.w.prompt}</div>`;
+  if(i.w&&i.w.prompt&&!(i.w.visual&&i.w.visual.image))h+=`<div class="d-cue">${i.w.prompt}</div>`;
   h+=`<div class="bar"><i style="width:${Math.round(frac(i)*100)}%"></i></div>`;
 
   if(i.type==='memo'){ const m=i.m;
@@ -221,7 +233,7 @@ function renderDetail(){
     i.ws.forEach(w=>{
       const label=w.learned?'已背模板复习':'到期范文复习';
       h+=`<div class="p1t writingrev"><div class="p1t-h">${w.task} · ${w.type} <span class="cn">${label}</span></div>
-        <div class="d-cue">${w.prompt}</div><div class="chain"><span class="lab">闭卷复原</span>${w.chain}</div>
+        ${w.visual&&w.visual.image?writingVisual(w):`<div class="d-cue">${w.prompt}</div>`}<div class="chain"><span class="lab">闭卷复原</span>${w.chain}</div>
         <div class="row seg">${player(aud(w.audio))}<span class="hint">核对后再听</span></div>
         <details class="keybox"><summary>展开核心句与原文</summary><ul>${w.keySentences.map(x=>`<li>${x}</li>`).join('')}</ul><div class="script">${w.script.map(p=>`<p>${p}</p>`).join('')}</div></details>
         <div class="transferq"><b>迁移：</b>${w.transfer}</div>${w.note?`<div class="hint">${w.note}</div>`:''}</div>`;
