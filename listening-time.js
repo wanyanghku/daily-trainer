@@ -1,4 +1,4 @@
-const VERSION='22';
+const VERSION='24';
 const STORE_KEY='ielts_listening_time_v1';
 const CATEGORIES={
   month:{label:'月份',total:12},

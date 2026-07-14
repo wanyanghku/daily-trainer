@@ -48,9 +48,9 @@
   {"id":"date-04","category":"date","label":"日期","answer":"31 October","speak":"the thirty-first of October","audio":"audio-time-date-04","aliases":["October 31","31st October","October 31st"]},
   {"id":"date-05","category":"date","label":"日期","answer":"12 February","speak":"the twelfth of February","audio":"audio-time-date-05","aliases":["February 12","12th February","February 12th"]},
 
-  {"id":"clock-01","category":"clock","label":"时间","answer":"8:15 am","speak":"eight fifteen a.m.","audio":"audio-time-clock-01","aliases":["8.15 am","8:15","8.15","eight fifteen am"]},
-  {"id":"clock-02","category":"clock","label":"时间","answer":"6:30 pm","speak":"six thirty p.m.","audio":"audio-time-clock-02","aliases":["6.30 pm","6:30","6.30","six thirty pm"]},
-  {"id":"clock-03","category":"clock","label":"时间","answer":"10:45 am","speak":"ten forty-five a.m.","audio":"audio-time-clock-03","aliases":["10.45 am","10:45","10.45","ten forty-five am","ten forty five am"]},
-  {"id":"clock-04","category":"clock","label":"时间","answer":"2:20 pm","speak":"two twenty p.m.","audio":"audio-time-clock-04","aliases":["2.20 pm","2:20","2.20","two twenty pm"]},
-  {"id":"clock-05","category":"clock","label":"时间","answer":"7:05 pm","speak":"seven oh five p.m.","audio":"audio-time-clock-05","aliases":["7.05 pm","7:05","7.05","seven oh five pm","seven zero five pm"]}
+  {"id":"clock-01","category":"clock","label":"时间","answer":"8:15 am","speak":"eight fifteen a.m.","audio":"audio-time-clock-01","aliases":["8.15 am","8:15am","8.15am","8:15","8.15","eight fifteen am"]},
+  {"id":"clock-02","category":"clock","label":"时间","answer":"6:30 pm","speak":"six thirty p.m.","audio":"audio-time-clock-02","aliases":["6.30 pm","6:30pm","6.30pm","6:30","6.30","six thirty pm"]},
+  {"id":"clock-03","category":"clock","label":"时间","answer":"10:45 am","speak":"ten forty-five a.m.","audio":"audio-time-clock-03","aliases":["10.45 am","10:45am","10.45am","10:45","10.45","ten forty-five am","ten forty five am"]},
+  {"id":"clock-04","category":"clock","label":"时间","answer":"2:20 pm","speak":"two twenty p.m.","audio":"audio-time-clock-04","aliases":["2.20 pm","2:20pm","2.20pm","2:20","2.20","two twenty pm"]},
+  {"id":"clock-05","category":"clock","label":"时间","answer":"7:05 pm","speak":"seven oh five p.m.","audio":"audio-time-clock-05","aliases":["7.05 pm","7:05pm","7.05pm","7:05","7.05","seven oh five pm","seven zero five pm"]}
 ]

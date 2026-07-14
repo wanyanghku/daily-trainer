@@ -1,0 +1,255 @@
+{
+  "answerRules": [
+    {
+      "label": "一个空能填几个",
+      "text": "只看本组题目前的指令。ONE WORD ONLY 只能填一个词；NO MORE THAN TWO WORDS AND/OR A NUMBER 可以填一至两个词、一个数字，或一至两个词加一个数字。超出上限整题不得分。"
+    },
+    {
+      "label": "每个空单独计算",
+      "text": "指令通常写 for each answer，因此每个带题号的空分别计算字数。不要把相邻两个空的字数额度合并。"
+    },
+    {
+      "label": "大小写",
+      "text": "听力和阅读可用大写或小写，大小写本身不扣分。机考建议正常书写或全程统一，不要为切换大小写分散注意力。"
+    },
+    {
+      "label": "拼写与单复数",
+      "text": "拼写和语法会计分，单复数也会影响答案。听到词以后仍要用空格前后的冠词、动词和并列结构检查词形。"
+    },
+    {
+      "label": "空格与连字符",
+      "text": "由空格分开的内容通常分别算词，例如 swimming pool 是两个词；官方明确说明 check-in 这类连字符词算一个词。单词内部不能随意加空格，例如 oc tom ber 不是 October。"
+    },
+    {
+      "label": "日期与时间",
+      "text": "听到 the thirty-first of October 可以写 31 October；不要把 the 或 of 搬进答案。时间建议统一写成 8:15 am。专项卡会接受 8:15am，但考场上保留空格最清楚。"
+    },
+    {
+      "label": "机考最后两分钟",
+      "text": "机考没有十分钟誊写时间，结尾只有两分钟检查。顺序固定为：空题、字数上限、拼写、单复数、日期时间格式。"
+    }
+  ],
+  "official": [
+    {
+      "label": "IELTS 官方：Listening test format",
+      "url": "https://ielts.org/take-a-test/test-types/ielts-academic-test/ielts-academic-format-listening"
+    },
+    {
+      "label": "British Council：机考与纸笔考试区别",
+      "url": "https://takeielts.britishcouncil.org/blog/ielts-on-paper-vs-computer-how-to-choose"
+    }
+  ],
+  "days": [
+    {
+      "day": 1,
+      "date": "2026-07-14",
+      "id": "rules",
+      "title": "答题规则：先保住本来会的分",
+      "minutes": 5,
+      "summary": "字数、大小写、拼写、单复数与机考检查",
+      "source": "讲义 PDF p.2–13；IELTS 官方规则",
+      "focus": "先读指令，再看空格；答案内容正确但格式违规，仍然不得分。",
+      "steps": [
+        {"label": "读指令", "text": "在音频开始前先确认允许几个词、几个数字，以及需要选几个字母。"},
+        {"label": "写答案", "text": "优先使用录音中的原词和标准数字格式，不额外补 the、of 等词。"},
+        {"label": "两分钟检查", "text": "先补空题，再查字数、拼写和单复数；不要从第一题开始慢慢重读。"}
+      ],
+      "example": {
+        "prompt": "录音：the thirty-first of October",
+        "answer": "31 October",
+        "why": "一个数字加一个词；不需要写 the 或 of。"
+      },
+      "checks": ["我能解释 ONE WORD AND/OR A NUMBER", "我知道大小写不是主要失分点", "我会在最后两分钟按固定顺序检查"]
+    },
+    {
+      "day": 2,
+      "date": "2026-07-15",
+      "id": "workflow",
+      "title": "总流程：预读 → 定位 → 作答",
+      "minutes": 5,
+      "summary": "找对地方，再听懂答案；漏一题不连锁",
+      "source": "讲义 PDF p.8–9、p.38–39",
+      "focus": "听力不是逐句翻译，而是始终知道录音推进到哪一题。",
+      "steps": [
+        {"label": "预读", "text": "先看题干，标记名词、数字、否定和选项差异；不认识的专名先在心里模拟发音。"},
+        {"label": "定位", "text": "用角色切换、问答、停顿，以及 now、right、then、so、but 等信号跟踪题号。"},
+        {"label": "作答", "text": "答案出现就立即录入；某题错过后三秒内放弃，眼睛移到下一题等待新定位词。"}
+      ],
+      "example": {
+        "prompt": "题干出现原计划，录音先给旧方案，随后说 however 并改口",
+        "answer": "选择 however 之后的最终方案",
+        "why": "听到某个选项不等于选它，逻辑走向才决定答案。"
+      },
+      "checks": ["我知道当前录音对应哪一题", "我不会在脑中翻译整句", "漏题后三秒内回到下一题"]
+    },
+    {
+      "day": 3,
+      "date": "2026-07-16",
+      "id": "completion",
+      "title": "填空题：空格两边比空格更重要",
+      "minutes": 6,
+      "summary": "覆盖 form、note、table、summary、sentence 与 short answer",
+      "source": "讲义 PDF p.10–19；IELTS 官方题型说明",
+      "focus": "先预测词性和单复数，再等录音用原词或同义改写把答案送到定位点。",
+      "steps": [
+        {"label": "开始前", "text": "圈字数限制；看空格前后的冠词、介词、动词和并列项，预测名词、形容词、数字及单复数。"},
+        {"label": "听的时候", "text": "盯住空格前后整条信息，不只盯横线；Part 1 跟角色问答，Part 4 跟标题、停顿和结构词。"},
+        {"label": "落笔后", "text": "把答案放回句子检查语法，再查拼写、复数、日期和时间格式。"}
+      ],
+      "example": {
+        "prompt": "题目：a ___ coat；录音：a leather coat",
+        "answer": "leather",
+        "why": "只填缺失部分，不把题干里已有的 coat 重复写入。"
+      },
+      "checks": ["先看字数上限", "能说出空格所需词性", "同时阅读空格前后", "答案放回句子后语法成立"],
+      "practice": {"label": "打开时间系列 50 题", "href": "listening-time.html"}
+    },
+    {
+      "day": 4,
+      "date": "2026-07-17",
+      "id": "single-choice",
+      "title": "单选题：题干优先，纵向比较选项",
+      "minutes": 5,
+      "summary": "三个选项可能都出现，最后含义才算数",
+      "source": "讲义 PDF p.21–24",
+      "focus": "原词复现不是正确证据；先定位题干，再判断说话人的最终意思。",
+      "steps": [
+        {"label": "压缩选项", "text": "先读题干，再纵向比较 A、B、C，只留下时间、对象、原因、态度等差异词。"},
+        {"label": "等待落点", "text": "选项内容可能全部出现，尤其留意 but、however、although、actually、used to 等改口信号。"},
+        {"label": "及时止损", "text": "小题之间通常有轻微停顿；当前题没有把握也要先选一个并立刻跟下一题。"}
+      ],
+      "example": {
+        "prompt": "A 最近搬走；B 没计划搬；C 即将搬。录音先谈过去想搬，随后说现在决定留下。",
+        "answer": "B",
+        "why": "过去候选会成为干扰，最终状态才回答题干。"
+      },
+      "checks": ["题干比选项读得更清楚", "每组选项只保留差异词", "不会因为听到原词就立即作答"]
+    },
+    {
+      "day": 5,
+      "date": "2026-07-18",
+      "id": "multiple-choice",
+      "title": "多选题：每个选项独立验真",
+      "minutes": 5,
+      "summary": "先确认选几个，再辨认双方共同认可的内容",
+      "source": "讲义 PDF p.25–26；IELTS 官方题型说明",
+      "focus": "题干里的 TWO、both、agree 决定你需要寻找什么证据。",
+      "steps": [
+        {"label": "读数量", "text": "先确认需要两个还是三个答案，并看清答案顺序是否重要。"},
+        {"label": "独立验真", "text": "把每个选项当成一个判断题：被提到不等于被认可，分别寻找支持或否定证据。"},
+        {"label": "双人对话", "text": "题干若有 both 或 agree，需要两人明确同意；含糊的 mm 或只由一人提出通常不够。"}
+      ],
+      "example": {
+        "prompt": "甲提出 A，乙说不确定；甲提出 C，乙说 Me too；两人随后确认 E。",
+        "answer": "C、E",
+        "why": "A 只被提及，没有形成双方共同认可。"
+      },
+      "checks": ["先读清需要几个答案", "每个选项都有独立证据", "both 或 agree 必须确认双方态度"]
+    },
+    {
+      "day": 6,
+      "date": "2026-07-19",
+      "id": "matching",
+      "title": "匹配题：先定位对象，再扫选项",
+      "minutes": 5,
+      "summary": "把长选项压成标签，答案常是概括而非原词",
+      "source": "讲义 PDF p.27–30",
+      "focus": "不要一边听一边从头重读所有选项；当前对象决定搜索范围。",
+      "steps": [
+        {"label": "做标签", "text": "把每个长选项压缩成二至四个词，并先看说明是否允许重复使用。"},
+        {"label": "先题后项", "text": "听到当前人名、地点或项目后先锁定题目，再转向选项寻找对应意思。"},
+        {"label": "接受概括", "text": "答案可能是同义替换，也可能把一段个人经历概括成 childhood memory。确定后拖入并从视线中划去。"}
+      ],
+      "example": {
+        "prompt": "选项：fast movement；录音：it moved rapidly across the surface",
+        "answer": "fast movement",
+        "why": "rapidly 与 fast 是同义对应，不要求原词重复。"
+      },
+      "checks": ["选项已压缩成短标签", "确认选项能否重复", "先锁定当前对象再找选项", "接受同义改写和概括"]
+    },
+    {
+      "day": 7,
+      "date": "2026-07-20",
+      "id": "map",
+      "title": "地图题：让手指跟着路线走",
+      "minutes": 6,
+      "summary": "起点、朝向、图例、地点名与移动表达",
+      "source": "讲义 PDF p.31–39",
+      "focus": "地图题的核心不是翻译整段，而是持续更新当前位置。",
+      "steps": [
+        {"label": "录音前", "text": "找起点和 You are here，确认上下左右或东南西北，识别 road、trees、corridor 等图例，并模拟地点名读音。"},
+        {"label": "录音中", "text": "用手指或光标沿路线移动，只抓 go along、past、through、across、turn、at the end、next to、opposite。"},
+        {"label": "降噪", "text": "景色好不好、是否方便等评价内容通常不决定位置；每到一个地点就重置当前位置。"}
+      ],
+      "example": {
+        "prompt": "go along the corridor, past the courtyard; the room is the last one on the right",
+        "answer": "沿走廊经过庭院，右侧最后一间",
+        "why": "动作顺序必须在图上逐步执行，不能只记最后一个 right。"
+      },
+      "checks": ["起点已确认", "朝向与图例已看懂", "手指持续更新当前位置", "评价性内容已降权"]
+    },
+    {
+      "day": 8,
+      "date": "2026-07-21",
+      "id": "part4-completion",
+      "title": "Part 4 填空：用结构抵抗掉线",
+      "minutes": 5,
+      "summary": "标题、层级、停顿和同义改写共同定位",
+      "source": "讲义 PDF p.15–19",
+      "focus": "Part 4 不靠记整段内容，靠题目层级和结构词保持当前位置。",
+      "steps": [
+        {"label": "先看骨架", "text": "优先读小标题、项目符号和每个空格的词性，来不及时不要平均阅读所有句子。"},
+        {"label": "跟结构", "text": "自然段停顿常对应大点切换，specifically、amazingly、first、another、finally 等词提示新层级。"},
+        {"label": "等改写", "text": "题干与录音更常同义改写；不要翻译整句，听到定位内容后只捕捉缺失词。"}
+      ],
+      "example": {
+        "prompt": "题干：relief from anxiety；录音：participants felt less anxious",
+        "answer": "同一含义区间",
+        "why": "Part 4 常用词形变化和同义表达连接题干与录音。"
+      },
+      "checks": ["先看标题和层级", "能预测每个空的词性", "听到结构词会移动到下一点", "不会因漏一空连续掉线"]
+    },
+    {
+      "day": 9,
+      "date": "2026-07-22",
+      "id": "recovery",
+      "title": "定位与止损：一题不能拖垮三题",
+      "minutes": 4,
+      "summary": "识别推进信号，错过后三秒重新定位",
+      "source": "讲义 PDF p.8–12、p.38–39",
+      "focus": "稳定七分靠的是迅速回到题目顺序，而不是每句话都听懂。",
+      "steps": [
+        {"label": "保持前视", "text": "做当前题时眼睛知道下一题的定位词；选择题至少掌握下一题题干。"},
+        {"label": "三秒规则", "text": "答案错过后三秒内停止回想，先给一个猜测或留标记，立即寻找下一题关键词。"},
+        {"label": "重新入轨", "text": "用角色变化、较长停顿、now、then、finally 等信号确认录音已进入下一题。"}
+      ],
+      "example": {
+        "prompt": "第 16 题没听到，但录音已说 now let us move on to the timetable",
+        "answer": "放弃第 16 题，立刻定位 timetable 对应的第 17 题",
+        "why": "追回旧题通常会再损失后面两题。"
+      },
+      "checks": ["下一题定位词始终可见", "错过后三秒停止回想", "能用推进词重新入轨"]
+    },
+    {
+      "day": 10,
+      "date": "2026-07-23",
+      "id": "review",
+      "title": "复盘与考前检查：只修可重复的错误",
+      "minutes": 5,
+      "summary": "错因编码、邻域精听与机考两分钟清单",
+      "source": "讲义 PDF p.40–41、p.57–58；10天计划的减量策略",
+      "focus": "复盘不是重听整篇，而是找出为什么没有定位、没有听出或没有写对。",
+      "steps": [
+        {"label": "给错因编码", "text": "PRE 预读、LOC 定位、COM 没理解、SND 认识但没听出、SPL 拼写词形、ATT 注意力断线。蒙对也要标记。"},
+        {"label": "邻域精听", "text": "只处理答案前后二十至四十秒，标出题干到录音的同义改写，原速重听到不看原文也能辨认。"},
+        {"label": "次日验收", "text": "冷启动再听一次；重复正确才算修复。考前只看高频错因，不再新增整套题。"}
+      ],
+      "example": {
+        "prompt": "October 写成 oc tom ber",
+        "answer": "SPL，而不是 COM",
+        "why": "已经听懂月份，训练动作应是标准拼写输出，不需要反复听整段。"
+      },
+      "checks": ["每道错题只有一个主错因", "只精听答案邻域", "次日会做一次冷启动复测", "最后两分钟先查空题再查格式"]
+    }
+  ]
+}
