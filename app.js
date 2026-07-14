@@ -1,5 +1,5 @@
 /* Shared engine for the 10-day IELTS sprint — speaking + writing. */
-const VERSION='22';
+const VERSION='23';
 const DAY=window.DAY_CONFIG?window.DAY_CONFIG.day:'x';
 const KEY='ielts_sprint_20260712_day'+DAY+'_v1';
 const PROGRESS_KEY='ielts_sprint_20260712_progress';
@@ -157,6 +157,13 @@ function writingVisual(w){ const v=w.visual; if(!v)return '';
   return sheet+(fallback?`<details class="visual-fallback"><summary>卡住时查看中文流程步骤</summary>${fallback}</details>`:'');
 }
 
+function writingMethodHTML(w,collapsed=false){ const m=w.method; if(!m)return '';
+  const rows=(m.paragraphs||[]).map(p=>`<li><b>${esc(p.label)}</b><span>${esc(p.text)}</span></li>`).join('');
+  const body=`<div class="method-body"><ol class="method-steps">${rows}</ol>${m.transfer?`<div class="method-transfer"><b>换题原则</b><span>${esc(m.transfer)}</span></div>`:''}</div>`;
+  if(collapsed)return `<details class="writing-method method-review"><summary><span><b>段落功能卡</b><small>${esc(m.title||'本题怎么套')} · ${esc(m.source||'')}</small></span><i class="method-toggle" aria-hidden="true"></i></summary>${body}</details>`;
+  return `<section class="writing-method" aria-label="段落功能卡"><div class="method-head"><div><span>先看方法，再背范文</span><strong>${esc(m.title||'本题怎么套')}</strong></div><small>${esc(m.source||'')}</small></div>${body}</section>`;
+}
+
 function renderList(){
   const cfg=window.DAY_CONFIG;
   const done=ITEMS.filter(isDone).length, ov=Math.round(ITEMS.reduce((a,i)=>a+frac(i),0)/ITEMS.length*100);
@@ -206,6 +213,7 @@ function renderDetail(){
     h+=`<div class="row">${player(aud(w.audio))}<span class="hint">先听懂结构，不追求逐字死背</span></div>`;
     h+=`<div class="wordmeta">${w.task} · ${wordCount(w.script.join(' '))} words · 目标 6.5</div>`;
     h+=writingVisual(w);
+    h+=writingMethodHTML(w);
     h+=`<div class="chain writingchain"><span class="lab">段落逻辑链（先背这个）</span>${w.chain}</div>`;
     h+=`<div class="notice"><b>6.5 目标：</b>${w.note}</div>`;
     [['read','精读并听范文','标出每段功能',2],['outline','闭卷复原逻辑链','只看题目说出四段',2],['core','默写核心句','不默写整篇',1]].forEach(([k,n,sub,t])=>{
@@ -233,7 +241,7 @@ function renderDetail(){
     i.ws.forEach(w=>{
       const label=w.learned?'已背模板复习':'到期范文复习';
       h+=`<div class="p1t writingrev"><div class="p1t-h">${w.task} · ${w.type} <span class="cn">${label}</span></div>
-        ${w.visual&&w.visual.image?writingVisual(w):`<div class="d-cue">${w.prompt}</div>`}<div class="chain"><span class="lab">闭卷复原</span>${w.chain}</div>
+        ${w.visual&&w.visual.image?writingVisual(w):`<div class="d-cue">${w.prompt}</div>`}${writingMethodHTML(w,true)}<div class="chain"><span class="lab">闭卷复原</span>${w.chain}</div>
         <div class="row seg">${player(aud(w.audio))}<span class="hint">核对后再听</span></div>
         <details class="keybox"><summary>展开核心句与原文</summary><ul>${w.keySentences.map(x=>`<li>${x}</li>`).join('')}</ul><div class="script">${w.script.map(p=>`<p>${p}</p>`).join('')}</div></details>
         <div class="transferq"><b>迁移：</b>${w.transfer}</div>${w.note?`<div class="hint">${w.note}</div>`:''}</div>`;
