@@ -1,5 +1,5 @@
 /* Shared engine for the 10-day IELTS sprint — speaking + writing. */
-const VERSION='24';
+const VERSION='25';
 const DAY=window.DAY_CONFIG?window.DAY_CONFIG.day:'x';
 const KEY='ielts_sprint_20260712_day'+DAY+'_v1';
 const PROGRESS_KEY='ielts_sprint_20260712_progress';
@@ -143,7 +143,6 @@ function saveTransfer(id){ st(id).transferText=document.getElementById('transfer
 
 function writingVisual(w){ const v=w.visual; if(!v)return '';
   let fallback='';
-  if(v.type==='process') fallback=`<div class="visualbox"><div class="lab">中文流程核对 · 先看题图作答，卡住再展开</div><div class="processflow">${v.steps.map((x,n)=>`<div class="processstep"><b>${n+1}</b><span>${x}</span></div>`).join('<i>→</i>')}</div></div>`;
   if(v.type==='map') fallback=`<div class="visualbox"><div class="lab">训练用文字化地图信息</div>${v.fixed?`<div class="mapfixed"><b>固定方位</b>${v.fixed.join(' · ')}</div>`:''}<div class="mapcompare"><section><b>2000</b>${v.before.map(x=>`<span>${x}</span>`).join('')}</section><section><b>现在</b>${v.after.map(x=>`<span>${x}</span>`).join('')}</section></div></div>`;
   if(!v.image)return fallback;
   const src=asset(v.image),alt=escAttr(v.alt||w.prompt),instruction=esc(v.instruction||'Summarise the information by selecting and reporting the main features.');
@@ -154,14 +153,14 @@ function writingVisual(w){ const v=w.visual; if(!v)return '';
     <p><b>Write at least 150 words.</b></p>
     <figure class="task-figure"><a href="${src}" target="_blank" rel="noopener" aria-label="打开并放大流程图"><img src="${src}" width="${v.imageWidth||1536}" height="${v.imageHeight||1024}" alt="${alt}" decoding="async"></a><figcaption>原创训练题图 · 点图可放大缩放</figcaption></figure>
   </section>`;
-  return sheet+(fallback?`<details class="visual-fallback"><summary>卡住时查看中文流程步骤</summary>${fallback}</details>`:'');
+  return sheet;
 }
 
 function writingMethodHTML(w,collapsed=false){ const m=w.method; if(!m)return '';
   const rows=(m.paragraphs||[]).map(p=>`<li><b>${esc(p.label)}</b><span>${esc(p.text)}</span></li>`).join('');
-  const body=`<div class="method-body"><ol class="method-steps">${rows}</ol>${m.transfer?`<div class="method-transfer"><b>换题原则</b><span>${esc(m.transfer)}</span></div>`:''}</div>`;
-  if(collapsed)return `<details class="writing-method method-review"><summary><span><b>段落功能卡</b><small>${esc(m.title||'本题怎么套')} · ${esc(m.source||'')}</small></span><i class="method-toggle" aria-hidden="true"></i></summary>${body}</details>`;
-  return `<section class="writing-method" aria-label="段落功能卡"><div class="method-head"><div><span>先看方法，再背范文</span><strong>${esc(m.title||'本题怎么套')}</strong></div><small>${esc(m.source||'')}</small></div>${body}</section>`;
+  const body=`<div class="method-body"><ol class="method-steps">${rows}</ol>${m.transfer?`<div class="method-transfer"><b>使用提醒</b><span>${esc(m.transfer)}</span></div>`:''}</div>`;
+  if(collapsed)return `<details class="writing-method method-review"><summary><span><b>题型通用模板</b><small>${esc(m.title||'通用四段法')} · ${esc(m.source||'')}</small></span><i class="method-toggle" aria-hidden="true"></i></summary>${body}</details>`;
+  return `<section class="writing-method" aria-label="题型通用模板"><div class="method-head"><div><span>先看通用模板，再学范文</span><strong>${esc(m.title||'通用四段法')}</strong></div><small>${esc(m.source||'')}</small></div>${body}</section>`;
 }
 
 function renderList(){

@@ -8,15 +8,15 @@
     "audio": "essay-line",
     "prompt": "The line graph shows the number of visitors to three museums in London between 2010 and 2020.",
     "method": {
-      "title": "折线图：分组比较，不逐条报数",
-      "source": "讲义 p.7–10",
+      "title": "折线图通用四段法：趋势分组 + 对比",
+      "source": "讲义 p.10（展开 p.7-9）",
       "paragraphs": [
-        {"label": "第1段 · 改写", "text": "交代三家博物馆、访客量和 2010–2020 年，不照抄题干。"},
-        {"label": "第2段 · Overview", "text": "本题先写三馆访客量均上升，再写 British Museum 全程最高；不放具体数字。"},
-        {"label": "第3段 · 细节组1", "text": "写 British Museum 的起点、稳定上升和终点，突出它始终领先。"},
-        {"label": "第4段 · 细节组2", "text": "合写 Science Museum 与 Natural History Museum，对比逐步上升和中途波动，并给关键起止数据。"}
+        {"label": "第1段 · 改写题目", "text": "换词或换句型，交代比较对象、数据指标和时间范围，不照抄题干。"},
+        {"label": "第2段 · Overview", "text": "用 Overall 概括最显著的两个特点；优先观察总体趋势、最高或最低项及明显拐点，不写具体数字。"},
+        {"label": "第3段 · Detail 1", "text": "把对象按相近趋势或水平分成两组，本段写第一组；选择起点、终点、峰值、低点或拐点等关键数据，并尽量作比较。"},
+        {"label": "第4段 · Detail 2", "text": "写另一组对象，继续选择关键数据，进行组内或跨组比较，不逐年、逐点罗列全部数字。"}
       ],
-      "transfer": "换图先找总体趋势、最高最低和明显拐点，再把趋势相近的对象分组。过去数据用过去时，只描述数据，不解释原因。当前 88 词短模板只用于复习，考场必须扩展到至少 150 词。"
+      "transfer": "过去收集的数据用一般过去时。只客观描述数据，不解释原因。四段是稳定训练框架，但不必硬凑 11 句或每个 Detail 4 句；信息写全即可，全文仍须达到 150 词。"
     },
     "chain": "改写题目 → Overview先写三馆都上升+British Museum始终最高 → 两组细节数据",
     "script": [
@@ -39,15 +39,15 @@
     "audio": "essay-bar",
     "prompt": "The bar chart compares household internet access in four countries in 2010 and 2020.",
     "method": {
-      "title": "柱状图：先抓高低，再合理分组",
-      "source": "讲义 p.13–17",
+      "title": "柱状图通用四段法：抓高低 + 合理分组",
+      "source": "讲义 p.16-17（展开 p.13-15）",
       "paragraphs": [
-        {"label": "第1段 · 改写", "text": "说明比较指标、四个国家和两个年份。"},
-        {"label": "第2段 · Overview", "text": "本题写四国网络普及率都上升，并指出英国两个年份均最高；不放具体百分比。"},
-        {"label": "第3段 · 细节组1", "text": "把英国和德国作为较高组，比较各自 2010 年的起点和 2020 年的终点。"},
-        {"label": "第4段 · 细节组2", "text": "把法国和意大利作为较低组，写共同增长，并比较两国的起止水平。"}
+        {"label": "第1段 · 改写题目", "text": "换词或换句型，交代比较对象、指标、地点或类别，以及题目给出的时间。"},
+        {"label": "第2段 · Overview", "text": "用 Overall 概括最显著的两个特点，如最高最低、主导类别、共同模式或异常项；只有带时间变化时才分析趋势和拐点。"},
+        {"label": "第3段 · Detail 1", "text": "按高低、相似程度、类别或时间把对象分成两组，本段写第一组；选择关键数据，并比较差异或相似点。"},
+        {"label": "第4段 · Detail 2", "text": "写另一组对象，继续围绕关键数据作比较，不按每根柱子机械报数。"}
       ],
-      "transfer": "有些柱状图只有静态比较，不能强写趋势。新题先找最高最低、相似项和异常项，再按高低、类别或时间分组；只选关键数据，不逐根柱子罗列。当前 107 词短模板考场也必须扩展到至少 150 词。"
+      "transfer": "静态柱状图不能强写上升、下降或拐点；过去数据用一般过去时。只描述数据，不分析原因。Detail 不足 4 句不用硬挤，句式变化也是有余力再做。"
     },
     "chain": "改写题目 → Overview写四国都上升+英国两年最高 → 按高低两组比较数据",
     "script": [
@@ -70,15 +70,15 @@
     "audio": "audio-writing-opinion-tech",
     "prompt": "Some people believe that new technology makes life more complicated, so people should use less of it. To what extent do you agree or disagree?",
     "method": {
-      "title": "Opinion：立场贯穿全文",
-      "source": "讲义 p.86–91",
+      "title": "Opinion 通用四段法：明确立场 + 两个分论点",
+      "source": "讲义 p.86-91、p.108-109",
       "paragraphs": [
-        {"label": "第1段 · 引言", "text": "改写题目，承认科技可能带来问题，但明确本题总体不同意减少使用。"},
-        {"label": "第2段 · 让步", "text": "写分心、设置复杂和过度依赖，并说明合理限制使用的必要性。"},
-        {"label": "第3段 · 主论证", "text": "论证科技节省时间、扩大教育和服务的可及性，并用银行、学习和协作举例。"},
-        {"label": "第4段 · 本题收束", "text": "提出选择性使用而非全面拒绝的做法，并重申问题主要来自习惯和设计。"}
+        {"label": "第1段 · 开头", "text": "改写题目并明确立场：完全同意、完全不同意或部分同意；不要把题目改写成另一个问题。"},
+        {"label": "第2段 · 中间段 1", "text": "用主题句提出第一分论点，再用理由、进一步解释和例子的任意组合展开。"},
+        {"label": "第3段 · 中间段 2", "text": "提出第二分论点并继续支持开头立场；部分同意时可分析另一面，但篇幅要体现最终倾向。"},
+        {"label": "第4段 · 结尾", "text": "换一种说法重申开头立场，不加入新的分论点。"}
       ],
-      "transfer": "Opinion 的核心是立场清楚且前后一致，主体按观点、解释、例子展开。第4段的通知管理、数字技能等是本题专属内容，不是万能结尾；换题时通常只重申新题立场，不增加未经论证的新观点。"
+      "transfer": "开头、主体段和结尾的立场必须一致。每个理由都要直接回答新题，不能套用旧范文的具体内容；通用模板只规定段落功能，不规定固定句子。"
     },
     "chain": "立场:总体不同意 → 承认分心和依赖 → 科技节省时间并扩大服务可及性 → 选择性使用,而非全面拒绝",
     "script": [
@@ -105,15 +105,15 @@
     "audio": "audio-writing-process-compost",
     "prompt": "The diagram shows how food waste from a school cafeteria is converted into compost for the school gardens.",
     "method": {
-      "title": "流程图：起点终点 + 前后两组阶段",
-      "source": "讲义 p.41–44",
+      "title": "流程图通用四段法：总览过程 + 分组写步骤",
+      "source": "讲义 p.44（展开 p.41-43）",
       "paragraphs": [
-        {"label": "第1段 · 改写", "text": "说明什么原料经过处理变成什么产品。"},
-        {"label": "第2段 · Overview", "text": "概括这是人为多阶段流程，写清起点、终点和约八周的总时长。"},
-        {"label": "第3段 · 前半流程", "text": "按顺序写收集厨余、移除杂物、切碎，再与等量干叶混合。"},
-        {"label": "第4段 · 后半流程", "text": "写通气容器、每周翻动、约八周、筛分，最后用于学校花园。"}
+        {"label": "第1段 · 改写题目", "text": "改写题干，说明图中展示什么过程，或某种原料、产品如何被处理、生产或回收。"},
+        {"label": "第2段 · Overview", "text": "用 Overall 概括流程全貌：可写总阶段数、主要阶段、起点和终点；若有两幅独立小图，也可分别概括。"},
+        {"label": "第3段 · Detail 1", "text": "按自然阶段把步骤分成两组，本段依图中顺序写第一组；通常使用一般现在时、被动语态和顺序连接词。"},
+        {"label": "第4段 · Detail 2", "text": "继续按顺序写剩余步骤直到最终结果；若题目由两幅图组成，也可在本段写第二幅图。"}
       ],
-      "transfer": "先数阶段并划分前后两组，再用一般现在时、被动语态和顺序词连接。只写图中可见信息，不解释原因或评价；Overview 必须让考官一眼看到流程全貌。"
+      "transfer": "流程图通常用一般现在时和被动语态，并用 firstly、then、subsequently、finally 等词说明顺序。只客观描述图中步骤，不加入原因或评价；两组不必平均，也不用硬凑 4 句。"
     },
     "chain": "改写题目 → Overview写起点/终点/约8周 → 收集并筛除杂物 → 切碎+混入干叶 → 通气翻动 → 筛分后用于花园",
     "visual": {
@@ -122,8 +122,7 @@
       "imageWidth": 1536,
       "imageHeight": 1024,
       "alt": "Black-and-white process diagram showing six stages from collecting cafeteria food waste to using screened compost in school gardens",
-      "instruction": "Summarise the process by selecting and reporting its main stages.",
-      "steps": ["学生把水果、蔬菜等厨余投入专用分类桶", "工作人员移除塑料等杂物", "运至处理区并切碎", "与等量干叶混合", "放入侧面有通气孔的带盖容器", "每周翻动一次", "持续约8周形成深色堆肥", "筛除大块", "运至学校花园并铺在植物周围"]
+      "instruction": "Summarise the process by selecting and reporting its main stages."
     },
     "script": [
       "The diagram illustrates how suitable food waste from a school cafeteria is processed into compost for use in the school gardens.",
@@ -150,15 +149,15 @@
     "audio": "audio-writing-discussion-edu",
     "prompt": "Some people think that the main purpose of university education is to prepare students for employment. Others believe that universities should provide a broad education. Discuss both views and give your own opinion.",
     "method": {
-      "title": "Discussion：双方都论证，再给自己的判断",
-      "source": "讲义 p.78–83",
+      "title": "Discussion 通用四段法：讨论双方 + 给出立场",
+      "source": "讲义 p.78-83",
       "paragraphs": [
-        {"label": "第1段 · 引言", "text": "改写就业导向和广泛教育两种观点，并明确本题主张两者结合。"},
-        {"label": "第2段 · 观点A", "text": "从大学成本切入，说明学生需要就业技能，再用实习、实验训练及专业领域举例。"},
-        {"label": "第3段 · 观点B", "text": "从行业变化切入，说明窄技能会过时，再论证广泛教育培养可迁移能力和公民判断。"},
-        {"label": "第4段 · 综合收束", "text": "用学科基础加实习或职业任务说明两者如何结合，最后重申大学应兼顾就业与长期适应。"}
+        {"label": "第1段 · 开头", "text": "改写题目中的两种观点，并明确自己更支持一方还是持折中立场。"},
+        {"label": "第2段 · 观点 A", "text": "先写主题句，再用理由、进一步解释和例子说明为什么有人持第一种观点。"},
+        {"label": "第3段 · 观点 B", "text": "同样完整展开第二种观点，并让论证权重与自己的最终立场保持一致。"},
+        {"label": "第4段 · 结尾", "text": "简洁总结讨论并重申个人立场，不加入新理由。"}
       ],
-      "transfer": "Discuss both views 必须分别解释两方，不能只写自己同意的一方。本题的两者结合只是本题立场，新题也可以明确偏向一方；无论选择哪种立场，引言、主体权重和结论都要一致。"
+      "transfer": "题目要求 discuss both views 时，两方都必须得到实质分析，不能只列出观点或只写自己同意的一方。个人立场可以偏向一方或折中，但开头、论证和结尾必须一致。"
     },
     "chain": "两方都有价值+主张结合 → 就业技能回应成本和职场需要 → 广泛教育培养可迁移能力 → 基础知识+实习/职业任务",
     "script": [
@@ -185,15 +184,15 @@
     "audio": "audio-writing-map-riverside",
     "prompt": "The maps show the Riverside district in 2000 and at present.",
     "method": {
-      "title": "地图：最大变化 + 分区对照",
-      "source": "讲义 p.48–52",
+      "title": "地图题通用四段法：最大变化 + 分区对照",
+      "source": "讲义 p.51-52（展开 p.48-51）",
       "paragraphs": [
-        {"label": "第1段 · 改写", "text": "说明两张地图比较 Riverside district 在 2000 年和现在的布局。"},
-        {"label": "第2段 · Overview", "text": "先写工业区变成住宅休闲混合区，再写河流和主路保留、跨河通行改善。"},
-        {"label": "第3段 · 过去布局", "text": "按位置写北岸工厂、西侧仓储、东北住宅、南岸狭窄公园和当时没有过河通道。"},
-        {"label": "第4段 · 现在布局", "text": "沿原位置写工厂和仓储被替换、住宅与主路保留，以及学校、公园设施和人行桥新增。"}
+        {"label": "第1段 · 改写题目", "text": "改写题干，说明地图比较的地点、时间或改造前后状态。"},
+        {"label": "第2段 · Overview", "text": "用 Overall 概括最显著的两个变化，例如整体用途转变、规模扩张，以及主要新增、拆除或保留的设施。"},
+        {"label": "第3段 · Detail 1", "text": "把变化按区域、设施类型或时间分成两组，本段写第一组；说明准确位置及新增、拆除、替换、搬迁或扩建。"},
+        {"label": "第4段 · Detail 2", "text": "写另一组区域或设施，与原布局对照，补充位置和变化，不遗漏重要保留项。"}
       ],
-      "transfer": "换地图先找最大用途变化、保留项和新增或拆除项，再按时间、区域或变化类型分组。过去、现在和未来图分别匹配过去时、现在时和将来时；只描述位置变化，不评价规划好坏。"
+      "transfer": "时态跟地图时间一致：过去图用过去时，现在图用现在时，规划图用将来表达。只客观描述空间变化，不评价规划好坏；Detail 不必各写 4 句，分组也不必平均。"
     },
     "chain": "改写题目 → Overview写工业区变住宅休闲区+河流主路不变 → 过去布局 → 现在按原位置写替换/新增/保留",
     "visual": {
@@ -227,15 +226,15 @@
     "audio": "audio-writing-problem-city",
     "prompt": "Traffic congestion and air pollution have become serious problems in many cities. What problems do they cause, and what measures can governments and individuals take to solve them?",
     "method": {
-      "title": "Two-Part：逐问作答，不硬套外壳",
-      "source": "讲义 p.62–67",
+      "title": "Two-Part 通用四段法：逐问作答",
+      "source": "讲义 p.62-67",
       "paragraphs": [
-        {"label": "第1段 · 引言", "text": "改写拥堵和污染，并直接预告主要后果以及政府与个人共同解决的方向。"},
-        {"label": "第2段 · 回答问题1", "text": "按时间与效率损失、尾气与健康危害、道路停车挤占城市空间三条因果链展开。"},
-        {"label": "第3段 · 回答问题2", "text": "政府改善公共交通和步行骑行条件，再合理管理车流；个人与雇主改变出行安排。"},
-        {"label": "第4段 · 结论", "text": "重申时间、健康和空间损失，再概括政策与个人行动的组合方案，不增加新措施。"}
+        {"label": "第1段 · 开头", "text": "改写题目背景，并用一句话同时回应或预告两个问题的答案方向。"},
+        {"label": "第2段 · 回答第 1 问", "text": "用主题句直接回答第一问，再以理由、进一步解释和例子的任意组合展开。"},
+        {"label": "第3段 · 回答第 2 问", "text": "用主题句直接回答第二问，展开方式与上一段相同，不能把第二问压缩到结尾。"},
+        {"label": "第4段 · 结尾", "text": "换一种说法概括两个答案，不引入新的问题、原因或措施。"}
       ],
-      "transfer": "这只是 Two-Part 的问题加措施子型。换题必须逐字识别两个问句；若题目问原因与影响、原因与是否积极等，就重新安排两个主体段，不能强套问题加措施。每项措施还应对应前段的具体问题。"
+      "transfer": "Problem-Solution 只是 Two-Part 的一种。换题后必须按实际两问重排内容，例如原因与影响、原因与是否积极等；两问都要分别且充分作答，不能机械套问题加措施。"
     },
     "chain": "概括相连问题 → 时间/健康/空间损失 → 政府改善公共交通并管理车流 → 个人改变出行+企业错峰 → 组合方案",
     "script": [

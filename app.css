@@ -116,15 +116,8 @@ details.writing-method{padding:0 11px; border:1px solid #cfe8e4; border-left:3px
 .task-figure a:focus-visible{outline:3px solid #5eead4; outline-offset:2px;}
 .task-figure img{display:block; width:100%; height:auto; background:#fff;}
 .task-figure figcaption{text-align:center; color:#64748b; font:11px/1.4 "PingFang SC","Hiragino Sans GB",sans-serif; margin-top:6px;}
-.visual-fallback{margin:8px 0 10px; color:var(--mut); font-size:12px;}
-.visual-fallback summary{min-height:44px; display:flex; align-items:center; cursor:pointer; color:var(--teal); font-weight:700;}
-.visual-fallback[open] summary{margin-bottom:4px;}
 .visualbox{background:#fff; border:1px solid var(--line); border-radius:12px; padding:11px; margin:10px 0;}
 .visualbox>.lab{font-size:11px; color:var(--mut); font-weight:700; margin-bottom:8px;}
-.processflow{display:flex; align-items:center; gap:7px; overflow-x:auto; padding-bottom:4px; scrollbar-width:thin;}
-.processflow i{font-style:normal; color:var(--teal); flex:0 0 auto;}
-.processstep{display:flex; align-items:center; gap:7px; min-width:122px; padding:8px 9px; background:#f0fdfa; border-radius:9px; font-size:12px; line-height:1.35;}
-.processstep b{display:flex; align-items:center; justify-content:center; width:20px; height:20px; border-radius:50%; background:var(--teal); color:#fff; flex:0 0 20px;}
 .mapcompare{display:grid; grid-template-columns:1fr 1fr; gap:9px;}
 .mapfixed{background:#ecfdf5; color:#475569; border-radius:9px; padding:8px 9px; margin-bottom:8px; font-size:11.5px; line-height:1.5;}
 .mapfixed b{color:var(--teal); margin-right:6px;}
@@ -141,5 +134,5 @@ details.writing-method{padding:0 11px; border:1px solid #cfe8e4; border-left:3px
 .writingrev .script{font-size:13.5px;}
 @keyframes card-in{from{opacity:0; transform:translateY(5px)}to{opacity:1; transform:translateY(0)}}
 @media (prefers-reduced-motion:reduce){.card,.livebar{animation:none; transition:none}.bar>i{transition:none}}
-@media (max-width:430px){.wrap{padding:12px 14px 64px}.task-sheet{padding:12px 9px 10px;font-size:12.5px}.mapcompare{grid-template-columns:1fr}.d-title{font-size:17px}.processflow{margin-right:-10px;padding-right:10px}.method-head{gap:8px}.method-head strong{font-size:14px}.method-steps li{grid-template-columns:92px minmax(0,1fr)}.livebar{grid-template-columns:1fr;gap:10px}.live-actions{display:grid;grid-template-columns:1.25fr 1fr;min-width:0}.live-actions .btn{font-size:12px}}
+@media (max-width:430px){.wrap{padding:12px 14px 64px}.task-sheet{padding:12px 9px 10px;font-size:12.5px}.mapcompare{grid-template-columns:1fr}.d-title{font-size:17px}.method-head{gap:8px}.method-head strong{font-size:14px}.method-steps li{grid-template-columns:92px minmax(0,1fr)}.livebar{grid-template-columns:1fr;gap:10px}.live-actions{display:grid;grid-template-columns:1.25fr 1fr;min-width:0}.live-actions .btn{font-size:12px}}
 @media (max-width:350px){.live-actions{grid-template-columns:1fr}}
