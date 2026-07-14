@@ -1,5 +1,5 @@
 /* Shared engine for the 10-day IELTS sprint — speaking + writing. */
-const VERSION='26';
+const VERSION='27';
 const DAY=window.DAY_CONFIG?window.DAY_CONFIG.day:'x';
 const KEY='ielts_sprint_20260712_day'+DAY+'_v1';
 const PROGRESS_KEY='ielts_sprint_20260712_progress';

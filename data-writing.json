@@ -105,17 +105,17 @@
     "audio": "audio-writing-process-compost",
     "prompt": "The diagram shows how food waste from a school cafeteria is converted into compost for the school gardens.",
     "method": {
-      "title": "流程图通用四段法：总览过程 + 分组写步骤",
+      "title": "流程图通用四段骨架：每段有固定衔接槽位",
       "source": "讲义 p.44（展开 p.41-43）",
       "paragraphs": [
         {"label": "第1段 · 改写题目", "text": "改写题干，说明图中展示什么过程，或某种原料、产品如何被处理、生产或回收。"},
-        {"label": "第2段 · Overview", "text": "用 Overall 概括流程全貌：可写总阶段数、主要阶段、起点和终点；若有两幅独立小图，也可分别概括。"},
-        {"label": "第3段 · Detail 1", "text": "按自然阶段把步骤分成两组，本段依图中顺序写第一组；通常使用一般现在时、被动语态和顺序连接词。"},
-        {"label": "第4段 · Detail 2", "text": "继续按顺序写剩余步骤直到最终结果；若题目由两幅图组成，也可在本段写第二幅图。"}
+        {"label": "第2段 · Overview", "text": "用 Overall 概括总阶段数、起点和终点；优先套 consists of ... stages, beginning with ... and ending with ...。"},
+        {"label": "第3段 · Detail 1", "text": "按自然阶段分成两组；用 At the first stage 起手，再用 is then ... 和 after which ... 串起第一组动作。"},
+        {"label": "第4段 · Detail 2", "text": "用 In the next stage 转入第二组；用 During ... 写时间跨度，When ... is complete 写阶段完成，最后用 Finally 收尾。"}
       ],
-      "transfer": "流程图通常用一般现在时和被动语态。顺序词只熟练 First、Then、After that、Finally，不要每句硬塞一个。只客观描述图中步骤，不加入原因或评价；两组不必平均，也不用硬凑 4 句。"
+      "transfer": "连接词按功能背，不背长清单：①总览边界 beginning with / ending with；②阶段起手 At the first stage / In the next stage；③句内串联 is then ... / after which ...；④时间与完成 During ... / When ... is complete / Finally。全篇以一般现在时和被动语态为主；不要每句都在句首塞 First / Then，也不要用 In conclusion。"
     },
-    "chain": "固定框架：改写 → Overview（起点+终点）→ 前半步骤 → 后半步骤｜本题只填：收集/除杂物 → 切碎/混干叶 → 通气/翻动 → 筛分/用于花园",
+    "chain": "固定骨架：改写 → Overall（阶段数 + beginning with / ending with）→ At the first stage / after which → In the next stage / During / When / Finally｜本题只填：收集去塑料 → 切碎混干叶 → 通气翻动 → 筛分用于花园",
     "visual": {
       "type": "process",
       "image": "assets/writing/task1-process-compost.webp",
@@ -125,21 +125,21 @@
       "instruction": "Summarise the process by selecting and reporting its main stages."
     },
     "script": [
-      "The diagram illustrates how suitable food waste from a school cafeteria is processed into compost for use in the school gardens.",
-      "Overall, it is a multi-stage, man-made process. It starts with the separate collection of leftovers and finishes about eight weeks later, when screened compost is spread around plants.",
-      "Initially, students place leftover fruit, vegetables and other suitable food in special bins in the cafeteria. Staff remove plastic and other unsuitable material before the waste is carried to a preparation area. It is then cut into small pieces and mixed with an equal amount of dry leaves.",
-      "The mixture is transferred to a covered compost container, where air enters through holes in the sides. Once a week, the material is turned so that all parts receive enough air. After approximately eight weeks, it becomes dark compost. This material is passed through a screen to remove any large pieces, and the finished compost is finally transported to the school gardens and spread around plants as a natural soil improver."
+      "The diagram illustrates how food waste from a school cafeteria is converted into compost for use in the school gardens.",
+      "Overall, the process consists of six main stages, beginning with the collection of food waste and ending with the use of screened compost in the gardens. The composting stage itself takes about eight weeks.",
+      "At the first stage, food waste is collected in a bin in the cafeteria. Any plastic is then removed from the waste, after which the remaining material is chopped into small pieces and mixed with an equal amount of dry leaves.",
+      "In the next stage, this mixture is placed in a covered compost bin with holes that allow air to enter. During the following eight weeks, the material is turned once a week. When the composting period is complete, the compost is passed through a screen so that larger pieces are removed. Finally, the finished product is taken to the school gardens, where it is spread around plants."
     ],
     "keySentences": [
       "The diagram illustrates how X is processed into Y.",
-      "Overall, the process begins with X and ends with Y.",
-      "First, X is collected and prepared.",
-      "Then, X is moved to Y, where it is processed.",
-      "After that, X is processed before it is transferred to Y.",
-      "Finally, the finished product is used for Y."
+      "Overall, the process consists of X main stages, beginning with A and ending with B.",
+      "At the first stage, X is collected and prepared.",
+      "X is then processed, after which it is mixed with Y.",
+      "During the following X weeks, the material is treated regularly. When this stage is complete, it is processed again.",
+      "Finally, the finished product is taken to Y, where it is used for Z."
     ],
     "transfer": "The diagram shows how used paper is collected and processed into new notebooks. 只写流程链、Overview和一个细节段。",
-    "note": "只背四段功能、6 个通用句块、First / Then / After that / Finally 和一般现在时被动。范文只用来看如何落地，不背整篇；题目中的专有名词、材料和地点可沿用，但题干整句要改写。"
+    "note": "重点背四段骨架和 6 个衔接句块，把 food waste / compost 等具体名词当作 X / Y 替换槽位。162 词范文可按段跟读，但不必死背题目专有名词；连接结构按功能使用，不追求生僻同义词。"
   },
   {
     "id": "W-T2-DISCUSSION-EDU",
