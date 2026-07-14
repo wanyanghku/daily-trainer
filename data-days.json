@@ -152,7 +152,7 @@
     "newWriting": null,
     "newLabel": "F1 发小 / 自学的人",
     "speakingSummary": "F1 主背；G3/G1/D 轮转；P1 A×3+B/C×2；P3 科技",
-    "writingSummary": "教育 Discussion 延迟回忆；柱状 → 饼图迁移",
+    "writingSummary": "教育 Discussion 延迟回忆；看双饼图做柱状 → 饼图迁移",
     "minutes": 90,
     "reviewP2": ["G3", "G1", "D"],
     "p1": [5, 6, 7, 25, 26],
@@ -163,7 +163,7 @@
     "outputs": [
       "F1 完整录音 2 次",
       "教育 Discussion 闭卷列四段提纲",
-      "饼图 8 分钟迁移：改写句 + Overview + 两组分法"
+      "看双饼图做 8 分钟迁移：改写句 + 2 句 Overview + 2 组数据比较"
     ],
     "note": "今天唯一新内容：F1；饼图只沿用已背柱状框架并补 4 句，不新背范文。"
   },
@@ -176,7 +176,7 @@
     "newWriting": "W-T1-MAP-RIVERSIDE",
     "newLabel": "Task 1 · 河岸地图",
     "speakingSummary": "F1/A/E 轮转；P1 A×3+C×2；P3 城市",
-    "writingSummary": "新学地图框架 + 5 个句块；范文只读不背",
+    "writingSummary": "新学地图四段框架 + 6 个句块；范文按框架跟读",
     "minutes": 100,
     "reviewP2": ["F1", "A", "E"],
     "p1": [8, 9, 10, 27, 28],
@@ -185,11 +185,11 @@
     "reviewWriting": ["W-T1-PROCESS-COMPOST", "W-T2-DISCUSSION-EDU"],
     "ref": ["early"],
     "outputs": [
-      "闭卷写地图四段框架 + 5 个位置/变化句块",
+      "闭卷写地图四段框架 + 6 个位置/变化句块",
       "20 分钟写地图完整稿",
       "F1 套 2 道人物题"
     ],
-    "note": "今天唯一新内容：地图四段框架 + 位置/变化句块；183 词范文只作参考，不要死背。"
+    "note": "今天唯一新内容：地图四段框架 + 6 个位置/变化句块；171 词范文按框架跟读，不要逐字死背。"
   },
   {
     "day": 9,

@@ -1,5 +1,5 @@
 /* Shared engine for the 10-day IELTS sprint — speaking + writing. */
-const VERSION='27';
+const VERSION='28';
 const DAY=window.DAY_CONFIG?window.DAY_CONFIG.day:'x';
 const KEY='ielts_sprint_20260712_day'+DAY+'_v1';
 const PROGRESS_KEY='ielts_sprint_20260712_progress';
@@ -141,19 +141,32 @@ function checkWriting(id,w){ const ta=document.getElementById('wcore'); st(id).c
 function saveWritingCore(id){ st(id).coreText=document.getElementById('wcore').value; save(); }
 function saveTransfer(id){ st(id).transferText=document.getElementById('transfer').value; save(); }
 
+function writingImageSheet(w,v,transfer=false){
+  const src=asset(v.image),alt=escAttr(v.alt||v.prompt||w.prompt),instruction=esc(v.instruction||'Summarise the information by selecting and reporting the main features, and make comparisons where relevant.');
+  const prompt=esc(v.prompt||w.prompt),width=v.imageWidth||1536,height=v.imageHeight||1024;
+  const heading=transfer?`<p class="transfer-kicker">${esc(v.label||'Task 1 迁移题')}</p>`:'<p class="task-time">You should spend about 20 minutes on this task.</p>';
+  const minimum=transfer?'':'<p><b>Write at least 150 words.</b></p>';
+  const caption=transfer?'原创迁移练习题图 · 点图可放大缩放':'原创训练题图 · 点图可放大缩放';
+  return `<section class="task-sheet${transfer?' transfer-sheet':''}" aria-label="${transfer?'Task 1 transfer practice':'IELTS Academic Writing Task 1 training question'}">
+    ${heading}
+    <p>${prompt}</p>
+    <p>${instruction}</p>
+    ${minimum}
+    <figure class="task-figure"><a href="${src}" target="_blank" rel="noopener" aria-label="打开并放大题图"><img src="${src}" width="${width}" height="${height}" alt="${alt}" decoding="async"></a><figcaption>${caption}</figcaption></figure>
+  </section>`;
+}
+
 function writingVisual(w){ const v=w.visual; if(!v)return '';
   let fallback='';
   if(v.type==='map') fallback=`<div class="visualbox"><div class="lab">训练用文字化地图信息</div>${v.fixed?`<div class="mapfixed"><b>固定方位</b>${v.fixed.join(' · ')}</div>`:''}<div class="mapcompare"><section><b>2000</b>${v.before.map(x=>`<span>${x}</span>`).join('')}</section><section><b>现在</b>${v.after.map(x=>`<span>${x}</span>`).join('')}</section></div></div>`;
   if(!v.image)return fallback;
-  const src=asset(v.image),alt=escAttr(v.alt||w.prompt),instruction=esc(v.instruction||'Summarise the information by selecting and reporting the main features.');
-  const sheet=`<section class="task-sheet" aria-label="IELTS Academic Writing Task 1 training question">
-    <p class="task-time">You should spend about 20 minutes on this task.</p>
-    <p>${esc(w.prompt)}</p>
-    <p>${instruction}</p>
-    <p><b>Write at least 150 words.</b></p>
-    <figure class="task-figure"><a href="${src}" target="_blank" rel="noopener" aria-label="打开并放大流程图"><img src="${src}" width="${v.imageWidth||1536}" height="${v.imageHeight||1024}" alt="${alt}" decoding="async"></a><figcaption>原创训练题图 · 点图可放大缩放</figcaption></figure>
-  </section>`;
-  return sheet;
+  return writingImageSheet(w,v,false);
+}
+
+function writingTransferVisual(w){ const v=w.transferVisual;
+  if(!v||!v.image)return '';
+  if(v.day&&Number(window.DAY_CONFIG.day)!==Number(v.day))return '';
+  return writingImageSheet(w,v,true);
 }
 
 function writingMethodHTML(w,collapsed=false){ const m=w.method; if(!m)return '';
@@ -246,7 +259,7 @@ function renderDetail(){
         ${w.visual&&w.visual.image?writingVisual(w):`<div class="d-cue">${w.prompt}</div>`}${writingMethodHTML(w,true)}<div class="chain"><span class="lab">闭卷复原</span>${w.chain}</div>
         <div class="row seg">${player(aud(w.audio))}<span class="hint">核对后再听</span></div>
         <details class="keybox"><summary>展开核心句与原文</summary><ul>${w.keySentences.map(x=>`<li>${x}</li>`).join('')}</ul><div class="script">${w.script.map(p=>`<p>${p}</p>`).join('')}</div></details>
-        <div class="transferq"><b>迁移：</b>${w.transfer}</div>${w.note?`<div class="hint">${w.note}</div>`:''}</div>`;
+        ${writingTransferVisual(w)}<div class="transferq"><b>迁移：</b>${w.transfer}</div>${w.note?`<div class="hint">${w.note}</div>`:''}</div>`;
     });
     h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?'✓ 已闭卷复原':'复习完成 ✓'}</button></div>`;
   }

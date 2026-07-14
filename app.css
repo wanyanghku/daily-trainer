@@ -116,6 +116,8 @@ details.writing-method{padding:0 11px; border:1px solid #cfe8e4; border-left:3px
 .task-figure a:focus-visible{outline:3px solid #5eead4; outline-offset:2px;}
 .task-figure img{display:block; width:100%; height:auto; background:#fff;}
 .task-figure figcaption{text-align:center; color:#64748b; font:11px/1.4 "PingFang SC","Hiragino Sans GB",sans-serif; margin-top:6px;}
+.transfer-sheet{border-left:3px solid var(--teal); margin-top:12px;}
+.transfer-sheet .transfer-kicker{color:var(--teal); font-family:"PingFang SC","Hiragino Sans GB",sans-serif; font-size:11px; font-weight:800; letter-spacing:.04em;}
 .visualbox{background:#fff; border:1px solid var(--line); border-radius:12px; padding:11px; margin:10px 0;}
 .visualbox>.lab{font-size:11px; color:var(--mut); font-weight:700; margin-bottom:8px;}
 .mapcompare{display:grid; grid-template-columns:1fr 1fr; gap:9px;}

@@ -7,6 +7,14 @@
     "learned": true,
     "audio": "essay-line",
     "prompt": "The line graph shows the number of visitors to three museums in London between 2010 and 2020.",
+    "visual": {
+      "type": "line",
+      "image": "assets/writing/task1-line-museums.webp",
+      "imageWidth": 1536,
+      "imageHeight": 960,
+      "alt": "Line graph comparing visitor numbers for the British Museum, Science Museum and Natural History Museum from 2010 to 2020",
+      "instruction": "Summarise the information by selecting and reporting the main features, and make comparisons where relevant."
+    },
     "method": {
       "title": "折线图通用四段法：趋势分组 + 对比",
       "source": "讲义 p.10（展开 p.7-9）",
@@ -38,6 +46,25 @@
     "learned": true,
     "audio": "essay-bar",
     "prompt": "The bar chart compares household internet access in four countries in 2010 and 2020.",
+    "visual": {
+      "type": "bar",
+      "image": "assets/writing/task1-bar-internet-access.webp",
+      "imageWidth": 1536,
+      "imageHeight": 960,
+      "alt": "Grouped bar chart comparing household internet access in the UK, Germany, France and Italy in 2010 and 2020",
+      "instruction": "Summarise the information by selecting and reporting the main features, and make comparisons where relevant."
+    },
+    "transferVisual": {
+      "type": "pie",
+      "day": 7,
+      "label": "柱状图 → 饼图迁移题",
+      "prompt": "The pie charts show how average household expenditure in a city was distributed among five categories in 2000 and 2020.",
+      "instruction": "Write a paraphrase, two Overview sentences and two data comparisons.",
+      "image": "assets/writing/task1-pie-household-spending.webp",
+      "imageWidth": 1536,
+      "imageHeight": 960,
+      "alt": "Two pie charts comparing average household expenditure on food, housing, transport, leisure and other items in 2000 and 2020"
+    },
     "method": {
       "title": "柱状图四段法（同框架覆盖饼图）",
       "source": "柱状图：讲义 p.16-17；饼图：p.23-24",
@@ -188,32 +215,38 @@
       "title": "地图题通用四段法：最大变化 + 分区对照",
       "source": "讲义 p.51-52（展开 p.48-51）",
       "paragraphs": [
-        {"label": "第1段 · 改写题目", "text": "改写题干，说明地图比较的地点、时间或改造前后状态。"},
-        {"label": "第2段 · Overview", "text": "用 Overall 概括最显著的两个变化，例如整体用途转变、规模扩张，以及主要新增、拆除或保留的设施。"},
-        {"label": "第3段 · Detail 1", "text": "把变化按区域、设施类型或时间分成两组，本段写第一组；说明准确位置及新增、拆除、替换、搬迁或扩建。"},
-        {"label": "第4段 · Detail 2", "text": "写另一组区域或设施，与原布局对照，补充位置和变化，不遗漏重要保留项。"}
+        {"label": "第1段 · 改写题目", "text": "改写题干，说明比较地点和两个时间。句型：The maps compare the layout of X in two different periods."},
+        {"label": "第2段 · Overview", "text": "写最大整体转变，再补主要替换和保留项。句型：Overall, the area has changed from X into Y. / X has been replaced by Y, while Z remains unchanged."},
+        {"label": "第3段 · Detail 1", "text": "先写旧图，按区域交代设施、准确位置和缺失项；只选能帮助对照新图的信息。"},
+        {"label": "第4段 · Detail 2", "text": "再写新图，用 former site / is occupied by / has been built / has been widened 串起替换、新增、扩建与保留。"}
       ],
       "transfer": "时态跟地图时间一致：过去图用过去时，现在图用现在时，规划图用将来表达。只客观描述空间变化，不评价规划好坏；Detail 不必各写 4 句，分组也不必平均。"
     },
-    "chain": "改写题目 → Overview写工业区变住宅休闲区+河流主路不变 → 过去布局 → 现在按原位置写替换/新增/保留",
+    "chain": "地点+两个时间 → 工业区变住宅休闲区+保留项 → 2000按北岸/南岸写 → 现在按原位置写替换/新增/扩建",
     "visual": {
       "type": "map",
+      "image": "assets/writing/task1-map-riverside.webp",
+      "imageWidth": 1536,
+      "imageHeight": 1024,
+      "alt": "Two maps comparing the Riverside district in 2000 and at present",
+      "instruction": "Summarise the information by selecting and reporting the main features, and make comparisons where relevant.",
       "fixed": ["河流东西向贯穿中部", "主路南北向位于西侧", "河流与主路位置不变"],
       "before": ["河以北中部:3座工厂", "西侧主路旁:一排仓储建筑", "东北角:少量住宅", "南岸:狭窄公园", "两岸之间:无过河通道"],
       "after": ["原工厂位置:公寓楼", "原仓储建筑位置:超市和停车场", "东北住宅保留", "住宅正西侧:新增学校", "南岸公园拓宽并新增咖啡馆和自行车道", "新增人行桥连接北侧住宅区和南岸公园"]
     },
     "script": [
-      "The maps compare the layout of the Riverside district in 2000 with its present-day arrangement.",
-      "Overall, the area has changed from a mainly industrial district into a mixed residential and leisure neighbourhood. The river and main road are unchanged, but factories and storage buildings have been replaced, while access across the river has improved.",
-      "In 2000, three factories occupied most of the land north of the river, with a row of storage buildings beside the main road in the west. A small group of houses stood in the northeast. The only green space was a narrow park along the southern bank, and there was no direct crossing between the two sides.",
-      "Today, apartment blocks stand on the former factory sites, and the old storage area has become a supermarket with a car park. The original houses remain, but a school has been built immediately to their west. The riverside park has been widened and now contains a café and a cycle path. Finally, a footbridge connects the new residential area to the park, whereas the main road follows the same route as before."
+      "The maps compare the layout of the Riverside district in two different periods: 2000 and the present.",
+      "Overall, the area has changed from an industrial district into a residential and leisure neighbourhood. The industrial buildings have been replaced by homes and facilities, while the river and main road remain unchanged.",
+      "In 2000, three factories stood north of the river. A row of storage buildings was located beside the main road in the west, while a small group of houses occupied the northeast corner. South of the river, there was only a narrow park, and no bridge connected the two banks.",
+      "Today, the former factory sites are occupied by apartment blocks, while the storage area has become a supermarket and a car park. The original houses remain, and a new school has been built immediately to their west. The park has been widened and now contains a cafe and a cycle path. Finally, a footbridge connects the residential area with the park, whereas the main road follows the same route as before."
     ],
     "keySentences": [
       "The maps compare the layout of X in two different periods.",
       "Overall, the area has changed from X into Y.",
       "X has been replaced by Y, while Z remains unchanged.",
-      "The former site of X is now occupied by Y.",
-      "The main road follows the same route as before."
+      "The former X sites are occupied by Y.",
+      "A new X has been built immediately to the west of Y.",
+      "X has been widened and now contains Y, whereas Z follows the same route as before."
     ],
     "transfer": "The maps show a public park in 1990 and after its recent redevelopment. 只写变化分组、Overview和一个细节段。",
     "note": "重点背最大变化、保留项和位置表达；不要逐个设施机械点名。"
