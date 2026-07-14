@@ -39,15 +39,15 @@
     "audio": "essay-bar",
     "prompt": "The bar chart compares household internet access in four countries in 2010 and 2020.",
     "method": {
-      "title": "柱状图通用四段法：抓高低 + 合理分组",
-      "source": "讲义 p.16-17（展开 p.13-15）",
+      "title": "柱状图四段法（同框架覆盖饼图）",
+      "source": "柱状图：讲义 p.16-17；饼图：p.23-24",
       "paragraphs": [
         {"label": "第1段 · 改写题目", "text": "换词或换句型，交代比较对象、指标、地点或类别，以及题目给出的时间。"},
         {"label": "第2段 · Overview", "text": "用 Overall 概括最显著的两个特点，如最高最低、主导类别、共同模式或异常项；只有带时间变化时才分析趋势和拐点。"},
         {"label": "第3段 · Detail 1", "text": "按高低、相似程度、类别或时间把对象分成两组，本段写第一组；选择关键数据，并比较差异或相似点。"},
         {"label": "第4段 · Detail 2", "text": "写另一组对象，继续围绕关键数据作比较，不按每根柱子机械报数。"}
       ],
-      "transfer": "静态柱状图不能强写上升、下降或拐点；过去数据用一般过去时。只描述数据，不分析原因。Detail 不足 4 句不用硬挤，句式变化也是有余力再做。"
+      "transfer": "饼图不用新背一套框架。只补 4 句：The pie charts compare the proportions of X in Y. / Overall, X accounted for the largest share, whereas Y made up the smallest. / X represented A%, compared with B% for Y. / Together, X and Y accounted for C% of the total. 单年份只比占比；有不同年份才写上升或下降。"
     },
     "chain": "改写题目 → Overview写四国都上升+英国两年最高 → 按高低两组比较数据",
     "script": [
@@ -58,8 +58,8 @@
       "The UK had the highest level in both years.",
       "Germany followed a similar pattern, climbing from X to Y."
     ],
-    "transfer": "不看模板，给另一张柱状图写两句 Overview，并把数据按高低分成两组。",
-    "note": "已背模板复习，不是完整答案；真实考试必须扩展到 150 词以上。"
+    "transfer": "用已背的柱状图框架，给一张饼图写改写句、两句 Overview，并按占比高低分成两组。",
+    "note": "已背柱状模板的正文和音频不变；饼图只做语言迁移，不新背整篇范文。真实考试仍须写到 150 词以上。"
   },
   {
     "id": "W-T2-OPINION-TECH",
@@ -113,9 +113,9 @@
         {"label": "第3段 · Detail 1", "text": "按自然阶段把步骤分成两组，本段依图中顺序写第一组；通常使用一般现在时、被动语态和顺序连接词。"},
         {"label": "第4段 · Detail 2", "text": "继续按顺序写剩余步骤直到最终结果；若题目由两幅图组成，也可在本段写第二幅图。"}
       ],
-      "transfer": "流程图通常用一般现在时和被动语态，并用 firstly、then、subsequently、finally 等词说明顺序。只客观描述图中步骤，不加入原因或评价；两组不必平均，也不用硬凑 4 句。"
+      "transfer": "流程图通常用一般现在时和被动语态。顺序词只熟练 First、Then、After that、Finally，不要每句硬塞一个。只客观描述图中步骤，不加入原因或评价；两组不必平均，也不用硬凑 4 句。"
     },
-    "chain": "改写题目 → Overview写起点/终点/约8周 → 收集并筛除杂物 → 切碎+混入干叶 → 通气翻动 → 筛分后用于花园",
+    "chain": "固定框架：改写 → Overview（起点+终点）→ 前半步骤 → 后半步骤｜本题只填：收集/除杂物 → 切碎/混干叶 → 通气/翻动 → 筛分/用于花园",
     "visual": {
       "type": "process",
       "image": "assets/writing/task1-process-compost.webp",
@@ -132,13 +132,14 @@
     ],
     "keySentences": [
       "The diagram illustrates how X is processed into Y.",
-      "Overall, it is a multi-stage, man-made process.",
-      "It starts with X and finishes when Y.",
-      "The material is then transferred to X, where Y.",
-      "Finally, the finished product is transported to X."
+      "Overall, the process begins with X and ends with Y.",
+      "First, X is collected and prepared.",
+      "Then, X is moved to Y, where it is processed.",
+      "After that, X is processed before it is transferred to Y.",
+      "Finally, the finished product is used for Y."
     ],
     "transfer": "The diagram shows how used paper is collected and processed into new notebooks. 只写流程链、Overview和一个细节段。",
-    "note": "重点背流程顺序、被动语态和 Overview，不加入图外原因或评价。"
+    "note": "只背四段功能、6 个通用句块、First / Then / After that / Finally 和一般现在时被动。范文只用来看如何落地，不背整篇；题目中的专有名词、材料和地点可沿用，但题干整句要改写。"
   },
   {
     "id": "W-T2-DISCUSSION-EDU",

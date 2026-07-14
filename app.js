@@ -1,5 +1,5 @@
 /* Shared engine for the 10-day IELTS sprint — speaking + writing. */
-const VERSION='25';
+const VERSION='26';
 const DAY=window.DAY_CONFIG?window.DAY_CONFIG.day:'x';
 const KEY='ielts_sprint_20260712_day'+DAY+'_v1';
 const PROGRESS_KEY='ielts_sprint_20260712_progress';
@@ -73,7 +73,7 @@ async function boot(){
   ITEMS=[];
   if((cfg.newP2?1:0)+(cfg.newWriting?1:0)!==1) throw new Error('Each sprint day must have exactly one new item');
   if(cfg.newP2){ const m=P2[cfg.newP2]; ITEMS.push({type:'memo',tier:'core',id:'new_'+m.id,m,title:`今日唯一新内容 · 母题 ${m.id} ${m.cn}`,icon:'🎤',sub:'朗读×3 → 关键词复述×2 → 默写检验×1'}); }
-  if(cfg.newWriting){ const w=WRITING[cfg.newWriting]; ITEMS.push({type:'writingmemo',tier:'core',id:'wnew_'+w.id,w,title:`今日唯一新内容 · ${w.task} ${w.type} · ${w.cn}`,icon:'✍️',sub:'范文学习 → 闭卷逻辑链 → 核心句 → 换题仿写'}); }
+  if(cfg.newWriting){ const w=WRITING[cfg.newWriting]; const sub=w.task==='Task 1'?'通用框架 → 简单句块 → 看范文落地 → 换图仿写':'范文学习 → 闭卷逻辑链 → 核心句 → 换题仿写'; ITEMS.push({type:'writingmemo',tier:'core',id:'wnew_'+w.id,w,title:`今日唯一新内容 · ${w.task} ${w.type} · ${w.cn}`,icon:'✍️',sub}); }
   (cfg.reviewP2||[]).forEach(id=>{ const m=P2[id]; ITEMS.push({type:'review',tier:'core',id:'rev_'+id,m,title:`母题 ${id} · ${m.cn}（复习）`,icon:'🔁',sub:'看关键词链复述 + 听'}); });
   if(cfg.reviewWriting&&cfg.reviewWriting.length){ const ws=cfg.reviewWriting.map(id=>WRITING[id]).filter(Boolean); ITEMS.push({type:'writingreview',tier:'core',id:'wrev',ws,title:`写作到期复习 · ${ws.length} 张`,icon:'↺',sub:'不看原文先复原结构，再核核心句'}); }
   if(cfg.p1&&cfg.p1.length){ ITEMS.push({type:'p1review',tier:'core',id:'p1',idxs:cfg.p1,title:'P1 复习/口答 · '+cfg.p1.length+' 个话题',icon:'🗣️',sub:'3 个 A 级间隔复习 + 2 个 B/C 级口答，不背全文'}); }
@@ -160,7 +160,8 @@ function writingMethodHTML(w,collapsed=false){ const m=w.method; if(!m)return ''
   const rows=(m.paragraphs||[]).map(p=>`<li><b>${esc(p.label)}</b><span>${esc(p.text)}</span></li>`).join('');
   const body=`<div class="method-body"><ol class="method-steps">${rows}</ol>${m.transfer?`<div class="method-transfer"><b>使用提醒</b><span>${esc(m.transfer)}</span></div>`:''}</div>`;
   if(collapsed)return `<details class="writing-method method-review"><summary><span><b>题型通用模板</b><small>${esc(m.title||'通用四段法')} · ${esc(m.source||'')}</small></span><i class="method-toggle" aria-hidden="true"></i></summary>${body}</details>`;
-  return `<section class="writing-method" aria-label="题型通用模板"><div class="method-head"><div><span>先看通用模板，再学范文</span><strong>${esc(m.title||'通用四段法')}</strong></div><small>${esc(m.source||'')}</small></div>${body}</section>`;
+  const lead=w.task==='Task 1'?'先背通用框架，再看范文如何落地':'先看通用模板，再学范文';
+  return `<section class="writing-method" aria-label="题型通用模板"><div class="method-head"><div><span>${lead}</span><strong>${esc(m.title||'通用四段法')}</strong></div><small>${esc(m.source||'')}</small></div>${body}</section>`;
 }
 
 function renderList(){
@@ -209,20 +210,22 @@ function renderDetail(){
     h+=scriptHTML(m,i.id);
   }
   else if(i.type==='writingmemo'){ const w=i.w;
+    const task1=w.task==='Task 1';
     h+=`<div class="row">${player(aud(w.audio))}<span class="hint">先听懂结构，不追求逐字死背</span></div>`;
     h+=`<div class="wordmeta">${w.task} · ${wordCount(w.script.join(' '))} words · 目标 6.5</div>`;
     h+=writingVisual(w);
     h+=writingMethodHTML(w);
-    h+=`<div class="chain writingchain"><span class="lab">段落逻辑链（先背这个）</span>${w.chain}</div>`;
+    h+=`<div class="chain writingchain"><span class="lab">${task1?'本题信息链（看图会填，不背原句）':'段落逻辑链（先背这个）'}</span>${w.chain}</div>`;
     h+=`<div class="notice"><b>6.5 目标：</b>${w.note}</div>`;
-    [['read','精读并听范文','标出每段功能',2],['outline','闭卷复原逻辑链','只看题目说出四段',2],['core','默写核心句','不默写整篇',1]].forEach(([k,n,sub,t])=>{
+    const writingSteps=task1?[['read','看框架并听范文','只标四段功能',2],['outline','闭卷写四段框架','具体信息现场看图填',2],['core','默写通用句块','不默写整篇',1]]:[['read','精读并听范文','标出每段功能',2],['outline','闭卷复原逻辑链','只看题目说出四段',2],['core','默写核心句','不默写整篇',1]];
+    writingSteps.forEach(([k,n,sub,t])=>{
       const v=s[k]||0,full=v>=t; let d=''; for(let x=0;x<t;x++)d+=`<span class="dot ${x<v?'on':''}"></span>`;
       h+=`<div class="step ${full?'full':''}"><div class="step-top"><div class="step-name">${full?'✓ ':''}${n} <span class="sub">· ${sub}</span></div><div class="dots">${d}<button class="plus" ${full?'disabled':''} onclick="inc('${i.id}','${k}',${t})">+</button></div></div></div>`;
     });
-    h+=`<div class="step"><div class="step-name">核心句检验</div><div class="hint">凭记忆写 3–5 句，再点对照；允许同义表达。</div>
+    h+=`<div class="step"><div class="step-name">${task1?'通用句块检验':'核心句检验'}</div><div class="hint">${task1?'凭记忆写 4–6 个框架句；题目名词可以沿用，题干整句不照抄。':'凭记忆写 3–5 句，再点对照；允许同义表达。'}</div>
       <textarea id="wcore" placeholder="在这里写核心句…" oninput="saveWritingCore('${i.id}')">${s.coreText||''}</textarea>
       <div class="row"><button class="btn primary" onclick="checkWriting('${i.id}',ITEMS[${view.id}].w)">对照核心句</button></div><div id="wcoreRes"></div></div>`;
-    h+=`<details class="keybox"><summary>查看可迁移核心句</summary><ul>${w.keySentences.map(x=>`<li>${x}</li>`).join('')}</ul></details>`;
+    h+=`<details class="keybox"><summary>${task1?'查看要背的通用句块':'查看可迁移核心句'}</summary><ul>${w.keySentences.map(x=>`<li>${x}</li>`).join('')}</ul></details>`;
     const transferDone=(s.transfer||0)>=1;
     h+=`<div class="step ${transferDone?'full':''}"><div class="step-name">${transferDone?'✓ ':''}换题仿写 <span class="sub">· 当天完成迁移</span></div><div class="transferq">${w.transfer}</div>
       <textarea id="transfer" placeholder="先列提纲；Task 2 写一个主体段，Task 1 写 Overview + 一个细节段…" oninput="saveTransfer('${i.id}')">${s.transferText||''}</textarea>
@@ -236,7 +239,7 @@ function renderDetail(){
     h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?'✓ 已复述(取消)':'复述完了 ✓'}</button></div>`;
   }
   else if(i.type==='writingreview'){
-    h+=`<div class="hint">主动回忆（retrieval）：先只看题目说出结构，再展开查看。折线/柱状是已背短模板，真实考试仍须写到 150 词以上。</div>`;
+    h+=`<div class="hint">主动回忆（retrieval）：先只看题目说出结构，再展开查看。折线/柱状是已背短模板；饼图直接迁移柱状框架。真实考试仍须写到 150 词以上。</div>`;
     i.ws.forEach(w=>{
       const label=w.learned?'已背模板复习':'到期范文复习';
       h+=`<div class="p1t writingrev"><div class="p1t-h">${w.task} · ${w.type} <span class="cn">${label}</span></div>
