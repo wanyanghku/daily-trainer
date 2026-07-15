@@ -38,6 +38,16 @@
   .progress-meta strong{color:var(--ink);font-size:12px}
   .track{height:6px;overflow:hidden;border-radius:99px;background:#dfe8e6}
   .track i{display:block;height:100%;width:0;border-radius:inherit;background:var(--teal);transition:width .35s ease}
+  .export-strip{display:grid;grid-template-columns:42px minmax(0,1fr) auto;align-items:center;gap:11px;width:calc(100% - 4px);min-height:64px;margin:5px 2px 8px;padding:10px 12px;border:1px solid var(--line);border-radius:14px;color:inherit;background:var(--paper);text-align:left;cursor:pointer;touch-action:manipulation;transition:border-color .18s ease,background-color .18s ease,transform .12s ease}
+  .export-strip:active{transform:translateY(1px);background:#f8fbfa}
+  .export-strip:disabled{cursor:wait;opacity:.72}
+  .export-icon{display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:12px;color:var(--teal-dark);background:var(--teal-soft);font-size:18px;font-weight:900}
+  .export-copy strong{display:block;font-size:13.5px}
+  .export-copy span{display:block;margin-top:1px;color:var(--muted);font-size:10.5px;line-height:1.45}
+  .export-go{color:var(--teal);font-size:12px;font-weight:800;white-space:nowrap}
+  .export-status{min-height:16px;margin:-2px 4px 7px;color:var(--muted);font-size:10px;line-height:1.45}
+  .export-status.success{color:var(--teal-dark)}
+  .export-status.error{color:#a33a32}
   .practice-strip{display:grid;grid-template-columns:42px minmax(0,1fr) auto;align-items:center;gap:11px;margin:5px 2px 15px;padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);color:inherit;text-decoration:none}
   .practice-icon{display:flex;align-items:center;justify-content:center;width:42px;height:42px;border-radius:12px;color:#fff;background:var(--teal);font-size:19px}
   .practice-copy strong{display:block;font-size:13.5px}
@@ -57,7 +67,7 @@
   .check{align-self:start;width:26px;height:26px;margin:14px 0 0 10px;padding:0;border:1.5px solid #bdcbc8;border-radius:8px;color:transparent;background:#fff;cursor:pointer;font-size:14px;font-weight:900;line-height:23px}
   .check.done{border-color:var(--teal);color:#fff;background:var(--teal)}
   .check:disabled{cursor:default;opacity:1}
-  .check:focus-visible,.day-link:focus-visible,.start:focus-visible,.practice-strip:focus-visible{outline:3px solid rgba(11,118,110,.25);outline-offset:2px}
+  .check:focus-visible,.day-link:focus-visible,.start:focus-visible,.export-strip:focus-visible,.practice-strip:focus-visible{outline:3px solid rgba(11,118,110,.25);outline-offset:2px}
   .day-link{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;padding:11px 13px 11px 3px;color:inherit;text-decoration:none}
   .day-link:active{background:rgba(11,118,110,.035)}
   .day-meta{display:flex;align-items:center;gap:7px;color:var(--muted);font-size:10.5px;font-variant-numeric:tabular-nums}
@@ -96,17 +106,33 @@ const EXAM_DATE='2026-07-23';
 const LIGHT_DATE='2026-07-22';
 const PROGRESS_KEY='ielts_sprint_20260712_progress';
 const DONE_KEY='ielts_sprint_20260712_done';
+const DAY_STATE_KEY=day=>`ielts_sprint_20260712_day${day}_v1`;
+const EXPORT_SCHEMA='ielts-review-export/v1';
 const PHASES={
   1:{title:'阶段 1 · 建立输入',range:'Day 1–4 · 新口语与新范文交替'},
   2:{title:'阶段 2 · 迁移巩固',range:'Day 5–8 · 背完立刻换题'},
   3:{title:'阶段 3 · 收口输出',range:'Day 9–10 · 最后两项 + 限时练习'}
 };
 let DAYS=[];
+let EXPORT_READY=false;
+let EXPORT_SOURCE={p1:[],p2:[],p3:[],writing:[],reference:[],appVersion:null,warnings:[]};
 
 function loadStore(key){
   try{return JSON.parse(localStorage.getItem(key)||'{}')||{};}catch(_){return {};}
 }
 function saveStore(key,value){localStorage.setItem(key,JSON.stringify(value));}
+function exportStore(key,warnings){
+  const raw=localStorage.getItem(key);
+  if(raw===null)return {};
+  try{
+    const parsed=JSON.parse(raw);
+    if(!parsed||typeof parsed!=='object'||Array.isArray(parsed))throw new Error('not an object');
+    return parsed;
+  }catch(_){
+    warnings.push(`${key} 无法解析，已按空记录导出`);
+    return {};
+  }
+}
 function localISO(){
   const now=new Date();
   const y=now.getFullYear(),m=String(now.getMonth()+1).padStart(2,'0'),d=String(now.getDate()).padStart(2,'0');
@@ -120,6 +146,232 @@ function daysUntil(iso){
 function shortDate(iso){return iso.slice(5).replace('-','/');}
 function esc(value){
   return String(value).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function sourceById(kind,id){
+  const list=EXPORT_SOURCE[kind]||[];
+  if(kind==='p1'||kind==='p3')return list[Number(id)]||null;
+  return list.find(item=>String(item.id)===String(id))||null;
+}
+function contentRef(kind,id,warnings){
+  const item=sourceById(kind,id);
+  if(!item){
+    warnings.push(`${kind}:${id} 在导出目录中未找到`);
+    return {kind,id:String(id),unresolved:true};
+  }
+  if(kind==='p1')return {kind,index:Number(id),topic:item.topic,cn:item.cn,tier:item.tier};
+  if(kind==='p3')return {kind,index:Number(id),topic:item.topic,cn:item.cn};
+  if(kind==='p2')return {kind,id:item.id,cn:item.cn};
+  if(kind==='writing')return {kind,id:item.id,task:item.task,type:item.type,cn:item.cn,learned:!!item.learned};
+  return {kind,id:item.id,cn:item.cn,covers:item.covers};
+}
+function activitySpecs(day,warnings){
+  const specs=[];
+  if(day.newP2){
+    const ref=contentRef('p2',day.newP2,warnings);
+    specs.push({activityId:`day${day.day}:p2-new:${day.newP2}`,category:'speaking',part:'p2',mode:'new',tier:'core',label:`母题 ${day.newP2} · ${ref.cn||day.newP2}`,contentRefs:[ref],storageItemId:`new_${day.newP2}`,tracking:'counters',targets:{read:3,recall:2,dictate:1},textFields:{dictation:'dictText'}});
+  }
+  if(day.newWriting){
+    const ref=contentRef('writing',day.newWriting,warnings);
+    specs.push({activityId:`day${day.day}:writing-new:${day.newWriting}`,category:'writing',part:'writing',mode:'new',tier:'core',label:`${ref.task||'Writing'} ${ref.type||''} · ${ref.cn||day.newWriting}`.trim(),contentRefs:[ref],storageItemId:`wnew_${day.newWriting}`,tracking:'counters',targets:{read:2,outline:2,core:1,transfer:1},textFields:{corePractice:'coreText',transferPractice:'transferText'}});
+  }
+  (day.reviewP2||[]).forEach(id=>{
+    const ref=contentRef('p2',id,warnings);
+    specs.push({activityId:`day${day.day}:p2-review:${id}`,category:'speaking',part:'p2',mode:'review',tier:'core',label:`母题 ${id} · ${ref.cn||id}（复习）`,contentRefs:[ref],storageItemId:`rev_${id}`,tracking:'boolean'});
+  });
+  if(day.reviewWriting&&day.reviewWriting.length){
+    const refs=day.reviewWriting.map(id=>contentRef('writing',id,warnings));
+    specs.push({activityId:`day${day.day}:writing-review`,category:'writing',part:'writing',mode:'review',tier:'core',label:`写作到期复习 · ${refs.length} 张`,contentRefs:refs,storageItemId:'wrev',tracking:'group_boolean'});
+  }
+  if(day.p1&&day.p1.length){
+    specs.push({activityId:`day${day.day}:p1-main`,category:'speaking',part:'p1',mode:'review',tier:'core',label:`P1 复习/口答 · ${day.p1.length} 个话题`,contentRefs:day.p1.map(index=>contentRef('p1',index,warnings)),storageItemId:'p1',tracking:'group_boolean'});
+  }
+  if(day.p1prev&&day.p1prev.length){
+    specs.push({activityId:`day${day.day}:p1-quick`,category:'speaking',part:'p1',mode:'quick_review',tier:'bonus',label:`P1 快速回扫 · ${day.p1prev.length} 个话题`,contentRefs:day.p1prev.map(index=>contentRef('p1',index,warnings)),storageItemId:'p1q',tracking:'group_boolean'});
+  }
+  if(day.p3!==null&&day.p3!==undefined){
+    const ref=contentRef('p3',day.p3,warnings);
+    specs.push({activityId:`day${day.day}:p3`,category:'speaking',part:'p3',mode:'practice',tier:'bonus',label:`P3 · ${ref.cn||ref.topic||day.p3}`,contentRefs:[ref],storageItemId:'p3',tracking:'boolean'});
+  }
+  if(day.ref&&day.ref.length){
+    specs.push({activityId:`day${day.day}:reference`,category:'speaking',part:'reference',mode:'review',tier:'bonus',label:`套用速查卡 · ${day.ref.length} 张`,contentRefs:day.ref.map(id=>contentRef('reference',id,warnings)),storageItemId:'REFC',tracking:'group_boolean'});
+  }
+  if(day.outputs&&day.outputs.length){
+    const refs=day.outputs.map((title,index)=>({kind:'output',id:`day${day.day}-${index+1}`,title}));
+    specs.push({activityId:`day${day.day}:output`,category:'mixed',part:'output',mode:'verification',tier:'core',label:'今日输出验收',contentRefs:refs,storageItemId:'OUT',tracking:'group_boolean'});
+  }
+  specs.push({activityId:`day${day.day}:mock`,category:'speaking',part:'mock',mode:'practice',tier:'bonus',label:'Live 模拟考 / 录音自查',contentRefs:[{kind:'day',id:String(day.day),title:'当日口语模拟'}],storageItemId:'REC',tracking:'boolean'});
+  return specs;
+}
+function normalCount(value,target,label,warnings){
+  const number=Number(value===undefined?0:value);
+  if(!Number.isFinite(number)){
+    warnings.push(`${label} 不是有效数字，已按 0 处理`);
+    return 0;
+  }
+  const fixed=Math.max(0,Math.min(target,Math.round(number)));
+  if(fixed!==number)warnings.push(`${label} 超出记录范围，已限制为 0–${target}`);
+  return fixed;
+}
+function buildActivity(spec,dayState,warnings){
+  const raw=dayState[spec.storageItemId];
+  const saved=raw&&typeof raw==='object'&&!Array.isArray(raw)?raw:{};
+  const userText={};
+  Object.entries(spec.textFields||{}).forEach(([label,key])=>{
+    if(typeof saved[key]==='string'&&saved[key].length)userText[label]=saved[key];
+  });
+  const highlightedTokenCount=Array.isArray(saved.hl)?saved.hl.length:0;
+  if(saved.hl!==undefined&&!Array.isArray(saved.hl))warnings.push(`Day ${dayState.__day||'?'} ${spec.storageItemId}.hl 格式异常，已忽略`);
+  let attempts={},markedDone=false,status='not_started',progressPercent=0;
+  if(spec.tracking==='counters'){
+    let doneTotal=0,targetTotal=0;
+    Object.entries(spec.targets).forEach(([field,target])=>{
+      const done=normalCount(saved[field],target,`Day ${dayState.__day||'?'} ${spec.storageItemId}.${field}`,warnings);
+      attempts[field]={done,target};doneTotal+=done;targetTotal+=target;
+    });
+    progressPercent=targetTotal?Math.round(doneTotal/targetTotal*100):0;
+    const interacted=doneTotal>0||Object.keys(userText).length>0||highlightedTokenCount>0;
+    status=progressPercent>=100?'completed':interacted?'in_progress':'not_started';
+  }else{
+    markedDone=saved.done===true;
+    status=markedDone?'completed':'not_started';
+    progressPercent=markedDone?100:0;
+  }
+  return {...spec,status,progressPercent,attempts,markedDone,userText,highlightedTokenCount};
+}
+function statusCounts(activities){
+  return ['completed','in_progress','not_started'].reduce((result,status)=>{
+    result[status]=activities.filter(item=>item.status===status).length;return result;
+  },{});
+}
+function buildCatalog(){
+  return {
+    p1:EXPORT_SOURCE.p1.map((item,index)=>({index,topic:item.topic,cn:item.cn,tier:item.tier,questionCount:Array.isArray(item.qa)?item.qa.length:0})),
+    p2:EXPORT_SOURCE.p2.map(item=>({id:item.id,cn:item.cn,cue:item.cue})),
+    p3:EXPORT_SOURCE.p3.map((item,index)=>({index,topic:item.topic,cn:item.cn,questionCount:Array.isArray(item.qa)?item.qa.length:0})),
+    writing:EXPORT_SOURCE.writing.map(item=>({id:item.id,task:item.task,type:item.type,cn:item.cn,learned:!!item.learned,prompt:item.prompt})),
+    reference:EXPORT_SOURCE.reference.map(item=>({id:item.id,cn:item.cn,covers:item.covers}))
+  };
+}
+function buildReviewExport(){
+  const warnings=[...EXPORT_SOURCE.warnings];
+  const storedProgress=exportStore(PROGRESS_KEY,warnings);
+  const manualDone=exportStore(DONE_KEY,warnings);
+  const days=DAYS.map(day=>{
+    const state=exportStore(DAY_STATE_KEY(day.day),warnings);
+    Object.defineProperty(state,'__day',{value:day.day,enumerable:false});
+    const activities=activitySpecs(day,warnings).map(spec=>buildActivity(spec,state,warnings));
+    const core=activities.filter(item=>item.tier==='core');
+    const calculatedCoreProgress=core.length?Math.round(core.reduce((sum,item)=>sum+item.progressPercent,0)/core.length):0;
+    const storedValue=normalCount(storedProgress[day.day],100,`Day ${day.day} 首页进度`,warnings);
+    const manualDayOverride=manualDone[day.day]===true;
+    return {
+      day:day.day,date:day.date,title:day.title,minutes:day.minutes,newLabel:day.newLabel,
+      speakingSummary:day.speakingSummary,writingSummary:day.writingSummary,note:day.note,
+      storedCoreProgress:storedValue,calculatedCoreProgress,manualDayOverride,
+      effectiveHomeProgress:Math.max(storedValue,manualDayOverride?100:0),activities
+    };
+  });
+  const activities=days.flatMap(day=>day.activities);
+  const speaking=activities.filter(item=>item.category==='speaking');
+  const writing=activities.filter(item=>item.category==='writing');
+  const mixed=activities.filter(item=>item.category==='mixed');
+  const startedDays=days.filter(day=>day.storedCoreProgress>0||day.manualDayOverride||day.activities.some(item=>item.status!=='not_started')).length;
+  const completedDays=days.filter(day=>day.effectiveHomeProgress>=100).length;
+  const p2Planned=new Set(DAYS.flatMap(day=>[day.newP2,...(day.reviewP2||[])]).filter(Boolean));
+  const writingPlanned=new Set(DAYS.flatMap(day=>[day.newWriting,...(day.reviewWriting||[])]).filter(Boolean));
+  const p1Planned=new Set(DAYS.flatMap(day=>day.p1||[]));
+  const p3Planned=new Set(DAYS.map(day=>day.p3).filter(value=>value!==null&&value!==undefined));
+  const referencePlanned=new Set(DAYS.flatMap(day=>day.ref||[]));
+  return {
+    schemaVersion:EXPORT_SCHEMA,
+    meta:{
+      exportedAt:new Date().toISOString(),timeZone:Intl.DateTimeFormat().resolvedOptions().timeZone||null,
+      sourceUrl:location.origin+location.pathname,appVersion:EXPORT_SOURCE.appVersion,
+      planStart:DAYS[0]&&DAYS[0].date,planEnd:DAYS[DAYS.length-1]&&DAYS[DAYS.length-1].date,
+      storageSchema:'ielts_sprint_20260712_day{1..10}_v1'
+    },
+    privacy:{generatedLocally:true,uploadedAutomatically:false,includesUserPracticeText:true,excludesQuestionBankAnswers:true,excludesModelAnswers:true,excludesAudio:true,excludesListening:true},
+    measurementLimitations:[
+      '导出只代表当前设备、当前浏览器中的站内记录，不会自动合并其他设备。',
+      '计数按钮达到目标后不再累加，因此无法表示超出目标的额外练习次数。',
+      '组级勾选只能证明整组被标记完成，不能证明组内每个话题都分别完成。',
+      '现有记录不含完成时间、练习时长或逐题正确率；手动整日完成不会反推子任务完成。'
+    ],
+    summary:{
+      totalDays:days.length,startedDays,completedDays,
+      averageEffectiveProgress:days.length?Math.round(days.reduce((sum,day)=>sum+day.effectiveHomeProgress,0)/days.length):0,
+      activityStatus:{all:statusCounts(activities),speaking:statusCounts(speaking),writing:statusCounts(writing),mixed:statusCounts(mixed)},
+      plannedCoverage:{p1Topics:p1Planned.size,p2Mothers:p2Planned.size,p3Topics:p3Planned.size,writingUnits:writingPlanned.size,referenceCards:referencePlanned.size}
+    },
+    catalog:buildCatalog(),days,warnings
+  };
+}
+function exportFilename(extension){
+  const now=new Date(),pad=value=>String(value).padStart(2,'0');
+  const stamp=`${now.getFullYear()}-${pad(now.getMonth()+1)}-${pad(now.getDate())}_${pad(now.getHours())}${pad(now.getMinutes())}`;
+  return `IELTS_复习详情_${stamp}.${extension}`;
+}
+function downloadReport(blob,filename){
+  const url=URL.createObjectURL(blob),link=document.createElement('a');
+  link.href=url;link.download=filename;link.style.display='none';document.body.appendChild(link);link.click();link.remove();
+  setTimeout(()=>URL.revokeObjectURL(url),1500);
+}
+function setExportStatus(message,tone=''){
+  const status=document.getElementById('export-status');
+  if(!status)return;
+  status.textContent=message;status.className=`export-status ${tone}`.trim();
+}
+async function exportReview(event){
+  const button=event.currentTarget;
+  if(!EXPORT_READY){setExportStatus('导出数据仍在准备，请稍后再点。','error');return;}
+  button.disabled=true;button.setAttribute('aria-busy','true');
+  try{
+    const text=JSON.stringify(buildReviewExport(),null,2);
+    const jsonBlob=new Blob([text],{type:'application/json;charset=utf-8'});
+    const shareFile=typeof File==='function'?new File([text],exportFilename('txt'),{type:'text/plain'}):null;
+    let canShareFile=false;
+    try{canShareFile=!!(shareFile&&navigator.share&&navigator.canShare&&navigator.canShare({files:[shareFile]}));}catch(_){canShareFile=false;}
+    if(canShareFile){
+      setExportStatus('正在打开系统分享菜单…');
+      await navigator.share({files:[shareFile],title:'IELTS 口语＋作文复习详情',text:'当前浏览器中的 10 天复习记录'});
+      setExportStatus('分享操作已完成 ✓','success');
+    }else{
+      downloadReport(jsonBlob,exportFilename('json'));
+      setExportStatus('复习详情文件已下载 ✓','success');
+    }
+  }catch(error){
+    if(error&&error.name==='AbortError')setExportStatus('已取消分享，可以随时再次导出。');
+    else{
+      try{
+        const text=JSON.stringify(buildReviewExport(),null,2);
+        downloadReport(new Blob([text],{type:'application/json;charset=utf-8'}),exportFilename('json'));
+        setExportStatus('分享不可用，已改为下载文件 ✓','success');
+      }catch(_){setExportStatus('导出失败，请刷新后重试。','error');}
+    }
+  }finally{
+    button.disabled=false;button.removeAttribute('aria-busy');
+  }
+}
+async function loadExportSources(){
+  const files={p1:'data-p1.json',p2:'data-p2.json',p3:'data-p3.json',writing:'data-writing.json',reference:'data-ref.json'};
+  const entries=Object.entries(files);
+  const requests=entries.map(([,path])=>fetch(`${path}?cb=${Date.now()}`,{cache:'no-store'}).then(response=>{
+    if(!response.ok)throw new Error(`HTTP ${response.status}`);return response.json();
+  }));
+  const results=await Promise.allSettled(requests);
+  results.forEach((result,index)=>{
+    const [key,path]=entries[index];
+    if(result.status==='fulfilled'&&Array.isArray(result.value))EXPORT_SOURCE[key]=result.value;
+    else EXPORT_SOURCE.warnings.push(`${path} 读取失败，目录可能不完整`);
+  });
+  try{
+    const response=await fetch(`app.js?cb=${Date.now()}`,{cache:'no-store'});
+    if(!response.ok)throw new Error(`HTTP ${response.status}`);
+    const match=(await response.text()).match(/const VERSION='([^']+)'/);
+    EXPORT_SOURCE.appVersion=match?match[1]:null;
+    if(!match)EXPORT_SOURCE.warnings.push('未能识别 app.js 版本号');
+  }catch(_){EXPORT_SOURCE.warnings.push('app.js 版本号读取失败');}
+  EXPORT_READY=true;
 }
 function rawProgress(day){
   const value=Number(loadStore(PROGRESS_KEY)[day]||0);
@@ -187,6 +439,10 @@ function render(){
       <div class="progress-meta"><strong>总进度 ${total}%</strong><span>${completed} / 10 天完成</span></div>
       <div class="track"><i style="width:${total}%"></i></div>
     </section>
+    <button class="export-strip" type="button" onclick="exportReview(event)" aria-describedby="export-status">
+      <span class="export-icon" aria-hidden="true">⇩</span><span class="export-copy"><strong>导出全部复习详情</strong><span>Day 1–10 口语、作文、完成度与练习文本 · 不含听力</span></span><span class="export-go">一键导出</span>
+    </button>
+    <p class="export-status" id="export-status" role="status" aria-live="polite">仅导出当前浏览器本地记录 · 本地生成 · 不会上传</p>
     <a class="practice-strip" href="listening.html" aria-label="打开独立听力专项">
       <span class="practice-icon">🎧</span><span class="practice-copy"><strong>听力专项 · Day 1 从今天开始</strong><span>答题规则 · 填空 · 选择 · 匹配 · 地图｜另含时间系列 50 题</span></span><span class="practice-go">进入 →</span>
     </a>`;
@@ -206,6 +462,7 @@ async function boot(){
     if(!response.ok)throw new Error('HTTP '+response.status);
     DAYS=await response.json();
     if(!Array.isArray(DAYS)||DAYS.length!==10)throw new Error('计划数据不完整');
+    await loadExportSources();
     render();
   }catch(error){
     document.getElementById('app').innerHTML=`<div class="load-error"><strong>10 天计划加载失败</strong><div class="goal">${esc(error.message)}</div><button type="button" onclick="location.reload()">重新加载</button></div>`;
