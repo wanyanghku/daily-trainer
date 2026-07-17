@@ -122,7 +122,7 @@ const BASELINE={
 };
 const PHASES={
   1:{title:'当前执行',range:'7月15日–7月16日 · 已排定'},
-  2:{title:'下一批安排',range:'7月17日–7月20日 · 等待导出'},
+  2:{title:'当前周末安排',range:'7月17日–7月20日 · 19日晚再排20日'},
   3:{title:'考前收口',range:'7月21日–7月24日 · 保留容量'}
 };
 let DAYS=[];
@@ -313,7 +313,7 @@ function buildReviewExport(){
       storageSchema:'ielts_sprint_20260715_day{1..10}_v2'
     },
     baseline:BASELINE,
-    planning:{activeDates:scheduledDays.map(day=>day.date),pendingDates:DAYS.filter(day=>day.status==='pending').map(day=>day.date),nextReview:'2026-07-16 evening export'},
+    planning:{activeDates:scheduledDays.map(day=>day.date),pendingDates:DAYS.filter(day=>day.status==='pending').map(day=>day.date),nextReview:'2026-07-19 evening export'},
     privacy:{generatedLocally:true,uploadedAutomatically:false,includesUserPracticeText:true,excludesQuestionBankAnswers:true,excludesModelAnswers:true,excludesAudio:true,excludesListening:true},
     measurementLimitations:[
       '导出只代表当前设备、当前浏览器中的站内记录，不会自动合并其他设备。',
@@ -457,24 +457,24 @@ function render(){
   const focusProgress=effectiveProgress(focus.day);
   const todayKicker=pendingToday?`${esc(exact.title)} · 待安排`:exact?`今天 · ${esc(focus.title)} · ${focus.minutes} 分钟`:`继续 ${esc(focus.title)} 的任务`;
   const todayTitle=pendingToday?esc(exact.newLabel):esc(focus.newLabel);
-  const todayCopy=pendingToday?'先完成已排日期并导出，后续任务不凭感觉提前堆入。':focus.date==='2026-07-15'?'今天页面只有 G3，不显示 P1、作文或其他母题。':'F1 是唯一新内容，其余均为短时主动提取。';
+  const todayCopy=pendingToday?'先完成已排日期并导出，后续任务不凭感觉提前堆入。':focus.newP2?`${focus.newLabel} 是今天唯一新内容；其余均为短时主动提取。`:focus.newWriting?`${focus.newLabel} 是今天唯一新内容；口语只做短时复习。`:'今天只做复习与输出。';
   const todayAction=pendingToday?`<small>${esc(exact.note)}</small><span class="start" aria-disabled="true">等待导出</span>`:`<small>${esc(focus.speakingSummary)}</small><a class="start" href="daily/Day${focus.day}.html">开始 ${esc(focus.title)} <span>→</span></a>`;
   let html=`<header class="topbar">
-      <div><div class="eyebrow">IELTS · Mainland</div><h1>7月15日–24日冲刺</h1><p class="goal">口语 6.5 · 写作 6.5 · 当前只排未来两天</p></div>
+      <div><div class="eyebrow">IELTS · Mainland</div><h1>7月15日–24日冲刺</h1><p class="goal">口语 6.5 · 写作 6.5 · 当前已排至7月19日</p></div>
       <div class="countdown"><strong>${daysUntil(EXAM_DATE)}</strong><span>天后考试</span></div>
     </header>
     <section class="today">
       <div class="today-top"><span>${todayKicker}</span><span>${focusProgress}%</span></div>
-      <h2>${todayTitle}</h2><p>${todayCopy}</p>
+      <h2>${todayTitle}</h2><p>${esc(todayCopy)}</p>
       <div class="today-action">${todayAction}</div>
     </section>
-    <section class="progress-block" aria-label="当前两日进度">
-      <div class="progress-meta"><strong>当前两日 ${total}%</strong><span>${completed} / ${active.length} 个日期完成</span></div>
+    <section class="progress-block" aria-label="当前已排日期进度">
+      <div class="progress-meta"><strong>当前已排日期 ${total}%</strong><span>${completed} / ${active.length} 个日期完成</span></div>
       <div class="track"><i style="width:${total}%"></i></div>
     </section>
     <section class="baseline" aria-label="已完成基线"><b>已完成基线</b><span>G1、科技 Opinion、G2、流程图；当前主要缺口是间隔复习，P1 已复习到 Life Stages。</span></section>
     <button class="export-strip" type="button" onclick="exportReview(event)" aria-describedby="export-status">
-      <span class="export-icon" aria-hidden="true">⇩</span><span class="export-copy"><strong>导出全部复习详情</strong><span>按实际日期导出7月15–16日的逐项进度与练习文本 · 不含听力</span></span><span class="export-go">一键导出</span>
+      <span class="export-icon" aria-hidden="true">⇩</span><span class="export-copy"><strong>导出全部复习详情</strong><span>按实际日期导出7月15–19日的逐项进度与练习文本 · 不含听力</span></span><span class="export-go">一键导出</span>
     </button>
     <p class="export-status" id="export-status" role="status" aria-live="polite">仅导出当前浏览器本地记录 · 本地生成 · 不会上传</p>
     <a class="practice-strip" href="listening.html" aria-label="打开独立听力专项">
@@ -486,7 +486,7 @@ function render(){
     DAYS.filter(day=>day.phase===phase).forEach(day=>{html+=renderRow(day,today);});
     html+='</div></section>';
   });
-  html+=`<section class="light-day"><strong>7月16日晚 · 一键导出</strong><span>导出后再安排7月17–24日；7月23日前完成新内容，7月24日保留轻复习容量。</span></section>
+  html+=`<section class="light-day"><strong>7月19日晚 · 一键导出</strong><span>导出后再安排7月20–24日；7月23日前完成新内容，7月24日保留轻复习容量。</span></section>
     <div class="foot">按日期自动同步进度 · P1 每个话题独立记录 · 7月25日考试</div>`;
   document.getElementById('app').innerHTML=html;
 }
