@@ -113,12 +113,12 @@ const EXAM_DATE='2026-07-25';
 const PROGRESS_KEY='ielts_sprint_20260715_progress';
 const DONE_KEY='ielts_sprint_20260715_done';
 const DAY_STATE_KEY=day=>`ielts_sprint_20260715_day${day}_v2`;
-const EXPORT_SCHEMA='ielts-review-export/v2';
+const EXPORT_SCHEMA='ielts-review-export/v3';
 const BASELINE={
-  asOf:'2026-07-15',
-  learned:['G1 长久目标','Task 2 科技 Opinion','G2 逆袭的人','Task 1 流程图'],
-  reviewState:'新内容基本跟上；复习不足；P1 已复习到 Life Stages。',
-  source:'用户进度说明 + 2026-07-15 旧版一键导出'
+  asOf:'2026-07-17',
+  learned:['P2 A–E、G1–G3、F1','P1 三星13个话题','Task 1 折线图、柱状图、流程图','Task 2 科技 Opinion、教育 Discussion'],
+  reviewState:'新内容基本跟上但间隔复习不足；F2和20个P1二星/一星话题待完成。',
+  source:'用户进度说明 + 2026-07-15旧版导出 + 2026-07-17完成确认'
 };
 const PHASES={
   1:{title:'当前执行',range:'7月15日–7月16日 · 已排定'},
@@ -181,19 +181,35 @@ function activitySpecs(day,warnings){
   if(day.status==='pending')return specs;
   if(day.newP2){
     const ref=contentRef('p2',day.newP2,warnings);
-    specs.push({activityId:`day${day.day}:p2-new:${day.newP2}`,category:'speaking',part:'p2',mode:'new',tier:'core',label:`母题 ${day.newP2} · ${ref.cn||day.newP2}`,contentRefs:[ref],storageItemId:`new_${day.newP2}`,tracking:'counters',targets:{read:3,recall:2,dictate:1},textFields:{dictation:'dictText'}});
+    const targets=day.newP2Targets||{read:3,recall:2,dictate:1};
+    const textFields=targets.dictate?{dictation:'dictText'}:{};
+    specs.push({activityId:`day${day.day}:p2-new:${day.newP2}`,category:'speaking',part:'p2',mode:'new',tier:'core',weight:4,label:`母题 ${day.newP2} · ${ref.cn||day.newP2}`,contentRefs:[ref],storageItemId:`new_${day.newP2}`,tracking:'counters',targets,textFields});
   }
   if(day.newWriting){
     const ref=contentRef('writing',day.newWriting,warnings);
-    specs.push({activityId:`day${day.day}:writing-new:${day.newWriting}`,category:'writing',part:'writing',mode:'new',tier:'core',label:`${ref.task||'Writing'} ${ref.type||''} · ${ref.cn||day.newWriting}`.trim(),contentRefs:[ref],storageItemId:`wnew_${day.newWriting}`,tracking:'counters',targets:{read:2,outline:2,core:1,transfer:1},textFields:{corePractice:'coreText',transferPractice:'transferText'}});
+    specs.push({activityId:`day${day.day}:writing-new:${day.newWriting}`,category:'writing',part:'writing',mode:'new',tier:'core',weight:4,label:`${ref.task||'Writing'} ${ref.type||''} · ${ref.cn||day.newWriting}`.trim(),contentRefs:[ref],storageItemId:`wnew_${day.newWriting}`,tracking:'counters',targets:{read:2,outline:2,core:1,transfer:1},textFields:{corePractice:'coreText',transferPractice:'transferText'}});
   }
   (day.reviewP2||[]).forEach(id=>{
     const ref=contentRef('p2',id,warnings);
     specs.push({activityId:`day${day.day}:p2-review:${id}`,category:'speaking',part:'p2',mode:'review',tier:'core',label:`母题 ${id} · ${ref.cn||id}（复习）`,contentRefs:[ref],storageItemId:`rev_${id}`,tracking:'boolean'});
   });
+  (day.p1New||[]).forEach(index=>{
+    const ref=contentRef('p1',index,warnings);
+    const questionIndices=(day.p1QuestionMap&&day.p1QuestionMap[String(index)])||null;
+    specs.push({activityId:`${day.date}:p1-new:${index}`,category:'speaking',part:'p1',mode:'new',tier:'core',label:`P1 新学 · ${ref.topic||index}（${ref.cn||''}）`,contentRefs:[ref],questionIndices,questionNumbers:questionIndices&&questionIndices.map(value=>value+1),storageItemId:`p1new_${index}`,tracking:'boolean'});
+  });
+  (day.p1Review||[]).forEach(index=>{
+    const ref=contentRef('p1',index,warnings);
+    const questionIndices=(day.p1QuestionMap&&day.p1QuestionMap[String(index)])||null;
+    specs.push({activityId:`${day.date}:p1-review:${index}`,category:'speaking',part:'p1',mode:'review',tier:'core',label:`P1 已背复习 · ${ref.topic||index}（${ref.cn||''}）`,contentRefs:[ref],questionIndices,questionNumbers:questionIndices&&questionIndices.map(value=>value+1),storageItemId:`p1rev_${index}`,tracking:'boolean'});
+  });
   if(day.reviewWriting&&day.reviewWriting.length){
     const refs=day.reviewWriting.map(id=>contentRef('writing',id,warnings));
-    specs.push({activityId:`day${day.day}:writing-review`,category:'writing',part:'writing',mode:'review',tier:'core',label:`写作到期复习 · ${refs.length} 张`,contentRefs:refs,storageItemId:'wrev',tracking:'group_boolean'});
+    if(day.reviewWritingSeparate){
+      refs.forEach(ref=>specs.push({activityId:`day${day.day}:writing-review:${ref.id}`,category:'writing',part:'writing',mode:'review',tier:'core',label:`写作复习 · ${ref.task||'Writing'} ${ref.type||''} · ${ref.cn||ref.id}`.trim(),contentRefs:[ref],storageItemId:`wrev_${ref.id}`,tracking:'boolean'}));
+    }else{
+      specs.push({activityId:`day${day.day}:writing-review`,category:'writing',part:'writing',mode:'review',tier:'core',weight:refs.length,label:`写作到期复习 · ${refs.length} 张`,contentRefs:refs,storageItemId:'wrev',tracking:'group_boolean'});
+    }
   }
   (day.p1||[]).forEach(index=>{
     const ref=contentRef('p1',index,warnings);
@@ -220,7 +236,7 @@ function activitySpecs(day,warnings){
     const refs=day.outputs.map((title,index)=>({kind:'output',id:`day${day.day}-${index+1}`,title}));
     specs.push({activityId:`day${day.day}:output`,category:'mixed',part:'output',mode:'verification',tier:'core',label:'今日输出验收',contentRefs:refs,storageItemId:'OUT',tracking:'group_boolean'});
   }
-  if(day.live!==false)specs.push({activityId:`${day.date}:mock`,category:'speaking',part:'mock',mode:'practice',tier:'bonus',label:'Live 模拟考 / 录音自查',contentRefs:[{kind:'date',id:day.date,title:'当日口语模拟'}],storageItemId:'REC',tracking:'boolean'});
+  if(day.live!==false)specs.push({activityId:`${day.date}:mock`,category:'speaking',part:'mock',mode:'practice',tier:'bonus',label:'ChatGPT 随机抽问 / 口语诊断',contentRefs:[{kind:'date',id:day.date,title:'当日口语抽问'}],storageItemId:'REC',tracking:'boolean',textFields:{diagnosis:'notes'}});
   return specs;
 }
 function normalCount(value,target,label,warnings){
@@ -242,22 +258,24 @@ function buildActivity(spec,dayState,warnings){
   });
   const highlightedTokenCount=Array.isArray(saved.hl)?saved.hl.length:0;
   if(saved.hl!==undefined&&!Array.isArray(saved.hl))warnings.push(`Day ${dayState.__day||'?'} ${spec.storageItemId}.hl 格式异常，已忽略`);
-  let attempts={},markedDone=false,status='not_started',progressPercent=0;
+  let attempts={},markedDone=false,status='not_started',progressPercent=0,progressFraction=0;
   if(spec.tracking==='counters'){
     let doneTotal=0,targetTotal=0;
     Object.entries(spec.targets).forEach(([field,target])=>{
       const done=normalCount(saved[field],target,`Day ${dayState.__day||'?'} ${spec.storageItemId}.${field}`,warnings);
       attempts[field]={done,target};doneTotal+=done;targetTotal+=target;
     });
-    progressPercent=targetTotal?Math.round(doneTotal/targetTotal*100):0;
+    progressFraction=targetTotal?doneTotal/targetTotal:0;
+    progressPercent=Math.round(progressFraction*100);
     const interacted=doneTotal>0||Object.keys(userText).length>0||highlightedTokenCount>0;
     status=progressPercent>=100?'completed':interacted?'in_progress':'not_started';
   }else{
     markedDone=saved.done===true;
-    status=markedDone?'completed':'not_started';
-    progressPercent=markedDone?100:0;
+    const interacted=Object.keys(userText).length>0||highlightedTokenCount>0;
+    status=markedDone?'completed':interacted?'in_progress':'not_started';
+    progressFraction=markedDone?1:0;progressPercent=markedDone?100:0;
   }
-  return {...spec,status,progressPercent,attempts,markedDone,userText,highlightedTokenCount};
+  return {...spec,status,progressPercent,progressFraction,attempts,markedDone,userText,highlightedTokenCount};
 }
 function statusCounts(activities){
   return ['completed','in_progress','not_started'].reduce((result,status)=>{
@@ -267,7 +285,7 @@ function statusCounts(activities){
 function buildCatalog(){
   return {
     p1:EXPORT_SOURCE.p1.map((item,index)=>({index,topic:item.topic,cn:item.cn,tier:item.tier,questionCount:Array.isArray(item.qa)?item.qa.length:0})),
-    p2:EXPORT_SOURCE.p2.map(item=>({id:item.id,cn:item.cn,cue:item.cue})),
+    p2:EXPORT_SOURCE.p2.map(item=>({id:item.id,cn:item.cn,cue:item.cue,cuePoints:Array.isArray(item.cuePoints)?item.cuePoints:[]})),
     p3:EXPORT_SOURCE.p3.map((item,index)=>({index,topic:item.topic,cn:item.cn,questionCount:Array.isArray(item.qa)?item.qa.length:0})),
     writing:EXPORT_SOURCE.writing.map(item=>({id:item.id,task:item.task,type:item.type,cn:item.cn,learned:!!item.learned,prompt:item.prompt})),
     reference:EXPORT_SOURCE.reference.map(item=>({id:item.id,cn:item.cn,covers:item.covers}))
@@ -283,25 +301,26 @@ function buildReviewExport(){
     Object.defineProperty(state,'__day',{value:day.day,enumerable:false});
     const activities=activitySpecs(day,warnings).map(spec=>buildActivity(spec,state,warnings));
     const core=activities.filter(item=>item.tier==='core');
-    const calculatedCoreProgress=core.length?Math.round(core.reduce((sum,item)=>sum+item.progressPercent,0)/core.length):0;
+    const coreWeight=core.reduce((sum,item)=>sum+Number(item.weight||1),0);
+    const calculatedCoreProgress=coreWeight?Math.round(core.reduce((sum,item)=>sum+item.progressFraction*Number(item.weight||1),0)/coreWeight*100):0;
     const storedValue=normalCount(storedProgress[day.day],100,`Day ${day.day} 首页进度`,warnings);
     const manualDayOverride=manualDone[day.day]===true;
     return {
       day:day.day,date:day.date,title:day.title,minutes:day.minutes,newLabel:day.newLabel,
       speakingSummary:day.speakingSummary,writingSummary:day.writingSummary,note:day.note,
       storedCoreProgress:storedValue,calculatedCoreProgress,manualDayOverride,
-      effectiveHomeProgress:Math.max(storedValue,manualDayOverride?100:0),activities
+      effectiveHomeProgress:manualDayOverride?100:calculatedCoreProgress,activities
     };
   });
   const activities=days.flatMap(day=>day.activities);
   const speaking=activities.filter(item=>item.category==='speaking');
   const writing=activities.filter(item=>item.category==='writing');
   const mixed=activities.filter(item=>item.category==='mixed');
-  const startedDays=days.filter(day=>day.storedCoreProgress>0||day.manualDayOverride||day.activities.some(item=>item.status!=='not_started')).length;
+  const startedDays=days.filter(day=>day.manualDayOverride||day.activities.some(item=>item.status!=='not_started')).length;
   const completedDays=days.filter(day=>day.effectiveHomeProgress>=100).length;
   const p2Planned=new Set(scheduledDays.flatMap(day=>[day.newP2,...(day.reviewP2||[])]).filter(Boolean));
   const writingPlanned=new Set(scheduledDays.flatMap(day=>[day.newWriting,...(day.reviewWriting||[])]).filter(Boolean));
-  const p1Planned=new Set(scheduledDays.flatMap(day=>[...(day.p1||[]),...(day.p1Optional||[])]));
+  const p1Planned=new Set(scheduledDays.flatMap(day=>[...(day.p1||[]),...(day.p1Optional||[]),...(day.p1New||[]),...(day.p1Review||[])]));
   const p3Planned=new Set(scheduledDays.map(day=>day.p3).filter(value=>value!==null&&value!==undefined));
   const referencePlanned=new Set(scheduledDays.flatMap(day=>day.ref||[]));
   return {
@@ -314,10 +333,12 @@ function buildReviewExport(){
     },
     baseline:BASELINE,
     planning:{activeDates:scheduledDays.map(day=>day.date),pendingDates:DAYS.filter(day=>day.status==='pending').map(day=>day.date),nextReview:'2026-07-19 evening export'},
-    privacy:{generatedLocally:true,uploadedAutomatically:false,includesUserPracticeText:true,excludesQuestionBankAnswers:true,excludesModelAnswers:true,excludesAudio:true,excludesListening:true},
+    privacy:{generatedLocally:true,uploadedAutomatically:false,includesUserPracticeText:true,includesPastedChatGPTDiagnosis:true,excludesQuestionBankAnswers:true,excludesFullModelAnswers:true,excludesAudio:true,excludesListening:true},
     measurementLimitations:[
       '导出只代表当前设备、当前浏览器中的站内记录，不会自动合并其他设备。',
       '计数按钮达到目标后不再累加，因此无法表示超出目标的额外练习次数。',
+      '首页与 calculatedCoreProgress 按任务权重计算；P2或写作新学长材料权重为4，普通复习与P1话题权重为1。进度代表计划执行，不等于考试分数。',
+      'ChatGPT诊断只有在用户把固定4行摘要粘回当日页面后才会进入导出；完整对话不会自动读取。',
       'P1 已改为逐话题记录；每个话题完成仍不代表其中每道问题都达到同等熟练度。',
       '现有记录不含完成时间、练习时长或逐题正确率；手动整日完成不会反推子任务完成。'
     ],
@@ -397,12 +418,27 @@ async function loadExportSources(){
   }catch(_){EXPORT_SOURCE.warnings.push('app.js 版本号读取失败');}
   EXPORT_READY=true;
 }
-function rawProgress(day){
+function storedProgressValue(day){
   const value=Number(loadStore(PROGRESS_KEY)[day]||0);
   return Math.max(0,Math.min(100,Number.isFinite(value)?Math.round(value):0));
 }
+function calculatedLocalProgress(dayNumber){
+  const day=DAYS.find(item=>item.day===dayNumber);
+  if(!EXPORT_READY||!day||day.status==='pending')return storedProgressValue(dayNumber);
+  const warnings=[];
+  const state=loadStore(DAY_STATE_KEY(dayNumber));
+  Object.defineProperty(state,'__day',{value:dayNumber,enumerable:false});
+  const core=activitySpecs(day,warnings)
+    .map(spec=>buildActivity(spec,state,warnings))
+    .filter(item=>item.tier==='core');
+  const totalWeight=core.reduce((sum,item)=>sum+Number(item.weight||1),0);
+  if(!totalWeight)return 0;
+  const completedWeight=core.reduce((sum,item)=>sum+item.progressFraction*Number(item.weight||1),0);
+  return Math.round(completedWeight/totalWeight*100);
+}
+function rawProgress(day){return calculatedLocalProgress(day);}
 function isManualDone(day){return !!loadStore(DONE_KEY)[day];}
-function effectiveProgress(day){return Math.max(rawProgress(day),isManualDone(day)?100:0);}
+function effectiveProgress(day){return isManualDone(day)?100:rawProgress(day);}
 function toggleDone(event,day){
   event.preventDefault();event.stopPropagation();
   if(rawProgress(day)>=100)return;
@@ -430,7 +466,8 @@ function renderRow(day,today){
   const progress=rawProgress(day.day);
   const done=progress>=100||isManualDone(day.day);
   const current=day.date===today;
-  const kind=day.newP2?'口语新背':day.newWriting?'写作新背':'复习日';
+  const hasP1New=(day.p1New||[]).length>0;
+  const kind=day.newP2&&hasP1New?'P2 + P1新学':day.newP2?'口语母题新背':day.newWriting?'写作新背':hasP1New?'P1新学 + 复习':'复习日';
   const state=done?'<strong>✓</strong><span>完成</span>':progress?`<strong>${progress}%</strong><span>继续 →</span>`:'<span class="arrow">→</span>';
   return `<div class="day-row${current?' current':''}${done?' done':''}">
     <button class="check${done?' done':''}" type="button" aria-label="${done?'取消手动完成':'标记完成'} ${esc(day.title)}" onclick="toggleDone(event,${day.day})" ${progress>=100?'disabled':''}>✓</button>
@@ -457,7 +494,8 @@ function render(){
   const focusProgress=effectiveProgress(focus.day);
   const todayKicker=pendingToday?`${esc(exact.title)} · 待安排`:exact?`今天 · ${esc(focus.title)} · ${focus.minutes} 分钟`:`继续 ${esc(focus.title)} 的任务`;
   const todayTitle=pendingToday?esc(exact.newLabel):esc(focus.newLabel);
-  const todayCopy=pendingToday?'先完成已排日期并导出，后续任务不凭感觉提前堆入。':focus.newP2?`${focus.newLabel} 是今天唯一新内容；其余均为短时主动提取。`:focus.newWriting?`${focus.newLabel} 是今天唯一新内容；口语只做短时复习。`:'今天只做复习与输出。';
+  const focusHasP1New=(focus.p1New||[]).length>0;
+  const todayCopy=pendingToday?'先完成已排日期并导出，后续任务不凭感觉提前堆入。':focus.newP2?`F2是今天唯一长背诵；P1只背短回答，其余均为主动提取。`:focus.newWriting?`${focus.newLabel} 是今天唯一长背诵；口语只做短时复习。`:focusHasP1New?'今天先学10个P1短话题；P2与作文只做主动提取。':'今天只做复习与输出。';
   const todayAction=pendingToday?`<small>${esc(exact.note)}</small><span class="start" aria-disabled="true">等待导出</span>`:`<small>${esc(focus.speakingSummary)}</small><a class="start" href="daily/Day${focus.day}.html">开始 ${esc(focus.title)} <span>→</span></a>`;
   let html=`<header class="topbar">
       <div><div class="eyebrow">IELTS · Mainland</div><h1>7月15日–24日冲刺</h1><p class="goal">口语 6.5 · 写作 6.5 · 当前已排至7月19日</p></div>
@@ -472,7 +510,7 @@ function render(){
       <div class="progress-meta"><strong>当前已排日期 ${total}%</strong><span>${completed} / ${active.length} 个日期完成</span></div>
       <div class="track"><i style="width:${total}%"></i></div>
     </section>
-    <section class="baseline" aria-label="已完成基线"><b>已完成基线</b><span>G1、科技 Opinion、G2、流程图；当前主要缺口是间隔复习，P1 已复习到 Life Stages。</span></section>
+    <section class="baseline" aria-label="已完成基线"><b>7月17日已完成基线</b><span>P2 A–E、G1–G3、F1；P1三星13话题；Task 1折线/柱状/流程图；Task 2科技Opinion/教育Discussion。7月18–19日覆盖P1全部33话题：20个新学 + 13个已背复习。</span></section>
     <button class="export-strip" type="button" onclick="exportReview(event)" aria-describedby="export-status">
       <span class="export-icon" aria-hidden="true">⇩</span><span class="export-copy"><strong>导出全部复习详情</strong><span>按实际日期导出7月15–19日的逐项进度与练习文本 · 不含听力</span></span><span class="export-go">一键导出</span>
     </button>

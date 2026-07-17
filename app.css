@@ -22,6 +22,7 @@ h1{font-size:19px; margin:2px 0; color:var(--teal);}
 .back{display:inline-flex; gap:5px; background:none; border:none; color:var(--teal); font-size:14px; font-weight:600; padding:6px 0; cursor:pointer;}
 .d-title{font-size:18px; font-weight:800; margin:4px 0 2px;}
 .d-cue{color:var(--mut); font-size:12.5px; font-style:italic; margin-bottom:10px;}
+.cue-points{margin:-4px 0 10px; padding:8px 10px 8px 28px; border-left:3px solid #f59e0b; background:#fffbeb; color:#475569; font-size:12px; line-height:1.6;}
 .chain{background:#ecfdf5; border:1px dashed #5eead4; border-radius:10px; padding:9px 12px; font-size:13.5px; margin:6px 0; line-height:1.6;}
 .chain .lab{font-size:11px; color:var(--teal); font-weight:700; display:block; margin-bottom:3px;}
 .row{display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin:10px 0;}
@@ -87,6 +88,9 @@ textarea{width:100%; min-height:130px; border:1px solid var(--line); border-radi
 .card{animation:card-in .28s ease both; transition:transform .16s ease,border-color .2s ease,box-shadow .2s ease;}
 .card.memo,.card.writingmemo{border-color:#5eead4; box-shadow:0 8px 24px rgba(15,118,110,.08);}
 .card.memo .badge,.card.writingmemo .badge{background:var(--teal); color:#fff; border-color:var(--teal);}
+.card.p1learn{border-color:#fcd34d; box-shadow:0 6px 18px rgba(217,119,6,.06);}
+.card.p1learn .badge{background:#fffbeb; color:#b45309; border-color:#fcd34d;}
+.card.p1learn .t2.core{background:#fffbeb; color:#92400e; border-color:#fde68a;}
 .wordmeta{display:inline-flex; color:var(--teal); background:#ecfdf5; border:1px solid #c7f0e8; border-radius:999px; padding:3px 9px; font-size:11px; font-weight:700; margin:2px 0 6px;}
 .notice{background:#f8fafc; border-left:3px solid var(--teal); padding:9px 11px; margin:8px 0; color:#475569; font-size:12.5px; line-height:1.6;}
 .writingchain{background:#f0fdfa;}

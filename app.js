@@ -1,5 +1,5 @@
 /* Shared engine for the 10-day IELTS sprint — speaking + writing. */
-const VERSION='32';
+const VERSION='33';
 const DAY=window.DAY_CONFIG?window.DAY_CONFIG.day:'x';
 const KEY='ielts_sprint_20260715_day'+DAY+'_v2';
 const PROGRESS_KEY='ielts_sprint_20260715_progress';
@@ -23,28 +23,44 @@ function p1QuestionIndexes(cfg,idx){
   return Array.isArray(mapped)&&mapped.length?mapped:P1[idx].qa.map((_,questionIndex)=>questionIndex);
 }
 
+function cleanLiveQuestion(raw){
+  const text=String(raw||'Part 1 question');
+  const alternative=text.match(/^(.+?\?)\s*\/\s*.+$/);
+  return alternative?alternative[1]:text;
+}
+
+function liveP1Pool(cfg,indices){
+  return (indices||[]).flatMap(idx=>{
+    const topic=P1[idx];
+    if(!topic)return [];
+    return p1QuestionIndexes(cfg,idx).map(questionIndex=>{
+      const qa=topic.qa&&topic.qa[questionIndex];
+      return qa?{topic:`${topic.topic}（${topic.cn}）`,question:cleanLiveQuestion(qa.q)}:null;
+    }).filter(Boolean);
+  });
+}
+
 function liveScope(){
   const cfg=window.DAY_CONFIG;
-  const p1Questions=(cfg.p1||[]).slice(0,5).map(idx=>{ const t=P1[idx];
-    const qa=t&&t.qa&&t.qa.length?t.qa[0]:null;
-    const raw=qa?String(qa.q):(t?t.topic:'Part 1 question');
-    const alternative=raw.match(/^(.+?\?)\s*\/\s*.+$/);
-    const question=alternative?alternative[1]:raw;
-    return {topic:t?`${t.topic}（${t.cn}）`:'Part 1',question};
-  });
-  const p2id=cfg.newP2||((cfg.reviewP2||[])[0]);
-  const p2=p2id?P2[p2id]:null;
+  const p1NewQuestions=liveP1Pool(cfg,cfg.p1New||[]);
+  const legacyReview=[...(cfg.p1||[]),...(cfg.p1Optional||[])];
+  const p1ReviewQuestions=liveP1Pool(cfg,[...(cfg.p1Review||[]),...legacyReview]);
+  const p2ids=[cfg.newP2,...(cfg.reviewP2||[])].filter((id,index,list)=>id&&list.indexOf(id)===index);
+  const p2Items=p2ids.map(id=>({id,m:P2[id],isNew:id===cfg.newP2})).filter(item=>item.m);
   const p3=cfg.p3!=null?P3[cfg.p3]:null;
-  const label=`P1 ${p1Questions.length}题 · P2 ${p2id||'今日复习题'} · P3 ${p3?p3.cn:'今日主题'}`;
-  return {cfg,p1Questions,p2id,p2,p3,label};
+  const label=`P1 新学 ${p1NewQuestions.length}题池 + 已背复习 ${p1ReviewQuestions.length}题池 · P2 ${p2Items.length}篇题池${p3?` · P3 ${p3.cn}`:''}`;
+  return {cfg,p1NewQuestions,p1ReviewQuestions,p2Items,p3,label};
 }
 
 function livePrompt(){
   const x=liveScope();
-  const p1=x.p1Questions.map((q,n)=>`${n+1}. ${q.question}`).join('\n');
-  const p3=x.p3&&x.p3.qa?x.p3.qa.slice(0,3).map((q,n)=>`${n+1}. ${q.q}`).join('\n'):'1. Ask one relevant Part 3 question.\n2. Ask a second relevant question.\n3. Ask a third relevant question.';
-  const p2=x.p2?x.p2.cue:'Choose one Part 2 topic from today’s review.';
-  return `你是大陆雅思口语考官。我的目标是6.5。这是一场10–12分钟的模拟考，不是教学课。\n\n训练日期是 ${x.cfg.date}，只使用以下题目：\n\nPart 1（逐题问，问完等我回答）：\n${p1}\n\nPart 2：\n${p2}\n\nPart 3（逐题问）：\n${p3}\n\n规则：\n1. 全程用英语提问，不要先给示范答案。\n2. Part 1 每次只问一题，等我回答后再继续。\n3. Part 2 给我1分钟准备；我开始后目标回答2分钟。期间保持安静，即使我停顿也不要接话，直到我说 Done；不要声称计时绝对精确。\n4. Part 3 只问上面列出的3题，一次一题，不要生成新题。\n5. 全部结束后，用简短中文正好反馈最影响6.5的3点，覆盖流利度、词汇、语法或发音；每点给最小修改。然后从刚才的问题中选最弱的1题让我重答。不要承诺精确分数。\n6. 不要增加新背诵材料，不要重写我的整段答案，也不要提供完整范文。\n\n现在只说：Let's begin with Part 1.`;
+  const formatPool=questions=>questions.length?questions.map((q,n)=>`${n+1}. [${q.topic}] ${q.question}`).join('\n'):'（今天没有这一类题）';
+  const p2=x.p2Items.length?x.p2Items.map((item,n)=>{
+    const cuePoints=Array.isArray(item.m.cuePoints)&&item.m.cuePoints.length?`\n   Cue points: ${item.m.cuePoints.join(' / ')}`:'';
+    return `${n+1}. ${item.isNew?'[今日新学，优先] ':'[复习] '}母题 ${item.id}: ${item.m.cue}${cuePoints}`;
+  }).join('\n'):'（今天没有 Part 2）';
+  const p3Block=x.p3&&x.p3.qa?`\n\nPart 3 题池（只问下面3题）：\n${x.p3.qa.slice(0,3).map((q,n)=>`${n+1}. ${q.q}`).join('\n')}`:'';
+  return `你是大陆考区雅思口语考官。我的目标是6.5，实际语速偏慢。这是一场10–12分钟的随机抽问与诊断，不是教学课。\n\n训练日期是 ${x.cfg.date}。只从以下题池抽题，不要按清单顺序全问。\n\nPart 1 新学题池（随机抽8题；不足8题则全问）：\n${formatPool(x.p1NewQuestions)}\n\nPart 1 已背复习题池（随机抽4题；不足4题则全问）：\n${formatPool(x.p1ReviewQuestions)}\n\nPart 2 题池：\n${p2}${p3Block}\n\n规则：\n1. 全程用英语提问，不要先给答案、提示或示范。\n2. Part 1 从新学池抽8题、复习池抽4题，混合顺序且不要重复；每次只问一题，等我回答后再继续。\n3. Part 2 只做1题：若题池标有“今日新学”，必须选它；否则随机选1篇复习母题。给我1分钟准备；我开始后目标回答90–120秒。期间保持安静，即使我停顿也不要接话，直到我说 Done；不要声称计时绝对精确。\n4. ${x.p3?'Part 3只问上面列出的3题，一次一题，不生成新题。':'今天没有安排Part 3，不要自行增加Part 3。'}\n5. 全部结束后，用简短中文正好反馈最影响6.5的3点；优先看是否切题、是否卡顿、基础语法和发音。每点只给最小修改，然后从刚才的问题中选最弱的1题让我重答。不要承诺精确分数。\n6. 重答结束后，最后输出以下固定4行，供我粘贴回复习页面：\nP1弱题：<话题和问题；没有则写无>\nP2漏掉的cue：<缺失点；没有则写无>\n最影响6.5的3点：1)<问题+最小修改>；2)<问题+最小修改>；3)<问题+最小修改>\n重答结果：<改善了什么，仍卡在哪里>\n7. 不要增加新背诵材料，不要重写我的整段答案，也不要提供完整范文。\n\n现在只说：Let's begin with Part 1.`;
 }
 
 function renderPending(){
@@ -69,7 +85,7 @@ async function copyLivePrompt(btn,event){
     btn.textContent='已复制 ✓'; btn.classList.add('copied');
     setTimeout(()=>{btn.textContent=base;btn.classList.remove('copied');},1800);
   }catch(err){
-    window.prompt('复制下面的提示词，再粘贴到 ChatGPT Live：',text);
+    window.prompt('复制下面的提示词，再粘贴到 ChatGPT：',text);
     btn.textContent='请手动复制'; setTimeout(()=>{btn.textContent=base;},1800);
   }
 }
@@ -86,31 +102,35 @@ async function boot(){
   P1=a; P3=c; b.forEach(m=>P2[m.id]=m); d.forEach(r=>REF[r.id]=r); e.forEach(w=>WRITING[w.id]=w);
   ITEMS=[];
   if((cfg.newP2?1:0)+(cfg.newWriting?1:0)>1) throw new Error('A date cannot contain two new memorisation items');
-  if(cfg.newP2){ const m=P2[cfg.newP2]; ITEMS.push({type:'memo',tier:'core',id:'new_'+m.id,m,title:`今日唯一新内容 · 母题 ${m.id} ${m.cn}`,icon:'🎤',sub:'朗读×3 → 关键词复述×2 → 默写检验×1'}); }
-  if(cfg.newWriting){ const w=WRITING[cfg.newWriting]; const sub=w.task==='Task 1'?'通用框架 → 简单句块 → 看范文落地 → 换图仿写':'范文学习 → 闭卷逻辑链 → 核心句 → 换题仿写'; ITEMS.push({type:'writingmemo',tier:'core',id:'wnew_'+w.id,w,title:`今日唯一新内容 · ${w.task} ${w.type} · ${w.cn}`,icon:'✍️',sub}); }
-  (cfg.reviewP2||[]).forEach(id=>{ const m=P2[id]; ITEMS.push({type:'review',tier:'core',id:'rev_'+id,m,title:`母题 ${id} · ${m.cn}（复习）`,icon:'🔁',sub:'看关键词链复述 + 听'}); });
+  if(cfg.newP2){ const m=P2[cfg.newP2],targets=cfg.newP2Targets||{read:3,recall:2,dictate:1}; const labels={read:'听读',recall:'关键词复述',dictate:'默写检验',record:'90–120秒录音'}; const sub=Object.entries(targets).map(([key,target])=>`${labels[key]||key}×${target}`).join(' → '); ITEMS.push({type:'memo',tier:'core',weight:4,targets,id:'new_'+m.id,m,title:`今日唯一长背诵 · 母题 ${m.id} ${m.cn}`,icon:'🎤',sub}); }
+  if(cfg.newWriting){ const w=WRITING[cfg.newWriting]; const sub=w.task==='Task 1'?'通用框架 → 简单句块 → 看范文落地 → 换图仿写':'范文学习 → 闭卷逻辑链 → 核心句 → 换题仿写'; ITEMS.push({type:'writingmemo',tier:'core',weight:4,id:'wnew_'+w.id,w,title:`今日唯一长背诵 · ${w.task} ${w.type} · ${w.cn}`,icon:'✍️',sub}); }
+  (cfg.p1New||[]).forEach(idx=>{ const t=P1[idx],qidxs=p1QuestionIndexes(cfg,idx); ITEMS.push({type:'p1learn',tier:'core',id:'p1new_'+idx,idxs:[idx],qidxs,title:`P1 新学 · ${t.topic}（${t.cn}）`,icon:'＋',sub:`${stars(t.tier)} · 只背 ${qidxs.length} 道代表题 · 每题 15–20 秒`}); });
+  (cfg.reviewP2||[]).forEach(id=>{ const m=P2[id]; ITEMS.push({type:'review',tier:'core',id:'rev_'+id,m,title:`母题 ${id} · ${m.cn}（复习）`,icon:'🔁',sub:'只看关键词链说 60–90 秒；卡住再听，不重背全文'}); });
+  (cfg.p1Review||[]).forEach(idx=>{ const t=P1[idx],qidxs=p1QuestionIndexes(cfg,idx); ITEMS.push({type:'p1review',tier:'core',id:'p1rev_'+idx,idxs:[idx],qidxs,title:`P1 已背复习 · ${t.topic}（${t.cn}）`,icon:'↺',sub:`${stars(t.tier)} · ${qidxs.length} 道关键词短版 · 每题 15–20 秒`}); });
   (cfg.p1||[]).forEach(idx=>{ const t=P1[idx],qidxs=p1QuestionIndexes(cfg,idx); ITEMS.push({type:'p1review',tier:'core',id:'p1_'+idx,idxs:[idx],qidxs,title:`P1 · ${t.topic}（${t.cn}）`,icon:'🗣️',sub:`${stars(t.tier)} · 今天只练 ${qidxs.length} 道重点题 · 本话题独立完成`}); });
   (cfg.p1Optional||[]).forEach(idx=>{ const t=P1[idx],qidxs=p1QuestionIndexes(cfg,idx); ITEMS.push({type:'p1review',tier:'bonus',id:'p1opt_'+idx,idxs:[idx],qidxs,title:`可选 P1 · ${t.topic}（${t.cn}）`,icon:'＋',sub:`有余力再做 · ${qidxs.length} 道重点题 · 不挤占核心任务`}); });
   (cfg.p1prev||[]).forEach(idx=>{ const t=P1[idx]; ITEMS.push({type:'p1quick',tier:'bonus',id:'p1q_'+idx,idxs:[idx],title:`P1 快速回扫 · ${t.topic}`,icon:'🔁',sub:'只听 + 扫开头，想不起来再展开答案'}); });
-  if(cfg.reviewWriting&&cfg.reviewWriting.length){ const ws=cfg.reviewWriting.map(id=>WRITING[id]).filter(Boolean); ITEMS.push({type:'writingreview',tier:'core',id:'wrev',ws,title:`写作到期复习 · ${ws.length} 张`,icon:'↺',sub:'不看原文先复原结构，再核核心句'}); }
+  if(cfg.reviewWriting&&cfg.reviewWriting.length){ const ws=cfg.reviewWriting.map(id=>WRITING[id]).filter(Boolean); if(cfg.reviewWritingSeparate){ ws.forEach(w=>ITEMS.push({type:'writingreview',tier:'core',id:'wrev_'+w.id,ws:[w],title:`写作复习 · ${w.task} ${w.type} · ${w.cn}`,icon:'↺',sub:'单独打勾：先闭卷复原，再核核心句'})); }else{ ITEMS.push({type:'writingreview',tier:'core',weight:ws.length,id:'wrev',ws,title:`写作到期复习 · ${ws.length} 张`,icon:'↺',sub:'不看原文先复原结构，再核核心句'}); } }
   if(cfg.p3!=null){ const t=P3[cfg.p3]; ITEMS.push({type:'p3',tier:'bonus',id:'p3',t,idx:cfg.p3,title:'P3 · '+t.cn,icon:'💬',sub:'四步法:观点+because+例子+让步'}); }
   if(cfg.ref&&cfg.ref.length){ ITEMS.push({type:'refcard',tier:'bonus',id:'REFC',ids:cfg.ref,title:'套用速查卡 · '+cfg.ref.length+' 张',icon:'🗂️',sub:'考前翻:开头+关键词链+短版'}); }
   if(cfg.outputs&&cfg.outputs.length){ ITEMS.push({type:'output',tier:'core',id:'OUT',outputs:cfg.outputs,title:'今日输出验收',icon:'✓',sub:'完成可见产出，避免只看不练'}); }
-  if(cfg.live!==false)ITEMS.push({type:'record',tier:'bonus',id:'REC',title:'Live 模拟考 / 录音自查',icon:'🎙️',sub:'复制今日题单 → 练 10–12 分钟；没有 Live 就录音回听'});
+  if(cfg.live!==false)ITEMS.push({type:'record',tier:'bonus',id:'REC',title:'ChatGPT 随机抽问 / 口语诊断',icon:'🎙️',sub:'一键复制今日题池 → 练 10–12 分钟；没有语音模式就录音回听'});
   syncProgress();
   renderList();
 }
 
+function itemWeight(i){ const value=Number(i.weight||1); return Number.isFinite(value)&&value>0?value:1; }
+function weightedPercent(items){ const total=items.reduce((sum,i)=>sum+itemWeight(i),0); return total?Math.round(items.reduce((sum,i)=>sum+frac(i)*itemWeight(i),0)/total*100):0; }
 function isDone(i){ const s=st(i.id);
-  if(i.type==='memo') return (s.read||0)>=3&&(s.recall||0)>=2&&(s.dictate||0)>=1;
+  if(i.type==='memo') return Object.entries(i.targets||{read:3,recall:2,dictate:1}).every(([key,target])=>(s[key]||0)>=target);
   if(i.type==='writingmemo') return (s.read||0)>=2&&(s.outline||0)>=2&&(s.core||0)>=1&&(s.transfer||0)>=1;
   return !!s.done; }
 function frac(i){ const s=st(i.id);
-  if(i.type==='memo') return (Math.min(s.read||0,3)+Math.min(s.recall||0,2)+Math.min(s.dictate||0,1))/6;
+  if(i.type==='memo'){ const targets=i.targets||{read:3,recall:2,dictate:1}; const total=Object.values(targets).reduce((sum,target)=>sum+target,0); return total?Object.entries(targets).reduce((sum,[key,target])=>sum+Math.min(s[key]||0,target),0)/total:0; }
   if(i.type==='writingmemo') return (Math.min(s.read||0,2)+Math.min(s.outline||0,2)+Math.min(s.core||0,1)+Math.min(s.transfer||0,1))/6;
   return isDone(i)?1:0; }
 
-function progressPercent(){ const core=ITEMS.filter(i=>i.tier==='core'); return core.length?Math.round(core.reduce((a,i)=>a+frac(i),0)/core.length*100):0; }
+function progressPercent(){ return weightedPercent(ITEMS.filter(i=>i.tier==='core')); }
 function syncProgress(){ if(!ITEMS.length||DAY==='x')return; const p=JSON.parse(localStorage.getItem(PROGRESS_KEY)||'{}'); p[DAY]=progressPercent(); localStorage.setItem(PROGRESS_KEY,JSON.stringify(p)); }
 
 function scriptHTML(m,id){
@@ -146,6 +166,7 @@ function checkDict(id,m){ const ta=document.getElementById('dict'); st(id).dictT
   let wi=0; const disp=esc(full).replace(/[A-Za-z0-9'’\-]+/g,(w)=>{ const c=mt[wi]?'':' class="miss"'; wi++; return `<span${c}>${w}</span>`; });
   document.getElementById('dictRes').innerHTML=`<div class="diff"><div class="sum">对了 <span class="g">${correct}/${total}</span> 词 · 漏或错 <span class="r">${missed}</span>${extra?` · 多写约 ${extra}`:''}</div>${disp}<div class="hint" style="margin-top:8px">红波浪=漏/错。考试用自己的话说就行。</div></div>`; }
 function saveDict(id){ st(id).dictText=document.getElementById('dict').value; save(); }
+function saveDiagnosis(id){ st(id).notes=document.getElementById('diagnosis').value; save(); }
 
 function checkWriting(id,w){ const ta=document.getElementById('wcore'); st(id).coreText=ta.value; save();
   const full=w.keySentences.join(' '),oRaw=toks(full),oN=norm(oRaw),uN=norm(toks(ta.value));
@@ -194,8 +215,8 @@ function writingMethodHTML(w,collapsed=false){ const m=w.method; if(!m)return ''
 
 function renderList(){
   const cfg=window.DAY_CONFIG;
-  const done=ITEMS.filter(isDone).length, ov=Math.round(ITEMS.reduce((a,i)=>a+frac(i),0)/ITEMS.length*100);
-  const guidance=ITEMS.length===1?`<b>今天只做这一件：</b>${esc(ITEMS[0].title)}，不追加其他任务。`:'<b>顺序：</b>先新母题 → 到期口语复习 → P1 分话题口答 → 作文框架回忆 → 输出。';
+  const done=ITEMS.filter(isDone).length, ov=weightedPercent(ITEMS);
+  const guidance=ITEMS.length===1?`<b>今天只做这一件：</b>${esc(ITEMS[0].title)}，不追加其他任务。`:'<b>顺序：</b>先完成新内容 → P1 短回答 → P2 看链复述 → 作文框架回忆 → 输出。';
   let h=`<div class="top"><a class="home" href="../">← 冲刺首页</a></div>
    <div class="dayeyebrow">${cfg.date||''} · 建议 ${cfg.minutes||90} 分钟</div><h1>${cfg.title} · 今日训练</h1><div class="muted">${cfg.note||''}</div>
    <div class="overall"><div class="ov-top"><div class="ov-num"><b>${done}</b> / ${ITEMS.length} 完成</div><div class="muted">今日 ${ov}%</div></div><div class="bar"><i style="width:${ov}%"></i></div></div>
@@ -204,8 +225,8 @@ function renderList(){
     if(i.type==='record'){
       const scope=liveScope();
       h+=`<section class="livebar ${isDone(i)?'done':''}" onclick="open_(${x})">
-        <div class="livecopy"><div class="live-kicker">${i.icon} LIVE · ${isDone(i)?'已完成':'10–12 分钟'}</div><div class="live-title">${i.title}</div><div class="live-sub">${esc(scope.label)} · 替代额外录音，不增加时长</div></div>
-        <div class="live-actions"><button class="btn primary" aria-live="polite" onclick="copyLivePrompt(this,event)">复制 Live 提示词</button><a class="btn live-open" href="https://chatgpt.com/" target="_blank" rel="noopener" onclick="event.stopPropagation()">打开 ChatGPT ↗</a></div>
+        <div class="livecopy"><div class="live-kicker">${i.icon} GPT 抽问 · ${isDone(i)?'已完成':'10–12 分钟'}</div><div class="live-title">${i.title}</div><div class="live-sub">${esc(scope.label)} · 随机抽题，不把整张清单问完</div></div>
+        <div class="live-actions"><button class="btn primary" aria-live="polite" onclick="copyLivePrompt(this,event)">复制今日抽问提示词</button><a class="btn live-open" href="https://chatgpt.com/" target="_blank" rel="noopener" onclick="event.stopPropagation()">打开 ChatGPT ↗</a></div>
       </section>`;
       return;
     }
@@ -223,17 +244,20 @@ function renderDetail(){
   const i=ITEMS[view.id]; const s=st(i.id);
   let h=`<button class="back" onclick="goList()">← 返回今日</button><div class="d-title">${i.icon} ${i.title}</div>`;
   if(i.m&&i.m.cue)h+=`<div class="d-cue">${i.m.cue}</div>`;
+  if(i.m&&Array.isArray(i.m.cuePoints)&&i.m.cuePoints.length)h+=`<ul class="cue-points">${i.m.cuePoints.map(point=>`<li>${esc(point)}</li>`).join('')}</ul>`;
   if(i.w&&i.w.prompt&&!(i.w.visual&&i.w.visual.image))h+=`<div class="d-cue">${i.w.prompt}</div>`;
   h+=`<div class="bar"><i style="width:${Math.round(frac(i)*100)}%"></i></div>`;
 
   if(i.type==='memo'){ const m=i.m;
+    const targets=i.targets||{read:3,recall:2,dictate:1};
+    const stepLabels={read:['听读全文','边听边出声'],recall:['看关键词链复述','盖住原文'],dictate:['默写检验','可对照改错'],record:['90–120秒录音','四个cue点无遗漏']};
     h+=`<div class="row">${player(aud(m.audio))}<span class="hint">边听边读</span></div>`;
     h+=`<div class="chain"><span class="lab">关键词链(背这串)</span>${m.chain}</div>`;
     if(isDone(i))h+=`<div class="congrats">🎉 这篇练熟了!</div>`;
-    [['read','朗读全文','出声读',3],['recall','看关键词链复述','盖住原文',2],['dictate','默写检验','写完点+',1]].forEach(([k,n,sub,t])=>{
+    Object.entries(targets).forEach(([k,t])=>{ const [n,sub]=stepLabels[k]||[k,'完成一次'];
       const v=s[k]||0,full=v>=t; let d=''; for(let x=0;x<t;x++)d+=`<span class="dot ${x<v?'on':''}"></span>`;
       h+=`<div class="step ${full?'full':''}"><div class="step-top"><div class="step-name">${full?'✓ ':''}${n} <span class="sub">· ${sub}</span></div><div class="dots">${d}<button class="plus" ${full?'disabled':''} onclick="inc('${i.id}','${k}',${t})">+</button></div></div></div>`; });
-    h+=`<div class="step"><div class="step-name">✍️ 默写框(自动改错)</div><div class="hint">凭记忆写,点"对照改错"。</div>
+    if(targets.dictate)h+=`<div class="step"><div class="step-name">✍️ 默写框(自动改错)</div><div class="hint">凭记忆写,点"对照改错"。</div>
       <textarea id="dict" placeholder="在这里默写…" oninput="saveDict('${i.id}')">${s.dictText||''}</textarea>
       <div class="row"><button class="btn primary" onclick="checkDict('${i.id}',ITEMS[${view.id}].m)">对照改错</button></div><div id="dictRes"></div></div>`;
     h+=scriptHTML(m,i.id);
@@ -279,14 +303,15 @@ function renderDetail(){
     });
     h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?'✓ 已闭卷复原':'复习完成 ✓'}</button></div>`;
   }
-  else if(i.type==='p1review'){
-    h+=`<div class="hint">只做今天选中的重点题：先遮住答案口答 2–3 句，卡住再看；这是复习，不占“今日唯一新内容”。</div>`;
+  else if(i.type==='p1review'||i.type==='p1learn'){
+    const isLearning=i.type==='p1learn';
+    h+=`<div class="hint">${isLearning?'新学短回答：先听一遍，再把每题说成“直接回答 + 一个原因或例子”；目标15–20秒，不扩写。':'已背话题复习：每题只说15–20秒关键词短版，不照页面完整答案复述；卡住才看。'}</div>`;
     i.idxs.forEach(idx=>{ const t=P1[idx];
       h+=`<div class="p1t"><div class="p1t-h">📌 ${t.topic} <span class="cn">${t.cn}</span> <span class="tier">${stars(t.tier)}</span></div>
         <div class="row seg">${player(aud('audio-p1-'+idx))}<span class="hint">整话题音频；今天只答下列 ${i.qidxs.length} 题</span></div><div class="qa">`;
       i.qidxs.forEach(questionIndex=>{ const x=t.qa[questionIndex]; h+=`<div class="q">Q${questionIndex+1} · ${x.q}</div><div class="a">${x.a}</div>`; });
       h+=`</div></div>`; });
-    h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?'✓ 本话题已完成':'本话题完成 ✓'}</button></div>`;
+    h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?`✓ ${isLearning?'已学完':'已复习'}`:`${isLearning?'学完':'复习完'} ✓`}</button></div>`;
   }
   else if(i.type==='p1quick'){
     h+=`<div class="hint">昨天学过的 P1,快速听一遍 + 扫一眼开头,防遗忘。想不起来的回昨天的卡再看。</div>`;
@@ -319,13 +344,14 @@ function renderDetail(){
   }
   else if(i.type==='record'){
     const scope=liveScope();
-    h+=`<div class="livebrief"><span>今日模拟范围</span>${esc(scope.label)}</div>
-      <div class="notice"><b>用途：</b>它替代今天的额外录音自查。先完成核心背诵，再用 Live 做 10–12 分钟真实输出；不要让它增加新范文。</div>
-      <div class="row live-detail-actions"><button class="btn primary" aria-live="polite" onclick="copyLivePrompt(this,event)">复制今日 Live 模拟考提示词</button><a class="btn live-open" href="https://chatgpt.com/" target="_blank" rel="noopener">打开 ChatGPT ↗</a></div>
-      <ol class="live-steps"><li>复制提示词，打开 ChatGPT 网页或手机端的 Voice → Live。</li><li>粘贴后直接开始；Part 2 停顿时让它保持安静，直到你说 Done。</li><li>最后只改最影响 6.5 的 3 点，并重答 1 题。</li></ol>
+    h+=`<div class="livebrief"><span>今日抽问范围</span>${esc(scope.label)}</div>
+      <div class="notice"><b>用途：</b>它替代额外录音自查。先完成核心背诵，再让 ChatGPT 从今天的题池随机抽问；不会把几十道题一次问完，也不会凭空增加 Part 3。</div>
+      <div class="row live-detail-actions"><button class="btn primary" aria-live="polite" onclick="copyLivePrompt(this,event)">复制今日抽问提示词</button><a class="btn live-open" href="https://chatgpt.com/" target="_blank" rel="noopener">打开 ChatGPT ↗</a></div>
+      <ol class="live-steps"><li>复制提示词，打开 ChatGPT 网页或手机端的语音模式。</li><li>新学P1抽8题、已背复习抽4题；Part 2只做1题。</li><li>最后只改最影响6.5的3点，并重答1题。</li></ol>
       <details class="keybox"><summary>查看 / 手动复制今日提示词</summary><pre class="liveprompt">${esc(livePrompt())}</pre></details>
-      <details class="keybox"><summary>没有 Live？改用普通录音自查</summary><ol class="live-steps"><li>把今天的 P2 完整说一遍并录音。</li><li>回听卡顿超过 3 秒、超 2 分钟和明显翻译腔。</li><li>只修最卡的 1–2 句，再录一次。</li></ol></details>`;
-    h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?'✓ 已完成（取消）':'Live / 录音练习完成 ✓'}</button></div>`;
+      <div class="step"><div class="step-name">粘贴 GPT 的4行诊断摘要</div><div class="hint">把对话最后的“P1弱题 / P2漏cue / 3个问题 / 重答结果”粘贴到这里；7月19日晚一键导出会带上它。</div><textarea id="diagnosis" placeholder="P1弱题：…&#10;P2漏掉的cue：…&#10;最影响6.5的3点：…&#10;重答结果：…" oninput="saveDiagnosis('${i.id}')">${esc(s.notes||'')}</textarea></div>
+      <details class="keybox"><summary>没有语音模式？改用普通录音自查</summary><ol class="live-steps"><li>随机挑4道P1和1篇P2并录音。</li><li>回听卡顿超过3秒、明显偏题和基础语法错误。</li><li>只修最卡的1–2句，再录一次。</li></ol></details>`;
+    h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?'✓ 已完成（取消）':'抽问 / 录音练习完成 ✓'}</button></div>`;
   }
   app.innerHTML=h;
 }

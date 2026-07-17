@@ -104,10 +104,10 @@
 {"q":"Do Chinese people often visit science museums?","a":"Yes, I'd say it's quite common, especially parents taking their children on weekends or holidays. Science museums are becoming more popular and interactive, so they're seen as both fun and educational."}
 ]},
 {"topic":"Outer Space and Stars","cn":"外太空","tier":"B","qa":[
-{"q":"Have you ever learnt about outer space and stars?","a":"Yes, I find outer space mysterious and fascinating. What's interesting is that after studying the microscopic world, like cells, I feel the universe and the cellular world are similar — one is extremely large, and the other is extremely small, but both are incredibly complex."},
-{"q":"Have you ever learned about outer space?","a":"Yes, but mostly in a casual way — through textbooks, movies, and science videos. I wouldn't say I know it deeply, but I always find it impressive and even a bit overwhelming."},
+{"q":"Have you ever learnt about outer space and stars?","a":"Yes, a little, mainly from school and science videos. I study tiny things like cells, so I find space fascinating because it is huge but also very complex."},
+{"q":"Have you ever learned about outer space?","a":"Yes, a little, mainly from school and science videos. I study tiny things like cells, so I find space fascinating because it is huge but also very complex."},
 {"q":"Do you want to go into outer space?","a":"It sounds cool in my imagination, but I probably wouldn't dare to do it in real life. I'm afraid I would get dizzy or feel physically uncomfortable in space."},
-{"q":"Do you like science fiction movies?","a":"Yes, a lot. Sci-fi combines science with imagination. I especially like stories about space, AI, and future society, because they make me think about where technology may take us."}
+{"q":"Do you like science fiction movies?","a":"Yes, sometimes. I like science-fiction movies about space and AI because they make me imagine how technology could change society."}
 ]},
 {"topic":"Music","cn":"音乐","tier":"B","qa":[
 {"q":"Do you prefer sad or happy music?","a":"I prefer happy or positive music. I especially like songs that feel youthful and motivating. They give me energy, especially when I'm walking, commuting, or trying to start a task."},
@@ -118,22 +118,22 @@
 {"q":"Did you like singing when you were a child?","a":"Yes. As a child I liked humming songs, even though I wasn't trained. Children are usually less shy, so singing felt quite natural back then."},
 {"q":"Who do you want to sing for?","a":"Honestly, I'd rather sing for myself. I don't see singing as a performance. For me it's more of a private way to relax and express my feelings."},
 {"q":"Do you think singing can bring happiness to people?","a":"Yes, of course. Singing helps people release stress and express emotions. People don't need to sing perfectly — sometimes the act of singing itself can make them feel happier."},
-{"q":"Do you like listening to other people sing?","a":"Yes. I like it when I can feel an emotional connection. For me, a good performance isn't only about technique, but whether the singer can create a sense of resonance."},
+{"q":"Do you like listening to other people sing?","a":"Yes. I like singers who sound sincere and make me feel something. For me, emotion matters more than perfect technique."},
 {"q":"Have you ever taken a singing class?","a":"Only normal music classes at school — I've never taken a specialized singing lesson. We just learned some basic songs, so there was nothing very professional about it."}
 ]},
 {"topic":"Typing","cn":"打字","tier":"B","qa":[
 {"q":"Do you prefer typing or handwriting?","a":"I definitely prefer typing. Almost everything I do is by typing — notes, emails, using ChatGPT, and sometimes coding. Handwriting is useful for quick ideas, but typing is much more efficient."},
-{"q":"Do you type on a desktop or laptop every day?","a":"Yes, every day. I use my laptop almost all the time — in my room, the library, or the lab. I type research notes, prompts, emails, and code, so typing is basically part of my daily routine."},
+{"q":"Do you type on a desktop or laptop every day?","a":"Yes, every day. I use my laptop in the lab or library to write research notes, emails and code."},
 {"q":"When did you learn how to type?","a":"In primary school, because my family had a computer. At first I practised through QQ chatting. Later I became much faster because I needed to type for study and work."},
-{"q":"How do you improve your typing?","a":"I didn't really practise on purpose. I just type a lot every day, so it improves naturally — writing notes, chatting with AI, and doing research all help me type faster and more smoothly."}
+{"q":"How do you improve your typing?","a":"I never practised deliberately. I just type a lot for research, emails and coding, so my speed improved naturally."}
 ]},
 {"topic":"Shopping","cn":"购物","tier":"B","qa":[
-{"q":"Do you like shopping?","a":"Not really, especially offline shopping — walking around malls is tiring. I usually buy things only when I really need them. If possible, I prefer online shopping because it saves time and lets me compare prices."},
-{"q":"Online shopping or in-store shopping?","a":"I definitely prefer online shopping. It saves time, and I can compare prices and reviews easily. I only go to physical stores when I really need to try something on, like shoes."},
+{"q":"Do you like shopping?","a":"Not very much. I usually shop only when I need something, and I prefer buying online because walking around malls is tiring."},
+{"q":"Online shopping or in-store shopping?","a":"I prefer shopping online because it saves time and makes it easy to compare prices and reviews. I shop in person only when I need to try something on."},
 {"q":"Have you ever returned anything bought online?","a":"Yes, especially shoes. Sometimes the size isn't right, or they don't feel comfortable after I try them on. That's why I'm quite careful when buying shoes online."}
 ]},
 {"topic":"Gifts","cn":"礼物","tier":"B","qa":[
-{"q":"What do you consider when choosing a gift?","a":"When choosing a gift, I think about whether it's fun, special, and suitable for that person's style. A gift doesn't have to be expensive — a personal and thoughtful one is usually better."},
+{"q":"What do you consider when choosing a gift?","a":"I mainly think about the person's interests and whether the gift is useful. A thoughtful gift does not need to be expensive."},
 {"q":"Have you ever sent handmade gifts?","a":"Yes. I once prepared a Christmas gift with handmade packaging and decorations. It wasn't expensive, but it felt more personal and thoughtful."},
 {"q":"Have you ever received a great gift? / received recently?","a":"Yes. Recently I received a badminton racket. I liked it because it was useful and also encouraged me to do more exercise — better than something purely decorative."},
 {"q":"Are you good at choosing gifts?","a":"I think I'm quite good at it. I pay attention to people's personality and interests before choosing. I prefer gifts that feel personal, not just expensive."}
@@ -146,26 +146,26 @@
 ]},
 {"topic":"Clothing","cn":"衣服","tier":"B","qa":[
 {"q":"What kind of clothes do you like to wear?","a":"I like comfortable and quick-dry clothes. Hong Kong is quite hot and humid, so comfort matters a lot. I don't really care about fashion that much in daily life."},
-{"q":"Comfortable casual clothes or smart clothes?","a":"I prefer comfortable and casual clothes. As a PhD student I walk a lot and spend time in the lab or library, so comfort is more important than looking formal. I only wear smart clothes for special occasions."},
+{"q":"Comfortable casual clothes or smart clothes?","a":"Definitely casual clothes. I walk a lot and spend most days in the lab or library, so I save formal clothes for special occasions."},
 {"q":"Do you like wearing T-shirts? / Do you spend much time choosing clothes?","a":"Yes. T-shirts are simple, comfortable, and easy to match. I even bought many similar ones because I don't want to spend too much time choosing clothes in the morning."},
 {"q":"What colour clothes do you like?","a":"I like black and white. They're simple, clean, and easy to match. Also, they don't go out of style easily."}
 ]},
 {"topic":"Scenery & Views","cn":"风景","tier":"B","qa":[
-{"q":"Do you look out the window at the scenery when travelling?","a":"Yes, I always look out the window when travelling — it's one of the pleasures of travelling. I prefer mountains because I grew up around them, so they feel familiar. Mountains make me feel calm and grounded."},
+{"q":"Do you look out the window at the scenery when travelling?","a":"Yes, I usually look out of the window. I grew up around mountains, so mountain views feel familiar and calming to me."},
 {"q":"Do you like to take scenery pictures?","a":"Yes. I'm not a professional photographer, but I enjoy taking pictures casually when I see a nice view. For me it's a way to record the moment."},
-{"q":"The most beautiful sight you've seen while travelling?","a":"One of the most beautiful views was in Yunnan. I came out of a tunnel, and suddenly there was a wide-open view with blue sky and white clouds. It felt like the whole world opened up in front of me."},
-{"q":"Urban views or rural views?","a":"It depends. In daily life I like urban views because they feel efficient and energetic. But when I want to relax, I prefer natural views because they make me feel calmer."}
+{"q":"The most beautiful sight you've seen while travelling?","a":"The sunset from the Chi Wah Learning Commons is one of the best views I have seen in Hong Kong. It brings the harbour, coastline and distant skyline together."},
+{"q":"Urban views or rural views?","a":"It depends. I enjoy Hong Kong's energetic city views, but when I need to relax, I prefer mountains or the sea."}
 ]},
 {"topic":"Building","cn":"建筑","tier":"B","qa":[
 {"q":"Are there any tall buildings near your home?","a":"Yes, there are many tall buildings near my home in Hong Kong — the buildings are very dense. It's convenient, but sometimes it can feel a bit crowded."},
-{"q":"Is there a building you would like to visit?","a":"Yes, I'd like to visit libraries in different universities. A university library isn't just a building; it shows the academic atmosphere and history of a school. I also enjoy the quiet feeling inside."},
-{"q":"Do you want to live in a tall building?","a":"I don't mind. The most important things are the view and the actual living space inside. A tall building can be nice with a good view, but if the room is too small, the height doesn't really matter."},
+{"q":"Is there a building you would like to visit?","a":"When I visit my childhood friend in Sydney, I would like to see one of the university libraries there. I enjoy quiet academic spaces."},
+{"q":"Do you want to live in a tall building?","a":"I would, if the flat had enough space and a good view. Height alone does not matter because Hong Kong apartments can be very small."},
 {"q":"Do you take photos of buildings?","a":"Not really. I may take photos if a building looks very special, but not on purpose. I'm more interested in natural views or the overall atmosphere of a place."}
 ]},
 {"topic":"Teachers","cn":"老师","tier":"B","qa":[
-{"q":"Do you have a favourite teacher?","a":"My favourite teacher was my primary school English teacher. She really inspired my interest in learning English, and that influence has lasted a long time. A good teacher can change the way a student feels about a subject."},
-{"q":"What kind of teacher do you like?","a":"I like teachers who explain things clearly and make the class interesting. If a teacher can turn a difficult idea into something simple, I really respect them. I also like teachers who encourage students to think, not just memorize."},
-{"q":"Do you want to be a teacher in the future?","a":"Actually, yes. I once worked part-time as a tutor, and it gave me a real sense of achievement. I may not become a full-time teacher, but I'd like to share knowledge, especially about research, English, or AI."},
+{"q":"Do you have a favourite teacher?","a":"My favourite teacher was my primary-school English teacher. She made the lessons enjoyable and encouraged me to keep learning English, so I still remember her clearly."},
+{"q":"What kind of teacher do you like?","a":"I like patient teachers who use real examples and let students ask questions. That makes a difficult class easier to follow and keeps students involved."},
+{"q":"Do you want to be a teacher in the future?","a":"Possibly, although probably not full-time. I once worked as a tutor and enjoyed helping students, so I'd still like to teach or share knowledge occasionally."},
 {"q":"Teachers now vs teachers in the past?","a":"Teachers today use much more technology — online platforms, slides, even AI tools. But they also face more pressure from diverse expectations. So they have more tools, but also more constraints."}
 ]},
 {"topic":"Childhood Activities","cn":"童年活动","tier":"B","qa":[
@@ -175,49 +175,49 @@
 {"q":"Are childhood activities important?","a":"Yes, definitely. They influence a child's personality, social skills, and physical health. I think playing is also a form of learning, not just a waste of time."}
 ]},
 {"topic":"Hobby","cn":"爱好","tier":"B","qa":[
-{"q":"Do you have any hobbies?","a":"These days my hobbies are walking and experimenting with AI tools. Walking helps me relax, while AI tools make me feel curious and productive."},
+{"q":"Do you have any hobbies?","a":"My main hobbies are walking and listening to music. Both are simple, but they help me relax after spending a long day in the lab."},
 {"q":"Did you have any hobbies when you were a child?","a":"Yes. As a child I liked reading and playing small computer games. They were simple but fun, and made me curious about stories and technology."},
-{"q":"Do you have a hobby you've had since childhood?","a":"Yes — reading and exploring computers have stayed with me. The form has changed: now I read for research and explore AI tools instead of games. But the curiosity behind it is still the same."},
-{"q":"Do you have the same hobbies as your family?","a":"Not really. Everyone in my family has different hobbies. Mine are more related to technology, AI, and learning tools, while others prefer more traditional ways to relax."}
+{"q":"Do you have a hobby you've had since childhood?","a":"Yes, I've always enjoyed walking and being outdoors. As a child I walked around with friends, and now I walk around Hong Kong to relax."},
+{"q":"Do you have the same hobbies as your family?","a":"Not really. I enjoy walking and listening to music, while my wife prefers activities like karate, singing and diving. We still support each other's hobbies."}
 ]},
 {"topic":"Headphones","cn":"耳机","tier":"C","qa":[
-{"q":"Do you use headphones?","a":"I use headphones quite often, especially when walking, exercising, or doing boring tasks. I use open-ear clip-on headphones because they feel more comfortable. But I wouldn't use them when I'm doing experiments or need full concentration."},
+{"q":"Do you use headphones?","a":"Yes, quite often. I use open-ear clip-on headphones when I walk or exercise because they're comfortable, but I take them off when I need to focus in the lab."},
 {"q":"What type of headphones do you use?","a":"I use open-ear clip-on headphones. I like them because they don't go directly into my ears, so they feel more comfortable, and they're convenient when I'm walking around."},
 {"q":"When would you not use headphones?","a":"When I need to concentrate fully, especially during experiments. I need to pay attention to details and be aware of what's happening around me."}
 ]},
 {"topic":"Watch","cn":"手表","tier":"C","qa":[
 {"q":"Do you wear a watch?","a":"Yes, I wear a smartwatch, mainly because it's practical. It helps me check the time, track my activity, and receive simple notifications."},
 {"q":"Have you ever got a watch as a gift?","a":"Yes, I once got an Apple Watch as a gift. I liked it because it was not only useful, but also felt quite personal."},
-{"q":"Why do some people wear expensive watches?","a":"I think expensive watches are often a symbol of status and taste. For some people, a watch isn't just for telling time; it can show their lifestyle, personality, or social position."},
+{"q":"Why do some people wear expensive watches?","a":"Some people see an expensive watch as a status symbol. It can show their taste, although I personally care more about useful functions."},
 {"q":"Is it important to wear a watch?","a":"It depends. For me a smartwatch is useful because of its many functions. But if someone only needs to know the time, a phone is enough."}
 ]},
 {"topic":"Mirrors","cn":"镜子","tier":"C","qa":[
-{"q":"Do you like looking at yourself in the mirror?","a":"Not really. I look in the mirror to check my appearance before going out, but I don't pay too much attention. For me it's more about looking neat than looking perfect."},
+{"q":"Do you like looking at yourself in the mirror?","a":"Not really. I only use a mirror to check that I look neat before going out, rather than spending a long time on my appearance."},
 {"q":"Do you usually take a mirror with you?","a":"No, I don't think it's necessary. If I really need to check something, I can just use my phone camera."},
 {"q":"Would you use mirrors to decorate your room?","a":"Probably not. I see mirrors more as practical items than decorations. Since my room is small, I prefer to keep things simple."}
 ]},
 {"topic":"Cars","cn":"汽车","tier":"C","qa":[
-{"q":"Did you enjoy traveling by car when you were a kid?","a":"When I was a kid, I often got carsick, so I didn't enjoy travelling by car much. Now I prefer spacious electric cars — quieter and more modern. I'm not really into luxury cars; I care more about space, comfort, safety, and technology."},
+{"q":"Did you enjoy traveling by car when you were a kid?","a":"Not really, because I often got carsick as a child. I enjoy car trips more now, especially in a quiet and spacious car."},
 {"q":"Do you prefer to be a driver or a passenger?","a":"I prefer to be a passenger. It's more relaxing — I can look out of the window, listen to something, or just rest. Driving gives more control, but also more pressure."},
 {"q":"What do you do when there is a traffic jam?","a":"If I'm a passenger, I usually scroll on my phone, chat, or listen to podcasts. Podcasts make the waiting feel less wasted. But honestly, traffic jams are still annoying."},
-{"q":"Do you think car colours are important?","a":"Yes, quite important. A car's colour affects how it looks, and appearance does matter to some extent. I prefer clean and simple colours because they look more modern and safer."}
+{"q":"Do you think car colours are important?","a":"To some extent. I prefer simple colours like white or black because they look clean and modern without attracting too much attention."}
 ]},
 {"topic":"Sports Team","cn":"团队运动","tier":"C","qa":[
 {"q":"Have you ever been part of a sports team?","a":"Yes, although not in a professional way. I've played badminton mixed doubles and joined some basketball games. They were fun because I had to cooperate with others, not just focus on myself."},
 {"q":"Are team sports popular in your culture?","a":"Yes, very popular. In China, basketball, football, volleyball, and badminton doubles are common, especially at school. Team sports are a good way to make friends and build a sense of belonging."},
-{"q":"Do you like watching team games? Why?","a":"Yes. I like the atmosphere of team games, especially when players trust each other and create great teamwork. For example, I still remember watching the Warriors in the 2022 playoffs — the energy and team spirit were really impressive."},
+{"q":"Do you like watching team games? Why?","a":"Yes. I enjoy the atmosphere and teamwork. I still remember watching the Warriors in the 2022 playoffs because their energy and trust in one another were impressive."},
 {"q":"Differences between team sports and individual sports?","a":"Team sports require more cooperation, communication, and trust — you think about your teammates. Individual sports are more flexible, but rely more on self-discipline and personal performance."}
 ]},
 {"topic":"Pets and Animals","cn":"宠物与动物","tier":"C","qa":[
-{"q":"What's your favourite animal? Why?","a":"My favourite animal is the panda — cute and a national treasure of China. I once had a cat called Pearl; having a pet made home feel warmer and more lively."},
+{"q":"What's your favourite animal? Why?","a":"My favourite animal is the panda. It looks calm and friendly, and I also like it because it's one of China's best-known animals."},
 {"q":"Where do you prefer to keep a pet, indoors or outdoors?","a":"Indoors. It feels safer, and I can interact with it more often. Of course, a dog still needs some outdoor time for exercise."},
 {"q":"Are there many people keeping pets in your country?","a":"Yes, definitely, especially cats and dogs. The pet industry has grown a lot — pet food, pet hospitals, grooming, and even customized pet meals."},
 {"q":"Should schools teach students about animals?","a":"Yes. Learning about animals can develop children's curiosity and sense of responsibility, and teach them how to treat animals safely and kindly."}
 ]},
 {"topic":"Jokes & Comedies","cn":"笑话与喜剧","tier":"C","qa":[
-{"q":"Are you good at telling jokes?","a":"I think I'm quite good at dry jokes. I like this humour because it's not too loud but can be unexpectedly funny. I really like Chandler from Friends — his humour is sarcastic and clever."},
+{"q":"Are you good at telling jokes?","a":"I'm fairly good at dry jokes. I like Chandler from Friends because he delivers sarcastic jokes very calmly, which makes them even funnier."},
 {"q":"Do you like to watch comedies?","a":"Yes, very much. I've liked Stephen Chow's comedies since I was a child. They're funny on the surface, but sometimes there's also sadness or social meaning behind the humour."},
-{"q":"Have you ever watched a live show?","a":"Yes, I've watched a live stand-up comedy show. The atmosphere was quite different from online videos — when everyone laughs together, the jokes feel more powerful."},
+{"q":"Have you ever watched a live show?","a":"Not in person. I've watched clips of live stand-up shows online, and the audience's reaction makes the jokes feel more lively than ordinary videos."},
 {"q":"Are comedy shows popular in China?","a":"Yes, very popular. There are many forms — stand-up, sketch comedy, comedy variety shows, and funny short videos. Modern life is stressful, so comedy gives people a quick way to relax."}
 ]}
 ]
