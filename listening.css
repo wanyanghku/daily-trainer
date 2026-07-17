@@ -26,6 +26,28 @@ h1{font-size:34px;line-height:1.05;letter-spacing:-.04em;margin:0 0 10px;max-wid
 .progress-copy strong{color:var(--ink);font-size:14px}
 .progress{height:6px;background:#dfeae8;border-radius:999px;overflow:hidden}
 .progress i{display:block;height:100%;background:var(--teal);border-radius:inherit;transition:width .25s ease}
+.rules-entry{width:100%;border:1px solid #b8d8d3;background:var(--white);border-radius:14px;padding:15px;margin:0 0 18px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;text-align:left;cursor:pointer;color:inherit}
+.rules-entry small,.rules-entry strong,.rules-entry span{display:block}
+.rules-entry small{color:var(--teal);font-size:10px;font-weight:800;letter-spacing:.06em}
+.rules-entry strong{font-size:16px;margin:2px 0 3px}
+.rules-entry span span{color:var(--muted);font-size:11px;line-height:1.45}
+.rules-entry>i{color:var(--teal);font-size:11px;font-weight:800;font-style:normal}
+.weekend-day{margin:0 0 22px}
+.weekend-day>header{display:flex;align-items:flex-start;justify-content:space-between;gap:14px;margin-bottom:8px}
+.weekend-day>header small{display:block;color:var(--teal);font-size:10px;font-weight:800;letter-spacing:.06em}
+.weekend-day>header h2{margin:2px 0 0;font-size:16px;line-height:1.35}
+.weekend-day>header>b{white-space:nowrap;color:var(--muted);font-size:10px;font-weight:700;padding-top:4px}
+.plan-list{border-top:1px solid var(--line)}
+.plan-task{display:grid;grid-template-columns:31px minmax(0,1fr);gap:10px;padding:13px 0;border-bottom:1px solid var(--line)}
+.task-check{width:28px;height:28px;margin-top:2px;border:1.5px solid #a9c2bd;border-radius:50%;background:var(--white);cursor:pointer;padding:0;display:flex;align-items:center;justify-content:center}
+.task-check span{color:#fff;font-size:13px;font-weight:900}
+.plan-task.done .task-check{border-color:var(--teal);background:var(--teal)}
+.plan-task.done .task-copy>strong{text-decoration:line-through;color:#71817f}
+.task-meta{color:var(--teal);font-size:9.5px;font-weight:800;letter-spacing:.05em}
+.plan-task.optional .task-meta{color:#82908e}
+.task-copy>strong{display:block;font-size:13.5px;line-height:1.35;margin:2px 0 3px}
+.task-copy p{margin:0;color:var(--muted);font-size:11.5px;line-height:1.5}
+.task-copy a{display:inline-flex;align-items:center;min-height:32px;margin-top:3px;color:var(--teal);font-size:11px;font-weight:800;text-decoration:none}
 .today{margin:0 0 18px}
 .today-label{font-size:11px;color:var(--teal);font-weight:800;letter-spacing:.07em;margin-bottom:7px}
 .today-card{width:100%;border:1px solid #a9d4ce;background:var(--white);border-radius:16px;padding:17px;text-align:left;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:center;cursor:pointer;box-shadow:0 10px 28px rgba(10,92,83,.07)}
@@ -39,6 +61,10 @@ h1{font-size:34px;line-height:1.05;letter-spacing:-.04em;margin:0 0 10px;max-wid
 .practice strong{display:block;font-size:14px;margin:1px 0}
 .practice span{display:block;color:var(--muted);font-size:11px}
 .practice i{font-style:normal;color:var(--teal);font-size:12px;font-weight:800}
+.practice-title{margin-top:4px!important}
+.practice-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 0 23px}
+.practice-card{margin:0;padding:13px;border:1px solid var(--line);border-radius:12px;background:var(--white);grid-template-columns:minmax(0,1fr)}
+.practice-card>i{margin-top:5px}
 .section-title{font-size:12px;color:#405255;font-weight:800;margin:0 0 8px}
 .day-list{border-top:1px solid var(--line)}
 .day-row{width:100%;display:grid;grid-template-columns:54px minmax(0,1fr) auto;gap:10px;align-items:center;padding:12px 0;border:0;border-bottom:1px solid var(--line);background:none;text-align:left;cursor:pointer}
@@ -66,6 +92,7 @@ h1{font-size:34px;line-height:1.05;letter-spacing:-.04em;margin:0 0 10px;max-wid
 .rule{display:grid;grid-template-columns:112px minmax(0,1fr);gap:10px;padding:9px 0;border-top:1px solid #e1ebe9;font-size:12px;line-height:1.55}
 .rule b{color:var(--teal-dark)}
 .rule span{color:#44575a}
+.standalone-rules{border-bottom:1px solid var(--line)}
 .steps{list-style:none;margin:13px 0;padding:0}
 .steps li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;padding:11px 0;border-top:1px solid var(--line)}
 .steps li:last-child{border-bottom:1px solid var(--line)}
@@ -89,5 +116,6 @@ h1{font-size:34px;line-height:1.05;letter-spacing:-.04em;margin:0 0 10px;max-wid
 .sources{display:flex;flex-wrap:wrap;gap:7px 14px;margin:12px 0;font-size:10.5px}
 .sources a{color:var(--teal);text-decoration:none;border-bottom:1px solid #9bcfc8}
 .done-note{color:var(--teal);font-size:12px;font-weight:800}
-@media(max-width:430px){#listening-app{padding:15px 14px calc(58px + env(safe-area-inset-bottom))}h1{font-size:31px}.method-head h1{font-size:25px}.rule{grid-template-columns:96px minmax(0,1fr)}.check ul{grid-template-columns:1fr}.brand{letter-spacing:.12em}}
+@media(max-width:430px){#listening-app{padding:15px 14px calc(58px + env(safe-area-inset-bottom))}h1{font-size:31px}.method-head h1{font-size:25px}.rule{grid-template-columns:96px minmax(0,1fr)}.check ul{grid-template-columns:1fr}.brand{letter-spacing:.12em}.practice-grid{grid-template-columns:1fr 1fr}.practice-card{padding:12px}.practice-card strong{font-size:13px}}
+@media(max-width:350px){.practice-grid{grid-template-columns:1fr}}
 @media(prefers-reduced-motion:reduce){.progress i{transition:none}}

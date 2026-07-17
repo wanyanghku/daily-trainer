@@ -27,6 +27,7 @@ button{touch-action:manipulation}
 .intro h1{max-width:520px;margin:0;font-size:clamp(30px,8.2vw,48px);line-height:1.06;letter-spacing:-.04em}
 .intro-copy{max-width:520px;margin:13px 0 0;color:var(--muted);font-size:13px;line-height:1.7}
 .coverage{display:grid;grid-template-columns:repeat(5,1fr);gap:1px;margin:24px 0 20px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.coverage.cols-4{grid-template-columns:repeat(4,1fr)}
 .coverage div{padding:12px 3px;text-align:center;border-left:1px solid var(--line)}
 .coverage div:first-child{border-left:0}
 .coverage strong{display:block;color:var(--teal-dark);font-size:20px;line-height:1.1;font-variant-numeric:tabular-nums}
@@ -97,7 +98,7 @@ button{touch-action:manipulation}
   .answer-input{font-size:17px}
 }
 @media (max-width:350px){
-  .coverage{grid-template-columns:repeat(3,1fr)}
+  .coverage,.coverage.cols-4{grid-template-columns:repeat(3,1fr)}
   .coverage div:nth-child(4){border-left:0}
   .intro-actions,.result-actions{grid-template-columns:1fr}
 }

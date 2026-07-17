@@ -1,0 +1,25 @@
+[
+  {"id":"number-phone-01","category":"phone","label":"电话号码","answer":"020 7946 0815","speak":"oh two oh, seven nine four six, oh eight one five","audio":"audio-number-phone-01","aliases":["02079460815","020-7946-0815"]},
+  {"id":"number-phone-02","category":"phone","label":"电话号码","answer":"01632 960 184","speak":"oh one six three two, nine six oh, one eight four","audio":"audio-number-phone-02","aliases":["01632960184","01632-960-184"]},
+  {"id":"number-phone-03","category":"phone","label":"电话号码","answer":"07700 900 326","speak":"oh seven seven double oh, nine double oh, three two six","audio":"audio-number-phone-03","aliases":["07700900326","07700-900-326"]},
+  {"id":"number-phone-04","category":"phone","label":"电话号码","answer":"01865 274 803","speak":"oh one eight six five, two seven four, eight oh three","audio":"audio-number-phone-04","aliases":["01865274803","01865-274-803"]},
+  {"id":"number-phone-05","category":"phone","label":"电话号码","answer":"0800 358 1294","speak":"oh eight hundred, three five eight, one two nine four","audio":"audio-number-phone-05","aliases":["08003581294","0800-358-1294"]},
+
+  {"id":"number-price-01","category":"price","label":"价格","answer":"£15.50","speak":"fifteen pounds fifty","audio":"audio-number-price-01","aliases":["15.50","15 pounds 50","15 pound 50"]},
+  {"id":"number-price-02","category":"price","label":"价格","answer":"£8.75","speak":"eight pounds seventy-five","audio":"audio-number-price-02","aliases":["8.75","8 pounds 75","8 pound 75"]},
+  {"id":"number-price-03","category":"price","label":"价格","answer":"£120","speak":"one hundred and twenty pounds","audio":"audio-number-price-03","aliases":["120","120 pounds","120 pound"]},
+  {"id":"number-price-04","category":"price","label":"价格","answer":"£2,450","speak":"two thousand four hundred and fifty pounds","audio":"audio-number-price-04","aliases":["2450","£2450","2,450","2450 pounds"]},
+  {"id":"number-price-05","category":"price","label":"价格","answer":"£64.20","speak":"sixty-four pounds twenty","audio":"audio-number-price-05","aliases":["64.20","64 pounds 20","64 pound 20"]},
+
+  {"id":"number-quantity-01","category":"quantity","label":"普通数字","answer":"1,350","speak":"one thousand three hundred and fifty","audio":"audio-number-quantity-01","aliases":["1350"]},
+  {"id":"number-quantity-02","category":"quantity","label":"普通数字","answer":"2,600","speak":"two thousand six hundred","audio":"audio-number-quantity-02","aliases":["2600"]},
+  {"id":"number-quantity-03","category":"quantity","label":"普通数字","answer":"780","speak":"seven hundred and eighty","audio":"audio-number-quantity-03","aliases":[]},
+  {"id":"number-quantity-04","category":"quantity","label":"普通数字","answer":"14,500","speak":"fourteen thousand five hundred","audio":"audio-number-quantity-04","aliases":["14500"]},
+  {"id":"number-quantity-05","category":"quantity","label":"普通数字","answer":"3.5","speak":"three point five","audio":"audio-number-quantity-05","aliases":["3.50"]},
+
+  {"id":"number-year-01","category":"year","label":"年份","answer":"1998","speak":"nineteen ninety-eight","audio":"audio-number-year-01","aliases":[]},
+  {"id":"number-year-02","category":"year","label":"年份","answer":"2006","speak":"two thousand and six","audio":"audio-number-year-02","aliases":[]},
+  {"id":"number-year-03","category":"year","label":"年份","answer":"2015","speak":"twenty fifteen","audio":"audio-number-year-03","aliases":[]},
+  {"id":"number-year-04","category":"year","label":"年份","answer":"2024","speak":"twenty twenty-four","audio":"audio-number-year-04","aliases":[]},
+  {"id":"number-year-05","category":"year","label":"年份","answer":"1980","speak":"nineteen eighty","audio":"audio-number-year-05","aliases":[]}
+]

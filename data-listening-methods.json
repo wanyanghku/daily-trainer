@@ -1,4 +1,31 @@
 {
+  "weekend": [
+    {
+      "id": "sat",
+      "date": "2026-07-18",
+      "label": "周六",
+      "title": "复习旧知识 + 补齐题型接口",
+      "minutes": "160–180",
+      "tasks": [
+        {"id": "sat-review", "core": true, "minutes": 25, "title": "旧知识冷启动", "detail": "7条答题规则＋时间系列上轮17个错题＋C16 T3 P1/P2错题证据", "href": "listening-time.html", "action": "重练时间错题"},
+        {"id": "sat-listening", "core": true, "minutes": 55, "title": "补完 C16 T3 Listening P3+P4", "detail": "原速连续20题；只精听错题与蒙对题前后20–40秒"},
+        {"id": "sat-reading", "core": true, "minutes": 85, "title": "C16 T1 Reading P1+P2", "detail": "18＋20分钟硬切；做完两篇再统一对答案并记录证据链"},
+        {"id": "sat-number", "core": false, "minutes": 15, "title": "数字专项20题（可选）", "detail": "只有前三项完成且仍有精力才做；疲劳就取消，不顺延", "href": "listening-number.html", "action": "打开数字专项"}
+      ]
+    },
+    {
+      "id": "sun",
+      "date": "2026-07-19",
+      "label": "周日",
+      "title": "唯一完整联考 + 定点修错",
+      "minutes": "180–200",
+      "tasks": [
+        {"id": "sun-mock", "core": true, "minutes": 105, "title": "C19 T1 听力＋阅读完整联考", "detail": "Listening 40题；休息5分钟；Reading严格60分钟，按18/20/22切篇"},
+        {"id": "sun-review", "core": true, "minutes": 75, "title": "错题与蒙对题复盘", "detail": "听力精听答案邻域；阅读只记定位句、同义改写和一个主错因"},
+        {"id": "sun-drill", "core": false, "minutes": 20, "title": "按真题错因只做一个专项", "detail": "拼写/复数/数字错≥2做对应20题；地图错≥2改练地图词；都未触发则重练时间错题", "href": "listening-number.html", "action": "数字错时打开"}
+      ]
+    }
+  ],
   "answerRules": [
     {
       "label": "一个空能填几个",
