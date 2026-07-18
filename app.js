@@ -1,5 +1,5 @@
 /* Shared engine for the 10-day IELTS sprint — speaking + writing. */
-const VERSION='33';
+const VERSION='34';
 const DAY=window.DAY_CONFIG?window.DAY_CONFIG.day:'x';
 const KEY='ielts_sprint_20260715_day'+DAY+'_v2';
 const PROGRESS_KEY='ielts_sprint_20260715_progress';
@@ -104,10 +104,10 @@ async function boot(){
   if((cfg.newP2?1:0)+(cfg.newWriting?1:0)>1) throw new Error('A date cannot contain two new memorisation items');
   if(cfg.newP2){ const m=P2[cfg.newP2],targets=cfg.newP2Targets||{read:3,recall:2,dictate:1}; const labels={read:'听读',recall:'关键词复述',dictate:'默写检验',record:'90–120秒录音'}; const sub=Object.entries(targets).map(([key,target])=>`${labels[key]||key}×${target}`).join(' → '); ITEMS.push({type:'memo',tier:'core',weight:4,targets,id:'new_'+m.id,m,title:`今日唯一长背诵 · 母题 ${m.id} ${m.cn}`,icon:'🎤',sub}); }
   if(cfg.newWriting){ const w=WRITING[cfg.newWriting]; const sub=w.task==='Task 1'?'通用框架 → 简单句块 → 看范文落地 → 换图仿写':'范文学习 → 闭卷逻辑链 → 核心句 → 换题仿写'; ITEMS.push({type:'writingmemo',tier:'core',weight:4,id:'wnew_'+w.id,w,title:`今日唯一长背诵 · ${w.task} ${w.type} · ${w.cn}`,icon:'✍️',sub}); }
-  (cfg.p1New||[]).forEach(idx=>{ const t=P1[idx],qidxs=p1QuestionIndexes(cfg,idx); ITEMS.push({type:'p1learn',tier:'core',id:'p1new_'+idx,idxs:[idx],qidxs,title:`P1 新学 · ${t.topic}（${t.cn}）`,icon:'＋',sub:`${stars(t.tier)} · 只背 ${qidxs.length} 道代表题 · 每题 15–20 秒`}); });
+  (cfg.p1New||[]).forEach(idx=>{ const t=P1[idx],qidxs=p1QuestionIndexes(cfg,idx); ITEMS.push({type:'p1learn',tier:'core',id:'p1new_'+idx,idxs:[idx],qidxs,title:`P1 新学 · ${t.topic}（${t.cn}）`,icon:'＋',sub:`${stars(t.tier)} · 全部 ${qidxs.length} 道问题已列出 · 自由选择练习`}); });
   (cfg.reviewP2||[]).forEach(id=>{ const m=P2[id]; ITEMS.push({type:'review',tier:'core',id:'rev_'+id,m,title:`母题 ${id} · ${m.cn}（复习）`,icon:'🔁',sub:'只看关键词链说 60–90 秒；卡住再听，不重背全文'}); });
-  (cfg.p1Review||[]).forEach(idx=>{ const t=P1[idx],qidxs=p1QuestionIndexes(cfg,idx); ITEMS.push({type:'p1review',tier:'core',id:'p1rev_'+idx,idxs:[idx],qidxs,title:`P1 已背复习 · ${t.topic}（${t.cn}）`,icon:'↺',sub:`${stars(t.tier)} · ${qidxs.length} 道关键词短版 · 每题 15–20 秒`}); });
-  (cfg.p1||[]).forEach(idx=>{ const t=P1[idx],qidxs=p1QuestionIndexes(cfg,idx); ITEMS.push({type:'p1review',tier:'core',id:'p1_'+idx,idxs:[idx],qidxs,title:`P1 · ${t.topic}（${t.cn}）`,icon:'🗣️',sub:`${stars(t.tier)} · 今天只练 ${qidxs.length} 道重点题 · 本话题独立完成`}); });
+  (cfg.p1Review||[]).forEach(idx=>{ const t=P1[idx],qidxs=p1QuestionIndexes(cfg,idx); ITEMS.push({type:'p1review',tier:'core',id:'p1rev_'+idx,idxs:[idx],qidxs,title:`P1 已背复习 · ${t.topic}（${t.cn}）`,icon:'↺',sub:`${stars(t.tier)} · 全部 ${qidxs.length} 道问题已列出 · 自由选择复习`}); });
+  (cfg.p1||[]).forEach(idx=>{ const t=P1[idx],qidxs=p1QuestionIndexes(cfg,idx); ITEMS.push({type:'p1review',tier:'core',id:'p1_'+idx,idxs:[idx],qidxs,title:`P1 · ${t.topic}（${t.cn}）`,icon:'🗣️',sub:`${stars(t.tier)} · 全部 ${qidxs.length} 道问题已列出 · 自由选择复习`}); });
   (cfg.p1Optional||[]).forEach(idx=>{ const t=P1[idx],qidxs=p1QuestionIndexes(cfg,idx); ITEMS.push({type:'p1review',tier:'bonus',id:'p1opt_'+idx,idxs:[idx],qidxs,title:`可选 P1 · ${t.topic}（${t.cn}）`,icon:'＋',sub:`有余力再做 · ${qidxs.length} 道重点题 · 不挤占核心任务`}); });
   (cfg.p1prev||[]).forEach(idx=>{ const t=P1[idx]; ITEMS.push({type:'p1quick',tier:'bonus',id:'p1q_'+idx,idxs:[idx],title:`P1 快速回扫 · ${t.topic}`,icon:'🔁',sub:'只听 + 扫开头，想不起来再展开答案'}); });
   if(cfg.reviewWriting&&cfg.reviewWriting.length){ const ws=cfg.reviewWriting.map(id=>WRITING[id]).filter(Boolean); if(cfg.reviewWritingSeparate){ ws.forEach(w=>ITEMS.push({type:'writingreview',tier:'core',id:'wrev_'+w.id,ws:[w],title:`写作复习 · ${w.task} ${w.type} · ${w.cn}`,icon:'↺',sub:'单独打勾：先闭卷复原，再核核心句'})); }else{ ITEMS.push({type:'writingreview',tier:'core',weight:ws.length,id:'wrev',ws,title:`写作到期复习 · ${ws.length} 张`,icon:'↺',sub:'不看原文先复原结构，再核核心句'}); } }
@@ -308,7 +308,7 @@ function renderDetail(){
     h+=`<div class="hint">${isLearning?'新学短回答：先听一遍，再把每题说成“直接回答 + 一个原因或例子”；目标15–20秒，不扩写。':'已背话题复习：每题只说15–20秒关键词短版，不照页面完整答案复述；卡住才看。'}</div>`;
     i.idxs.forEach(idx=>{ const t=P1[idx];
       h+=`<div class="p1t"><div class="p1t-h">📌 ${t.topic} <span class="cn">${t.cn}</span> <span class="tier">${stars(t.tier)}</span></div>
-        <div class="row seg">${player(aud('audio-p1-'+idx))}<span class="hint">整话题音频；今天只答下列 ${i.qidxs.length} 题</span></div><div class="qa">`;
+        <div class="row seg">${player(aud('audio-p1-'+idx))}<span class="hint">整话题音频；全部 ${i.qidxs.length} 道问题已列出，由你自由选择</span></div><div class="qa">`;
       i.qidxs.forEach(questionIndex=>{ const x=t.qa[questionIndex]; h+=`<div class="q">Q${questionIndex+1} · ${x.q}</div><div class="a">${x.a}</div>`; });
       h+=`</div></div>`; });
     h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?`✓ ${isLearning?'已学完':'已复习'}`:`${isLearning?'学完':'复习完'} ✓`}</button></div>`;
