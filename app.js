@@ -1,10 +1,13 @@
 /* Shared engine for the 10-day IELTS sprint — speaking + writing. */
-const VERSION='34';
+const VERSION='35';
 const DAY=window.DAY_CONFIG?window.DAY_CONFIG.day:'x';
 const KEY='ielts_sprint_20260715_day'+DAY+'_v2';
 const PROGRESS_KEY='ielts_sprint_20260715_progress';
+const P1_EDIT_KEY='ielts_daily_trainer_p1_answer_overrides_v1';
 function loadState(){ try{ const value=JSON.parse(localStorage.getItem(KEY)||'{}'); return value&&typeof value==='object'&&!Array.isArray(value)?value:{}; }catch(_){ return {}; } }
+function loadP1AnswerEdits(){ try{ const value=JSON.parse(localStorage.getItem(P1_EDIT_KEY)||'{}'); return value&&typeof value==='object'&&!Array.isArray(value)?value:{}; }catch(_){ return {}; } }
 let state=loadState();
+let p1AnswerEdits=loadP1AnswerEdits();
 function save(){ localStorage.setItem(KEY,JSON.stringify(state)); syncProgress(); }
 function st(id){ return state[id]||(state[id]={}); }
 let hide=false, annot=false, view={name:'list',id:null};
@@ -109,7 +112,7 @@ async function boot(){
   (cfg.p1Review||[]).forEach(idx=>{ const t=P1[idx],qidxs=p1QuestionIndexes(cfg,idx); ITEMS.push({type:'p1review',tier:'core',id:'p1rev_'+idx,idxs:[idx],qidxs,title:`P1 已背复习 · ${t.topic}（${t.cn}）`,icon:'↺',sub:`${stars(t.tier)} · 全部 ${qidxs.length} 道问题已列出 · 自由选择复习`}); });
   (cfg.p1||[]).forEach(idx=>{ const t=P1[idx],qidxs=p1QuestionIndexes(cfg,idx); ITEMS.push({type:'p1review',tier:'core',id:'p1_'+idx,idxs:[idx],qidxs,title:`P1 · ${t.topic}（${t.cn}）`,icon:'🗣️',sub:`${stars(t.tier)} · 全部 ${qidxs.length} 道问题已列出 · 自由选择复习`}); });
   (cfg.p1Optional||[]).forEach(idx=>{ const t=P1[idx],qidxs=p1QuestionIndexes(cfg,idx); ITEMS.push({type:'p1review',tier:'bonus',id:'p1opt_'+idx,idxs:[idx],qidxs,title:`可选 P1 · ${t.topic}（${t.cn}）`,icon:'＋',sub:`有余力再做 · ${qidxs.length} 道重点题 · 不挤占核心任务`}); });
-  (cfg.p1prev||[]).forEach(idx=>{ const t=P1[idx]; ITEMS.push({type:'p1quick',tier:'bonus',id:'p1q_'+idx,idxs:[idx],title:`P1 快速回扫 · ${t.topic}`,icon:'🔁',sub:'只听 + 扫开头，想不起来再展开答案'}); });
+  (cfg.p1prev||[]).forEach(idx=>{ const t=P1[idx]; ITEMS.push({type:'p1quick',tier:'bonus',id:'p1q_'+idx,idxs:[idx],title:`P1 快速回扫 · ${t.topic}`,icon:'🔁',sub:'快速扫题和答案；需要时直接修改'}); });
   if(cfg.reviewWriting&&cfg.reviewWriting.length){ const ws=cfg.reviewWriting.map(id=>WRITING[id]).filter(Boolean); if(cfg.reviewWritingSeparate){ ws.forEach(w=>ITEMS.push({type:'writingreview',tier:'core',id:'wrev_'+w.id,ws:[w],title:`写作复习 · ${w.task} ${w.type} · ${w.cn}`,icon:'↺',sub:'单独打勾：先闭卷复原，再核核心句'})); }else{ ITEMS.push({type:'writingreview',tier:'core',weight:ws.length,id:'wrev',ws,title:`写作到期复习 · ${ws.length} 张`,icon:'↺',sub:'不看原文先复原结构，再核核心句'}); } }
   if(cfg.p3!=null){ const t=P3[cfg.p3]; ITEMS.push({type:'p3',tier:'bonus',id:'p3',t,idx:cfg.p3,title:'P3 · '+t.cn,icon:'💬',sub:'四步法:观点+because+例子+让步'}); }
   if(cfg.ref&&cfg.ref.length){ ITEMS.push({type:'refcard',tier:'bonus',id:'REFC',ids:cfg.ref,title:'套用速查卡 · '+cfg.ref.length+' 张',icon:'🗂️',sub:'考前翻:开头+关键词链+短版'}); }
@@ -167,6 +170,69 @@ function checkDict(id,m){ const ta=document.getElementById('dict'); st(id).dictT
   document.getElementById('dictRes').innerHTML=`<div class="diff"><div class="sum">对了 <span class="g">${correct}/${total}</span> 词 · 漏或错 <span class="r">${missed}</span>${extra?` · 多写约 ${extra}`:''}</div>${disp}<div class="hint" style="margin-top:8px">红波浪=漏/错。考试用自己的话说就行。</div></div>`; }
 function saveDict(id){ st(id).dictText=document.getElementById('dict').value; save(); }
 function saveDiagnosis(id){ st(id).notes=document.getElementById('diagnosis').value; save(); }
+
+function p1AnswerEditKey(topicIndex,questionIndex){ return `${topicIndex}:${questionIndex}`; }
+function p1AnswerEditRecord(topicIndex,questionIndex){
+  const key=p1AnswerEditKey(topicIndex,questionIndex);
+  if(!Object.prototype.hasOwnProperty.call(p1AnswerEdits,key))return null;
+  const value=p1AnswerEdits[key];
+  if(typeof value==='string')return {answer:value,updatedAt:null};
+  if(!value||typeof value!=='object'||Array.isArray(value)||typeof value.answer!=='string')return null;
+  const source=P1[topicIndex]&&P1[topicIndex].qa&&P1[topicIndex].qa[questionIndex];
+  if(!source)return null;
+  if(typeof value.topic==='string'&&value.topic!==P1[topicIndex].topic)return null;
+  if(typeof value.question==='string'&&value.question!==source.q)return null;
+  return value;
+}
+function p1AnswerValue(topicIndex,questionIndex){
+  const edited=p1AnswerEditRecord(topicIndex,questionIndex);
+  return edited?edited.answer:P1[topicIndex].qa[questionIndex].a;
+}
+function p1AnswerEditor(topicIndex,questionIndex){
+  const edited=p1AnswerEditRecord(topicIndex,questionIndex);
+  const value=edited?edited.answer:P1[topicIndex].qa[questionIndex].a;
+  const count=wordCount(value);
+  const statusId=`p1-answer-status-${topicIndex}-${questionIndex}`;
+  return `<div class="p1-answer-editor${edited?' edited':''}">
+    <textarea class="p1-answer-text" name="p1-answer-${topicIndex}-${questionIndex}" lang="en" autocomplete="off" aria-label="编辑 Q${questionIndex+1} 答案" aria-describedby="${statusId}" spellcheck="true" autocapitalize="sentences" autocorrect="on" oninput="saveP1Answer(${topicIndex},${questionIndex},this)">${esc(value)}</textarea>
+    <div class="p1-edit-meta"><span class="p1-save-status" id="${statusId}" aria-live="polite">${edited?'已保存本机修改':'当前为题库原答案'} · ${count} 词</span><button type="button" class="btn p1-reset" onclick="restoreP1Answer(${topicIndex},${questionIndex},this)" ${edited?'':'disabled'}>恢复原答案</button></div>
+  </div>`;
+}
+function saveP1Answer(topicIndex,questionIndex,textarea){
+  const key=p1AnswerEditKey(topicIndex,questionIndex),latest=loadP1AnswerEdits();
+  const editor=textarea.closest('.p1-answer-editor'),status=editor&&editor.querySelector('.p1-save-status'),reset=editor&&editor.querySelector('.p1-reset');
+  const source=P1[topicIndex].qa[questionIndex],isOriginal=textarea.value===source.a;
+  if(isOriginal)delete latest[key];
+  else latest[key]={
+    topicIndex,questionIndex,topic:P1[topicIndex].topic,topicCn:P1[topicIndex].cn,
+    question:source.q,answer:textarea.value,sourceVersion:VERSION,updatedAt:new Date().toISOString()
+  };
+  try{
+    localStorage.setItem(P1_EDIT_KEY,JSON.stringify(latest));p1AnswerEdits=latest;
+    if(editor)editor.classList.toggle('edited',!isOriginal);
+    if(status){status.textContent=`${isOriginal?'当前为题库原答案':'已自动保存'} · ${wordCount(textarea.value)} 词`;status.classList.remove('error');}
+    if(reset)reset.disabled=isOriginal;
+  }catch(_){
+    p1AnswerEdits=loadP1AnswerEdits();
+    if(status){status.textContent='保存失败，请先复制当前答案';status.classList.add('error');}
+  }
+}
+function restoreP1Answer(topicIndex,questionIndex,button){
+  if(!window.confirm('恢复为题库原答案？当前浏览器中的这条修改会被删除。'))return;
+  const key=p1AnswerEditKey(topicIndex,questionIndex),latest=loadP1AnswerEdits();
+  delete latest[key];
+  try{
+    localStorage.setItem(P1_EDIT_KEY,JSON.stringify(latest));p1AnswerEdits=latest;
+    const editor=button.closest('.p1-answer-editor'),textarea=editor.querySelector('.p1-answer-text'),status=editor.querySelector('.p1-save-status');
+    const original=P1[topicIndex].qa[questionIndex].a;
+    textarea.value=original;editor.classList.remove('edited');button.disabled=true;
+    status.textContent=`已恢复题库原答案 · ${wordCount(original)} 词`;status.classList.remove('error');
+  }catch(_){
+    p1AnswerEdits=loadP1AnswerEdits();
+    const status=button.closest('.p1-answer-editor').querySelector('.p1-save-status');
+    status.textContent='恢复失败，原修改仍保留';status.classList.add('error');
+  }
+}
 
 function checkWriting(id,w){ const ta=document.getElementById('wcore'); st(id).coreText=ta.value; save();
   const full=w.keySentences.join(' '),oRaw=toks(full),oN=norm(oRaw),uN=norm(toks(ta.value));
@@ -305,20 +371,19 @@ function renderDetail(){
   }
   else if(i.type==='p1review'||i.type==='p1learn'){
     const isLearning=i.type==='p1learn';
-    h+=`<div class="hint">${isLearning?'新学短回答：先听一遍，再把每题说成“直接回答 + 一个原因或例子”；目标15–20秒，不扩写。':'已背话题复习：每题只说15–20秒关键词短版，不照页面完整答案复述；卡住才看。'}</div>`;
+    h+=`<div class="hint">${isLearning?'新学短回答：先读题，再把每题说成“直接回答 + 一个原因或例子”；答案可以直接修改，输入即保存到当前浏览器。':'已背话题复习：全部问题都保留；答案可以直接修改，输入即保存到当前浏览器。'}</div>`;
     i.idxs.forEach(idx=>{ const t=P1[idx];
       h+=`<div class="p1t"><div class="p1t-h">📌 ${t.topic} <span class="cn">${t.cn}</span> <span class="tier">${stars(t.tier)}</span></div>
-        <div class="row seg">${player(aud('audio-p1-'+idx))}<span class="hint">整话题音频；全部 ${i.qidxs.length} 道问题已列出，由你自由选择</span></div><div class="qa">`;
-      i.qidxs.forEach(questionIndex=>{ const x=t.qa[questionIndex]; h+=`<div class="q">Q${questionIndex+1} · ${x.q}</div><div class="a">${x.a}</div>`; });
+        <div class="p1-edit-intro">全部 ${i.qidxs.length} 道问题已列出 · 自由选择 · 修改会跨日期同步</div><div class="qa">`;
+      i.qidxs.forEach(questionIndex=>{ const x=t.qa[questionIndex]; h+=`<div class="q">Q${questionIndex+1} · ${x.q}</div>${p1AnswerEditor(idx,questionIndex)}`; });
       h+=`</div></div>`; });
     h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?`✓ ${isLearning?'已学完':'已复习'}`:`${isLearning?'学完':'复习完'} ✓`}</button></div>`;
   }
   else if(i.type==='p1quick'){
-    h+=`<div class="hint">昨天学过的 P1,快速听一遍 + 扫一眼开头,防遗忘。想不起来的回昨天的卡再看。</div>`;
+    h+=`<div class="hint">快速扫题和答案；发现不自然的表达可以直接修改，输入即保存。</div>`;
     i.idxs.forEach(idx=>{ const t=P1[idx];
       h+=`<div class="p1t"><div class="p1t-h">📌 ${t.topic} <span class="cn">${t.cn}</span></div>
-        <div class="row seg">${player(aud('audio-p1-'+idx))}</div>
-        <div class="qa"><div class="a">${t.qa[0].a}</div></div></div>`; });
+        <div class="qa"><div class="q">Q1 · ${t.qa[0].q}</div>${p1AnswerEditor(idx,0)}</div></div>`; });
     h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?'✓ 已回扫':'回扫完成 ✓'}</button></div>`;
   }
   else if(i.type==='p3'){ const t=i.t;
@@ -359,4 +424,9 @@ function inc(id,k,t){ const s=st(id); s[k]=Math.min((s[k]||0)+1,t); save(); rend
 function toggleDone(id){ const s=st(id); s.done=!s.done; save(); renderDetail(); }
 function lp(b){ const a=b.parentNode.querySelector('audio'); if(!a)return; a.loop=!a.loop; b.textContent=a.loop?'🔁 循环中':'🔁'; b.classList.toggle('on',a.loop); if(a.loop&&a.paused)a.play(); }
 function spdSel(s){ const a=s.parentNode.querySelector('audio'); if(a)a.playbackRate=parseFloat(s.value); }
+window.addEventListener('storage',event=>{
+  if(event.key!==P1_EDIT_KEY)return;
+  p1AnswerEdits=loadP1AnswerEdits();
+  if(view.name==='detail'&&!(document.activeElement&&document.activeElement.classList.contains('p1-answer-text')))renderDetail();
+});
 boot();

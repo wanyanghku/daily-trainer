@@ -2,7 +2,7 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0b766e">
 <title>IELTS 7月15日–24日冲刺工作台</title>
 <style>
@@ -113,7 +113,8 @@ const EXAM_DATE='2026-07-25';
 const PROGRESS_KEY='ielts_sprint_20260715_progress';
 const DONE_KEY='ielts_sprint_20260715_done';
 const DAY_STATE_KEY=day=>`ielts_sprint_20260715_day${day}_v2`;
-const EXPORT_SCHEMA='ielts-review-export/v3';
+const P1_EDIT_KEY='ielts_daily_trainer_p1_answer_overrides_v1';
+const EXPORT_SCHEMA='ielts-review-export/v4';
 const BASELINE={
   asOf:'2026-07-17',
   learned:['P2 A–E、G1–G3、F1','P1 三星13个话题','Task 1 折线图、柱状图、流程图','Task 2 科技 Opinion、教育 Discussion'],
@@ -291,10 +292,36 @@ function buildCatalog(){
     reference:EXPORT_SOURCE.reference.map(item=>({id:item.id,cn:item.cn,covers:item.covers}))
   };
 }
+function buildP1AnswerEdits(warnings){
+  const raw=exportStore(P1_EDIT_KEY,warnings),items=[];
+  Object.entries(raw).forEach(([key,value])=>{
+    const match=key.match(/^(\d+):(\d+)$/);
+    const record=typeof value==='string'?{answer:value,updatedAt:null}:value;
+    if(!match||!record||typeof record!=='object'||Array.isArray(record)||typeof record.answer!=='string'){
+      warnings.push(`${P1_EDIT_KEY}.${key} 格式异常，已忽略`);return;
+    }
+    const topicIndex=Number(match[1]),questionIndex=Number(match[2]);
+    const topic=EXPORT_SOURCE.p1[topicIndex],qa=topic&&Array.isArray(topic.qa)?topic.qa[questionIndex]:null;
+    if(!topic||!qa){warnings.push(`${P1_EDIT_KEY}.${key} 找不到对应P1题目，已忽略`);return;}
+    if((Number.isInteger(record.topicIndex)&&record.topicIndex!==topicIndex)||(Number.isInteger(record.questionIndex)&&record.questionIndex!==questionIndex)||
+       (typeof record.topic==='string'&&record.topic!==topic.topic)||(typeof record.question==='string'&&record.question!==qa.q)){
+      warnings.push(`${P1_EDIT_KEY}.${key} 与当前P1题库不匹配，已忽略`);return;
+    }
+    items.push({
+      topicIndex,questionIndex,questionNumber:questionIndex+1,topic:topic.topic,topicCn:topic.cn,
+      question:qa.q,userAnswer:record.answer,userAnswerWordCount:(record.answer.match(/[A-Za-z0-9'’\-]+/g)||[]).length,
+      sourceVersion:typeof record.sourceVersion==='string'?record.sourceVersion:null,
+      updatedAt:typeof record.updatedAt==='string'?record.updatedAt:null
+    });
+  });
+  items.sort((a,b)=>a.topicIndex-b.topicIndex||a.questionIndex-b.questionIndex);
+  return {storageKey:P1_EDIT_KEY,count:items.length,items};
+}
 function buildReviewExport(){
   const warnings=[...EXPORT_SOURCE.warnings];
   const storedProgress=exportStore(PROGRESS_KEY,warnings);
   const manualDone=exportStore(DONE_KEY,warnings);
+  const p1AnswerEdits=buildP1AnswerEdits(warnings);
   const scheduledDays=DAYS.filter(day=>day.status==='active');
   const days=scheduledDays.map(day=>{
     const state=exportStore(DAY_STATE_KEY(day.day),warnings);
@@ -329,26 +356,28 @@ function buildReviewExport(){
       exportedAt:new Date().toISOString(),timeZone:Intl.DateTimeFormat().resolvedOptions().timeZone||null,
       sourceUrl:location.origin+location.pathname,appVersion:EXPORT_SOURCE.appVersion,
       planStart:DAYS[0]&&DAYS[0].date,planEnd:DAYS[DAYS.length-1]&&DAYS[DAYS.length-1].date,
-      storageSchema:'ielts_sprint_20260715_day{1..10}_v2'
+      storageSchema:'ielts_sprint_20260715_day{1..10}_v2',p1AnswerStorageSchema:P1_EDIT_KEY
     },
     baseline:BASELINE,
     planning:{activeDates:scheduledDays.map(day=>day.date),pendingDates:DAYS.filter(day=>day.status==='pending').map(day=>day.date),nextReview:'2026-07-19 evening export'},
-    privacy:{generatedLocally:true,uploadedAutomatically:false,includesUserPracticeText:true,includesPastedChatGPTDiagnosis:true,excludesQuestionBankAnswers:true,excludesFullModelAnswers:true,excludesAudio:true,excludesListening:true},
+    privacy:{generatedLocally:true,uploadedAutomatically:false,includesUserPracticeText:true,includesPastedChatGPTDiagnosis:true,includesUserEditedP1Answers:true,excludesUneditedQuestionBankAnswers:true,excludesFullModelAnswers:true,excludesAudio:true,excludesListening:true},
     measurementLimitations:[
       '导出只代表当前设备、当前浏览器中的站内记录，不会自动合并其他设备。',
       '计数按钮达到目标后不再累加，因此无法表示超出目标的额外练习次数。',
       '首页与 calculatedCoreProgress 按任务权重计算；P2或写作新学长材料权重为4，普通复习与P1话题权重为1。进度代表计划执行，不等于考试分数。',
       'ChatGPT诊断只有在用户把固定4行摘要粘回当日页面后才会进入导出；完整对话不会自动读取。',
+      'P1答案修改只保存在当前设备和浏览器；导出会列出修改题目与修改后答案，但不会自动写回公共题库。',
       'P1 已改为逐话题记录；每个话题完成仍不代表其中每道问题都达到同等熟练度。',
       '现有记录不含完成时间、练习时长或逐题正确率；手动整日完成不会反推子任务完成。'
     ],
     summary:{
       totalDays:days.length,totalPlanDates:DAYS.length,activeDates:scheduledDays.length,pendingDates:DAYS.length-scheduledDays.length,startedDays,completedDays,
       averageEffectiveProgress:days.length?Math.round(days.reduce((sum,day)=>sum+day.effectiveHomeProgress,0)/days.length):0,
+      editedP1Answers:p1AnswerEdits.count,
       activityStatus:{all:statusCounts(activities),speaking:statusCounts(speaking),writing:statusCounts(writing),mixed:statusCounts(mixed)},
       plannedCoverage:{p1Topics:p1Planned.size,p2Mothers:p2Planned.size,p3Topics:p3Planned.size,writingUnits:writingPlanned.size,referenceCards:referencePlanned.size}
     },
-    catalog:buildCatalog(),days,warnings
+    catalog:buildCatalog(),p1AnswerEdits,days,warnings
   };
 }
 function exportFilename(extension){
@@ -512,7 +541,7 @@ function render(){
     </section>
     <section class="baseline" aria-label="已完成基线"><b>7月17日已完成基线</b><span>P2 A–E、G1–G3、F1；P1三星13话题；Task 1折线/柱状/流程图；Task 2科技Opinion/教育Discussion。7月18–19日覆盖P1全部33话题：20个新学 + 13个已背复习。</span></section>
     <button class="export-strip" type="button" onclick="exportReview(event)" aria-describedby="export-status">
-      <span class="export-icon" aria-hidden="true">⇩</span><span class="export-copy"><strong>导出全部复习详情</strong><span>按实际日期导出7月15–19日的逐项进度与练习文本 · 不含听力</span></span><span class="export-go">一键导出</span>
+      <span class="export-icon" aria-hidden="true">⇩</span><span class="export-copy"><strong>导出全部复习详情</strong><span>导出逐项进度、P1本机修改与练习文本 · 不含听力</span></span><span class="export-go">一键导出</span>
     </button>
     <p class="export-status" id="export-status" role="status" aria-live="polite">仅导出当前浏览器本地记录 · 本地生成 · 不会上传</p>
     <a class="practice-strip" href="listening.html" aria-label="打开独立听力专项">

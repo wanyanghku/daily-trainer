@@ -58,6 +58,19 @@ textarea{width:100%; min-height:130px; border:1px solid var(--line); border-radi
 .p1t-h .tier{color:var(--gold); font-size:12px;}
 .qa .q{background:#fafafa; border-left:3px solid #94a3b8; padding:4px 9px; font-style:italic; margin:8px 0 3px; font-size:12.5px;}
 .qa .a{font-size:14px; line-height:1.55; margin-bottom:4px;}
+.p1-edit-intro{margin:7px 0 4px; padding:8px 10px; border-radius:9px; background:#f0fdfa; color:#0f5f58; font-size:11.5px; font-weight:700;}
+.p1-answer-editor{border:1px solid #dbe4ea; border-radius:10px; background:#fff; padding:7px; margin:0 0 11px; transition:border-color .18s,background .18s;}
+.p1-answer-editor.edited{border-color:#5eead4; background:#f7fffd;}
+.p1-answer-text{display:block; min-height:104px; border:0; border-radius:7px; padding:7px 8px; background:transparent; color:var(--ink); font-size:16px; line-height:1.55; resize:vertical; outline:none; overflow-wrap:anywhere;}
+.p1-answer-text:focus{box-shadow:0 0 0 2px rgba(20,184,166,.18); background:#fff;}
+.p1-answer-text:focus-visible{box-shadow:0 0 0 3px rgba(20,184,166,.24);}
+.p1-edit-meta{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; padding:5px 3px 0; border-top:1px solid #edf2f5;}
+.p1-save-status{color:var(--mut); font-size:10.5px; line-height:1.35;}
+.p1-answer-editor.edited .p1-save-status{color:var(--teal); font-weight:700;}
+.p1-save-status.error{color:#b91c1c!important;}
+.btn.p1-reset{flex:0 0 auto; min-height:44px; padding:6px 9px; border-radius:8px; color:#475569; font-size:11px; touch-action:manipulation;}
+.btn.p1-reset:focus-visible{outline:3px solid rgba(20,184,166,.28); outline-offset:2px;}
+.btn.p1-reset:disabled{opacity:.36; cursor:default;}
 .congrats{background:#ecfdf5; border:1px solid #5eead4; color:#0f766e; border-radius:12px; padding:10px 13px; font-size:13.5px; margin:8px 0; font-weight:600; text-align:center;}
 .t2{font-size:10px; font-weight:700; border-radius:5px; padding:1px 6px; vertical-align:middle;}
 .t2.core{background:#ecfdf5; color:#0f766e; border:1px solid #c7f0e8;}
