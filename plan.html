@@ -116,15 +116,15 @@ const DAY_STATE_KEY=day=>`ielts_sprint_20260715_day${day}_v2`;
 const P1_EDIT_KEY='ielts_daily_trainer_p1_answer_overrides_v1';
 const EXPORT_SCHEMA='ielts-review-export/v4';
 const BASELINE={
-  asOf:'2026-07-17',
-  learned:['P2 A–E、G1–G3、F1','P1 三星13个话题','Task 1 折线图、柱状图、流程图','Task 2 科技 Opinion、教育 Discussion'],
-  reviewState:'新内容基本跟上但间隔复习不足；F2和20个P1二星/一星话题待完成。',
-  source:'用户进度说明 + 2026-07-15旧版导出 + 2026-07-17完成确认'
+  asOf:'2026-07-20',
+  learned:['P2 A–E、G1–G3、F1','P1 全部33个话题均已过（周末完成20个新话题）','Task 1 折线图、柱状图、流程图','Task 2 科技 Opinion、教育 Discussion'],
+  reviewState:'周末只完成P1新学；P2 F2、地图与Problem–Solution仍未系统学，其余口语和作文复习不足。',
+  source:'用户进度说明 + 2026-07-15旧版导出 + 2026-07-20完成确认'
 };
 const PHASES={
-  1:{title:'当前执行',range:'7月15日–7月16日 · 已排定'},
-  2:{title:'当前周末安排',range:'7月17日–7月20日 · 19日晚再排20日'},
-  3:{title:'考前收口',range:'7月21日–7月24日 · 保留容量'}
+  1:{title:'前段已学',range:'7月15日–7月16日 · 历史记录'},
+  2:{title:'周末P1新学',range:'7月17日–7月20日 · 只确认P1新学完成'},
+  3:{title:'最后4天',range:'7月21日–7月24日 · 清零新内容 → 全面复习'}
 };
 let DAYS=[];
 let EXPORT_READY=false;
@@ -206,8 +206,9 @@ function activitySpecs(day,warnings){
   });
   if(day.reviewWriting&&day.reviewWriting.length){
     const refs=day.reviewWriting.map(id=>contentRef('writing',id,warnings));
+    const firstPass=new Set(day.firstPassWriting||[]);
     if(day.reviewWritingSeparate){
-      refs.forEach(ref=>specs.push({activityId:`day${day.day}:writing-review:${ref.id}`,category:'writing',part:'writing',mode:'review',tier:'core',label:`写作复习 · ${ref.task||'Writing'} ${ref.type||''} · ${ref.cn||ref.id}`.trim(),contentRefs:[ref],storageItemId:`wrev_${ref.id}`,tracking:'boolean'}));
+      refs.forEach(ref=>{ const isFirst=firstPass.has(ref.id); specs.push({activityId:`day${day.day}:writing-review:${ref.id}`,category:'writing',part:'writing',mode:isFirst?'first_pass':'review',tier:'core',label:`${isFirst?'剩余新内容速过':'写作复习'} · ${ref.task||'Writing'} ${ref.type||''} · ${ref.cn||ref.id}`.trim(),contentRefs:[ref],storageItemId:`wrev_${ref.id}`,tracking:'boolean'}); });
     }else{
       specs.push({activityId:`day${day.day}:writing-review`,category:'writing',part:'writing',mode:'review',tier:'core',weight:refs.length,label:`写作到期复习 · ${refs.length} 张`,contentRefs:refs,storageItemId:'wrev',tracking:'group_boolean'});
     }
@@ -230,6 +231,10 @@ function activitySpecs(day,warnings){
     const ref=contentRef('p3',day.p3,warnings);
     specs.push({activityId:`day${day.day}:p3`,category:'speaking',part:'p3',mode:'practice',tier:'bonus',label:`P3 · ${ref.cn||ref.topic||day.p3}`,contentRefs:[ref],storageItemId:'p3',tracking:'boolean'});
   }
+  (day.p3Review||[]).forEach(index=>{
+    const ref=contentRef('p3',index,warnings);
+    specs.push({activityId:`day${day.day}:p3:${index}`,category:'speaking',part:'p3',mode:'practice',tier:'bonus',label:`P3 · ${ref.cn||ref.topic||index}`,contentRefs:[ref],storageItemId:`p3_${index}`,tracking:'boolean'});
+  });
   if(day.ref&&day.ref.length){
     specs.push({activityId:`day${day.day}:reference`,category:'speaking',part:'reference',mode:'review',tier:'bonus',label:`套用速查卡 · ${day.ref.length} 张`,contentRefs:day.ref.map(id=>contentRef('reference',id,warnings)),storageItemId:'REFC',tracking:'group_boolean'});
   }
@@ -348,7 +353,7 @@ function buildReviewExport(){
   const p2Planned=new Set(scheduledDays.flatMap(day=>[day.newP2,...(day.reviewP2||[])]).filter(Boolean));
   const writingPlanned=new Set(scheduledDays.flatMap(day=>[day.newWriting,...(day.reviewWriting||[])]).filter(Boolean));
   const p1Planned=new Set(scheduledDays.flatMap(day=>[...(day.p1||[]),...(day.p1Optional||[]),...(day.p1New||[]),...(day.p1Review||[])]));
-  const p3Planned=new Set(scheduledDays.map(day=>day.p3).filter(value=>value!==null&&value!==undefined));
+  const p3Planned=new Set(scheduledDays.flatMap(day=>[day.p3,...(day.p3Review||[])]).filter(value=>value!==null&&value!==undefined));
   const referencePlanned=new Set(scheduledDays.flatMap(day=>day.ref||[]));
   return {
     schemaVersion:EXPORT_SCHEMA,
@@ -487,8 +492,8 @@ function ctaDay(today){
 function renderRow(day,today){
   if(day.status==='pending')return `<div class="day-row pending">
     <span class="pending-mark" aria-hidden="true">·</span>
-    <div class="day-link" aria-label="${esc(day.title)}待安排">
-      <div><div class="day-meta"><span>${esc(day.title)}</span><span class="new-kind">待安排</span></div><div class="new-title">${esc(day.newLabel)}</div><div class="summary"><b>说明</b><span>${esc(day.note)}</span></div></div>
+    <div class="day-link" aria-label="${esc(day.title)}今日留空">
+      <div><div class="day-meta"><span>${esc(day.title)}</span><span class="new-kind">今日留空</span></div><div class="new-title">${esc(day.newLabel)}</div><div class="summary"><b>说明</b><span>${esc(day.note)}</span></div></div>
       <div class="row-state"><span>—</span></div>
     </div>
   </div>`;
@@ -496,7 +501,7 @@ function renderRow(day,today){
   const done=progress>=100||isManualDone(day.day);
   const current=day.date===today;
   const hasP1New=(day.p1New||[]).length>0;
-  const kind=day.newP2&&hasP1New?'P2 + P1新学':day.newP2?'口语母题新背':day.newWriting?'写作新背':hasP1New?'P1新学 + 复习':'复习日';
+  const kind=day.newP2&&(day.firstPassWriting||[]).length?'剩余新内容集中清零':day.newP2&&hasP1New?'P2 + P1新学':day.newP2?'口语母题新背':day.newWriting?'写作新背':hasP1New?'P1新学 + 复习':'复习日';
   const state=done?'<strong>✓</strong><span>完成</span>':progress?`<strong>${progress}%</strong><span>继续 →</span>`:'<span class="arrow">→</span>';
   return `<div class="day-row${current?' current':''}${done?' done':''}">
     <button class="check${done?' done':''}" type="button" aria-label="${done?'取消手动完成':'标记完成'} ${esc(day.title)}" onclick="toggleDone(event,${day.day})" ${progress>=100?'disabled':''}>✓</button>
@@ -521,13 +526,13 @@ function render(){
   const total=Math.round(active.reduce((sum,day)=>sum+effectiveProgress(day.day),0)/active.length);
   const completed=active.filter(day=>effectiveProgress(day.day)>=100).length;
   const focusProgress=effectiveProgress(focus.day);
-  const todayKicker=pendingToday?`${esc(exact.title)} · 待安排`:exact?`今天 · ${esc(focus.title)} · ${focus.minutes} 分钟`:`继续 ${esc(focus.title)} 的任务`;
+  const todayKicker=pendingToday?`${esc(exact.title)} · 今日留空`:exact?`今天 · ${esc(focus.title)} · ${focus.minutes} 分钟`:`继续 ${esc(focus.title)} 的任务`;
   const todayTitle=pendingToday?esc(exact.newLabel):esc(focus.newLabel);
   const focusHasP1New=(focus.p1New||[]).length>0;
-  const todayCopy=pendingToday?'先完成已排日期并导出，后续任务不凭感觉提前堆入。':focus.newP2?`F2是今天唯一长背诵；P1只背短回答，其余均为主动提取。`:focus.newWriting?`${focus.newLabel} 是今天唯一长背诵；口语只做短时复习。`:focusHasP1New?'今天先学10个P1短话题；P2与作文只做主动提取。':'今天只做复习与输出。';
-  const todayAction=pendingToday?`<small>${esc(exact.note)}</small><span class="start" aria-disabled="true">等待导出</span>`:`<small>${esc(focus.speakingSummary)}</small><a class="start" href="daily/Day${focus.day}.html">开始 ${esc(focus.title)} <span>→</span></a>`;
+  const todayCopy=pendingToday?'今天不补欠账；明天清零剩余新内容，随后三天复习全部材料。':focus.newP2&&(focus.firstPassWriting||[]).length?'今天先清零F2，再速过地图与Problem–Solution框架；两篇作文不逐字背全文。':focus.newP2?`F2是今天唯一长背诵；P1只背短回答，其余均为主动提取。`:focus.newWriting?`${focus.newLabel} 是今天唯一长背诵；口语只做短时复习。`:focusHasP1New?'今天先学10个P1短话题；P2与作文只做主动提取。':'今天只做复习与输出。';
+  const todayAction=pendingToday?`<small>${esc(exact.note)}</small><span class="start" aria-disabled="true">明天开始</span>`:`<small>${esc(focus.speakingSummary)}</small><a class="start" href="daily/Day${focus.day}.html">开始 ${esc(focus.title)} <span>→</span></a>`;
   let html=`<header class="topbar">
-      <div><div class="eyebrow">IELTS · Mainland</div><h1>7月15日–24日冲刺</h1><p class="goal">口语 6.5 · 写作 6.5 · 当前已排至7月19日</p></div>
+      <div><div class="eyebrow">IELTS · Mainland</div><h1>7月15日–24日冲刺</h1><p class="goal">口语 6.5 · 写作 6.5 · 已排至7月24日</p></div>
       <div class="countdown"><strong>${daysUntil(EXAM_DATE)}</strong><span>天后考试</span></div>
     </header>
     <section class="today">
@@ -539,7 +544,7 @@ function render(){
       <div class="progress-meta"><strong>当前已排日期 ${total}%</strong><span>${completed} / ${active.length} 个日期完成</span></div>
       <div class="track"><i style="width:${total}%"></i></div>
     </section>
-    <section class="baseline" aria-label="已完成基线"><b>7月17日已完成基线</b><span>P2 A–E、G1–G3、F1；P1三星13话题；Task 1折线/柱状/流程图；Task 2科技Opinion/教育Discussion。7月18–19日覆盖P1全部33话题：20个新学 + 13个已背复习。</span></section>
+    <section class="baseline" aria-label="已完成基线"><b>截至7月20日</b><span>P2已学A–E、G1–G3、F1；P1全部33话题都已过，周末完成20个新话题，但整体复习不足；写作已学折线、柱状、流程图、Opinion与Discussion。F2、地图和Problem–Solution留到7月21日集中速过。</span></section>
     <button class="export-strip" type="button" onclick="exportReview(event)" aria-describedby="export-status">
       <span class="export-icon" aria-hidden="true">⇩</span><span class="export-copy"><strong>导出全部复习详情</strong><span>导出逐项进度、P1本机修改与练习文本 · 不含听力</span></span><span class="export-go">一键导出</span>
     </button>
@@ -553,7 +558,7 @@ function render(){
     DAYS.filter(day=>day.phase===phase).forEach(day=>{html+=renderRow(day,today);});
     html+='</div></section>';
   });
-  html+=`<section class="light-day"><strong>7月19日晚 · 一键导出</strong><span>导出后再安排7月20–24日；7月23日前完成新内容，7月24日保留轻复习容量。</span></section>
+  html+=`<section class="light-day"><strong>7月21–24日 · 已排定</strong><span>21日清零F2、地图与Problem–Solution；22–23日分组复习；24日综合抽问与减量收口。</span></section>
     <div class="foot">按日期自动同步进度 · P1 每个话题独立记录 · 7月25日考试</div>`;
   document.getElementById('app').innerHTML=html;
 }
