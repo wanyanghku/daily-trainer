@@ -1,5 +1,5 @@
 /* Shared engine for the 10-day IELTS sprint — speaking + writing. */
-const VERSION='38';
+const VERSION='39';
 const DAY=window.DAY_CONFIG?window.DAY_CONFIG.day:'x';
 const KEY='ielts_sprint_20260715_day'+DAY+'_v3';
 const PROGRESS_KEY='ielts_sprint_20260715_progress';
@@ -119,7 +119,7 @@ async function boot(){
   ITEMS=[];
   if((cfg.newP2?1:0)+(cfg.newWriting?1:0)>1) throw new Error('A date cannot contain two new memorisation items');
   if(cfg.newP2){ const m=P2[cfg.newP2],targets=cfg.newP2Targets||{read:3,recall:2,dictate:1}; const labels={read:'听读',recall:'关键词复述',dictate:'默写检验',record:'90–120秒录音'}; const sub=Object.entries(targets).map(([key,target])=>`${labels[key]||key}×${target}`).join(' → '); ITEMS.push({type:'memo',tier:'core',weight:4,targets,id:'new_'+m.id,m,title:`今日唯一长背诵 · 母题 ${m.id} ${m.cn}`,icon:'🎤',sub}); }
-  if(cfg.newWriting){ const w=WRITING[cfg.newWriting]; const sub=w.task==='Task 1'?'通用框架 → 简单句块 → 看范文落地 → 换图仿写':'范文学习 → 闭卷逻辑链 → 核心句 → 换题仿写'; ITEMS.push({type:'writingmemo',tier:'core',weight:4,id:'wnew_'+w.id,w,title:`今日唯一长背诵 · ${w.task} ${w.type} · ${w.cn}`,icon:'✍️',sub}); }
+  if(cfg.newWriting){ const w=WRITING[cfg.newWriting],finalReview=!!cfg.moduleOrder; const sub=finalReview?'看题说结构 → 核对核心句 → 完成一个提纲':w.task==='Task 1'?'通用框架 → 简单句块 → 看范文落地 → 换图仿写':'范文学习 → 闭卷逻辑链 → 核心句 → 换题仿写'; ITEMS.push({type:'writingmemo',tier:'core',weight:finalReview?1:4,finalReview,id:'wnew_'+w.id,w,title:`${finalReview?'作文总复习':'今日唯一长背诵'} · ${w.task} ${w.type} · ${w.cn}`,icon:'✍️',sub}); }
   (cfg.p1New||[]).forEach(idx=>{ const t=P1[idx],qidxs=p1QuestionIndexes(cfg,idx); ITEMS.push({type:'p1learn',tier:'core',id:'p1new_'+idx,idxs:[idx],qidxs,title:`P1 新学 · ${t.topic}（${t.cn}）`,icon:'＋',sub:`${stars(t.tier)} · 全部 ${qidxs.length} 道问题已列出 · 自由选择练习`}); });
   (cfg.reviewP2||[]).forEach(id=>{ const m=P2[id]; ITEMS.push({type:'review',tier:'core',id:'rev_'+id,m,title:`母题 ${id} · ${m.cn}（复习）`,icon:'🔁',sub:'只看关键词链说 60–90 秒；卡住再听，不重背全文'}); });
   (cfg.p1Review||[]).forEach(idx=>{ const t=P1[idx],qidxs=p1QuestionIndexes(cfg,idx); ITEMS.push({type:'p1review',tier:'core',id:'p1rev_'+idx,idxs:[idx],qidxs,title:`P1 已背复习 · ${t.topic}（${t.cn}）`,icon:'↺',sub:`${stars(t.tier)} · 全部 ${qidxs.length} 道问题已列出 · 自由选择复习`}); });
@@ -130,7 +130,7 @@ async function boot(){
   if(cfg.p3!=null){ const t=P3[cfg.p3]; ITEMS.push({type:'p3',tier:'bonus',id:'p3',t,idx:cfg.p3,title:'P3 · '+t.cn,icon:'💬',sub:'四步法:观点+because+例子+让步'}); }
   (cfg.p3Review||[]).forEach(idx=>{ const t=P3[idx]; ITEMS.push({type:'p3',tier:'bonus',id:'p3_'+idx,t,idx,title:'P3 · '+t.cn,icon:'💬',sub:'四步法:观点+because+例子+让步'}); });
   if(cfg.ref&&cfg.ref.length){ ITEMS.push({type:'refcard',tier:'bonus',id:'REFC',ids:cfg.ref,title:'套用速查卡 · '+cfg.ref.length+' 张',icon:'🗂️',sub:'考前翻:开头+关键词链+短版'}); }
-  if(cfg.outputs&&cfg.outputs.length){ ITEMS.push({type:'output',tier:'core',id:'OUT',outputs:cfg.outputs,title:'今日输出验收',icon:'✓',sub:'完成可见产出，避免只看不练'}); }
+  if(cfg.outputs&&cfg.outputs.length){ ITEMS.push({type:'output',tier:'core',id:'OUT',outputs:cfg.outputs,title:cfg.moduleOrder?'本轮输出':'今日输出验收',icon:'✓',sub:'完成一个可见输出，避免只看不练'}); }
   if(cfg.live!==false)ITEMS.push({type:'record',tier:'bonus',id:'REC',title:'ChatGPT 随机抽问 / 口语诊断',icon:'🎙️',sub:`一键复制今日题池 → 练约 ${cfg.liveMinutes||12} 分钟；没有语音模式就录音回听`});
   syncProgress();
   renderList();
@@ -140,11 +140,11 @@ function itemWeight(i){ const value=Number(i.weight||1); return Number.isFinite(
 function weightedPercent(items){ const total=items.reduce((sum,i)=>sum+itemWeight(i),0); return total?Math.round(items.reduce((sum,i)=>sum+frac(i)*itemWeight(i),0)/total*100):0; }
 function isDone(i){ const s=st(i.id);
   if(i.type==='memo') return Object.entries(i.targets||{read:3,recall:2,dictate:1}).every(([key,target])=>(s[key]||0)>=target);
-  if(i.type==='writingmemo') return (s.read||0)>=2&&(s.outline||0)>=2&&(s.core||0)>=1&&(s.transfer||0)>=1;
+  if(i.type==='writingmemo') return i.finalReview?!!s.done:(s.read||0)>=2&&(s.outline||0)>=2&&(s.core||0)>=1&&(s.transfer||0)>=1;
   return !!s.done; }
 function frac(i){ const s=st(i.id);
   if(i.type==='memo'){ const targets=i.targets||{read:3,recall:2,dictate:1}; const total=Object.values(targets).reduce((sum,target)=>sum+target,0); return total?Object.entries(targets).reduce((sum,[key,target])=>sum+Math.min(s[key]||0,target),0)/total:0; }
-  if(i.type==='writingmemo') return (Math.min(s.read||0,2)+Math.min(s.outline||0,2)+Math.min(s.core||0,1)+Math.min(s.transfer||0,1))/6;
+  if(i.type==='writingmemo') return i.finalReview?(s.done?1:0):(Math.min(s.read||0,2)+Math.min(s.outline||0,2)+Math.min(s.core||0,1)+Math.min(s.transfer||0,1))/6;
   return isDone(i)?1:0; }
 
 function progressPercent(){ return weightedPercent(ITEMS.filter(i=>i.tier==='core')); }
@@ -339,10 +339,10 @@ function writingMethodHTML(w,collapsed=false){ const m=w.method; if(!m)return ''
 function renderList(){
   const cfg=window.DAY_CONFIG;
   const done=ITEMS.filter(isDone).length, ov=weightedPercent(ITEMS);
-  const guidance=ITEMS.length===1?`<b>今天只做这一件：</b>${esc(ITEMS[0].title)}，不追加其他任务。`:'<b>顺序：</b>先完成新内容 → P1 短回答 → P2 看链复述 → 作文框架回忆 → 输出。';
+  const guidance=window.DAY_CONFIG.moduleOrder?'<b>最终复习：</b>主动回答或复述 → 核对材料 → 记录弱点 → 完成一次输出。每项只打一个完成勾。':ITEMS.length===1?`<b>今天只做这一件：</b>${esc(ITEMS[0].title)}，不追加其他任务。`:'<b>顺序：</b>先完成新内容 → P1 短回答 → P2 看链复述 → 作文框架回忆 → 输出。';
   let h=`<div class="top"><a class="home" href="../">← 总复习首页</a></div>
    <div class="dayeyebrow">${esc(cfg.moduleKicker||'模块训练')} · 建议 ${cfg.minutes||90} 分钟</div><h1>${esc(cfg.displayTitle||cfg.newLabel||cfg.title)}</h1><div class="muted">${cfg.note||''}</div>
-   <div class="overall"><div class="ov-top"><div class="ov-num"><b>${done}</b> / ${ITEMS.length} 完成</div><div class="muted">今日 ${ov}%</div></div><div class="bar"><i style="width:${ov}%"></i></div></div>
+   <div class="overall"><div class="ov-top"><div class="ov-num"><b>${done}</b> / ${ITEMS.length} 完成</div><div class="muted">${cfg.moduleOrder?'本轮':'今日'} ${ov}%</div></div><div class="bar"><i style="width:${ov}%"></i></div></div>
    <div class="tierhint">${guidance}</div>`;
   ITEMS.forEach((i,x)=>{
     if(i.type==='record'){
@@ -365,7 +365,7 @@ function goList(){ view={name:'list'}; renderList(); scrollTo(0,0); }
 
 function renderDetail(){
   const i=ITEMS[view.id]; const s=st(i.id);
-  let h=`<button class="back" onclick="goList()">← 返回今日</button><div class="d-title">${i.icon} ${i.title}</div>`;
+  let h=`<button class="back" onclick="goList()">← 返回模块</button><div class="d-title">${i.icon} ${i.title}</div>`;
   if(i.m&&i.m.cue)h+=`<div class="d-cue">${i.m.cue}</div>`;
   if(i.m&&Array.isArray(i.m.cuePoints)&&i.m.cuePoints.length)h+=`<ul class="cue-points">${i.m.cuePoints.map(point=>`<li>${esc(point)}</li>`).join('')}</ul>`;
   if(i.w&&i.w.prompt&&!(i.w.visual&&i.w.visual.image))h+=`<div class="d-cue">${i.w.prompt}</div>`;
@@ -395,20 +395,14 @@ function renderDetail(){
     h+=`<div class="chain writingchain"><span class="lab">${task1?'本题信息链（看图会填，不背原句）':'段落逻辑链（先背这个）'}</span>${w.chain}</div>`;
     h+=ideaPadHTML(`writing:${w.id}`,'这篇作文的想法与句子');
     h+=`<div class="notice"><b>6.5 目标：</b>${w.note}</div>`;
-    const writingSteps=task1?[['read','看框架并听范文','只标四段功能',2],['outline','闭卷写四段框架','具体信息现场看图填',2],['core','默写通用句块','不默写整篇',1]]:[['read','精读并听范文','标出每段功能',2],['outline','闭卷复原逻辑链','只看题目说出四段',2],['core','默写核心句','不默写整篇',1]];
-    writingSteps.forEach(([k,n,sub,t])=>{
-      const v=s[k]||0,full=v>=t; let d=''; for(let x=0;x<t;x++)d+=`<span class="dot ${x<v?'on':''}"></span>`;
-      h+=`<div class="step ${full?'full':''}"><div class="step-top"><div class="step-name">${full?'✓ ':''}${n} <span class="sub">· ${sub}</span></div><div class="dots">${d}<button class="plus" ${full?'disabled':''} onclick="inc('${i.id}','${k}',${t})">+</button></div></div></div>`;
-    });
-    h+=`<div class="step"><div class="step-name">${task1?'通用句块检验':'核心句检验'}</div><div class="hint">${task1?'凭记忆写 4–6 个框架句；题目名词可以沿用，题干整句不照抄。':'凭记忆写 3–5 句，再点对照；允许同义表达。'}</div>
-      <textarea id="wcore" placeholder="在这里写核心句…" oninput="saveWritingCore('${i.id}')">${s.coreText||''}</textarea>
-      <div class="row"><button class="btn primary" onclick="checkWriting('${i.id}',ITEMS[${view.id}].w)">对照核心句</button></div><div id="wcoreRes"></div></div>`;
     h+=`<details class="keybox"><summary>${task1?'查看要背的通用句块':'查看可迁移核心句'}</summary><ul>${w.keySentences.map(x=>`<li>${x}</li>`).join('')}</ul></details>`;
-    const transferDone=(s.transfer||0)>=1;
-    h+=`<div class="step ${transferDone?'full':''}"><div class="step-name">${transferDone?'✓ ':''}换题仿写 <span class="sub">· 当天完成迁移</span></div><div class="transferq">${w.transfer}</div>
-      <textarea id="transfer" placeholder="先列提纲；Task 2 写一个主体段，Task 1 写 Overview + 一个细节段…" oninput="saveTransfer('${i.id}')">${s.transferText||''}</textarea>
-      <div class="row"><button class="btn ${transferDone?'':'primary'}" onclick="inc('${i.id}','transfer',1)">${transferDone?'✓ 已完成':'完成仿写 ✓'}</button></div></div>`;
+    h+=`<div class="transferq"><b>换题检查：</b>${w.transfer}</div>`;
+    if(!i.finalReview){
+      const writingSteps=task1?[['read','看框架并听范文','只标四段功能',2],['outline','闭卷写四段框架','具体信息现场看图填',2],['core','默写通用句块','不默写整篇',1]]:[['read','精读并听范文','标出每段功能',2],['outline','闭卷复原逻辑链','只看题目说出四段',2],['core','默写核心句','不默写整篇',1]];
+      writingSteps.forEach(([k,n,sub,t])=>{ const v=s[k]||0,full=v>=t; let d=''; for(let x=0;x<t;x++)d+=`<span class="dot ${x<v?'on':''}"></span>`; h+=`<div class="step ${full?'full':''}"><div class="step-top"><div class="step-name">${full?'✓ ':''}${n} <span class="sub">· ${sub}</span></div><div class="dots">${d}<button class="plus" ${full?'disabled':''} onclick="inc('${i.id}','${k}',${t})">+</button></div></div></div>`; });
+    }
     h+=scriptHTML(w,i.id);
+    if(i.finalReview)h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?'✓ 本轮已复习（取消）':'本轮复习完成 ✓'}</button></div>`;
   }
   else if(i.type==='review'){ const m=i.m;
     h+=`<div class="row">${player(aud(m.audio))}<span class="hint">边听边读</span></div>`;
@@ -418,16 +412,16 @@ function renderDetail(){
     h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?'✓ 已复述(取消)':'复述完了 ✓'}</button></div>`;
   }
   else if(i.type==='writingreview'){
-    h+=`<div class="hint">${i.firstPass?'首次速过：只完成题型框架、核心句和一个输出段，不逐字背全文。':'主动回忆（retrieval）：先只看题目说出结构，再展开查看。折线/柱状是已背短模板；饼图直接迁移柱状框架。真实考试仍须写到 150 词以上。'}</div>`;
+    h+=`<div class="hint">先看题目说出结构与可用句，再展开核对。折线/柱状是已背短模板；饼图直接迁移柱状框架。真实考试仍须写到 150 词以上。</div>`;
     i.ws.forEach(w=>{
       const label=i.firstPass?'剩余新内容':w.learned?'已背模板复习':'到期范文复习';
       h+=`<div class="p1t writingrev"><div class="p1t-h">${w.task} · ${w.type} <span class="cn">${label}</span></div>
-        ${w.visual&&w.visual.image?writingVisual(w):`<div class="d-cue">${w.prompt}</div>`}${writingMethodHTML(w,true)}<div class="chain"><span class="lab">闭卷复原</span>${w.chain}</div>
+        ${w.visual&&w.visual.image?writingVisual(w):`<div class="d-cue">${w.prompt}</div>`}${writingMethodHTML(w,true)}<div class="chain"><span class="lab">结构与逻辑链</span>${w.chain}</div>
         <div class="row seg">${player(aud(w.audio))}<span class="hint">核对后再听</span></div>
         <details class="keybox"><summary>展开核心句与原文</summary><ul>${w.keySentences.map(x=>`<li>${x}</li>`).join('')}</ul><div class="script">${effectiveScript(w).map(p=>`<p>${esc(p)}</p>`).join('')}</div></details>${contentEditorHTML(w)}
         ${writingTransferVisual(w)}<div class="transferq"><b>迁移：</b>${w.transfer}</div>${ideaPadHTML(`writing:${w.id}`,'这篇作文的想法与句子')}${w.note?`<div class="hint">${w.note}</div>`:''}</div>`;
     });
-    h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?`✓ ${i.firstPass?'首次已过':'已闭卷复原'}`:`${i.firstPass?'首次过完':'复习完成'} ✓`}</button></div>`;
+    h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?'✓ 本轮已复习（取消）':'本轮复习完成 ✓'}</button></div>`;
   }
   else if(i.type==='p1review'||i.type==='p1learn'){
     const isLearning=i.type==='p1learn';
@@ -466,7 +460,7 @@ function renderDetail(){
   }
   else if(i.type==='output'){
     h+=`<div class="hint">完成这些可见产出后再打勾。质量标准：回应题目、结构完整、只修最影响理解的 1–2 个错误。</div><ol class="outputlist">${i.outputs.map(x=>`<li>${x}</li>`).join('')}</ol>`;
-    h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?'✓ 今日输出完成':'完成输出 ✓'}</button></div>`;
+    h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?'✓ 本轮输出完成（取消）':'完成本轮输出 ✓'}</button></div>`;
   }
   else if(i.type==='record'){
     const scope=liveScope();

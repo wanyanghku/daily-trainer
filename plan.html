@@ -202,7 +202,8 @@ function activitySpecs(day,warnings){
   }
   if(day.newWriting){
     const ref=contentRef('writing',day.newWriting,warnings);
-    specs.push({activityId:`day${day.day}:writing-new:${day.newWriting}`,category:'writing',part:'writing',mode:'new',tier:'core',weight:4,label:`${ref.task||'Writing'} ${ref.type||''} · ${ref.cn||day.newWriting}`.trim(),contentRefs:[ref],storageItemId:`wnew_${day.newWriting}`,tracking:'counters',targets:{read:2,outline:2,core:1,transfer:1},textFields:{corePractice:'coreText',transferPractice:'transferText'}});
+    if(day.moduleOrder)specs.push({activityId:`module${day.moduleOrder}:writing:${day.newWriting}`,category:'writing',part:'writing',mode:'final_review',tier:'core',weight:1,label:`${ref.task||'Writing'} ${ref.type||''} · ${ref.cn||day.newWriting}`.trim(),contentRefs:[ref],storageItemId:`wnew_${day.newWriting}`,tracking:'boolean'});
+    else specs.push({activityId:`day${day.day}:writing-new:${day.newWriting}`,category:'writing',part:'writing',mode:'new',tier:'core',weight:4,label:`${ref.task||'Writing'} ${ref.type||''} · ${ref.cn||day.newWriting}`.trim(),contentRefs:[ref],storageItemId:`wnew_${day.newWriting}`,tracking:'counters',targets:{read:2,outline:2,core:1,transfer:1},textFields:{corePractice:'coreText',transferPractice:'transferText'}});
   }
   (day.reviewP2||[]).forEach(id=>{
     const ref=contentRef('p2',id,warnings);
