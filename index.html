@@ -127,6 +127,7 @@ const DONE_KEY='ielts_final_review_module_done_v1';
 const DAY_STATE_KEY=day=>`ielts_sprint_20260715_day${day}_v3`;
 const P1_EDIT_KEY='ielts_daily_trainer_p1_answer_overrides_v1';
 const CONTENT_EDIT_KEY='ielts_daily_trainer_content_overrides_v1';
+const IDEA_NOTE_KEY='ielts_daily_trainer_idea_notes_v1';
 const EXPORT_SCHEMA='ielts-review-export/v4';
 const BASELINE={
   asOf:'2026-07-20',
@@ -356,12 +357,24 @@ function buildContentEdits(warnings){
   });
   return {storageKey:CONTENT_EDIT_KEY,count:items.length,items};
 }
+function buildIdeaNotes(warnings){
+  const raw=exportStore(IDEA_NOTE_KEY,warnings),items=[];
+  Object.entries(raw).forEach(([key,value])=>{
+    const record=value&&typeof value==='object'&&!Array.isArray(value)?value:null;
+    if(!record||typeof record.text!=='string'){warnings.push(`${IDEA_NOTE_KEY}.${key} 格式异常，已忽略`);return;}
+    if(!record.text.trim())return;
+    items.push({key,userText:record.text,wordCount:(record.text.match(/[A-Za-z0-9'’\-]+/g)||[]).length,sourceVersion:record.sourceVersion||null,updatedAt:record.updatedAt||null});
+  });
+  items.sort((a,b)=>a.key.localeCompare(b.key));
+  return {storageKey:IDEA_NOTE_KEY,count:items.length,items};
+}
 function buildReviewExport(){
   const warnings=[...EXPORT_SOURCE.warnings];
   const storedProgress=exportStore(PROGRESS_KEY,warnings);
   const manualDone=exportStore(DONE_KEY,warnings);
   const p1AnswerEdits=buildP1AnswerEdits(warnings);
   const contentEdits=buildContentEdits(warnings);
+  const ideaNotes=buildIdeaNotes(warnings);
   const scheduledDays=DAYS.filter(day=>day.status==='active'&&Number.isInteger(day.moduleOrder));
   const days=scheduledDays.map(day=>{
     const state=exportStore(DAY_STATE_KEY(day.day),warnings);
@@ -396,7 +409,7 @@ function buildReviewExport(){
       exportedAt:new Date().toISOString(),timeZone:Intl.DateTimeFormat().resolvedOptions().timeZone||null,
       sourceUrl:location.origin+location.pathname,appVersion:EXPORT_SOURCE.appVersion,
       planStart:DAYS[0]&&DAYS[0].date,planEnd:DAYS[DAYS.length-1]&&DAYS[DAYS.length-1].date,
-      storageSchema:'ielts_sprint_20260715_day{8..10}_v3',p1AnswerStorageSchema:P1_EDIT_KEY,contentEditStorageSchema:CONTENT_EDIT_KEY
+      storageSchema:'ielts_sprint_20260715_day{8..10}_v3',p1AnswerStorageSchema:P1_EDIT_KEY,contentEditStorageSchema:CONTENT_EDIT_KEY,ideaNoteStorageSchema:IDEA_NOTE_KEY
     },
     baseline:BASELINE,
     planning:{modules:scheduledDays.map(day=>({order:day.moduleOrder,title:day.displayTitle,load:day.moduleKicker})),coverageSplit:'70% / 30%'},
@@ -413,11 +426,11 @@ function buildReviewExport(){
     summary:{
       totalDays:days.length,totalPlanDates:DAYS.length,activeDates:scheduledDays.length,pendingDates:DAYS.length-scheduledDays.length,startedDays,completedDays,
       averageEffectiveProgress:days.length?Math.round(days.reduce((sum,day)=>sum+day.effectiveHomeProgress,0)/days.length):0,
-      editedP1Answers:p1AnswerEdits.count,editedOtherMaterials:contentEdits.count,
+      editedP1Answers:p1AnswerEdits.count,editedOtherMaterials:contentEdits.count,ideaNotes:ideaNotes.count,
       activityStatus:{all:statusCounts(activities),speaking:statusCounts(speaking),writing:statusCounts(writing),mixed:statusCounts(mixed)},
       plannedCoverage:{p1Topics:p1Planned.size,p2Mothers:p2Planned.size,p3Topics:p3Planned.size,writingUnits:writingPlanned.size,referenceCards:referencePlanned.size}
     },
-    catalog:buildCatalog(),p1AnswerEdits,contentEdits,days,warnings
+    catalog:buildCatalog(),p1AnswerEdits,contentEdits,ideaNotes,days,warnings
   };
 }
 function exportFilename(extension){
@@ -543,7 +556,7 @@ function render(){
   const completed=active.filter(day=>effectiveProgress(day.day)>=100).length;
   const focusProgress=effectiveProgress(focus.day);
   let html=`<header class="topbar">
-      <div><div class="eyebrow">IELTS · FINAL REVIEW</div><h1>口语 × 作文<br>全面复习</h1><p class="goal">目标 6.5 · 所有题目完整保留 · 背诵材料可修改</p></div>
+      <div><div class="eyebrow">IELTS · FINAL REVIEW</div><h1>口语 × 作文<br>全面复习</h1><p class="goal">目标 6.5 · 所有题目完整保留 · 答案与自由素材分别保存</p></div>
     </header>
     <section class="today">
       <div class="today-top"><span>${esc(focus.moduleKicker)}</span><span>${focusProgress}%</span></div>
@@ -563,7 +576,7 @@ function render(){
   active.forEach(day=>{html+=renderRow(day);});
   html+=`</div></section><a class="practice-strip" href="listening.html" aria-label="打开独立听力专项">
       <span class="practice-icon">🎧</span><span class="practice-copy"><strong>听力专项</strong><span>独立保存，不影响口语作文进度</span></span><span class="practice-go">进入 →</span>
-    </a><div class="foot">按模块保存进度 · 所有背诵材料均可本机修改并随详情导出</div>`;
+    </a><div class="foot">按模块保存进度 · 答案修改与自由素材均随复习详情导出</div>`;
   document.getElementById('app').innerHTML=html;
 }
 async function boot(){

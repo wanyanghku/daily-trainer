@@ -1,16 +1,19 @@
 /* Shared engine for the 10-day IELTS sprint — speaking + writing. */
-const VERSION='37';
+const VERSION='38';
 const DAY=window.DAY_CONFIG?window.DAY_CONFIG.day:'x';
 const KEY='ielts_sprint_20260715_day'+DAY+'_v3';
 const PROGRESS_KEY='ielts_sprint_20260715_progress';
 const P1_EDIT_KEY='ielts_daily_trainer_p1_answer_overrides_v1';
 const CONTENT_EDIT_KEY='ielts_daily_trainer_content_overrides_v1';
+const IDEA_NOTE_KEY='ielts_daily_trainer_idea_notes_v1';
 function loadState(){ try{ const value=JSON.parse(localStorage.getItem(KEY)||'{}'); return value&&typeof value==='object'&&!Array.isArray(value)?value:{}; }catch(_){ return {}; } }
 function loadP1AnswerEdits(){ try{ const value=JSON.parse(localStorage.getItem(P1_EDIT_KEY)||'{}'); return value&&typeof value==='object'&&!Array.isArray(value)?value:{}; }catch(_){ return {}; } }
 function loadContentEdits(){ try{ const value=JSON.parse(localStorage.getItem(CONTENT_EDIT_KEY)||'{}'); return value&&typeof value==='object'&&!Array.isArray(value)?value:{}; }catch(_){ return {}; } }
+function loadIdeaNotes(){ try{ const value=JSON.parse(localStorage.getItem(IDEA_NOTE_KEY)||'{}'); return value&&typeof value==='object'&&!Array.isArray(value)?value:{}; }catch(_){ return {}; } }
 let state=loadState();
 let p1AnswerEdits=loadP1AnswerEdits();
 let contentEdits=loadContentEdits();
+let ideaNotes=loadIdeaNotes();
 function save(){ localStorage.setItem(KEY,JSON.stringify(state)); syncProgress(); }
 function st(id){ return state[id]||(state[id]={}); }
 let hide=false, annot=false, view={name:'list',id:null};
@@ -169,6 +172,17 @@ function saveP3Answer(index,questionIndex){
 }
 function resetP3Answer(index,questionIndex){
   contentEdits=loadContentEdits(); delete contentEdits[`p3:${index}:${questionIndex}`]; localStorage.setItem(CONTENT_EDIT_KEY,JSON.stringify(contentEdits)); renderDetail();
+}
+function ideaPadHTML(key,label='我的想法与句子'){
+  const fieldId='idea-'+key.replace(/[^A-Za-z0-9_-]/g,'-'),record=ideaNotes[key],text=record&&typeof record==='object'?record.text:'',has=!!String(text||'').trim();
+  return `<details class="idea-pad" ${has?'open':''}><summary><span>＋ ${esc(label)}</span><small>${has?'已保存':'自由记录'}</small></summary><div class="idea-pad-body"><textarea id="${fieldId}" placeholder="关键词、真实例子或可用句子…\n例如：provide more shared bikes\nencourage the use of electric vehicles" oninput="saveIdeaNote('${key}','${fieldId}')">${esc(text||'')}</textarea><div class="idea-pad-status" id="${fieldId}-status">${has?'已保存在本机 · 会随复习详情导出':'输入即自动保存；不改变标准答案'}</div></div></details>`;
+}
+function saveIdeaNote(key,fieldId){
+  const area=document.getElementById(fieldId); if(!area)return;
+  ideaNotes=loadIdeaNotes();
+  if(area.value.trim())ideaNotes[key]={text:area.value,sourceVersion:VERSION,updatedAt:new Date().toISOString()}; else delete ideaNotes[key];
+  localStorage.setItem(IDEA_NOTE_KEY,JSON.stringify(ideaNotes));
+  const status=document.getElementById(fieldId+'-status'); if(status)status.textContent=area.value.trim()?'已保存在本机 · 会随复习详情导出':'输入即自动保存；不改变标准答案';
 }
 function contentEditorHTML(m){
   const editKey=contentEditKey(m),fieldId=`content-script-editor-${m.id}`,edited=Object.prototype.hasOwnProperty.call(contentEdits,editKey),paragraphs=effectiveScript(m);
@@ -362,6 +376,7 @@ function renderDetail(){
     const stepLabels={read:['听读全文','边听边出声'],recall:['看关键词链复述','盖住原文'],dictate:['默写检验','可对照改错'],record:['90–120秒录音','四个cue点无遗漏']};
     h+=`<div class="row">${player(aud(m.audio))}<span class="hint">边听边读</span></div>`;
     h+=`<div class="chain"><span class="lab">关键词链(背这串)</span>${m.chain}</div>`;
+    h+=ideaPadHTML(`p2:${m.id}`,'这篇P2的想法与句子');
     if(isDone(i))h+=`<div class="congrats">🎉 这篇练熟了!</div>`;
     Object.entries(targets).forEach(([k,t])=>{ const [n,sub]=stepLabels[k]||[k,'完成一次'];
       const v=s[k]||0,full=v>=t; let d=''; for(let x=0;x<t;x++)d+=`<span class="dot ${x<v?'on':''}"></span>`;
@@ -378,6 +393,7 @@ function renderDetail(){
     h+=writingVisual(w);
     h+=writingMethodHTML(w);
     h+=`<div class="chain writingchain"><span class="lab">${task1?'本题信息链（看图会填，不背原句）':'段落逻辑链（先背这个）'}</span>${w.chain}</div>`;
+    h+=ideaPadHTML(`writing:${w.id}`,'这篇作文的想法与句子');
     h+=`<div class="notice"><b>6.5 目标：</b>${w.note}</div>`;
     const writingSteps=task1?[['read','看框架并听范文','只标四段功能',2],['outline','闭卷写四段框架','具体信息现场看图填',2],['core','默写通用句块','不默写整篇',1]]:[['read','精读并听范文','标出每段功能',2],['outline','闭卷复原逻辑链','只看题目说出四段',2],['core','默写核心句','不默写整篇',1]];
     writingSteps.forEach(([k,n,sub,t])=>{
@@ -397,6 +413,7 @@ function renderDetail(){
   else if(i.type==='review'){ const m=i.m;
     h+=`<div class="row">${player(aud(m.audio))}<span class="hint">边听边读</span></div>`;
     h+=`<div class="chain"><span class="lab">关键词链</span>${m.chain}</div><div class="hint">先盖住原文复述一遍,卡了再看。</div>`;
+    h+=ideaPadHTML(`p2:${m.id}`,'这篇P2的想法与句子');
     h+=scriptHTML(m,i.id);
     h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?'✓ 已复述(取消)':'复述完了 ✓'}</button></div>`;
   }
@@ -408,7 +425,7 @@ function renderDetail(){
         ${w.visual&&w.visual.image?writingVisual(w):`<div class="d-cue">${w.prompt}</div>`}${writingMethodHTML(w,true)}<div class="chain"><span class="lab">闭卷复原</span>${w.chain}</div>
         <div class="row seg">${player(aud(w.audio))}<span class="hint">核对后再听</span></div>
         <details class="keybox"><summary>展开核心句与原文</summary><ul>${w.keySentences.map(x=>`<li>${x}</li>`).join('')}</ul><div class="script">${effectiveScript(w).map(p=>`<p>${esc(p)}</p>`).join('')}</div></details>${contentEditorHTML(w)}
-        ${writingTransferVisual(w)}<div class="transferq"><b>迁移：</b>${w.transfer}</div>${w.note?`<div class="hint">${w.note}</div>`:''}</div>`;
+        ${writingTransferVisual(w)}<div class="transferq"><b>迁移：</b>${w.transfer}</div>${ideaPadHTML(`writing:${w.id}`,'这篇作文的想法与句子')}${w.note?`<div class="hint">${w.note}</div>`:''}</div>`;
     });
     h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?`✓ ${i.firstPass?'首次已过':'已闭卷复原'}`:`${i.firstPass?'首次过完':'复习完成'} ✓`}</button></div>`;
   }
@@ -417,8 +434,8 @@ function renderDetail(){
     h+=`<div class="hint">${isLearning?'新学短回答：先读题，再把每题说成“直接回答 + 一个原因或例子”；答案可以直接修改，输入即保存到当前浏览器。':'已背话题复习：全部问题都保留；答案可以直接修改，输入即保存到当前浏览器。'}</div>`;
     i.idxs.forEach(idx=>{ const t=P1[idx];
       h+=`<div class="p1t"><div class="p1t-h">📌 ${t.topic} <span class="cn">${t.cn}</span> <span class="tier">${stars(t.tier)}</span></div>
-        <div class="p1-edit-intro">全部 ${i.qidxs.length} 道问题已列出 · 自由选择 · 修改会跨日期同步</div><div class="qa">`;
-      i.qidxs.forEach(questionIndex=>{ const x=t.qa[questionIndex]; h+=`<div class="q">Q${questionIndex+1} · ${x.q}</div>${p1AnswerEditor(idx,questionIndex)}`; });
+        <div class="p1-edit-intro">全部 ${i.qidxs.length} 道问题已列出 · 自由选择 · 修改会跨模块同步</div>${ideaPadHTML(`p1topic:${idx}`,'整个话题的素材')}<div class="qa">`;
+      i.qidxs.forEach(questionIndex=>{ const x=t.qa[questionIndex]; h+=`<div class="q">Q${questionIndex+1} · ${x.q}</div>${p1AnswerEditor(idx,questionIndex)}${ideaPadHTML(`p1:${idx}:${questionIndex}`,'这道题的想法与句子')}`; });
       h+=`</div></div>`; });
     h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?`✓ ${isLearning?'已学完':'已复习'}`:`${isLearning?'学完':'复习完'} ✓`}</button></div>`;
   }
@@ -426,14 +443,15 @@ function renderDetail(){
     h+=`<div class="hint">快速扫题和答案；发现不自然的表达可以直接修改，输入即保存。</div>`;
     i.idxs.forEach(idx=>{ const t=P1[idx];
       h+=`<div class="p1t"><div class="p1t-h">📌 ${t.topic} <span class="cn">${t.cn}</span></div>
-        <div class="qa"><div class="q">Q1 · ${t.qa[0].q}</div>${p1AnswerEditor(idx,0)}</div></div>`; });
+        ${ideaPadHTML(`p1topic:${idx}`,'整个话题的素材')}<div class="qa"><div class="q">Q1 · ${t.qa[0].q}</div>${p1AnswerEditor(idx,0)}${ideaPadHTML(`p1:${idx}:0`,'这道题的想法与句子')}</div></div>`; });
     h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?'✓ 已回扫':'回扫完成 ✓'}</button></div>`;
   }
   else if(i.type==='p3'){ const t=i.t;
     h+=`<div class="hint">P3 = 观点 + <b>because</b> 理由 + <b>for example</b> 例子 + <b>that said</b> 让步。每题 30–60 秒,别背整段。</div>`;
     h+=`<div class="chain" style="background:#eff6ff;border-color:#bfdbfe"><span class="lab" style="color:#1d4ed8">词块(穿插用,别堆)</span>${t.chunks}</div>`;
+    h+=ideaPadHTML(`p3topic:${i.idx}`,'这类P3的通用素材');
     h+=`<div class="row seg">${player(aud('audio-p3-'+i.idx))}<span class="hint">听示范答</span></div><div class="qa">`;
-    t.qa.forEach((x,questionIndex)=>{ const key=`p3:${i.idx}:${questionIndex}`,record=contentEdits[key],edited=record&&typeof record==='object',answer=edited?record.text:x.a; h+=`<div class="q">${x.q}</div><div class="p1-answer-editor ${edited?'edited':''}"><textarea id="p3-answer-${i.idx}-${questionIndex}" class="p1-answer-text" oninput="saveP3Answer(${i.idx},${questionIndex})">${esc(answer)}</textarea><div class="p1-edit-meta"><span class="p1-save-status">${edited?'已保存到本机 · 导出会包含':'可直接修改，输入即保存'}</span><button class="btn p1-reset" type="button" onclick="resetP3Answer(${i.idx},${questionIndex})" ${edited?'':'disabled'}>恢复标准稿</button></div></div>`; }); h+=`</div>`;
+    t.qa.forEach((x,questionIndex)=>{ const key=`p3:${i.idx}:${questionIndex}`,record=contentEdits[key],edited=record&&typeof record==='object',answer=edited?record.text:x.a; h+=`<div class="q">${x.q}</div><div class="p1-answer-editor ${edited?'edited':''}"><textarea id="p3-answer-${i.idx}-${questionIndex}" class="p1-answer-text" oninput="saveP3Answer(${i.idx},${questionIndex})">${esc(answer)}</textarea><div class="p1-edit-meta"><span class="p1-save-status">${edited?'已保存到本机 · 导出会包含':'可直接修改，输入即保存'}</span><button class="btn p1-reset" type="button" onclick="resetP3Answer(${i.idx},${questionIndex})" ${edited?'':'disabled'}>恢复标准稿</button></div></div>${ideaPadHTML(`p3:${i.idx}:${questionIndex}`,'这道题的想法与句子')}`; }); h+=`</div>`;
     h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?'✓ 已练':'练完了 ✓'}</button></div>`;
   }
   else if(i.type==='refcard'){
@@ -443,7 +461,7 @@ function renderDetail(){
         <div class="hint" style="margin:2px 2px 6px">套:${r.covers}</div>
         <div class="chain"><span class="lab">关键词链</span>${r.chain}</div>
         <div class="row seg">${player(aud(r.audio))}<span class="hint">听短版</span></div>
-        <div class="script" style="font-size:14px;margin-top:6px">${r.short}</div></div>`; });
+        <div class="script" style="font-size:14px;margin-top:6px">${r.short}</div>${ideaPadHTML(`ref:${r.id}`,'这张套用卡的补充素材')}</div>`; });
     h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?'✓ 已过一遍':'过一遍 ✓'}</button></div>`;
   }
   else if(i.type==='output'){
@@ -468,9 +486,10 @@ function toggleDone(id){ const s=st(id); s.done=!s.done; save(); renderDetail();
 function lp(b){ const a=b.parentNode.querySelector('audio'); if(!a)return; a.loop=!a.loop; b.textContent=a.loop?'🔁 循环中':'🔁'; b.classList.toggle('on',a.loop); if(a.loop&&a.paused)a.play(); }
 function spdSel(s){ const a=s.parentNode.querySelector('audio'); if(a)a.playbackRate=parseFloat(s.value); }
 window.addEventListener('storage',event=>{
-  if(event.key!==P1_EDIT_KEY&&event.key!==CONTENT_EDIT_KEY)return;
+  if(event.key!==P1_EDIT_KEY&&event.key!==CONTENT_EDIT_KEY&&event.key!==IDEA_NOTE_KEY)return;
   p1AnswerEdits=loadP1AnswerEdits();
   contentEdits=loadContentEdits();
+  ideaNotes=loadIdeaNotes();
   if(view.name==='detail'&&!(document.activeElement&&document.activeElement.matches('textarea')))renderDetail();
 });
 boot();
