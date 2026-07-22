@@ -1,4 +1,4 @@
-window.PODCAST_GUIDES_VERSION = '1';
+window.PODCAST_GUIDES_VERSION = '2';
 window.PODCAST_GUIDES = {
   listening: {
     title: '听力先把会的分保住',
