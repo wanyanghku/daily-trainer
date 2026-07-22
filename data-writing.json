@@ -270,18 +270,20 @@
       ],
       "transfer": "Problem-Solution 只是 Two-Part 的一种。换题后必须按实际两问重排内容，例如原因与影响、原因与是否积极等；两问都要分别且充分作答，不能机械套问题加措施。"
     },
-    "chain": "概括相连问题 → 时间/健康/空间损失 → 政府改善公共交通并管理车流 → 个人改变出行+企业错峰 → 组合方案",
+    "chain": "概括问题+预告方案 → 堵车浪费时间/降低效率 + 尾气危害健康 → 政府改善公交/公交专线/衔接/骑行道 + 拥堵费/排放标准 → 个人公交/步行/骑行/拼车/错峰 → 政策与个人选择结合",
     "script": [
-      "Many urban areas now suffer from heavy traffic and poor air quality. These connected problems damage health, waste time and reduce the amount of pleasant public space, but they can be controlled if governments improve alternatives to private cars and residents change some daily travel habits.",
-      "Congestion first creates a major loss of productive and personal time. Workers who spend long periods in queues arrive tired, while buses and deliveries also become less reliable. At the same time, idling and slow-moving vehicles release exhaust fumes close to homes, schools and workplaces. This can make outdoor activity unpleasant and may be particularly harmful to children and older people. A city designed around cars also devotes large areas to roads and parking, leaving less land for parks or housing.",
-      "The most effective response is to make public transport convenient, affordable and dependable. Governments can add bus lanes, connect rail and bus services, and provide safe paths for walking and cycling. They can also charge vehicles for entering the busiest areas at peak times, provided that good alternatives already exist. Individuals can help by using public transport, sharing journeys or walking short distances instead of driving alone. Employers may reduce rush-hour pressure by allowing flexible starting times or remote work where possible.",
-      "In conclusion, congestion wastes time and reduces urban space, while vehicle emissions harm health and daily life. These problems should be addressed together. A combination of reliable public transport, carefully designed charges and more flexible travel choices offers a fairer and more lasting answer than simply building more roads."
+      "Traffic congestion and air pollution are increasingly common in large cities. They waste time, damage people’s health and reduce the quality of urban life. These problems can be tackled through better public transport and sensible restrictions on car use, while individuals can choose cleaner ways to travel.",
+      "One major problem caused by congestion is the loss of time. Commuters may spend hours stuck in traffic and arrive at work tired and stressed, while buses are delayed and deliveries take longer. This can lower productivity and leave people with less time for their families or leisure activities. Traffic is also a major source of air pollution in cities. Exhaust fumes from slow-moving and idling vehicles can worsen respiratory problems and make streets less pleasant for walking or exercise. Children, older people and those with existing health conditions may be particularly affected.",
+      "Governments should first make public transport reliable, affordable and convenient. For example, they can introduce dedicated bus lanes, improve connections between bus and rail services, and build safe cycling paths. They can also introduce congestion charges in busy city centres and enforce stricter vehicle-emission standards. However, suitable alternatives to driving should be available before such restrictions are imposed. Individuals can contribute by using public transport, walking or cycling for short journeys, and sharing cars when necessary. They can also avoid driving during peak hours where possible.",
+      "In conclusion, traffic congestion wastes time and reduces productivity, while polluted air threatens public health. Governments have the main responsibility for improving transport systems and regulating vehicles, but individual choices are also important. A combination of effective public policies and less dependence on private cars is likely to bring lasting improvement."
     ],
     "keySentences": [
-      "These connected problems affect both individuals and the wider community.",
-      "The most effective response is to make the alternative convenient and affordable.",
-      "Governments can address the issue by X, while individuals can help by Y.",
-      "A combination of public policy and personal choices offers a more lasting answer."
+      "One major problem caused by X is Y.",
+      "This can lower X and leave people with less time for Y.",
+      "Governments should first make X reliable, affordable and convenient.",
+      "However, suitable alternatives should be available before such restrictions are imposed.",
+      "Individuals can contribute by X, Y or Z.",
+      "A combination of effective public policies and individual choices is likely to bring lasting improvement."
     ],
     "transfer": "Many cities are producing increasing amounts of household waste. What problems does this cause, and what measures can reduce it?",
     "note": "这是双问题题的一种结构：主体一答问题，主体二答措施；其他 Two-Part 仍必须按实际两问更换全部论证内容。"

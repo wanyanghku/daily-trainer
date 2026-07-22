@@ -67,6 +67,9 @@ textarea{width:100%; min-height:130px; border:1px solid var(--line); border-radi
 .p1-edit-meta{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:8px; padding:5px 3px 0; border-top:1px solid #edf2f5;}
 .p1-save-status{color:var(--mut); font-size:10.5px; line-height:1.35;}
 .p1-answer-editor.edited .p1-save-status{color:var(--teal); font-weight:700;}
+.content-editor{margin:10px 0 14px;padding:0 11px 10px;border:1px solid #cfe8e4;border-radius:11px;background:#f7fffd;}
+.content-editor summary{min-height:46px;display:flex;align-items:center;color:var(--teal);font-size:13px;font-weight:800;cursor:pointer;}
+.content-answer-text{min-height:240px;background:#fff;border:1px solid #dbe4ea;border-radius:9px;font:15px/1.65 Georgia,"Times New Roman",serif;}
 .p1-save-status.error{color:#b91c1c!important;}
 .btn.p1-reset{flex:0 0 auto; min-height:44px; padding:6px 9px; border-radius:8px; color:#475569; font-size:11px; touch-action:manipulation;}
 .btn.p1-reset:focus-visible{outline:3px solid rgba(20,184,166,.28); outline-offset:2px;}

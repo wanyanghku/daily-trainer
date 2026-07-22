@@ -1,13 +1,16 @@
 /* Shared engine for the 10-day IELTS sprint — speaking + writing. */
-const VERSION='36';
+const VERSION='37';
 const DAY=window.DAY_CONFIG?window.DAY_CONFIG.day:'x';
-const KEY='ielts_sprint_20260715_day'+DAY+'_v2';
+const KEY='ielts_sprint_20260715_day'+DAY+'_v3';
 const PROGRESS_KEY='ielts_sprint_20260715_progress';
 const P1_EDIT_KEY='ielts_daily_trainer_p1_answer_overrides_v1';
+const CONTENT_EDIT_KEY='ielts_daily_trainer_content_overrides_v1';
 function loadState(){ try{ const value=JSON.parse(localStorage.getItem(KEY)||'{}'); return value&&typeof value==='object'&&!Array.isArray(value)?value:{}; }catch(_){ return {}; } }
 function loadP1AnswerEdits(){ try{ const value=JSON.parse(localStorage.getItem(P1_EDIT_KEY)||'{}'); return value&&typeof value==='object'&&!Array.isArray(value)?value:{}; }catch(_){ return {}; } }
+function loadContentEdits(){ try{ const value=JSON.parse(localStorage.getItem(CONTENT_EDIT_KEY)||'{}'); return value&&typeof value==='object'&&!Array.isArray(value)?value:{}; }catch(_){ return {}; } }
 let state=loadState();
 let p1AnswerEdits=loadP1AnswerEdits();
+let contentEdits=loadContentEdits();
 function save(){ localStorage.setItem(KEY,JSON.stringify(state)); syncProgress(); }
 function st(id){ return state[id]||(state[id]={}); }
 let hide=false, annot=false, view={name:'list',id:null};
@@ -144,11 +147,43 @@ function frac(i){ const s=st(i.id);
 function progressPercent(){ return weightedPercent(ITEMS.filter(i=>i.tier==='core')); }
 function syncProgress(){ if(!ITEMS.length||DAY==='x')return; const p=JSON.parse(localStorage.getItem(PROGRESS_KEY)||'{}'); p[DAY]=progressPercent(); localStorage.setItem(PROGRESS_KEY,JSON.stringify(p)); }
 
+function contentEditKey(m){ return `${m.task?'writing':'p2'}:${m.id}:script`; }
+function effectiveScript(m){
+  const record=contentEdits[contentEditKey(m)],text=record&&typeof record==='object'?record.text:null;
+  return typeof text==='string'&&text.trim()?text.trim().split(/\n\s*\n/):m.script;
+}
+function saveContentScript(key,fieldId){
+  const area=document.getElementById(fieldId); if(!area)return;
+  contentEdits=loadContentEdits();
+  contentEdits[key]={text:area.value.trim(),sourceVersion:VERSION,updatedAt:new Date().toISOString()};
+  localStorage.setItem(CONTENT_EDIT_KEY,JSON.stringify(contentEdits));
+  const status=document.getElementById(fieldId+'-status'); if(status)status.textContent='已保存到本机 · 导出会包含此版本';
+}
+function resetContentScript(key){
+  contentEdits=loadContentEdits(); delete contentEdits[key]; localStorage.setItem(CONTENT_EDIT_KEY,JSON.stringify(contentEdits)); renderDetail();
+}
+function saveP3Answer(index,questionIndex){
+  const key=`p3:${index}:${questionIndex}`,area=document.getElementById(`p3-answer-${index}-${questionIndex}`); if(!area)return;
+  contentEdits=loadContentEdits(); contentEdits[key]={text:area.value,sourceVersion:VERSION,updatedAt:new Date().toISOString()};
+  localStorage.setItem(CONTENT_EDIT_KEY,JSON.stringify(contentEdits));
+}
+function resetP3Answer(index,questionIndex){
+  contentEdits=loadContentEdits(); delete contentEdits[`p3:${index}:${questionIndex}`]; localStorage.setItem(CONTENT_EDIT_KEY,JSON.stringify(contentEdits)); renderDetail();
+}
+function contentEditorHTML(m){
+  const editKey=contentEditKey(m),fieldId=`content-script-editor-${m.id}`,edited=Object.prototype.hasOwnProperty.call(contentEdits,editKey),paragraphs=effectiveScript(m);
+  return `<details class="content-editor" ${edited?'open':''}><summary>修改我的背诵版本${edited?' · 已修改':''}</summary>
+    <div class="hint">只保存在当前浏览器；段落之间空一行。音频仍播放标准稿，导出会包含你的修改。</div>
+    <textarea id="${fieldId}" class="content-answer-text" oninput="saveContentScript('${editKey}','${fieldId}')">${esc(paragraphs.join('\n\n'))}</textarea>
+    <div class="p1-edit-meta"><span id="${fieldId}-status" class="p1-save-status">${edited?'已保存到本机 · 导出会包含此版本':'当前为标准稿'}</span><button class="btn p1-reset" type="button" onclick="resetContentScript('${editKey}')" ${edited?'':'disabled'}>恢复标准稿</button></div>
+  </details>`;
+}
+
 function scriptHTML(m,id){
-  const s=st(id); const set=new Set(s.hl||[]);
+  const s=st(id); const set=new Set(s.hl||[]),paragraphs=effectiveScript(m);
   let segs='<div class="hint" style="margin-top:8px">🎧 分段听读（每段可单独播放 / 倍速 / 循环）</div>';
   m.script.forEach((p,pi)=>{ segs+=`<div class="row seg"><span class="segn">第${pi+1}段</span>${player(aud(m.audio+'-'+(pi+1)))}</div>`; });
-  const ps=m.script.map((para,pi)=>{ let wi=0;
+  const ps=paragraphs.map((para,pi)=>{ let wi=0;
     const html=esc(para).replace(/[A-Za-z0-9'’\-]+/g,(w)=>{ const k=pi+'-'+wi; wi++; const on=set.has(k)?' hl':'';
       return `<span class="w-tok${on}" ${annot?`onclick="hl('${id}','${k}',this)"`:''}>${w}</span>`; });
     return `<p>${html}</p>`; }).join('');
@@ -156,7 +191,7 @@ function scriptHTML(m,id){
     <button class="btn ${annot?'on':''}" onclick="toggleAnnot()">✏️ 标注关键词 ${annot?'(开)':'(关)'}</button>
     <button class="btn ghost" onclick="toggleHide()">${hide?'👁 显示原文':'🙈 隐藏原文'}</button></div>
    <div class="hint">${annot?'点单词高亮/取消,自动保存。':'复述/默写时点"隐藏原文"。'}</div>
-   <div class="script ${hide?'hidden':''}">${ps}</div>`;
+   <div class="script ${hide?'hidden':''}">${ps}</div>${contentEditorHTML(m)}`;
 }
 function hl(id,k,el){ const s=st(id); const set=new Set(s.hl||[]);
   if(set.has(k)){set.delete(k);el.classList.remove('hl');}else{set.add(k);el.classList.add('hl');}
@@ -291,8 +326,8 @@ function renderList(){
   const cfg=window.DAY_CONFIG;
   const done=ITEMS.filter(isDone).length, ov=weightedPercent(ITEMS);
   const guidance=ITEMS.length===1?`<b>今天只做这一件：</b>${esc(ITEMS[0].title)}，不追加其他任务。`:'<b>顺序：</b>先完成新内容 → P1 短回答 → P2 看链复述 → 作文框架回忆 → 输出。';
-  let h=`<div class="top"><a class="home" href="../">← 冲刺首页</a></div>
-   <div class="dayeyebrow">${cfg.date||''} · 建议 ${cfg.minutes||90} 分钟</div><h1>${cfg.title} · 今日训练</h1><div class="muted">${cfg.note||''}</div>
+  let h=`<div class="top"><a class="home" href="../">← 总复习首页</a></div>
+   <div class="dayeyebrow">${esc(cfg.moduleKicker||'模块训练')} · 建议 ${cfg.minutes||90} 分钟</div><h1>${esc(cfg.displayTitle||cfg.newLabel||cfg.title)}</h1><div class="muted">${cfg.note||''}</div>
    <div class="overall"><div class="ov-top"><div class="ov-num"><b>${done}</b> / ${ITEMS.length} 完成</div><div class="muted">今日 ${ov}%</div></div><div class="bar"><i style="width:${ov}%"></i></div></div>
    <div class="tierhint">${guidance}</div>`;
   ITEMS.forEach((i,x)=>{
@@ -308,7 +343,7 @@ function renderList(){
       <div class="c-body"><div class="c-title">${i.title} <span class="t2 ${i.tier}">${i.tier==='core'?'核心':'加分'}</span></div><div class="c-sub">${i.sub}</div><div class="bar" style="height:6px"><i style="width:${Math.round(frac(i)*100)}%"></i></div></div>
       <div class="tick">${isDone(i)?'✓':Math.round(frac(i)*100)+'%'}</div></div>`;
   });
-  h+=`<div class="foot">进度按日期自动存手机浏览器，并同步回冲刺首页</div>`;
+  h+=`<div class="foot">进度按模块自动保存在当前浏览器，并同步回总复习首页</div>`;
   app.innerHTML=h;
 }
 function open_(x){ view={name:'detail',id:x}; hide=false; annot=false; renderDetail(); scrollTo(0,0); }
@@ -372,7 +407,7 @@ function renderDetail(){
       h+=`<div class="p1t writingrev"><div class="p1t-h">${w.task} · ${w.type} <span class="cn">${label}</span></div>
         ${w.visual&&w.visual.image?writingVisual(w):`<div class="d-cue">${w.prompt}</div>`}${writingMethodHTML(w,true)}<div class="chain"><span class="lab">闭卷复原</span>${w.chain}</div>
         <div class="row seg">${player(aud(w.audio))}<span class="hint">核对后再听</span></div>
-        <details class="keybox"><summary>展开核心句与原文</summary><ul>${w.keySentences.map(x=>`<li>${x}</li>`).join('')}</ul><div class="script">${w.script.map(p=>`<p>${p}</p>`).join('')}</div></details>
+        <details class="keybox"><summary>展开核心句与原文</summary><ul>${w.keySentences.map(x=>`<li>${x}</li>`).join('')}</ul><div class="script">${effectiveScript(w).map(p=>`<p>${esc(p)}</p>`).join('')}</div></details>${contentEditorHTML(w)}
         ${writingTransferVisual(w)}<div class="transferq"><b>迁移：</b>${w.transfer}</div>${w.note?`<div class="hint">${w.note}</div>`:''}</div>`;
     });
     h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?`✓ ${i.firstPass?'首次已过':'已闭卷复原'}`:`${i.firstPass?'首次过完':'复习完成'} ✓`}</button></div>`;
@@ -398,7 +433,7 @@ function renderDetail(){
     h+=`<div class="hint">P3 = 观点 + <b>because</b> 理由 + <b>for example</b> 例子 + <b>that said</b> 让步。每题 30–60 秒,别背整段。</div>`;
     h+=`<div class="chain" style="background:#eff6ff;border-color:#bfdbfe"><span class="lab" style="color:#1d4ed8">词块(穿插用,别堆)</span>${t.chunks}</div>`;
     h+=`<div class="row seg">${player(aud('audio-p3-'+i.idx))}<span class="hint">听示范答</span></div><div class="qa">`;
-    t.qa.forEach(x=>{ h+=`<div class="q">${x.q}</div><div class="a">${x.a}</div>`; }); h+=`</div>`;
+    t.qa.forEach((x,questionIndex)=>{ const key=`p3:${i.idx}:${questionIndex}`,record=contentEdits[key],edited=record&&typeof record==='object',answer=edited?record.text:x.a; h+=`<div class="q">${x.q}</div><div class="p1-answer-editor ${edited?'edited':''}"><textarea id="p3-answer-${i.idx}-${questionIndex}" class="p1-answer-text" oninput="saveP3Answer(${i.idx},${questionIndex})">${esc(answer)}</textarea><div class="p1-edit-meta"><span class="p1-save-status">${edited?'已保存到本机 · 导出会包含':'可直接修改，输入即保存'}</span><button class="btn p1-reset" type="button" onclick="resetP3Answer(${i.idx},${questionIndex})" ${edited?'':'disabled'}>恢复标准稿</button></div></div>`; }); h+=`</div>`;
     h+=`<div class="row"><button class="btn ${isDone(i)?'':'primary'}" onclick="toggleDone('${i.id}')">${isDone(i)?'✓ 已练':'练完了 ✓'}</button></div>`;
   }
   else if(i.type==='refcard'){
@@ -433,8 +468,9 @@ function toggleDone(id){ const s=st(id); s.done=!s.done; save(); renderDetail();
 function lp(b){ const a=b.parentNode.querySelector('audio'); if(!a)return; a.loop=!a.loop; b.textContent=a.loop?'🔁 循环中':'🔁'; b.classList.toggle('on',a.loop); if(a.loop&&a.paused)a.play(); }
 function spdSel(s){ const a=s.parentNode.querySelector('audio'); if(a)a.playbackRate=parseFloat(s.value); }
 window.addEventListener('storage',event=>{
-  if(event.key!==P1_EDIT_KEY)return;
+  if(event.key!==P1_EDIT_KEY&&event.key!==CONTENT_EDIT_KEY)return;
   p1AnswerEdits=loadP1AnswerEdits();
-  if(view.name==='detail'&&!(document.activeElement&&document.activeElement.classList.contains('p1-answer-text')))renderDetail();
+  contentEdits=loadContentEdits();
+  if(view.name==='detail'&&!(document.activeElement&&document.activeElement.matches('textarea')))renderDetail();
 });
 boot();

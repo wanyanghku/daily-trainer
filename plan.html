@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0b766e">
-<title>IELTS 7月15日–24日冲刺工作台</title>
+<title>IELTS 口语 × 作文全面复习</title>
 <style>
   :root{
     --teal:#0b766e; --teal-dark:#075f59; --teal-soft:#e9f7f4;
@@ -104,6 +104,18 @@
     .day-link{padding-right:11px}
   }
   @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+  .topbar{padding:12px 4px 24px;border-bottom:0}
+  .topbar h1{max-width:420px;margin-top:8px;font-size:clamp(34px,9vw,54px);line-height:1.02;letter-spacing:-.055em}
+  .goal{margin-top:10px;font-size:12.5px}
+  .today{margin-top:0;border-radius:0;padding:20px 18px;background:#0b5f59;box-shadow:none}
+  .today h2{font-size:25px}
+  .module-name{margin-top:5px;color:var(--teal-dark);font-size:11px;font-weight:900;letter-spacing:.04em}
+  .module-row{animation:module-in .36s ease both}
+  .module-row:nth-child(2){animation-delay:.06s}.module-row:nth-child(3){animation-delay:.12s}
+  .module-row .new-title{font-size:15px;line-height:1.35}
+  .day-list{border-radius:0;border-right:0;border-left:0}
+  .module-row.current{background:#eef8f6}
+  @keyframes module-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 </style>
 </head>
 <body>
@@ -111,9 +123,10 @@
 <script>
 const EXAM_DATE='2026-07-25';
 const PROGRESS_KEY='ielts_sprint_20260715_progress';
-const DONE_KEY='ielts_sprint_20260715_done';
-const DAY_STATE_KEY=day=>`ielts_sprint_20260715_day${day}_v2`;
+const DONE_KEY='ielts_final_review_module_done_v1';
+const DAY_STATE_KEY=day=>`ielts_sprint_20260715_day${day}_v3`;
 const P1_EDIT_KEY='ielts_daily_trainer_p1_answer_overrides_v1';
+const CONTENT_EDIT_KEY='ielts_daily_trainer_content_overrides_v1';
 const EXPORT_SCHEMA='ielts-review-export/v4';
 const BASELINE={
   asOf:'2026-07-20',
@@ -322,12 +335,34 @@ function buildP1AnswerEdits(warnings){
   items.sort((a,b)=>a.topicIndex-b.topicIndex||a.questionIndex-b.questionIndex);
   return {storageKey:P1_EDIT_KEY,count:items.length,items};
 }
+function buildContentEdits(warnings){
+  const raw=exportStore(CONTENT_EDIT_KEY,warnings),items=[];
+  Object.entries(raw).forEach(([key,value])=>{
+    const record=value&&typeof value==='object'&&!Array.isArray(value)?value:null;
+    if(!record||typeof record.text!=='string'){warnings.push(`${CONTENT_EDIT_KEY}.${key} 格式异常，已忽略`);return;}
+    let kind=null,id=null,title=null;
+    let match=key.match(/^(p2|writing):([^:]+):script$/);
+    if(match){
+      kind=match[1];id=match[2];
+      const source=kind==='p2'?EXPORT_SOURCE.p2.find(x=>x.id===id):EXPORT_SOURCE.writing.find(x=>x.id===id);
+      if(!source){warnings.push(`${CONTENT_EDIT_KEY}.${key} 找不到对应材料，已忽略`);return;}
+      title=source.cn||source.id;
+    }else if((match=key.match(/^p3:(\d+):(\d+)$/))){
+      kind='p3';const topicIndex=Number(match[1]),questionIndex=Number(match[2]),topic=EXPORT_SOURCE.p3[topicIndex],qa=topic&&topic.qa&&topic.qa[questionIndex];
+      if(!qa){warnings.push(`${CONTENT_EDIT_KEY}.${key} 找不到对应P3题目，已忽略`);return;}
+      id=`${topicIndex}:${questionIndex}`;title=`${topic.cn||topic.topic} · ${qa.q}`;
+    }else{warnings.push(`${CONTENT_EDIT_KEY}.${key} 未识别，已忽略`);return;}
+    items.push({key,kind,id,title,userText:record.text,wordCount:(record.text.match(/[A-Za-z0-9'’\-]+/g)||[]).length,sourceVersion:record.sourceVersion||null,updatedAt:record.updatedAt||null});
+  });
+  return {storageKey:CONTENT_EDIT_KEY,count:items.length,items};
+}
 function buildReviewExport(){
   const warnings=[...EXPORT_SOURCE.warnings];
   const storedProgress=exportStore(PROGRESS_KEY,warnings);
   const manualDone=exportStore(DONE_KEY,warnings);
   const p1AnswerEdits=buildP1AnswerEdits(warnings);
-  const scheduledDays=DAYS.filter(day=>day.status==='active');
+  const contentEdits=buildContentEdits(warnings);
+  const scheduledDays=DAYS.filter(day=>day.status==='active'&&Number.isInteger(day.moduleOrder));
   const days=scheduledDays.map(day=>{
     const state=exportStore(DAY_STATE_KEY(day.day),warnings);
     Object.defineProperty(state,'__day',{value:day.day,enumerable:false});
@@ -361,10 +396,10 @@ function buildReviewExport(){
       exportedAt:new Date().toISOString(),timeZone:Intl.DateTimeFormat().resolvedOptions().timeZone||null,
       sourceUrl:location.origin+location.pathname,appVersion:EXPORT_SOURCE.appVersion,
       planStart:DAYS[0]&&DAYS[0].date,planEnd:DAYS[DAYS.length-1]&&DAYS[DAYS.length-1].date,
-      storageSchema:'ielts_sprint_20260715_day{1..10}_v2',p1AnswerStorageSchema:P1_EDIT_KEY
+      storageSchema:'ielts_sprint_20260715_day{8..10}_v3',p1AnswerStorageSchema:P1_EDIT_KEY,contentEditStorageSchema:CONTENT_EDIT_KEY
     },
     baseline:BASELINE,
-    planning:{activeDates:scheduledDays.map(day=>day.date),pendingDates:DAYS.filter(day=>day.status==='pending').map(day=>day.date),nextReview:'2026-07-19 evening export'},
+    planning:{modules:scheduledDays.map(day=>({order:day.moduleOrder,title:day.displayTitle,load:day.moduleKicker})),coverageSplit:'70% / 30%'},
     privacy:{generatedLocally:true,uploadedAutomatically:false,includesUserPracticeText:true,includesPastedChatGPTDiagnosis:true,includesUserEditedP1Answers:true,excludesUneditedQuestionBankAnswers:true,excludesFullModelAnswers:true,excludesAudio:true,excludesListening:true},
     measurementLimitations:[
       '导出只代表当前设备、当前浏览器中的站内记录，不会自动合并其他设备。',
@@ -378,11 +413,11 @@ function buildReviewExport(){
     summary:{
       totalDays:days.length,totalPlanDates:DAYS.length,activeDates:scheduledDays.length,pendingDates:DAYS.length-scheduledDays.length,startedDays,completedDays,
       averageEffectiveProgress:days.length?Math.round(days.reduce((sum,day)=>sum+day.effectiveHomeProgress,0)/days.length):0,
-      editedP1Answers:p1AnswerEdits.count,
+      editedP1Answers:p1AnswerEdits.count,editedOtherMaterials:contentEdits.count,
       activityStatus:{all:statusCounts(activities),speaking:statusCounts(speaking),writing:statusCounts(writing),mixed:statusCounts(mixed)},
       plannedCoverage:{p1Topics:p1Planned.size,p2Mothers:p2Planned.size,p3Topics:p3Planned.size,writingUnits:writingPlanned.size,referenceCards:referencePlanned.size}
     },
-    catalog:buildCatalog(),p1AnswerEdits,days,warnings
+    catalog:buildCatalog(),p1AnswerEdits,contentEdits,days,warnings
   };
 }
 function exportFilename(extension){
@@ -481,33 +516,17 @@ function toggleDone(event,day){
   saveStore(DONE_KEY,done);
   render();
 }
-function currentDay(today){return DAYS.find(day=>day.date===today)||null;}
-function ctaDay(today){
-  const active=DAYS.filter(day=>day.status==='active');
-  const exact=active.find(day=>day.date===today);
-  if(exact)return exact;
-  if(today<active[0].date)return active[0];
-  return active[active.length-1];
-}
-function renderRow(day,today){
-  if(day.status==='pending')return `<div class="day-row pending">
-    <span class="pending-mark" aria-hidden="true">·</span>
-    <div class="day-link" aria-label="${esc(day.title)}今日留空">
-      <div><div class="day-meta"><span>${esc(day.title)}</span><span class="new-kind">今日留空</span></div><div class="new-title">${esc(day.newLabel)}</div><div class="summary"><b>说明</b><span>${esc(day.note)}</span></div></div>
-      <div class="row-state"><span>—</span></div>
-    </div>
-  </div>`;
+function reviewModules(){return DAYS.filter(day=>Number.isInteger(day.moduleOrder)).sort((a,b)=>a.moduleOrder-b.moduleOrder);}
+function renderRow(day){
   const progress=rawProgress(day.day);
   const done=progress>=100||isManualDone(day.day);
-  const current=day.date===today;
-  const hasP1New=(day.p1New||[]).length>0;
-  const kind=day.newP2&&(day.firstPassWriting||[]).length?'剩余新内容集中清零':day.newP2&&hasP1New?'P2 + P1新学':day.newP2?'口语母题新背':day.newWriting?'写作新背':hasP1New?'P1新学 + 复习':'复习日';
   const state=done?'<strong>✓</strong><span>完成</span>':progress?`<strong>${progress}%</strong><span>继续 →</span>`:'<span class="arrow">→</span>';
-  return `<div class="day-row${current?' current':''}${done?' done':''}">
-    <button class="check${done?' done':''}" type="button" aria-label="${done?'取消手动完成':'标记完成'} ${esc(day.title)}" onclick="toggleDone(event,${day.day})" ${progress>=100?'disabled':''}>✓</button>
-    <a class="day-link" href="daily/Day${day.day}.html" aria-label="打开 ${esc(day.title)}：${esc(day.newLabel)}">
+  return `<div class="day-row module-row${day.moduleOrder===1?' current':''}${done?' done':''}">
+    <button class="check${done?' done':''}" type="button" aria-label="${done?'取消完成':'标记完成'} ${esc(day.displayTitle)}" onclick="toggleDone(event,${day.day})" ${progress>=100?'disabled':''}>✓</button>
+    <a class="day-link" href="daily/Day${day.day}.html" aria-label="打开 ${esc(day.displayTitle)}：${esc(day.newLabel)}">
       <div>
-        <div class="day-meta"><span>${esc(day.title)}</span><span>${day.minutes} 分钟</span><span class="new-kind">${kind}</span></div>
+        <div class="day-meta"><span class="new-kind">${esc(day.moduleKicker)}</span><span>${day.minutes} 分钟</span></div>
+        <div class="module-name">${esc(day.displayTitle)}</div>
         <div class="new-title">${esc(day.newLabel)}</div>
         <div class="summary"><b>口语</b><span>${esc(day.speakingSummary)}</span></div>
         <div class="summary"><b>写作</b><span>${esc(day.writingSummary)}</span></div>
@@ -518,48 +537,33 @@ function renderRow(day,today){
 }
 function render(){
   if(!DAYS.length)return;
-  const today=localISO();
-  const active=DAYS.filter(day=>day.status==='active');
-  const focus=ctaDay(today);
-  const exact=currentDay(today);
-  const pendingToday=exact&&exact.status==='pending';
+  const active=reviewModules();
+  const focus=active.find(day=>effectiveProgress(day.day)<100)||active[active.length-1];
   const total=Math.round(active.reduce((sum,day)=>sum+effectiveProgress(day.day),0)/active.length);
   const completed=active.filter(day=>effectiveProgress(day.day)>=100).length;
   const focusProgress=effectiveProgress(focus.day);
-  const todayKicker=pendingToday?`${esc(exact.title)} · 今日留空`:exact?`今天 · ${esc(focus.title)} · ${focus.minutes} 分钟`:`继续 ${esc(focus.title)} 的任务`;
-  const todayTitle=pendingToday?esc(exact.newLabel):esc(focus.newLabel);
-  const focusHasP1New=(focus.p1New||[]).length>0;
-  const todayCopy=pendingToday?'今天不补欠账；明天清零剩余新内容，随后三天复习全部材料。':focus.newP2&&(focus.firstPassWriting||[]).length?'今天先清零F2，再速过地图与Problem–Solution框架；两篇作文不逐字背全文。':focus.newP2?`F2是今天唯一长背诵；P1只背短回答，其余均为主动提取。`:focus.newWriting?`${focus.newLabel} 是今天唯一长背诵；口语只做短时复习。`:focusHasP1New?'今天先学10个P1短话题；P2与作文只做主动提取。':'今天只做复习与输出。';
-  const todayAction=pendingToday?`<small>${esc(exact.note)}</small><span class="start" aria-disabled="true">明天开始</span>`:`<small>${esc(focus.speakingSummary)}</small><a class="start" href="daily/Day${focus.day}.html">开始 ${esc(focus.title)} <span>→</span></a>`;
   let html=`<header class="topbar">
-      <div><div class="eyebrow">IELTS · Mainland</div><h1>7月15日–24日冲刺</h1><p class="goal">口语 6.5 · 写作 6.5 · 已排至7月24日</p></div>
-      <div class="countdown"><strong>${daysUntil(EXAM_DATE)}</strong><span>天后考试</span></div>
+      <div><div class="eyebrow">IELTS · FINAL REVIEW</div><h1>口语 × 作文<br>全面复习</h1><p class="goal">目标 6.5 · 所有题目完整保留 · 背诵材料可修改</p></div>
     </header>
     <section class="today">
-      <div class="today-top"><span>${todayKicker}</span><span>${focusProgress}%</span></div>
-      <h2>${todayTitle}</h2><p>${esc(todayCopy)}</p>
-      <div class="today-action">${todayAction}</div>
+      <div class="today-top"><span>${esc(focus.moduleKicker)}</span><span>${focusProgress}%</span></div>
+      <h2>${esc(focus.displayTitle)}</h2><p>${esc(focus.newLabel)}</p>
+      <div class="today-action"><small>${esc(focus.speakingSummary)}</small><a class="start" href="daily/Day${focus.day}.html">进入模块 <span>→</span></a></div>
     </section>
-    <section class="progress-block" aria-label="当前已排日期进度">
-      <div class="progress-meta"><strong>当前已排日期 ${total}%</strong><span>${completed} / ${active.length} 个日期完成</span></div>
+    <section class="progress-block" aria-label="总复习模块进度">
+      <div class="progress-meta"><strong>全面复习 ${total}%</strong><span>${completed} / ${active.length} 个模块完成</span></div>
       <div class="track"><i style="width:${total}%"></i></div>
     </section>
-    <section class="baseline" aria-label="已完成基线"><b>截至7月20日</b><span>P2已学A–E、G1–G3、F1；P1全部33话题都已过，周末完成20个新话题，但整体复习不足；写作已学折线、柱状、流程图、Opinion与Discussion。F2、地图和Problem–Solution留到7月21日集中速过。</span></section>
+    <section class="baseline" aria-label="覆盖范围"><b>完整覆盖</b><span>33个P1话题全部问题 · 10篇P2母题 · 5类P3 · 7类大小作文。第一轮约70%，第二轮约30%，不替你删题。</span></section>
     <button class="export-strip" type="button" onclick="exportReview(event)" aria-describedby="export-status">
-      <span class="export-icon" aria-hidden="true">⇩</span><span class="export-copy"><strong>导出全部复习详情</strong><span>导出逐项进度、P1本机修改与练习文本 · 不含听力</span></span><span class="export-go">一键导出</span>
+      <span class="export-icon" aria-hidden="true">⇩</span><span class="export-copy"><strong>导出全部复习详情</strong><span>进度、练习文本及所有本机修改 · 不含听力</span></span><span class="export-go">一键导出</span>
     </button>
     <p class="export-status" id="export-status" role="status" aria-live="polite">仅导出当前浏览器本地记录 · 本地生成 · 不会上传</p>
-    <a class="practice-strip" href="listening.html" aria-label="打开独立听力专项">
-      <span class="practice-icon">🎧</span><span class="practice-copy"><strong>听力专项 · Day 1 从今天开始</strong><span>答题规则 · 填空 · 选择 · 匹配 · 地图｜另含时间系列 50 题</span></span><span class="practice-go">进入 →</span>
-    </a>`;
-  [1,2,3].forEach(phase=>{
-    const info=PHASES[phase];
-    html+=`<section class="phase"><div class="phase-head"><h2>${info.title}</h2><span>${info.range}</span></div><div class="day-list">`;
-    DAYS.filter(day=>day.phase===phase).forEach(day=>{html+=renderRow(day,today);});
-    html+='</div></section>';
-  });
-  html+=`<section class="light-day"><strong>7月21–24日 · 已排定</strong><span>21日清零F2、地图与Problem–Solution；22–23日分组复习；24日综合抽问与减量收口。</span></section>
-    <div class="foot">按日期自动同步进度 · P1 每个话题独立记录 · 7月25日考试</div>`;
+    <section class="phase"><div class="phase-head"><h2>三个复习模块</h2><span>当前重点 → 70% → 30%</span></div><div class="day-list">`;
+  active.forEach(day=>{html+=renderRow(day);});
+  html+=`</div></section><a class="practice-strip" href="listening.html" aria-label="打开独立听力专项">
+      <span class="practice-icon">🎧</span><span class="practice-copy"><strong>听力专项</strong><span>独立保存，不影响口语作文进度</span></span><span class="practice-go">进入 →</span>
+    </a><div class="foot">按模块保存进度 · 所有背诵材料均可本机修改并随详情导出</div>`;
   document.getElementById('app').innerHTML=html;
 }
 async function boot(){
