@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="theme-color" content="#0b766e">
-<title>IELTS 口语 × 作文全面复习</title>
+<title>IELTS 考前三天复习</title>
 <style>
   :root{
     --teal:#0b766e; --teal-dark:#075f59; --teal-soft:#e9f7f4;
@@ -63,6 +63,11 @@
   .guide-mark{display:flex;align-items:center;justify-content:center;width:38px;height:38px;border-radius:11px;color:#fff;background:var(--teal);font-size:15px;font-weight:900}
   .guide-copy{min-width:0}.guide-copy strong{display:block;font-size:13px}.guide-copy span{display:block;margin-top:2px;color:var(--muted);font-size:9.5px;white-space:nowrap}
   .guide-arrow{color:var(--teal);font-size:15px;font-weight:900}
+  .bank-links{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:9px 2px 13px}
+  .bank-links .practice-strip{grid-template-columns:34px minmax(0,1fr) auto;margin:0;padding:10px 9px;border:1px solid var(--line);border-radius:12px;background:var(--paper)}
+  .bank-links .practice-icon{width:34px;height:34px;border-radius:9px;font-size:13px;font-weight:900}
+  .bank-links .practice-copy strong{font-size:12.5px}.bank-links .practice-copy span{font-size:9.5px;line-height:1.4}
+  .bank-links .practice-go{font-size:14px}
 
   .phase{margin-top:16px}
   .phase-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin:0 2px 7px}
@@ -108,6 +113,7 @@
     .day-row{grid-template-columns:36px minmax(0,1fr)}
     .check{margin-left:8px}
     .day-link{padding-right:11px}
+    .bank-links{grid-template-columns:1fr}
   }
   @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
   .topbar{padding:12px 4px 24px;border-bottom:0}
@@ -121,6 +127,9 @@
   .module-row .new-title{font-size:15px;line-height:1.35}
   .day-list{border-radius:0;border-right:0;border-left:0}
   .module-row.current{background:#eef8f6}
+  .timeline{margin-top:18px}.timeline-head{display:flex;align-items:end;justify-content:space-between;gap:16px;margin:0 2px 8px;padding-bottom:8px;border-bottom:2px solid var(--ink)}.timeline-head h2{margin:0;font-size:16px}.timeline-head span{color:var(--muted);font-size:10.5px}
+  .library-links{margin:24px 2px 12px}.library-links h2{margin:0 0 7px;padding-bottom:8px;border-bottom:2px solid var(--ink);font-size:16px}.library-links .practice-strip{margin:0;padding:13px 2px;border-top:0;border-bottom:1px solid var(--line)}.library-links .practice-icon{font-size:13px;font-weight:900}.library-links .practice-copy strong{font-size:14px}.library-links .practice-copy span{line-height:1.45}
+  .home-export{margin-top:18px}
   @keyframes module-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 </style>
 </head>
@@ -132,12 +141,13 @@ const PROGRESS_KEY='ielts_sprint_20260715_progress';
 const DONE_KEY='ielts_final_review_module_done_v1';
 const DAY_STATE_KEY=day=>`ielts_sprint_20260715_day${day}_v3`;
 const P1_EDIT_KEY='ielts_daily_trainer_p1_answer_overrides_v1';
+const P2_BANK_EDIT_KEY='ielts_p2_bank_segment_overrides_v1';
 const CONTENT_EDIT_KEY='ielts_daily_trainer_content_overrides_v1';
 const IDEA_NOTE_KEY='ielts_daily_trainer_idea_notes_v1';
-const EXPORT_SCHEMA='ielts-review-export/v4';
+const EXPORT_SCHEMA='ielts-review-export/v5';
 const BASELINE={
   asOf:'2026-07-20',
-  learned:['P2 A–E、G1–G3、F1','P1 全部33个话题均已过（周末完成20个新话题）','Task 1 折线图、柱状图、流程图','Task 2 科技 Opinion、教育 Discussion'],
+  learned:['P2 A–E、G1–G3、F1','P1 全部35张话题卡均已过（覆盖37个题名）','Task 1 折线图、柱状图、流程图','Task 2 科技 Opinion、教育 Discussion'],
   reviewState:'周末只完成P1新学；P2 F2、地图与Problem–Solution仍未系统学，其余口语和作文复习不足。',
   source:'用户进度说明 + 2026-07-15旧版导出 + 2026-07-20完成确认'
 };
@@ -148,7 +158,7 @@ const PHASES={
 };
 let DAYS=[];
 let EXPORT_READY=false;
-let EXPORT_SOURCE={p1:[],p2:[],p3:[],writing:[],reference:[],appVersion:null,warnings:[]};
+let EXPORT_SOURCE={p1:[],p2:[],p2bank:[],p3:[],writing:[],reference:[],appVersion:null,warnings:[]};
 
 function loadStore(key){
   try{return JSON.parse(localStorage.getItem(key)||'{}')||{};}catch(_){return {};}
@@ -313,6 +323,7 @@ function buildCatalog(){
   return {
     p1:EXPORT_SOURCE.p1.map((item,index)=>({index,topic:item.topic,cn:item.cn,tier:item.tier,questionCount:Array.isArray(item.qa)?item.qa.length:0})),
     p2:EXPORT_SOURCE.p2.map(item=>({id:item.id,cn:item.cn,cue:item.cue,cuePoints:Array.isArray(item.cuePoints)?item.cuePoints:[]})),
+    p2bank:EXPORT_SOURCE.p2bank.map(item=>({id:item.id,title:item.title,group:item.group,kind:item.kind,cue:item.cue,cuePoints:Array.isArray(item.cuePoints)?item.cuePoints:[]})),
     p3:EXPORT_SOURCE.p3.map((item,index)=>({index,topic:item.topic,cn:item.cn,questionCount:Array.isArray(item.qa)?item.qa.length:0})),
     writing:EXPORT_SOURCE.writing.map(item=>({id:item.id,task:item.task,type:item.type,cn:item.cn,learned:!!item.learned,prompt:item.prompt})),
     reference:EXPORT_SOURCE.reference.map(item=>({id:item.id,cn:item.cn,covers:item.covers}))
@@ -342,6 +353,35 @@ function buildP1AnswerEdits(warnings){
   });
   items.sort((a,b)=>a.topicIndex-b.topicIndex||a.questionIndex-b.questionIndex);
   return {storageKey:P1_EDIT_KEY,count:items.length,items};
+}
+function buildP2BankEdits(warnings){
+  const raw=exportStore(P2_BANK_EDIT_KEY,warnings),edited=[];
+  Object.entries(raw).forEach(([id,value])=>{
+    const source=EXPORT_SOURCE.p2bank.find(item=>String(item.id)===String(id));
+    if(!source){warnings.push(`${P2_BANK_EDIT_KEY}.${id} 找不到对应P2题目，已忽略`);return;}
+    const record=value&&typeof value==='object'&&!Array.isArray(value)?value:null;
+    if(!record||!record.segments||typeof record.segments!=='object'||Array.isArray(record.segments)){
+      warnings.push(`${P2_BANK_EDIT_KEY}.${id} 格式异常，已忽略`);return;
+    }
+    const overrides={};
+    Object.entries(record.segments).forEach(([index,text])=>{
+      const number=Number(index);
+      if(!Number.isInteger(number)||!source.segments[number]||typeof text!=='string')warnings.push(`${P2_BANK_EDIT_KEY}.${id}.segments.${index} 格式异常，已忽略`);
+      else overrides[number]=text;
+    });
+    if(!Object.keys(overrides).length)return;
+    const segments=source.segments.map((segment,index)=>({index,type:segment.type,source:segment.source,text:Object.prototype.hasOwnProperty.call(overrides,index)?overrides[index]:segment.text,edited:Object.prototype.hasOwnProperty.call(overrides,index)}));
+    edited.push({
+      id:source.id,title:source.title,group:source.group,kind:source.kind,cue:source.cue,
+      editedSegmentCount:Object.keys(overrides).length,segments,
+      composedAnswer:segments.map(segment=>segment.text).join('\n\n'),
+      wordCount:(segments.map(segment=>segment.text).join(' ').match(/[A-Za-z0-9'’\-]+/g)||[]).length,
+      sourceVersion:typeof record.sourceVersion==='string'?record.sourceVersion:null,
+      updatedAt:typeof record.updatedAt==='string'?record.updatedAt:null
+    });
+  });
+  edited.sort((a,b)=>String(a.id).localeCompare(String(b.id)));
+  return {storageKey:P2_BANK_EDIT_KEY,count:edited.length,items:edited};
 }
 function buildContentEdits(warnings){
   const raw=exportStore(CONTENT_EDIT_KEY,warnings),items=[];
@@ -380,6 +420,7 @@ function buildReviewExport(){
   const storedProgress=exportStore(PROGRESS_KEY,warnings);
   const manualDone=exportStore(DONE_KEY,warnings);
   const p1AnswerEdits=buildP1AnswerEdits(warnings);
+  const p2BankEdits=buildP2BankEdits(warnings);
   const contentEdits=buildContentEdits(warnings);
   const ideaNotes=buildIdeaNotes(warnings);
   const scheduledDays=DAYS.filter(day=>day.status==='active'&&Number.isInteger(day.moduleOrder));
@@ -416,28 +457,29 @@ function buildReviewExport(){
       exportedAt:new Date().toISOString(),timeZone:Intl.DateTimeFormat().resolvedOptions().timeZone||null,
       sourceUrl:location.origin+location.pathname,appVersion:EXPORT_SOURCE.appVersion,
       planStart:DAYS[0]&&DAYS[0].date,planEnd:DAYS[DAYS.length-1]&&DAYS[DAYS.length-1].date,
-      storageSchema:'ielts_sprint_20260715_day{8..10}_v3',p1AnswerStorageSchema:P1_EDIT_KEY,contentEditStorageSchema:CONTENT_EDIT_KEY,ideaNoteStorageSchema:IDEA_NOTE_KEY
+      storageSchema:'ielts_sprint_20260715_day{8..10}_v3',p1AnswerStorageSchema:P1_EDIT_KEY,p2BankStorageSchema:P2_BANK_EDIT_KEY,contentEditStorageSchema:CONTENT_EDIT_KEY,ideaNoteStorageSchema:IDEA_NOTE_KEY
     },
     baseline:BASELINE,
     planning:{modules:scheduledDays.map(day=>({order:day.moduleOrder,title:day.displayTitle,load:day.moduleKicker})),coverageSplit:'70% / 30%'},
-    privacy:{generatedLocally:true,uploadedAutomatically:false,includesUserPracticeText:true,includesPastedChatGPTDiagnosis:true,includesUserEditedP1Answers:true,excludesUneditedQuestionBankAnswers:true,excludesFullModelAnswers:true,excludesAudio:true,excludesListening:true},
+    privacy:{generatedLocally:true,uploadedAutomatically:false,includesUserPracticeText:true,includesPastedChatGPTDiagnosis:true,includesUserEditedP1Answers:true,includesUserEditedP2BankAnswers:true,excludesUneditedQuestionBankAnswers:true,excludesAudio:true,excludesListening:true},
     measurementLimitations:[
       '导出只代表当前设备、当前浏览器中的站内记录，不会自动合并其他设备。',
       '计数按钮达到目标后不再累加，因此无法表示超出目标的额外练习次数。',
       '首页与 calculatedCoreProgress 按任务权重计算；P2或写作新学长材料权重为4，普通复习与P1话题权重为1。进度代表计划执行，不等于考试分数。',
       'ChatGPT诊断只有在用户把固定4行摘要粘回当日页面后才会进入导出；完整对话不会自动读取。',
       'P1答案修改只保存在当前设备和浏览器；导出会列出修改题目与修改后答案，但不会自动写回公共题库。',
+      'P2全题库中的黑色与红色段落修改只保存在当前设备和浏览器；导出会保留颜色类型、来源标签和拼接后的答案。',
       'P1 已改为逐话题记录；每个话题完成仍不代表其中每道问题都达到同等熟练度。',
       '现有记录不含完成时间、练习时长或逐题正确率；手动整日完成不会反推子任务完成。'
     ],
     summary:{
       totalDays:days.length,totalPlanDates:DAYS.length,activeDates:scheduledDays.length,pendingDates:DAYS.length-scheduledDays.length,startedDays,completedDays,
       averageEffectiveProgress:days.length?Math.round(days.reduce((sum,day)=>sum+day.effectiveHomeProgress,0)/days.length):0,
-      editedP1Answers:p1AnswerEdits.count,editedOtherMaterials:contentEdits.count,ideaNotes:ideaNotes.count,
+      editedP1Answers:p1AnswerEdits.count,editedP2BankAnswers:p2BankEdits.count,editedOtherMaterials:contentEdits.count,ideaNotes:ideaNotes.count,
       activityStatus:{all:statusCounts(activities),speaking:statusCounts(speaking),writing:statusCounts(writing),mixed:statusCounts(mixed)},
       plannedCoverage:{p1Topics:p1Planned.size,p2Mothers:p2Planned.size,p3Topics:p3Planned.size,writingUnits:writingPlanned.size,referenceCards:referencePlanned.size}
     },
-    catalog:buildCatalog(),p1AnswerEdits,contentEdits,ideaNotes,days,warnings
+    catalog:buildCatalog(),p1AnswerEdits,p2BankEdits,contentEdits,ideaNotes,days,warnings
   };
 }
 function exportFilename(extension){
@@ -487,7 +529,7 @@ async function exportReview(event){
   }
 }
 async function loadExportSources(){
-  const files={p1:'data-p1.json',p2:'data-p2.json',p3:'data-p3.json',writing:'data-writing.json',reference:'data-ref.json'};
+  const files={p1:'data-p1.json',p2:'data-p2.json',p2bank:'data-p2-bank.json',p3:'data-p3.json',writing:'data-writing.json',reference:'data-ref.json'};
   const entries=Object.entries(files);
   const requests=entries.map(([,path])=>fetch(`${path}?cb=${Date.now()}`,{cache:'no-store'}).then(response=>{
     if(!response.ok)throw new Error(`HTTP ${response.status}`);return response.json();
@@ -537,15 +579,21 @@ function toggleDone(event,day){
   render();
 }
 function reviewModules(){return DAYS.filter(day=>Number.isInteger(day.moduleOrder)).sort((a,b)=>a.moduleOrder-b.moduleOrder);}
-function renderRow(day){
+function relativeDayLabel(day,index){
+  const now=new Date(),today=new Date(now.getFullYear(),now.getMonth(),now.getDate()),target=new Date(`${day.date}T00:00:00`),diff=Math.round((target-today)/86400000);
+  if(diff===0)return '今天';if(diff===1)return '明天';if(diff===2)return '后天';return ['今天','明天','后天'][index]||day.date;
+}
+function shortDate(value){const match=String(value||'').match(/-(\d{2})-(\d{2})$/);return match?`${Number(match[1])}月${Number(match[2])}日`:value;}
+function renderRow(day,index){
   const progress=rawProgress(day.day);
   const done=progress>=100||isManualDone(day.day);
   const state=done?'<strong>✓</strong><span>完成</span>':progress?`<strong>${progress}%</strong><span>继续 →</span>`:'<span class="arrow">→</span>';
-  return `<div class="day-row module-row${day.moduleOrder===1?' current':''}${done?' done':''}">
+  const relative=relativeDayLabel(day,index);
+  return `<div class="day-row module-row${relative==='今天'?' current':''}${done?' done':''}">
     <button class="check${done?' done':''}" type="button" aria-label="${done?'取消完成':'标记完成'} ${esc(day.displayTitle)}" onclick="toggleDone(event,${day.day})" ${progress>=100?'disabled':''}>✓</button>
     <a class="day-link" href="daily/Day${day.day}.html" aria-label="打开 ${esc(day.displayTitle)}：${esc(day.newLabel)}">
       <div>
-        <div class="day-meta"><span class="new-kind">${esc(day.moduleKicker)}</span><span>${day.minutes} 分钟</span></div>
+        <div class="day-meta"><span class="new-kind">${relative}</span><span>${shortDate(day.date)} · ${day.minutes} 分钟</span></div>
         <div class="module-name">${esc(day.displayTitle)}</div>
         <div class="new-title">${esc(day.newLabel)}</div>
         <div class="summary"><b>口语</b><span>${esc(day.speakingSummary)}</span></div>
@@ -558,34 +606,25 @@ function renderRow(day){
 function render(){
   if(!DAYS.length)return;
   const active=reviewModules();
-  const focus=active.find(day=>effectiveProgress(day.day)<100)||active[active.length-1];
-  const total=Math.round(active.reduce((sum,day)=>sum+effectiveProgress(day.day),0)/active.length);
-  const completed=active.filter(day=>effectiveProgress(day.day)>=100).length;
-  const focusProgress=effectiveProgress(focus.day);
   let html=`<header class="topbar">
-      <div><div class="eyebrow">IELTS · FINAL REVIEW</div><h1>口语 × 作文<br>全面复习</h1><p class="goal">目标 6.5 · 所有题目完整保留 · 答案与自由素材分别保存</p></div>
+      <div><div class="eyebrow">IELTS · FINAL 3 DAYS</div><h1>考前三天<br>复习入口</h1><p class="goal">目标 6.5 · 先完成当天任务，再进入口语或作文总库自由查漏</p></div>
     </header>
     <nav class="guide-links" aria-label="听力与阅读系统方法音频">
       <a class="guide-link" href="audio-guides/listening.html"><span class="guide-mark" aria-hidden="true">听</span><span class="guide-copy"><strong>听力方法</strong><span>12:48 · 7章</span></span><span class="guide-arrow" aria-hidden="true">→</span></a>
       <a class="guide-link" href="audio-guides/reading.html"><span class="guide-mark" aria-hidden="true">读</span><span class="guide-copy"><strong>阅读方法</strong><span>16:09 · 9章</span></span><span class="guide-arrow" aria-hidden="true">→</span></a>
     </nav>
-    <section class="today">
-      <div class="today-top"><span>${esc(focus.moduleKicker)}</span><span>${focusProgress}%</span></div>
-      <h2>${esc(focus.displayTitle)}</h2><p>${esc(focus.newLabel)}</p>
-      <div class="today-action"><small>${esc(focus.speakingSummary)}</small><a class="start" href="daily/Day${focus.day}.html">进入模块 <span>→</span></a></div>
+    <section class="timeline"><div class="timeline-head"><h2>今天、明天与后天</h2><span>点开查看完整口语＋作文任务</span></div><div class="day-list">`;
+  active.forEach((day,index)=>{html+=renderRow(day,index);});
+  html+=`</div></section>
+    <section class="library-links" aria-label="口语与作文完整材料"><h2>全部材料</h2>
+      <a class="practice-strip" href="speaking.html"><span class="practice-icon">口</span><span class="practice-copy"><strong>口语</strong><span>Part 1、Part 2、Part 3全部题目＋高迁移强化包</span></span><span class="practice-go">进入 →</span></a>
+      <a class="practice-strip" href="writing.html"><span class="practice-icon">作</span><span class="practice-copy"><strong>写作</strong><span>7篇正式任务＋写作考前包＋P3/Task 2强化包</span></span><span class="practice-go">进入 →</span></a>
     </section>
-    <section class="progress-block" aria-label="总复习模块进度">
-      <div class="progress-meta"><strong>全面复习 ${total}%</strong><span>${completed} / ${active.length} 个模块完成</span></div>
-      <div class="track"><i style="width:${total}%"></i></div>
-    </section>
-    <section class="baseline" aria-label="覆盖范围"><b>完整覆盖</b><span>33个P1话题全部问题 · 10篇P2母题 · 5类P3 · 7类大小作文。第一轮约70%，第二轮约30%，不替你删题。</span></section>
-    <button class="export-strip" type="button" onclick="exportReview(event)" aria-describedby="export-status">
+    <button class="export-strip home-export" type="button" onclick="exportReview(event)" aria-describedby="export-status">
       <span class="export-icon" aria-hidden="true">⇩</span><span class="export-copy"><strong>导出全部复习详情</strong><span>进度、练习文本及所有本机修改 · 不含听力</span></span><span class="export-go">一键导出</span>
     </button>
     <p class="export-status" id="export-status" role="status" aria-live="polite">仅导出当前浏览器本地记录 · 本地生成 · 不会上传</p>
-    <section class="phase"><div class="phase-head"><h2>三个复习模块</h2><span>当前重点 → 70% → 30%</span></div><div class="day-list">`;
-  active.forEach(day=>{html+=renderRow(day);});
-  html+=`</div></section><a class="practice-strip" href="listening.html" aria-label="打开独立听力专项">
+    <a class="practice-strip" href="listening.html" aria-label="打开独立听力专项">
       <span class="practice-icon">🎧</span><span class="practice-copy"><strong>听力专项</strong><span>独立保存，不影响口语作文进度</span></span><span class="practice-go">进入 →</span>
     </a><div class="foot">按模块保存进度 · 答案修改与自由素材均随复习详情导出</div>`;
   document.getElementById('app').innerHTML=html;

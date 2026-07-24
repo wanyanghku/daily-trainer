@@ -1,0 +1,2233 @@
+[
+  {
+    "id": "640",
+    "title": "重要决定",
+    "group": "A",
+    "route": "母题A原文：赴港读博而非立刻规培。黑色部分保持母题逐字不变，红色结尾只负责回应决定的影响。",
+    "kind": "mother",
+    "cue": "Describe an important decision you made",
+    "cuePoints": [
+      "what the decision was",
+      "when you made it",
+      "why you made it",
+      "who or what influenced you",
+      "and explain why it was important"
+    ],
+    "segments": [
+      {
+        "type": "mother",
+        "source": "A",
+        "text": "The important decision I'd like to talk about was my decision to go to Hong Kong for a PhD, instead of starting clinical residency immediately in mainland China."
+      },
+      {
+        "type": "mother",
+        "source": "A",
+        "text": "I made this decision in 2025, when I was close to finishing my master's. Clinical residency seemed like a more stable, traditional path, but I also had the chance to apply for a PhD at HKU. I wanted to broaden my horizons, study in a more international environment, and learn something beyond traditional dentistry."
+      },
+      {
+        "type": "mother",
+        "source": "A",
+        "text": "To be honest, it wasn't an easy decision. I was worried about the high cost of living in Hong Kong, and afraid that if I didn't get the offer, I might lose a whole year. During that time, I built an Excel sheet to track the supervisors I contacted, and checked my email almost every day."
+      },
+      {
+        "type": "mother",
+        "source": "A",
+        "text": "The offer came during the Spring Festival — I felt nervous, excited and relieved all at once."
+      },
+      {
+        "type": "mother",
+        "source": "A",
+        "text": "Looking back, it was a real turning point. And honestly, it taught me that if you just keep at it and don't give up, things tend to work out."
+      },
+      {
+        "type": "custom",
+        "source": "可选收束（母题后）",
+        "text": "It also marked the beginning of a new stage in my life."
+      }
+    ],
+    "note": "先说决定，再说两条原因和一条担忧；不要补导师姓名或虚构具体等待天数。"
+  },
+  {
+    "id": "1032",
+    "title": "长时间未收到回复",
+    "group": "A",
+    "route": "套用母题A的申博邮件等待线；红色只补发送对象与等待情境，黑色复用担忧、追踪邮件、收到offer和坚持的结论。",
+    "kind": "derived",
+    "cue": "Describe a time when you waited a long time for a reply",
+    "cuePoints": [
+      "who you were waiting to hear from",
+      "what the reply was about",
+      "why you needed the reply",
+      "how long the wait felt",
+      "and explain how you felt when you received it"
+    ],
+    "segments": [
+      {
+        "type": "custom",
+        "source": "1032题专属外壳",
+        "text": "A time I waited a long time for a reply was during my PhD application to HKU. I had emailed potential supervisors about possible supervision, and the reply mattered because it would decide whether I could continue my studies in Hong Kong."
+      },
+      {
+        "type": "mother",
+        "source": "A",
+        "text": "I was worried about the high cost of living in Hong Kong, and afraid that if I didn't get the offer, I might lose a whole year. During that time, I built an Excel sheet to track the supervisors I contacted, and checked my email almost every day."
+      },
+      {
+        "type": "custom",
+        "source": "1032题专属收束",
+        "text": "The wait felt extremely long, even though I do not remember the exact number of days."
+      },
+      {
+        "type": "mother",
+        "source": "A",
+        "text": "The offer came during the Spring Festival — I felt nervous, excited and relieved all at once."
+      },
+      {
+        "type": "mother",
+        "source": "A",
+        "text": "Looking back, it was a real turning point. And honestly, it taught me that if you just keep at it and don't give up, things tend to work out."
+      }
+    ],
+    "note": "不用硬背等待天数；用‘每天查邮箱’表达等待很漫长即可。"
+  },
+  {
+    "id": "332",
+    "title": "给别人建议",
+    "group": "A",
+    "route": "用申博经历形成建议事件；红色负责事件和建议内容，黑色只保留A母题中真正相关的经验结论。",
+    "kind": "derived",
+    "cue": "Describe a time when you gave advice to someone",
+    "cuePoints": [
+      "who you gave the advice to",
+      "when it happened",
+      "what advice you gave",
+      "why you gave this advice",
+      "and explain how you felt about giving it"
+    ],
+    "segments": [
+      {
+        "type": "custom",
+        "source": "332建议事件核心",
+        "text": "I once spent a long time replying to a junior student who asked me about PhD applications. I didn't want to give a careless answer, so I asked some classmates about supervisor positions and then shared my own experience in detail. I told the student to use an Excel sheet, contact supervisors systematically, and break the process into smaller steps. The student felt less anxious afterward, and I felt a sense of achievement."
+      },
+      {
+        "type": "custom",
+        "source": "332题专属外壳",
+        "text": "This happened shortly after I completed my own application. Because I had faced the same uncertainty, I knew he needed practical steps rather than general encouragement. I also warned him that replies could take time."
+      },
+      {
+        "type": "mother",
+        "source": "A",
+        "text": "Looking back, it was a real turning point. And honestly, it taught me that if you just keep at it and don't give up, things tend to work out."
+      },
+      {
+        "type": "custom",
+        "source": "332题专属收束",
+        "text": "It made me realise that advice is most useful when it gives someone a clear next action."
+      }
+    ],
+    "note": "建议事件不是跨题共享黑段；三步只保留Excel追踪、系统联系、拆小任务，黑色仅调用A的经验结论。"
+  },
+  {
+    "id": "997",
+    "title": "Apps/程序",
+    "group": "B",
+    "route": "母题B原文：ChatGPT与Codex。黑色部分是冻结母题，红色只明确使用频率和推荐对象。",
+    "kind": "mother",
+    "cue": "Describe an app or a computer program that you often use",
+    "cuePoints": [
+      "what it is",
+      "when you started using it",
+      "what you use it for",
+      "how often you use it",
+      "and explain why you find it useful"
+    ],
+    "segments": [
+      {
+        "type": "mother",
+        "source": "B",
+        "text": "The app I'd like to talk about is ChatGPT — and more recently a coding tool called Codex. I started using ChatGPT quite early, and I've been using Codex more seriously in the past half year or so. At first I thought they were just interesting, but they've actually changed the way I do research."
+      },
+      {
+        "type": "mother",
+        "source": "B",
+        "text": "As a PhD student in dentistry, I use these tools for all kinds of things — analysing data, processing biomedical images, building workflows, and making small demos. The part I really like is that I can just describe what I want in plain English, and the tool helps me turn it into code or a clear set of steps."
+      },
+      {
+        "type": "mother",
+        "source": "B",
+        "text": "For example, in one project I had to deal with cell segmentation in embryo images. The original images weren't very clear, so the results were poor at first. Instead of doing everything by hand, I labelled a small batch of images, used them to train the model, and let the AI help me fix the workflow. In the end it worked a lot better."
+      },
+      {
+        "type": "mother",
+        "source": "B",
+        "text": "More importantly, it kind of changed how I think. I realised that these days it's not just about one specific skill — it's about knowing how to ask good questions, break problems down, and use the tools wisely."
+      },
+      {
+        "type": "mother",
+        "source": "B",
+        "text": "So honestly, these tools changed what I want to be — not just a dentist, but someone who can use AI and coding to solve real problems too."
+      },
+      {
+        "type": "custom",
+        "source": "可选频率补句（母题后）",
+        "text": "I now use it almost every day."
+      }
+    ],
+    "note": "题目若只问一个app，主语统一说ChatGPT；Codex只作为它的coding tool补充。"
+  },
+  {
+    "id": "1033",
+    "title": "遇到的科技问题",
+    "group": "B",
+    "route": "直接套用母题B的胚胎图像分割故障；红色界定问题和解决时长，黑色保持原故障—修复—反思链。",
+    "kind": "derived",
+    "cue": "Describe a technological problem you faced",
+    "cuePoints": [
+      "what the problem was",
+      "when and where it happened",
+      "what effect it had on you",
+      "how you solved it",
+      "and explain how you felt about the problem"
+    ],
+    "segments": [
+      {
+        "type": "custom",
+        "source": "1033题专属外壳",
+        "text": "The technological problem happened in my university laboratory earlier this year, while I was working on a research project. A cell-segmentation model repeatedly failed to identify the cells correctly, so it slowed down my analysis and left me quite frustrated."
+      },
+      {
+        "type": "mother",
+        "source": "B",
+        "text": "For example, in one project I had to deal with cell segmentation in embryo images. The original images weren't very clear, so the results were poor at first. Instead of doing everything by hand, I labelled a small batch of images, used them to train the model, and let the AI help me fix the workflow. In the end it worked a lot better."
+      },
+      {
+        "type": "mother",
+        "source": "B",
+        "text": "More importantly, it kind of changed how I think. I realised that these days it's not just about one specific skill — it's about knowing how to ask good questions, break problems down, and use the tools wisely."
+      },
+      {
+        "type": "custom",
+        "source": "1033题专属收束",
+        "text": "I felt relieved when it finally worked, and the experience made me less afraid of technical failures."
+      }
+    ],
+    "note": "不要陷入算法细节；考场只说图像不清、结果差、标少量数据、修工作流。"
+  },
+  {
+    "id": "370",
+    "title": "当地新闻",
+    "group": "B",
+    "route": "AI本地新闻：HKU于7月1日推出校内GenAI App。红色承担新闻事实和本地关注原因，黑色只调用一小句B说明个人关联。",
+    "kind": "derived",
+    "cue": "Describe a piece of local news that people are interested in",
+    "cuePoints": [
+      "what the news was about",
+      "where you saw or heard it",
+      "who was involved",
+      "when it happened",
+      "and explain why local people were interested in it"
+    ],
+    "segments": [
+      {
+        "type": "custom",
+        "source": "370题专属外壳",
+        "text": "A piece of local news that interested me was the launch of the HKU GenAI App on 1 July. I saw the announcement on the university's Information Technology Services website. The university introduced the platform for HKU users, and it brought text and image AI tools together in one place. It was designed to replace older separate AI services."
+      },
+      {
+        "type": "mother",
+        "source": "B",
+        "text": "The part I really like is that I can just describe what I want in plain English, and the tool helps me turn it into code or a clear set of steps."
+      },
+      {
+        "type": "custom",
+        "source": "370题专属收束",
+        "text": "Students around me were interested because many of us already use AI for study, coding and research. They also cared about practical questions such as where their chats were stored. The new app offers browser storage and temporary chats, so the announcement was relevant to both convenience and privacy for students and researchers. I found it useful because it could change how students at my university work every day."
+      }
+    ],
+    "note": "HKU ITS官方事实已核：2026年7月1日启用、统一文字与图像AI、提供浏览器存储和临时聊天；只说校内同学关心。"
+  },
+  {
+    "id": "998",
+    "title": "想拥有的科技产品",
+    "group": "B",
+    "route": "考试允许虚构尚未购买的ChatGPT Pro；红色交代产品、价格和未购买原因，黑色用母题B解释真实用途。",
+    "kind": "derived",
+    "cue": "Describe a piece of technology you would like to own",
+    "cuePoints": [
+      "what it is",
+      "where you learned about it",
+      "how much it costs",
+      "what you would use it for",
+      "and explain why you would like to have it"
+    ],
+    "segments": [
+      {
+        "type": "custom",
+        "source": "998题专属外壳",
+        "text": "A technology product I would like to have is a ChatGPT Pro subscription, which offers much higher usage limits. I learned about it through ChatGPT itself. It costs around two hundred US dollars a month, so I have not bought it yet because it is expensive for a student."
+      },
+      {
+        "type": "mother",
+        "source": "B",
+        "text": "As a PhD student in dentistry, I use these tools for all kinds of things — analysing data, processing biomedical images, building workflows, and making small demos. The part I really like is that I can just describe what I want in plain English, and the tool helps me turn it into code or a clear set of steps."
+      },
+      {
+        "type": "mother",
+        "source": "B",
+        "text": "More importantly, it kind of changed how I think. I realised that these days it's not just about one specific skill — it's about knowing how to ask good questions, break problems down, and use the tools wisely."
+      },
+      {
+        "type": "custom",
+        "source": "998题专属收束",
+        "text": "Higher usage limits would let me continue long research and coding tasks without stopping so often, which is why I would treat it as a serious work tool rather than entertainment."
+      }
+    ],
+    "note": "这是考试虚构版本：坚持说尚未购买；不要在同一答案里又说自己已经从Plus升级到Pro。"
+  },
+  {
+    "id": "426",
+    "title": "花费超过预期的物品",
+    "group": "B",
+    "route": "考试故事：原计划买Plus，后来升级Pro。红色给预算、实价和选择原因，黑色复用母题B的研究用途与AI思维。",
+    "kind": "derived",
+    "cue": "Describe something you bought that cost more than you expected",
+    "cuePoints": [
+      "what you bought",
+      "when you bought it",
+      "how much you expected to pay",
+      "why it cost more than expected",
+      "and explain whether it was worth the money"
+    ],
+    "segments": [
+      {
+        "type": "custom",
+        "source": "426题专属外壳",
+        "text": "Something I spent much more on than expected was a ChatGPT subscription. At first, I planned to buy the Plus plan for about twenty US dollars a month. However, during a particularly busy research period, I chose the Pro plan for about two hundred dollars because I needed longer and more intensive sessions."
+      },
+      {
+        "type": "mother",
+        "source": "B",
+        "text": "As a PhD student in dentistry, I use these tools for all kinds of things — analysing data, processing biomedical images, building workflows, and making small demos. The part I really like is that I can just describe what I want in plain English, and the tool helps me turn it into code or a clear set of steps."
+      },
+      {
+        "type": "mother",
+        "source": "B",
+        "text": "More importantly, it kind of changed how I think. I realised that these days it's not just about one specific skill — it's about knowing how to ask good questions, break problems down, and use the tools wisely."
+      },
+      {
+        "type": "custom",
+        "source": "426题专属收束",
+        "text": "Although the price was far beyond my original budget, I thought it was worthwhile because it saved time and made several difficult tasks manageable."
+      }
+    ],
+    "note": "考试虚构可用；两个价格是最关键的题目识别点，先说清再讲AI用途。"
+  },
+  {
+    "id": "326",
+    "title": "发挥想象力",
+    "group": "B",
+    "route": "套用母题B的胚胎图像分割；红色把技术调整定义为一次想象力使用，黑色保持具体做法和反思。",
+    "kind": "derived",
+    "cue": "Describe a time when you used your imagination",
+    "cuePoints": [
+      "when it happened",
+      "where you were",
+      "what situation required imagination",
+      "what you imagined or created",
+      "and explain how you felt about it"
+    ],
+    "segments": [
+      {
+        "type": "custom",
+        "source": "326题专属外壳",
+        "text": "A time I used my imagination happened in my university laboratory earlier this year. A research method had stopped improving, so I needed to picture a different workflow instead of repeating the same steps."
+      },
+      {
+        "type": "mother",
+        "source": "B",
+        "text": "For example, in one project I had to deal with cell segmentation in embryo images. The original images weren't very clear, so the results were poor at first. Instead of doing everything by hand, I labelled a small batch of images, used them to train the model, and let the AI help me fix the workflow. In the end it worked a lot better."
+      },
+      {
+        "type": "mother",
+        "source": "B",
+        "text": "More importantly, it kind of changed how I think. I realised that these days it's not just about one specific skill — it's about knowing how to ask good questions, break problems down, and use the tools wisely."
+      },
+      {
+        "type": "custom",
+        "source": "326题专属收束",
+        "text": "I felt satisfied because imagination here was not fantasy; it helped me find another way to solve a real problem."
+      }
+    ],
+    "note": "把imagination解释成‘想到另一条解题路径’，避免说成艺术创作。"
+  },
+  {
+    "id": "1038",
+    "title": "别人帮助解决问题",
+    "group": "C",
+    "route": "母题C原文：师兄帮助解决初到香港时的住房与生活问题。黑色冻结母题，红色只点明‘问题已解决’。",
+    "kind": "mother",
+    "cue": "Describe a time when someone helped you solve a problem",
+    "cuePoints": [
+      "what the problem was",
+      "who helped you",
+      "when and where it happened",
+      "what the person did",
+      "and explain how you felt about the help"
+    ],
+    "segments": [
+      {
+        "type": "mother",
+        "source": "C",
+        "text": "The person I'd like to talk about is a senior labmate in my research group at HKU. I met him when I first arrived in Hong Kong about a month ago."
+      },
+      {
+        "type": "mother",
+        "source": "C",
+        "text": "Honestly, when I got here I was a bit lost — I didn't know the area at all, the rent was scary, and everything felt expensive and a little overwhelming. He didn't have to help, but he spent a whole afternoon showing me around Sai Ying Pun, the area where I live now."
+      },
+      {
+        "type": "mother",
+        "source": "C",
+        "text": "He helped me find a reasonable flat close to campus, told me which streets go uphill and downhill so I wouldn't get lost, and even showed me the cheaper local places to eat. Little things, but really useful."
+      },
+      {
+        "type": "mother",
+        "source": "C",
+        "text": "What helped most, though, wasn't the practical stuff — it was that he made me feel less alone in a new city. After that I settled in much faster, and I could actually focus on my research instead of worrying about daily life."
+      },
+      {
+        "type": "mother",
+        "source": "C",
+        "text": "I'm really grateful to him. It taught me that a small bit of help at the right moment can make a huge difference — and now I try to do the same for new students who've just arrived."
+      },
+      {
+        "type": "custom",
+        "source": "可选收束（母题后）",
+        "text": "It solved both the practical problem and my anxiety about the new city."
+      }
+    ],
+    "note": "住房、认路、便宜饭店三项选两项说即可；最后强调能专心科研。"
+  },
+  {
+    "id": "634",
+    "title": "乐于助人的人",
+    "group": "C",
+    "route": "由母题C改人物题外壳；红色精简初到香港的背景，黑色保留具体帮助和情绪结果。",
+    "kind": "derived",
+    "cue": "Describe a person who often helps others",
+    "cuePoints": [
+      "who the person is",
+      "how you know this person",
+      "what kind of help the person gives",
+      "why the person helps others",
+      "and explain how you feel about this person"
+    ],
+    "segments": [
+      {
+        "type": "custom",
+        "source": "634题专属外壳",
+        "text": "A genuinely helpful person I know is a senior labmate at HKU. I think he helps new students because he remembers how confusing it can be to arrive in a new city without knowing anyone."
+      },
+      {
+        "type": "custom",
+        "source": "634题精简背景",
+        "text": "When I first arrived in Hong Kong, I was confused about housing, transport and the local area. He gave up a whole afternoon to show me around Sai Ying Pun."
+      },
+      {
+        "type": "mother",
+        "source": "C",
+        "text": "He helped me find a reasonable flat close to campus, told me which streets go uphill and downhill so I wouldn't get lost, and even showed me the cheaper local places to eat. Little things, but really useful."
+      },
+      {
+        "type": "mother",
+        "source": "C",
+        "text": "What helped most, though, wasn't the practical stuff — it was that he made me feel less alone in a new city. After that I settled in much faster, and I could actually focus on my research instead of worrying about daily life."
+      },
+      {
+        "type": "custom",
+        "source": "634题专属收束",
+        "text": "I admire him because his help was quiet and practical, and it encouraged me to support other new students when I can."
+      }
+    ],
+    "note": "人物题别只讲一次事件；开头和结尾都补‘他一贯愿意帮助新生’。"
+  },
+  {
+    "id": "1025",
+    "title": "在团队中工作",
+    "group": "D",
+    "route": "母题D原文：班级混合篮球赛。黑色冻结团队故事，红色明确自己的职责与团队合作意义。",
+    "kind": "mother",
+    "cue": "Describe a time when you worked with other people in a team",
+    "cuePoints": [
+      "what the team was",
+      "who was in the team",
+      "what your role was",
+      "what you did together",
+      "and explain how you felt about the teamwork"
+    ],
+    "segments": [
+      {
+        "type": "mother",
+        "source": "D",
+        "text": "The teamwork experience I'd like to talk about was a basketball tournament that I helped organise for my class. We had mixed teams, with three boys and two girls on court, and I was responsible for managing the whole event."
+      },
+      {
+        "type": "mother",
+        "source": "D",
+        "text": "Right from the start, we had to work together. The jerseys we had ordered didn't arrive in time, so I quickly borrowed some kits from another faculty so that the teams could be told apart. Sorting that problem out together actually helped us bond early on."
+      },
+      {
+        "type": "mother",
+        "source": "D",
+        "text": "What I'm most proud of is that, even though we had no outstanding players, we were extremely united. Everyone had a clear role: I took charge of defence, and I also used a bit of friendly trash-talk to distract the other team. Whenever someone got tired, we encouraged each other, and it really felt like we achieved far more as a team than we ever could have on our own."
+      },
+      {
+        "type": "mother",
+        "source": "D",
+        "text": "In the end, we finished third. I was so moved that I actually teared up — my feet were covered in blisters and everyone was exhausted, but we had worked towards the same goal together. It's an experience I'll never forget."
+      },
+      {
+        "type": "custom",
+        "source": "可选收束（母题后）",
+        "text": "It showed me why clear roles and mutual support matter."
+      }
+    ],
+    "note": "若时间不足，删掉trash-talk一句；必须保留分工、互相鼓励和季军结果。"
+  },
+  {
+    "id": "868",
+    "title": "近期改变的计划",
+    "group": "D",
+    "route": "使用母题D中球衣未到的突发情况；红色定义原计划与改变，黑色复用借球衣、明确分工和团队鼓励。",
+    "kind": "derived",
+    "cue": "Describe a time when you had to change a plan recently",
+    "cuePoints": [
+      "what the original plan was",
+      "why you had to change it",
+      "what the new plan was",
+      "who was involved",
+      "and explain how you felt about the change"
+    ],
+    "segments": [
+      {
+        "type": "custom",
+        "source": "868题专属外壳",
+        "text": "A plan I changed a few months ago was connected to a class basketball tournament that my classmates and I were organising. Because the event was about to begin, any last-minute problem could affect every team."
+      },
+      {
+        "type": "mother",
+        "source": "D",
+        "text": "Right from the start, we had to work together. The jerseys we had ordered didn't arrive in time, so I quickly borrowed some kits from another faculty so that the teams could be told apart. Sorting that problem out together actually helped us bond early on."
+      },
+      {
+        "type": "mother",
+        "source": "D",
+        "text": "In the end, we finished third. I was so moved that I actually teared up — my feet were covered in blisters and everyone was exhausted, but we had worked towards the same goal together. It's an experience I'll never forget."
+      },
+      {
+        "type": "custom",
+        "source": "868题专属收束",
+        "text": "I felt pressured at first, but the replacement kits worked, and I was relieved that the event could continue as planned in every other way."
+      }
+    ],
+    "note": "本题重点是plan change，不要花太久讲比赛成绩；说完借球衣即可收束。"
+  },
+  {
+    "id": "360",
+    "title": "鼓励别人做不愿做的事",
+    "group": "D",
+    "route": "套用母题D篮球队；红色补一名疲惫队友想退赛的具体矛盾，黑色复用团队背景、分工和互相打气。",
+    "kind": "derived",
+    "cue": "Describe a time when you encouraged someone to do something they did not want to do",
+    "cuePoints": [
+      "who the person was",
+      "what the person did not want to do",
+      "why the person was unwilling",
+      "how you encouraged the person",
+      "and explain what happened in the end"
+    ],
+    "segments": [
+      {
+        "type": "mother",
+        "source": "D",
+        "text": "The teamwork experience I'd like to talk about was a basketball tournament that I helped organise for my class. We had mixed teams, with three boys and two girls on court, and I was responsible for managing the whole event."
+      },
+      {
+        "type": "custom",
+        "source": "360题专属外壳",
+        "text": "During one match, a teammate was exhausted after the first half and wanted to sit out the rest of the game. We had very few substitutes, so I asked her not to think about the whole match. I suggested focusing on the next few minutes and staying mainly in defence."
+      },
+      {
+        "type": "mother",
+        "source": "D",
+        "text": "What I'm most proud of is that, even though we had no outstanding players, we were extremely united."
+      },
+      {
+        "type": "mother",
+        "source": "D",
+        "text": "Whenever someone got tired, we encouraged each other, and it really felt like we achieved far more as a team than we ever could have on our own."
+      },
+      {
+        "type": "mother",
+        "source": "D",
+        "text": "In the end, we finished third."
+      },
+      {
+        "type": "custom",
+        "source": "360题专属收束",
+        "text": "She agreed to continue, and I was glad that I offered a practical solution instead of simply telling her to try harder."
+      }
+    ],
+    "note": "建议要具体：只坚持几分钟、主要防守、其他人多跑；这样比空泛的‘加油’更自然。"
+  },
+  {
+    "id": "378",
+    "title": "微笑的场合",
+    "group": "D",
+    "route": "继续使用母题D篮球赛，但把题眼移到赛后合影；红色给微笑时刻，黑色交代为何这支普通队伍值得开心。",
+    "kind": "derived",
+    "cue": "Describe an occasion when you saw many people smiling",
+    "cuePoints": [
+      "when it happened",
+      "where it happened",
+      "who the people were",
+      "why they were smiling",
+      "and explain how you felt at that moment"
+    ],
+    "segments": [
+      {
+        "type": "mother",
+        "source": "D",
+        "text": "The teamwork experience I'd like to talk about was a basketball tournament that I helped organise for my class. We had mixed teams, with three boys and two girls on court, and I was responsible for managing the whole event."
+      },
+      {
+        "type": "custom",
+        "source": "378题专属外壳",
+        "text": "The occasion happened just after the final game. Our players, classmates and a few friends gathered beside the court for a team photo, and almost everyone was smiling or laughing."
+      },
+      {
+        "type": "mother",
+        "source": "D",
+        "text": "What I'm most proud of is that, even though we had no outstanding players, we were extremely united."
+      },
+      {
+        "type": "mother",
+        "source": "D",
+        "text": "Whenever someone got tired, we encouraged each other, and it really felt like we achieved far more as a team than we ever could have on our own."
+      },
+      {
+        "type": "mother",
+        "source": "D",
+        "text": "In the end, we finished third."
+      },
+      {
+        "type": "custom",
+        "source": "378题专属收束",
+        "text": "That was better than we expected. Everyone was exhausted, but the pressure had disappeared, so the smiles felt genuine. Seeing them made me proud and reminded me that the shared effort mattered more than the final result."
+      }
+    ],
+    "note": "不要照搬母题‘流泪’结尾；本题固定说季军后合影、压力释放、大家真心微笑。"
+  },
+  {
+    "id": "1027",
+    "title": "看过的现场比赛",
+    "group": "D",
+    "route": "观看一次大学篮球赛而非自己参赛；比赛经过全部标红，只用一句逐字D母题解释它为何让我想到团队合作。",
+    "kind": "short",
+    "cue": "Describe a live sports event you watched",
+    "cuePoints": [
+      "what the event was",
+      "when and where you watched it",
+      "who you watched it with",
+      "what happened during the event",
+      "and explain how you felt about it"
+    ],
+    "segments": [
+      {
+        "type": "custom",
+        "source": "1027题专属外壳",
+        "text": "A live sports event I remember was a university basketball final that I watched on campus with two classmates last semester. I had organised and played in a class tournament before, so I already understood how much teamwork was happening behind every move."
+      },
+      {
+        "type": "custom",
+        "source": "1027现场比赛经过",
+        "text": "The teams were evenly matched, and the score stayed close. In the final minute, one team made a three-point shot and moved ahead. The students around the court cheered, and the players on the bench stood up to encourage their teammates."
+      },
+      {
+        "type": "custom",
+        "source": "1027连接D母题",
+        "text": "Watching the bench support the players reminded me of my own class tournament."
+      },
+      {
+        "type": "mother",
+        "source": "D",
+        "text": "Whenever someone got tired, we encouraged each other, and it really felt like we achieved far more as a team than we ever could have on our own."
+      },
+      {
+        "type": "custom",
+        "source": "1027观众身份与感受",
+        "text": "In this event, however, I was only a spectator. I felt excited because the match was much more intense in person than on a screen."
+      }
+    ],
+    "note": "这是独立观看经历，不冒充母题D亲身比赛；红色明确观众身份，黑色只是一句被比赛触发的旧经历回忆。"
+  },
+  {
+    "id": "1011",
+    "title": "去过且喜欢的城市",
+    "group": "E",
+    "route": "直接调用母题E香港；只把结尾收回到‘去过并喜欢’。",
+    "kind": "mother",
+    "cue": "Describe a city you have visited and liked. You should say where it is, when you went there, what you did there, and explain why you liked it.",
+    "cuePoints": [
+      "where the city is",
+      "when you went there",
+      "what you did there",
+      "why you liked it"
+    ],
+    "segments": [
+      {
+        "type": "mother",
+        "source": "E",
+        "text": "The city I'd like to talk about is Hong Kong, where I'm currently living while I do my PhD. I arrived about a month ago, so it still feels quite new to me. My first impression was that it's an extremely crowded, international and rather expensive city."
+      },
+      {
+        "type": "mother",
+        "source": "E",
+        "text": "What I like most is the combination of the sea, the strong academic atmosphere at HKU, and the international environment. I get to meet people from all over the world, which has really broadened my perspective. I'm also fond of the area where I live, Sai Ying Pun, where the streets rise and fall steeply, and from a slope you can sometimes see the tall buildings and the sea at the same time."
+      },
+      {
+        "type": "mother",
+        "source": "E",
+        "text": "Of course, it isn't perfect. It's crowded and fairly expensive, so I probably wouldn't settle here permanently. Even so, it's a wonderful place to experience, especially for young people who want to study and enjoy a different way of life."
+      },
+      {
+        "type": "mother",
+        "source": "E",
+        "text": "Overall, I would happily recommend Hong Kong to almost anyone around my age."
+      },
+      {
+        "type": "custom",
+        "source": "optional closing",
+        "text": "It has become one of my favourite cities."
+      }
+    ],
+    "note": "黑色三段为E原稿，不改；红色只负责准确收题。"
+  },
+  {
+    "id": "1034",
+    "title": "推荐旅行过的地方",
+    "group": "E",
+    "route": "E香港换成旅行推荐外壳，保留香港景色和国际氛围核心。",
+    "kind": "derived",
+    "cue": "Describe a place you have visited that you would recommend to others. You should say where it is, when you went there, what you did there, and explain why you would recommend it.",
+    "cuePoints": [
+      "where the place is",
+      "when you visited it",
+      "what you did there",
+      "why you recommend it"
+    ],
+    "segments": [
+      {
+        "type": "custom",
+        "source": "travel recommendation shell",
+        "text": "A place I have visited and would happily recommend is Hong Kong, especially the area around HKU and Sai Ying Pun. I came here for my PhD, and in my free time I have walked along the steep streets, explored the university area and watched the harbour around sunset."
+      },
+      {
+        "type": "mother",
+        "source": "E",
+        "text": "What I like most is the combination of the sea, the strong academic atmosphere at HKU, and the international environment. I get to meet people from all over the world, which has really broadened my perspective. I'm also fond of the area where I live, Sai Ying Pun, where the streets rise and fall steeply, and from a slope you can sometimes see the tall buildings and the sea at the same time."
+      },
+      {
+        "type": "mother",
+        "source": "E",
+        "text": "Overall, I would happily recommend Hong Kong to almost anyone around my age."
+      },
+      {
+        "type": "custom",
+        "source": "travel recommendation ending",
+        "text": "It is especially suitable for young visitors who enjoy compact city life but still want sea views and an international atmosphere."
+      }
+    ],
+    "note": "红色补‘去过、做过、为何推荐’，黑色直接复用E。"
+  },
+  {
+    "id": "494",
+    "title": "安静的地方",
+    "group": "E",
+    "route": "用E的港大生活背景，主体套用已整理的智华馆共享模块。",
+    "kind": "derived",
+    "cue": "Describe a quiet place you like to go to. You should say where it is, how you knew about it, how often you go there, what you do there, and explain how you feel there.",
+    "cuePoints": [
+      "where it is",
+      "how you knew about it",
+      "how often you go there",
+      "what you do and how you feel there"
+    ],
+    "segments": [
+      {
+        "type": "custom",
+        "source": "quiet-place cue shell",
+        "text": "The quiet place I'd like to talk about is the Chi Wah Learning Commons at HKU. I discovered it after I began my PhD, and I now go there several times a week to read papers, write and organise my thoughts."
+      },
+      {
+        "type": "shared",
+        "source": "E-Chi Wah shared module",
+        "text": "It is a large learning space with open study areas and many meeting rooms. Most of the time, the study zones are calm and quiet, especially later in the day. The common areas are not completely silent: I have seen students celebrate a birthday or play board games inside a meeting room. I like this contrast because it shows that university life is both academic and social."
+      },
+      {
+        "type": "shared",
+        "source": "E-HKU sunset view",
+        "text": "Around sunset, I can see the harbour, part of the coastline, and the distant skyline. The view combines the sea with the dense city, which feels very special to me."
+      },
+      {
+        "type": "custom",
+        "source": "quiet-place feeling",
+        "text": "When I feel stressed, sitting there for a while makes me calmer and gives me a sense of belonging at HKU."
+      }
+    ],
+    "note": "不要说整栋楼永远安静；限定为主要学习区和大部分时间。"
+  },
+  {
+    "id": "1007",
+    "title": "有趣的建筑",
+    "group": "E",
+    "route": "与安静地点共用智华馆大段，只把红色部分改成建筑外观、功能和有趣之处。",
+    "kind": "derived",
+    "cue": "Describe an interesting building you have seen. You should say where it is, what it looks like, what it is used for, and explain why you think it is interesting.",
+    "cuePoints": [
+      "where it is",
+      "what it looks like",
+      "what it is used for",
+      "why it is interesting"
+    ],
+    "segments": [
+      {
+        "type": "custom",
+        "source": "interesting-building cue shell",
+        "text": "An interesting building I often use is the Chi Wah Learning Commons on the HKU campus near Sai Ying Pun. Inside, it looks modern, bright and open, and it is mainly used for individual study, group discussions and student activities."
+      },
+      {
+        "type": "shared",
+        "source": "E-Chi Wah shared module",
+        "text": "It is a large learning space with open study areas and many meeting rooms. Most of the time, the study zones are calm and quiet, especially later in the day. The common areas are not completely silent: I have seen students celebrate a birthday or play board games inside a meeting room. I like this contrast because it shows that university life is both academic and social."
+      },
+      {
+        "type": "shared",
+        "source": "E-HKU sunset view",
+        "text": "Around sunset, I can see the harbour, part of the coastline, and the distant skyline. The view combines the sea with the dense city, which feels very special to me."
+      },
+      {
+        "type": "custom",
+        "source": "interesting-building ending",
+        "text": "That mix of serious study, social life and a beautiful view makes it much more interesting than an ordinary library."
+      }
+    ],
+    "note": "A1安静地点与A3建筑可以共用两整段；红色只换题目功能。"
+  },
+  {
+    "id": "1017",
+    "title": "喜欢或不喜欢的高建筑",
+    "group": "E",
+    "route": "使用西营盘住宅塔楼专属红色外壳；黑色只保留确实在多题逐字复用的港大黄昏景色。",
+    "kind": "derived",
+    "cue": "Describe a tall building you like or dislike. You should say where it is, what it is used for, what it looks like, and explain why you like or dislike it.",
+    "cuePoints": [
+      "where it is",
+      "what it is used for",
+      "what it looks like",
+      "why you like or dislike it"
+    ],
+    "segments": [
+      {
+        "type": "custom",
+        "source": "tall-building cue shell",
+        "text": "A tall building I like is not a polished tourist landmark; it is an ordinary part of my daily view in Hong Kong."
+      },
+      {
+        "type": "custom",
+        "source": "tall-building specific shell",
+        "text": "The building is a residential tower on a steep slope in Sai Ying Pun, close to where I live. I do not know its official name, but I pass it quite often. It is mainly used for housing. The tower is narrow and tall, with repeated rows of windows and small balconies. When I look up from the bottom of the slope, the rising road makes it seem even higher. It looks practical rather than luxurious, which makes it feel like a real part of the neighbourhood."
+      },
+      {
+        "type": "shared",
+        "source": "E-HKU sunset view",
+        "text": "Around sunset, I can see the harbour, part of the coastline, and the distant skyline. The view combines the sea with the dense city, which feels very special to me."
+      },
+      {
+        "type": "custom",
+        "source": "tall-building ending",
+        "text": "I like it because that layered view of a tower, a hillside and the sea feels very typical of Hong Kong."
+      }
+    ],
+    "note": "住宅塔楼信息是本题专属红色内容；不知道正式楼名可以诚实说明，不伪装成共享卡。"
+  },
+  {
+    "id": "1036",
+    "title": "喜欢拜访但不想住的家",
+    "group": "E",
+    "route": "以西营盘朋友的具体小公寓为主体；黑色只使用与购物场所逐字共用的西营盘生活桥和已共享的黄昏景色。",
+    "kind": "derived",
+    "cue": "Describe a home you enjoy visiting but would not like to live in. You should say whose home it is, where it is, what you do there, and explain why you like visiting it but would not want to live there.",
+    "cuePoints": [
+      "whose home it is",
+      "where it is",
+      "what you do there",
+      "why you would not live there"
+    ],
+    "segments": [
+      {
+        "type": "custom",
+        "source": "visiting-home shell",
+        "text": "A home I enjoy visiting is a close friend's compact flat on a steep street in Sai Ying Pun. It has a small living room with a table beside the window. At weekends, we cook simple meals, talk about university life and play board games there. I enjoy the relaxed atmosphere, and the view makes the room feel more open than it really is."
+      },
+      {
+        "type": "shared",
+        "source": "E-Sai Ying Pun daily-life bridge",
+        "text": "Sai Ying Pun is part of my daily life in Hong Kong. The area is close to HKU, and I can usually walk there instead of taking a long journey."
+      },
+      {
+        "type": "shared",
+        "source": "E-HKU sunset view",
+        "text": "Around sunset, I can see the harbour, part of the coastline, and the distant skyline. The view combines the sea with the dense city, which feels very special to me."
+      },
+      {
+        "type": "custom",
+        "source": "visiting-home boundary",
+        "text": "However, I would not want to live there. The bedroom is narrow, there is very little storage, and the thin walls do not provide much privacy. These limits are easy to ignore during a short visit, but they would become tiring in daily life."
+      }
+    ],
+    "note": "朋友身份属考试外壳；喜欢拜访与不想居住都落到这套住宅内部，不再用香港整体房价代替。"
+  },
+  {
+    "id": "1000",
+    "title": "购物场所",
+    "group": "E",
+    "route": "以西营盘超市的路线、频率、商品、价格和结账便利为主体；黑色只用与住宅题逐字共享的地区生活桥。",
+    "kind": "derived",
+    "cue": "Describe a shop or shopping place you often go to. You should say where it is, how often you go there, what you usually buy, and explain why you like going there.",
+    "cuePoints": [
+      "where it is",
+      "how often you go there",
+      "what you buy there",
+      "why you like it"
+    ],
+    "segments": [
+      {
+        "type": "custom",
+        "source": "Sai Ying Pun supermarket shell",
+        "text": "A shop I visit regularly is a small supermarket near Sai Ying Pun MTR station, about ten minutes from my flat. I stop there two or three times a week after leaving HKU. I mainly buy milk, fruit and simple ingredients for dinner, so I rarely need a large shopping trip at the weekend."
+      },
+      {
+        "type": "shared",
+        "source": "E-Sai Ying Pun daily-life bridge",
+        "text": "Sai Ying Pun is part of my daily life in Hong Kong. The area is close to HKU, and I can usually walk there instead of taking a long journey."
+      },
+      {
+        "type": "custom",
+        "source": "shop cue ending",
+        "text": "The store stays open late, the shelves are arranged in a familiar way, and the prices are reasonable for the area. It also has a self-checkout area, so even when I am tired, I can buy what I need and leave within a few minutes. The supermarket is not a tourist attraction, but it saves me time and makes daily life easier without wasting much energy."
+      }
+    ],
+    "note": "超市为考试外壳；题眼是顺路、稳定商品、合理价格和快速结账，不再讲海景或学术氛围。"
+  },
+  {
+    "id": "302",
+    "title": "长期追求/目标",
+    "group": "G1",
+    "route": "完整逐字调用G1四段原稿；末尾红色只作可选收束。",
+    "kind": "mother",
+    "cue": "Describe a long-term goal you would like to achieve. You should say what the goal is, when you first had it, what you need to do to achieve it, and explain why it is important to you.",
+    "cuePoints": [
+      "what the goal is",
+      "when you first had it",
+      "what you need to do",
+      "why it is important"
+    ],
+    "segments": [
+      {
+        "type": "mother",
+        "source": "G1",
+        "text": "One long-term goal I have is to build a dental learning platform. I don't just want it to be a simple question bank — I want it to help dental students at different stages, from beginners to clinical trainees, learn dentistry in a more systematic and practical way."
+      },
+      {
+        "type": "mother",
+        "source": "G1",
+        "text": "This idea came from my time during my master's, when I worked part-time as a tutor for students preparing for an important entrance exam. Teaching them, I realized many students weren't lazy at all; they just didn't know how to organize dental knowledge. Dentistry has so many subjects — anatomy, pathology, prosthodontics, clinical diagnosis — and it can all feel really scattered. So I started to think we might need a better learning system, not just more textbooks."
+      },
+      {
+        "type": "mother",
+        "source": "G1",
+        "text": "Another important experience is that during my PhD, I've been working with a professor on a dental quiz system. My role is to help design questions, especially clinically meaningful ones. That made me realize a good question isn't just about testing memory; it should train students to think like dentists — for example, when they look at an X-ray or a case, learning how to observe, how to make a diagnosis, and how to avoid common mistakes."
+      },
+      {
+        "type": "mother",
+        "source": "G1",
+        "text": "So I hope to build a platform with practice questions, clear explanations and clinical cases. It wouldn't replace teachers; instead, it would help beginners learn from people with more experience. In ten years, I hope a student from a smaller city, someone like my younger self, can use it, feel less lost and learn dentistry with more confidence."
+      },
+      {
+        "type": "custom",
+        "source": "optional closing",
+        "text": "That is why this goal matters so much to me."
+      }
+    ],
+    "note": "四个黑段是G1完整原稿且顺序不变；红色仅为可选收束。"
+  },
+  {
+    "id": "988",
+    "title": "完美工作",
+    "group": "G1",
+    "route": "把G1目标改成职业题头；保留辅导学生的起因，只摘取与岗位职责直接相关的G1临床题目设计原句。",
+    "kind": "derived",
+    "cue": "Describe a job that you think would be perfect for you. You should say what the job is, how you learned about this kind of work, what skills it requires, and explain why it would be perfect for you.",
+    "cuePoints": [
+      "what the job is",
+      "how you learned about it",
+      "what skills it requires",
+      "why it suits you"
+    ],
+    "segments": [
+      {
+        "type": "custom",
+        "source": "perfect-job shell",
+        "text": "My perfect job would be designing and running an online dental learning platform. It would combine dentistry, education and technology. I would need clinical knowledge, clear communication and technical skill to turn ideas into useful learning tools."
+      },
+      {
+        "type": "mother",
+        "source": "G1",
+        "text": "This idea came from my time during my master's, when I worked part-time as a tutor for students preparing for an important entrance exam. Teaching them, I realized many students weren't lazy at all; they just didn't know how to organize dental knowledge. Dentistry has so many subjects — anatomy, pathology, prosthodontics, clinical diagnosis — and it can all feel really scattered. So I started to think we might need a better learning system, not just more textbooks."
+      },
+      {
+        "type": "mother",
+        "source": "G1",
+        "text": "Another important experience is that during my PhD, I've been working with a professor on a dental quiz system."
+      },
+      {
+        "type": "mother",
+        "source": "G1",
+        "text": "My role is to help design questions, especially clinically meaningful ones."
+      },
+      {
+        "type": "custom",
+        "source": "perfect-job ending",
+        "text": "It would suit me because I could keep learning while building something that helps beginners feel less lost. It would also let me connect research with practical teaching in one career."
+      }
+    ],
+    "note": "职业职责和能力用红色补；G1只保留与职业来源和现有经验直接相关的逐字原句。"
+  },
+  {
+    "id": "1009",
+    "title": "想从事的短期海外工作",
+    "group": "G1",
+    "route": "以悉尼三个月牙科AI研究助理为主体；G1只证明已有牙科题目设计经验，不再展开十年平台愿景。",
+    "kind": "derived",
+    "cue": "Describe a short-term job you would like to do in another country. You should say what the job would be, where you would do it, how long you would do it for, and explain why you would like to do it.",
+    "cuePoints": [
+      "what the job would be",
+      "where it would be",
+      "how long it would last",
+      "why you want to do it"
+    ],
+    "segments": [
+      {
+        "type": "custom",
+        "source": "Sydney short-job shell",
+        "text": "A short-term job abroad I would like to do is a three-month research-assistant position in a dental AI laboratory in Sydney. My childhood friend lives there, so settling in would be easier. The role would focus on biomedical images, simple coding and digital tools for dental education."
+      },
+      {
+        "type": "mother",
+        "source": "G1",
+        "text": "Another important experience is that during my PhD, I've been working with a professor on a dental quiz system."
+      },
+      {
+        "type": "mother",
+        "source": "G1",
+        "text": "My role is to help design questions, especially clinically meaningful ones."
+      },
+      {
+        "type": "custom",
+        "source": "Sydney job value",
+        "text": "In Sydney, I would help prepare image data, test simple workflows and discuss the results with researchers from different backgrounds. What attracts me most is the chance to experience another research culture and see how a team connects clinical needs with AI. I could then bring useful methods back to my PhD work in Hong Kong."
+      },
+      {
+        "type": "custom",
+        "source": "short-job boundary",
+        "text": "Three months would be long enough to learn another research culture but short enough to return to my PhD in Hong Kong with new skills."
+      }
+    ],
+    "note": "悉尼与三个月是考试外壳；答案重点是岗位内容、跨文化收益和为何短期合适。"
+  },
+  {
+    "id": "1040",
+    "title": "克服困难成功的人",
+    "group": "G2",
+    "route": "完整逐字调用G2妻子逆袭四段原稿；末尾红色只作可选收束。",
+    "kind": "mother",
+    "cue": "Describe a person who overcame difficulties and achieved success. You should say who the person is, what difficulties the person faced, what the person did, and explain how you felt about the success.",
+    "cuePoints": [
+      "who the person is",
+      "what difficulties she faced",
+      "what she did",
+      "how you felt"
+    ],
+    "segments": [
+      {
+        "type": "mother",
+        "source": "G2",
+        "text": "The person I'd like to talk about is my wife, a dentist who specialises in implant dentistry. I chose her because I watched her deal with a demanding career transition and succeed without becoming anxious or giving up the rest of her life along the way."
+      },
+      {
+        "type": "mother",
+        "source": "G2",
+        "text": "The key period came between her clinical training and starting a PhD. While working in a dental clinic, she had to improve her clinical skills, build a record of implant cases, and prepare her PhD application and related exams. Those responsibilities competed for the same limited time and energy."
+      },
+      {
+        "type": "mother",
+        "source": "G2",
+        "text": "Instead of treating it as one huge crisis, she worked steadily. She learned from real cases and completed her application step by step. She also kept a normal social life and hobbies such as karate, singing and diving. These interests gave her energy and helped her stay calm, focused and efficient."
+      },
+      {
+        "type": "mother",
+        "source": "G2",
+        "text": "In the end, she became a more capable clinician and secured a place on a PhD programme. I felt proud, but I was equally impressed by how she succeeded. She did not simply work harder; she found a routine she could sustain. Her experience showed me that overcoming difficulty does not always require constant tension or giving up everything else. Sometimes balance is what allows a person to stay consistent and keep moving towards a long-term goal."
+      },
+      {
+        "type": "custom",
+        "source": "optional closing",
+        "text": "That is why I feel so proud of her."
+      }
+    ],
+    "note": "四个黑段是G2完整原稿且顺序不变；红色仅为可选收束。"
+  },
+  {
+    "id": "995",
+    "title": "擅长做计划的人",
+    "group": "G2",
+    "route": "题头改成计划能力，直接复用G2的多任务、拆步骤、维持节奏和结果。",
+    "kind": "derived",
+    "cue": "Describe a person who is good at making plans. You should say who the person is, how you know this person, what kinds of plans the person makes, and explain why you think the person plans well.",
+    "cuePoints": [
+      "who the person is",
+      "how you know her",
+      "what she plans",
+      "why she plans well"
+    ],
+    "segments": [
+      {
+        "type": "custom",
+        "source": "planning-person shell",
+        "text": "A person who is extremely good at making plans is my wife. I know this from living with her and watching how she handled a major career transition."
+      },
+      {
+        "type": "mother",
+        "source": "G2",
+        "text": "The key period came between her clinical training and starting a PhD. While working in a dental clinic, she had to improve her clinical skills, build a record of implant cases, and prepare her PhD application and related exams. Those responsibilities competed for the same limited time and energy."
+      },
+      {
+        "type": "mother",
+        "source": "G2",
+        "text": "Instead of treating it as one huge crisis, she worked steadily. She learned from real cases and completed her application step by step. She also kept a normal social life and hobbies such as karate, singing and diving. These interests gave her energy and helped her stay calm, focused and efficient."
+      },
+      {
+        "type": "mother",
+        "source": "G2",
+        "text": "In the end, she became a more capable clinician and secured a place on a PhD programme."
+      },
+      {
+        "type": "custom",
+        "source": "planning evaluation",
+        "text": "I think she plans well because her plans are realistic, flexible and designed to protect her energy, not just fill every hour."
+      }
+    ],
+    "note": "不要另背计划故事；考场突出‘拆小步骤＋可持续’即可。"
+  },
+  {
+    "id": "406",
+    "title": "机智解决问题的人",
+    "group": "G2",
+    "route": "把G2的时间冲突定义为问题，把拆解任务和保留爱好定义为聪明解法。",
+    "kind": "derived",
+    "cue": "Describe an intelligent person who solved a problem in a clever way. You should say who the person is, what the problem was, what the person did, and explain why you think the solution was clever.",
+    "cuePoints": [
+      "who the person is",
+      "what the problem was",
+      "what she did",
+      "why the solution was clever"
+    ],
+    "segments": [
+      {
+        "type": "custom",
+        "source": "clever-solution shell",
+        "text": "An intelligent person who solved a difficult problem is my wife. Her problem was not a single exam; it was how to manage several demanding goals without becoming exhausted or giving up halfway."
+      },
+      {
+        "type": "mother",
+        "source": "G2",
+        "text": "The key period came between her clinical training and starting a PhD. While working in a dental clinic, she had to improve her clinical skills, build a record of implant cases, and prepare her PhD application and related exams. Those responsibilities competed for the same limited time and energy."
+      },
+      {
+        "type": "mother",
+        "source": "G2",
+        "text": "Instead of treating it as one huge crisis, she worked steadily. She learned from real cases and completed her application step by step. She also kept a normal social life and hobbies such as karate, singing and diving. These interests gave her energy and helped her stay calm, focused and efficient."
+      },
+      {
+        "type": "mother",
+        "source": "G2",
+        "text": "In the end, she became a more capable clinician and secured a place on a PhD programme."
+      },
+      {
+        "type": "custom",
+        "source": "clever-solution evaluation",
+        "text": "The solution was clever because she fixed the real problem—limited energy—instead of simply extending her working hours."
+      }
+    ],
+    "note": "红色只负责把同一经历改写成‘问题—解法—为何聪明’。"
+  },
+  {
+    "id": "1023",
+    "title": "想从事医疗行业的人",
+    "group": "G2",
+    "route": "妻子已经是种植牙医；把题目理解为想在医疗领域成就事业，并用G2证明她已行动。",
+    "kind": "derived",
+    "cue": "Describe a person you know who wants to work in the medical field. You should say who the person is, how you know the person, what kind of medical work the person wants to do, and explain why the person is interested in this field.",
+    "cuePoints": [
+      "who the person is",
+      "how you know her",
+      "what medical work she wants to do",
+      "why she is interested"
+    ],
+    "segments": [
+      {
+        "type": "mother",
+        "source": "G2",
+        "text": "The person I'd like to talk about is my wife, a dentist who specialises in implant dentistry. I chose her because I watched her deal with a demanding career transition and succeed without becoming anxious or giving up the rest of her life along the way."
+      },
+      {
+        "type": "custom",
+        "source": "medical-career shell",
+        "text": "Her longer-term aim is to become a clinician-scientist who combines patient care with useful dental research. She became interested after seeing how lessons from real implant cases could improve later treatment."
+      },
+      {
+        "type": "mother",
+        "source": "G2",
+        "text": "The key period came between her clinical training and starting a PhD. While working in a dental clinic, she had to improve her clinical skills, build a record of implant cases, and prepare her PhD application and related exams. Those responsibilities competed for the same limited time and energy."
+      },
+      {
+        "type": "mother",
+        "source": "G2",
+        "text": "In the end, she became a more capable clinician and secured a place on a PhD programme."
+      },
+      {
+        "type": "custom",
+        "source": "medical-career ending",
+        "text": "She wants to help individual patients through clinical skill and eventually improve treatment for more people through research."
+      }
+    ],
+    "note": "题目时态可灵活处理：她已进入医疗行业，但仍在追求更高的医疗事业目标。"
+  },
+  {
+    "id": "1021",
+    "title": "喜欢在家/花园种菜的人",
+    "group": "G2",
+    "route": "以妻子在窗边种薄荷和罗勒的具体习惯为主体；黑色只使用与环保题逐字共用的小习惯模块。",
+    "kind": "derived",
+    "cue": "Describe a person you know who likes growing plants or vegetables. You should say who the person is, what the person grows, where and how the person grows them, and explain why the person enjoys it.",
+    "cuePoints": [
+      "who the person is",
+      "what she grows",
+      "where and how she grows it",
+      "why she enjoys it"
+    ],
+    "segments": [
+      {
+        "type": "custom",
+        "source": "wife plant-growing shell",
+        "text": "A person who enjoys growing plants is my wife. She keeps several small pots of mint and basil beside a sunny window at home. She waters them most mornings, turns the pots so both sides get light, and removes dry leaves at the weekend. Sometimes she uses the fresh herbs when we cook, so the plants are useful as well as attractive."
+      },
+      {
+        "type": "shared",
+        "source": "G2-small-habits module",
+        "text": "She does not treat these activities as a major project. She prefers small actions that fit into ordinary life, because they are easier to continue when work becomes busy."
+      },
+      {
+        "type": "custom",
+        "source": "plant-growing ending",
+        "text": "Even before an important exam, she still spends a few minutes checking the soil and watering them. She likes the clear result: if she cares for the plants regularly, they stay healthy and grow. Seeing small changes each day gives her a peaceful break from work, and it also makes our home feel more alive and the room smell fresher."
+      }
+    ],
+    "note": "薄荷和罗勒为统一考试素材；共享黑段与1010逐字重复，其余种植细节全部标红。"
+  },
+  {
+    "id": "1010",
+    "title": "爱护自然的人",
+    "group": "G2",
+    "route": "以妻子爬山带夹子和垃圾袋的真实动作为主体；黑色只使用与种植题逐字共用的小习惯模块。",
+    "kind": "derived",
+    "cue": "Describe a person you know who does something to protect the natural world. You should say who the person is, what the person does, how often the person does it, and explain why you admire the person.",
+    "cuePoints": [
+      "who the person is",
+      "what she does",
+      "how often she does it",
+      "why you admire her"
+    ],
+    "segments": [
+      {
+        "type": "custom",
+        "source": "wife nature-protection shell",
+        "text": "A person who genuinely looks after nature is my wife. Whenever she goes hiking, usually once or twice a month, she carries litter tongs and a rubbish bag. She picks up bottles, wrappers and tissues left on the trail, keeps recyclable items separate, and puts the rest in a proper bin after the walk. I have seen her do this myself."
+      },
+      {
+        "type": "shared",
+        "source": "G2-small-habits module",
+        "text": "She does not treat these activities as a major project. She prefers small actions that fit into ordinary life, because they are easier to continue when work becomes busy."
+      },
+      {
+        "type": "custom",
+        "source": "nature-protection ending",
+        "text": "She does not claim that she can clean an entire mountain. Her point is simply that visitors should not leave their waste for someone else. I admire her because she turns environmental protection into a practical habit rather than a slogan. The action is small, but repeating it leaves the trail a little better for people who come after her."
+      }
+    ],
+    "note": "具体环保动作全部留在红色；共享黑段与1021逐字重复，不再调用无关的临床任务。"
+  },
+  {
+    "id": "1039",
+    "title": "改变重要想法",
+    "group": "G3",
+    "route": "完整逐字调用G3四段原稿；末尾红色只作可选收束",
+    "kind": "mother",
+    "cue": "Describe an important opinion you changed",
+    "cuePoints": [
+      "what the opinion was",
+      "why you held this opinion",
+      "what made you change it",
+      "and explain how you feel about the change"
+    ],
+    "segments": [
+      {
+        "type": "mother",
+        "source": "G3",
+        "text": "An important opinion I changed was my view of success and hard work, and that happened gradually before my wife started her PhD. Before then, I thought a serious goal required total sacrifice. Before an exam, I would cancel social plans, stop exercising and drop my hobbies. I saw that as proof that I was responsible and fully committed."
+      },
+      {
+        "type": "mother",
+        "source": "G3",
+        "text": "The key period came between her clinical training and starting a PhD. While working in a dental clinic, she had to improve her clinical skills, build a record of implant cases, and prepare her PhD application and related exams. Those responsibilities competed for the same limited time and energy."
+      },
+      {
+        "type": "mother",
+        "source": "G3",
+        "text": "Instead of treating it as one huge crisis, she worked steadily. She learned from real cases and completed her application step by step. She also kept a normal social life and hobbies such as karate, singing and diving. These interests gave her energy and helped her stay calm, focused and efficient."
+      },
+      {
+        "type": "mother",
+        "source": "G3",
+        "text": "At first, I thought those activities were distractions. Later, I realised they were part of the reason she could cope, become a stronger clinician and secure a place on a PhD programme. My opinion changed: focus still matters, but success does not require us to make our lives smaller. Now, under pressure, I protect exercise, rest and contact with friends instead of cutting them out. This new view feels healthier and more sustainable."
+      },
+      {
+        "type": "custom",
+        "source": "optional closing",
+        "text": "That is why this change still matters to me."
+      }
+    ],
+    "note": "四个黑段是G3完整原稿且顺序不变；红色仅为可选收束。"
+  },
+  {
+    "id": "1041",
+    "title": "近期改变",
+    "group": "G3",
+    "route": "G3观点改变转为近期生活方式改变",
+    "kind": "derived",
+    "cue": "Describe a change that you made recently",
+    "cuePoints": [
+      "what the change was",
+      "what caused the change",
+      "what you did for the change",
+      "and explain how you feel about the change"
+    ],
+    "segments": [
+      {
+        "type": "custom",
+        "source": "近期改变外壳",
+        "text": "A recent change I made was to stop giving up exercise and rest whenever my research became busy. Watching my wife caused this change a few months ago."
+      },
+      {
+        "type": "mother",
+        "source": "G3",
+        "text": "The key period came between her clinical training and starting a PhD. While working in a dental clinic, she had to improve her clinical skills, build a record of implant cases, and prepare her PhD application and related exams. Those responsibilities competed for the same limited time and energy."
+      },
+      {
+        "type": "mother",
+        "source": "G3",
+        "text": "Instead of treating it as one huge crisis, she worked steadily. She learned from real cases and completed her application step by step. She also kept a normal social life and hobbies such as karate, singing and diving. These interests gave her energy and helped her stay calm, focused and efficient."
+      },
+      {
+        "type": "custom",
+        "source": "本题行动与感受",
+        "text": "I copied that idea by scheduling short exercise sessions, stopping work at a reasonable time on most evenings and still speaking to friends in stressful weeks. I feel calmer and more in control, and the change is realistic enough to continue."
+      }
+    ],
+    "note": "recent、具体行动和感受均在红色外壳；妻子证据逐字调用G3。"
+  },
+  {
+    "id": "546",
+    "title": "发小",
+    "group": "F1",
+    "route": "完整逐字调用F1四段原稿；末尾红色只作可选收束",
+    "kind": "mother",
+    "cue": "Describe a childhood friend",
+    "cuePoints": [
+      "who the person is",
+      "how you met",
+      "what you did together",
+      "and explain why you like this friend"
+    ],
+    "segments": [
+      {
+        "type": "mother",
+        "source": "F1",
+        "text": "The person I'd like to talk about is one of my childhood friends. We went to the same junior high and senior high school, so I've known him for more than ten years. We grew up in the same city, and when we were younger we often walked home together after school, talking about games, books, exams, and sometimes our future. Now he lives in Sydney, so we don't meet often, but we still keep in touch online."
+      },
+      {
+        "type": "mother",
+        "source": "F1",
+        "text": "What I admire most about him is his ability to learn things by himself. He's not the kind of person who waits to be taught — if he becomes interested in something, he just starts learning it. Over the years he's taught himself English, programming, and more recently some AI tools, usually by reading, watching online courses, and then building small projects or explaining the idea to other people."
+      },
+      {
+        "type": "mother",
+        "source": "F1",
+        "text": "One thing I remember clearly happened in high school, when he ran for student council president. He was not the strongest candidate on paper, so he taught himself video editing and made a funny campaign video. It quickly caught people's attention. However, what really helped him win was his final speech on stage. He was good at summarising his ideas and explaining his goals clearly. People understood what he wanted to do for the students and trusted him. In the end, he won the election."
+      },
+      {
+        "type": "mother",
+        "source": "F1",
+        "text": "That experience really impressed me. It showed that he was creative, willing to learn, and able to present his ideas clearly. That's one reason I still admire him."
+      },
+      {
+        "type": "custom",
+        "source": "optional closing",
+        "text": "That is why our friendship still matters to me."
+      }
+    ],
+    "note": "四个黑段是F1完整原稿且顺序不变；红色仅为可选收束。"
+  },
+  {
+    "id": "1006",
+    "title": "朋友自学",
+    "group": "F1",
+    "route": "F1发小转为自学编程",
+    "kind": "derived",
+    "cue": "Describe a friend who learned something without a teacher",
+    "cuePoints": [
+      "who the friend is",
+      "what he learned",
+      "how he learned it",
+      "and explain how you felt about it"
+    ],
+    "segments": [
+      {
+        "type": "custom",
+        "source": "自学题外壳",
+        "text": "A friend who learned something without a teacher is one of my childhood friends. The skill was programming."
+      },
+      {
+        "type": "mother",
+        "source": "F1",
+        "text": "We went to the same junior high and senior high school, so I've known him for more than ten years."
+      },
+      {
+        "type": "mother",
+        "source": "F1",
+        "text": "What I admire most about him is his ability to learn things by himself. He's not the kind of person who waits to be taught — if he becomes interested in something, he just starts learning it. Over the years he's taught himself English, programming, and more recently some AI tools, usually by reading, watching online courses, and then building small projects or explaining the idea to other people."
+      },
+      {
+        "type": "custom",
+        "source": "本题困难与感受",
+        "text": "At first, he made basic mistakes and sometimes repeated the same lesson, but correcting his own errors made him more independent. I was impressed because his experience showed that curiosity, a clear goal and regular practice can sometimes matter more than a formal class."
+      }
+    ],
+    "note": "所学技能和困难用红色补；人物与自学方法逐字调用F1。"
+  },
+  {
+    "id": "1031",
+    "title": "擅长学习和说语言的人",
+    "group": "F1",
+    "route": "F1发小转为自学英语",
+    "kind": "derived",
+    "cue": "Describe a person who is good at learning and speaking a foreign language",
+    "cuePoints": [
+      "who the person is",
+      "what language he speaks",
+      "how he learned it",
+      "and explain why he is good at it"
+    ],
+    "segments": [
+      {
+        "type": "custom",
+        "source": "语言题外壳",
+        "text": "A person who is good at learning and speaking a foreign language is one of my childhood friends. The language is English."
+      },
+      {
+        "type": "mother",
+        "source": "F1",
+        "text": "Now he lives in Sydney, so we don't meet often, but we still keep in touch online."
+      },
+      {
+        "type": "mother",
+        "source": "F1",
+        "text": "Over the years he's taught himself English, programming, and more recently some AI tools, usually by reading, watching online courses, and then building small projects or explaining the idea to other people."
+      },
+      {
+        "type": "custom",
+        "source": "本题语言证据",
+        "text": "After moving to Australia, he had to use English at work, in shops and when meeting new people almost every day. He listened carefully, noted useful expressions and kept speaking despite small mistakes. He can now discuss daily life and technical topics with confidence in real situations."
+      },
+      {
+        "type": "custom",
+        "source": "本题评价",
+        "text": "I think he is good at English because he combines independent study with real communication. He is patient and not afraid of making mistakes, which is exactly what a language learner needs."
+      }
+    ],
+    "note": "只说英语；悉尼和自学途径逐字取F1，语言表现为红色证据。"
+  },
+  {
+    "id": "430",
+    "title": "为家人骄傲",
+    "group": "F2",
+    "route": "完整逐字调用F2四段原稿；末尾红色只作可选收束",
+    "kind": "mother",
+    "cue": "Describe a time when you felt proud of a family member",
+    "cuePoints": [
+      "when it happened",
+      "who this family member was",
+      "what he did",
+      "and explain why you felt proud"
+    ],
+    "segments": [
+      {
+        "type": "mother",
+        "source": "F2",
+        "text": "A time I felt especially proud of my father was about ten years ago, when the family of an elderly patient gave him a red commendation banner after the patient recovered. My father is an internal medicine doctor. The banner praised both his medical skill and the patient way he explained the treatment."
+      },
+      {
+        "type": "mother",
+        "source": "F2",
+        "text": "That moment meant a lot because his path into medicine was not easy. He came from a rural family with limited resources and started his career as a nurse. However, he wanted to learn more, so he left home to study in another city and even borrowed money to continue his education. After years of effort, he finally became a doctor."
+      },
+      {
+        "type": "mother",
+        "source": "F2",
+        "text": "What I admire most is the way he communicates with patients, especially elderly people who cannot speak standard Mandarin very well. Instead of using difficult terms, he explains things in simple, down-to-earth language and sometimes uses humour to help them relax. The banner showed me that patients really valued this quality."
+      },
+      {
+        "type": "mother",
+        "source": "F2",
+        "text": "He has also supported many relatives and has always been the backbone of our family. Seeing him work partly inspired me to study dentistry. Whenever I feel uncertain about my PhD, his experience reminds me that an ordinary person can build a meaningful life through education, effort and responsibility. That is why I still feel so proud of him."
+      },
+      {
+        "type": "custom",
+        "source": "optional closing",
+        "text": "That is why I still feel proud of him today."
+      }
+    ],
+    "note": "四个黑段是F2完整原稿且顺序不变；红色仅为可选收束。"
+  },
+  {
+    "id": "1026",
+    "title": "特殊场合下吃的食物",
+    "group": "F2",
+    "route": "F2父亲求学经历转为一次生日窝窝头",
+    "kind": "derived",
+    "cue": "Describe a special food you ate on a special occasion",
+    "cuePoints": [
+      "what the food was",
+      "what the occasion was",
+      "who prepared or bought it",
+      "and explain why it was special to you"
+    ],
+    "segments": [
+      {
+        "type": "custom",
+        "source": "一次生日外壳",
+        "text": "On my father's birthday last year, my family ate wowotou, a simple steamed cornmeal bun. My mother bought a small plate from a local shop because none of us can make it well."
+      },
+      {
+        "type": "mother",
+        "source": "F2",
+        "text": "That moment meant a lot because his path into medicine was not easy. He came from a rural family with limited resources and started his career as a nurse. However, he wanted to learn more, so he left home to study in another city and even borrowed money to continue his education. After years of effort, he finally became a doctor."
+      },
+      {
+        "type": "custom",
+        "source": "窝窝头故事",
+        "text": "During that difficult period, he often ate cheap food like wowotou to save money. At the birthday dinner, its plain taste reminded us of how far he had come."
+      },
+      {
+        "type": "custom",
+        "source": "本题意义",
+        "text": "The food was special because it connected one simple family meal with my father's difficult journey. It reminded me that our more comfortable life came partly from his persistence and sacrifice."
+      }
+    ],
+    "note": "固定为去年一次生日；不再说父亲当年因喜欢才吃。"
+  },
+  {
+    "id": "324",
+    "title": "对家庭重要的东西",
+    "group": "F2",
+    "route": "F2父亲转为家庭保存的锦旗",
+    "kind": "derived",
+    "cue": "Describe an important object that your family has kept for a long time",
+    "cuePoints": [
+      "what the object is",
+      "when and how your family got it",
+      "how long it has been kept",
+      "and explain why it is important"
+    ],
+    "segments": [
+      {
+        "type": "custom",
+        "source": "物品题外壳",
+        "text": "An important object my family has kept is a red cloth banner with large golden Chinese characters."
+      },
+      {
+        "type": "mother",
+        "source": "F2",
+        "text": "A time I felt especially proud of my father was about ten years ago, when the family of an elderly patient gave him a red commendation banner after the patient recovered. My father is an internal medicine doctor. The banner praised both his medical skill and the patient way he explained the treatment."
+      },
+      {
+        "type": "custom",
+        "source": "保存细节",
+        "text": "My family has kept it ever since. It first hung on a wall and was later stored carefully so that the cloth would not become dirty or damaged. We have moved it more than once but have always kept it safe. It is not expensive, but nobody would throw it away."
+      },
+      {
+        "type": "custom",
+        "source": "本题意义",
+        "text": "The banner matters because it is physical proof that a patient's family trusted and appreciated my father. For us, it represents his responsibility, kindness and the professional values he passed on to the family."
+      }
+    ],
+    "note": "来源和约十年时长由F2原文保证；其余均为本题红色细节。"
+  },
+  {
+    "id": "368",
+    "title": "想颁布的环保法律",
+    "group": "SHORT",
+    "route": "固定短卡：限制外卖过度包装",
+    "kind": "short",
+    "cue": "Describe an environmental law you would like to introduce",
+    "cuePoints": [
+      "what the law would be",
+      "how it would work",
+      "why it is needed",
+      "and explain how it would help the environment"
+    ],
+    "segments": [
+      {
+        "type": "custom",
+        "source": "环保法律题头",
+        "text": "An environmental law I would introduce would limit excessive packaging in food delivery."
+      },
+      {
+        "type": "shared",
+        "source": "SHORT-packaging-core",
+        "text": "Some takeaway meals arrive in a huge bag with several plastic boxes, separate sauce containers and cutlery, even when the amount of food is small. Most of this packaging is used only once and then thrown away."
+      },
+      {
+        "type": "custom",
+        "source": "环保必要性",
+        "text": "Food delivery is extremely common, so a little unnecessary material on every order quickly becomes a large waste problem across a city."
+      },
+      {
+        "type": "custom",
+        "source": "环保执行方式",
+        "text": "Restaurants and delivery platforms would have to use packaging that matches the meal. Cutlery would only be provided when customers request it, and businesses using clearly excessive packaging could pay an environmental charge."
+      },
+      {
+        "type": "custom",
+        "source": "环保结果",
+        "text": "The rule would also encourage recyclable or reusable materials. It targets waste at its source instead of asking people to sort a large amount of rubbish later. In the long term, it could reduce plastic waste and make cities cleaner for both residents and workers."
+      }
+    ],
+    "note": "黑色核心与新法律题逐字相同；红色突出环境作用。"
+  },
+  {
+    "id": "760",
+    "title": "想颁布的新法律",
+    "group": "SHORT",
+    "route": "固定短卡：限制外卖过度包装",
+    "kind": "short",
+    "cue": "Describe a new law you would like to introduce",
+    "cuePoints": [
+      "what the law would be",
+      "who would benefit from it",
+      "why it is necessary",
+      "and explain how you feel about it"
+    ],
+    "segments": [
+      {
+        "type": "custom",
+        "source": "新法律题头",
+        "text": "A new law I would introduce would control excessive packaging in takeaway food. It would apply to restaurants, delivery platforms and packaging suppliers."
+      },
+      {
+        "type": "shared",
+        "source": "SHORT-packaging-core",
+        "text": "Some takeaway meals arrive in a huge bag with several plastic boxes, separate sauce containers and cutlery, even when the amount of food is small. Most of this packaging is used only once and then thrown away."
+      },
+      {
+        "type": "custom",
+        "source": "新法律必要性",
+        "text": "The law is necessary because this waste is created every day and much of it is difficult to recycle properly."
+      },
+      {
+        "type": "custom",
+        "source": "新法律执行方式",
+        "text": "Packaging would have to match the size of the order, and cutlery would only be included when requested. Businesses that repeatedly used too much material could pay an extra charge, while small restaurants could receive a transition period."
+      },
+      {
+        "type": "custom",
+        "source": "新法律受益者与感受",
+        "text": "Customers would benefit from cleaner neighbourhoods, and responsible businesses would have a fair reason to choose better materials. I would support the law if it was introduced sensibly, because it changes a wasteful habit without banning food delivery."
+      }
+    ],
+    "note": "黑色只保留与环保法律完全一致的事实核心；受益者和态度为红色。"
+  },
+  {
+    "id": "1037",
+    "title": "包含动物的故事或书",
+    "group": "SHORT",
+    "route": "固定短卡：《西游记》",
+    "kind": "short",
+    "cue": "Describe a story or book that includes animals",
+    "cuePoints": [
+      "what the story is",
+      "when you first knew it",
+      "what happens in it",
+      "and explain why you like it"
+    ],
+    "segments": [
+      {
+        "type": "custom",
+        "source": "动物故事题头",
+        "text": "A story with animal-like characters is Journey to the West. I first knew it through the 1986 television series as a child, and later read simplified parts of the book."
+      },
+      {
+        "type": "shared",
+        "source": "SHORT-Journey-world",
+        "text": "The story follows a monk travelling west to collect Buddhist scriptures. He is protected by several unusual companions, especially the Monkey King and Pigsy. They meet monsters, solve problems and face many tests during the journey."
+      },
+      {
+        "type": "shared",
+        "source": "SHORT-Journey-characters",
+        "text": "The Monkey King is clever, powerful and rebellious, while Pigsy is lazy, funny and very human."
+      },
+      {
+        "type": "custom",
+        "source": "动物角色补丁",
+        "text": "One is based on a monkey and the other has the face and habits of a pig, although both behave like people. Their animal features make them easy to recognise and remember."
+      },
+      {
+        "type": "shared",
+        "source": "SHORT-Journey-appeal",
+        "text": "I like this fictional world because it combines adventure, humour and imagination."
+      },
+      {
+        "type": "custom",
+        "source": "动物故事结尾",
+        "text": "As a child, I enjoyed the fights and magic. As an adult, I also notice ideas about teamwork and personal growth, so it still feels fresh."
+      }
+    ],
+    "note": "三段黑色均在其他西游记题中逐字复用；红色明确动物属性。"
+  },
+  {
+    "id": "1028",
+    "title": "名人广告",
+    "group": "B",
+    "route": "固定短卡：Sam Altman与ChatGPT产品发布宣传片",
+    "kind": "short",
+    "cue": "Describe an advertisement that features a famous person",
+    "cuePoints": [
+      "where and when you saw it",
+      "who the famous person was",
+      "what product it promoted",
+      "and explain what you thought of it"
+    ],
+    "segments": [
+      {
+        "type": "custom",
+        "source": "广告题外壳",
+        "text": "An advertisement I remember was an official ChatGPT product-launch video that I saw online on my laptop on the announcement day. It was a promotional launch video rather than a traditional television commercial."
+      },
+      {
+        "type": "shared",
+        "source": "SHORT-Sam-core",
+        "text": "Sam Altman is closely connected with the development of modern AI, and I first learned about him through AI news and product announcements."
+      },
+      {
+        "type": "custom",
+        "source": "广告内容",
+        "text": "In the video, he introduced the ChatGPT update and a short demonstration showed what ordinary users could do with it. The update was meant to make the service more useful for everyday work. The presentation was simple and focused on practical benefits rather than dramatic music."
+      },
+      {
+        "type": "shared",
+        "source": "SHORT-AI-utility",
+        "text": "AI tools can help people organise information, write code and solve practical problems more efficiently."
+      },
+      {
+        "type": "custom",
+        "source": "广告评价",
+        "text": "I thought it worked because the speaker was strongly connected with the product and the demonstration made its value clear. It felt more convincing and easier to trust than an ordinary social-media post."
+      }
+    ],
+    "note": "已明确产品是ChatGPT更新；Sam与AI价值两句会在其他Sam题逐字调用。"
+  },
+  {
+    "id": "1019",
+    "title": "无聊的地方",
+    "group": "E",
+    "route": "E地点池：某次在智华馆久学感到无聊",
+    "kind": "short",
+    "cue": "Describe a place where you felt bored",
+    "cuePoints": [
+      "where it was",
+      "when you went there",
+      "what you did there",
+      "and explain why you felt bored"
+    ],
+    "segments": [
+      {
+        "type": "custom",
+        "source": "无聊地点题头",
+        "text": "A place where I once felt bored was the Chi Wah Learning Commons at HKU. It happened one Saturday afternoon during a long study session."
+      },
+      {
+        "type": "shared",
+        "source": "E-Chi Wah shared module",
+        "text": "It is a large learning space with open study areas and many meeting rooms. Most of the time, the study zones are calm and quiet, especially later in the day. The common areas are not completely silent: I have seen students celebrate a birthday or play board games inside a meeting room. I like this contrast because it shows that university life is both academic and social."
+      },
+      {
+        "type": "custom",
+        "source": "本题具体经历",
+        "text": "I had spent several hours reading a technical paper and checking notes. The material felt repetitive, I was tired, and I had nobody to talk to. The silence, which normally helps me focus, made time seem slower."
+      },
+      {
+        "type": "shared",
+        "source": "SHORT-energy-reflection",
+        "text": "The experience taught me that the same place or activity can feel very different depending on my energy level."
+      },
+      {
+        "type": "custom",
+        "source": "本题结果",
+        "text": "I finally took a short walk and went home. The building was not the problem; tiredness and a lack of progress were."
+      }
+    ],
+    "note": "已补周六下午；智华馆黑段与494/1007逐字共用，能量反思与音乐题逐字共用。"
+  },
+  {
+    "id": "399",
+    "title": "早起经历",
+    "group": "A",
+    "route": "A重要决定转为申博准备清晨",
+    "kind": "short",
+    "cue": "Describe a time when you got up early",
+    "cuePoints": [
+      "when it happened",
+      "why you got up early",
+      "what you did",
+      "and explain how you felt"
+    ],
+    "segments": [
+      {
+        "type": "custom",
+        "source": "早起题外壳",
+        "text": "During my PhD application in 2025, I once woke at about five in the morning because I wanted quiet preparation time before a busy day. The city outside was still dark and quiet."
+      },
+      {
+        "type": "mother",
+        "source": "A",
+        "text": "To be honest, it wasn't an easy decision. I was worried about the high cost of living in Hong Kong, and afraid that if I didn't get the offer, I might lose a whole year. During that time, I built an Excel sheet to track the supervisors I contacted, and checked my email almost every day."
+      },
+      {
+        "type": "custom",
+        "source": "本题早晨行动",
+        "text": "That morning, I revised my personal statement, reviewed an email draft to a potential supervisor and organised the documents I still needed. I also listed three tasks so that I would not panic later."
+      },
+      {
+        "type": "custom",
+        "source": "本题感受",
+        "text": "I felt sleepy at first, but the quiet helped me concentrate. By breakfast, I had completed the most stressful work and felt more prepared and confident about my decision."
+      }
+    ],
+    "note": "早起是一段具体经历；A黑段逐字解释当时压力和准备方式。"
+  },
+  {
+    "id": "1018",
+    "title": "有趣视频",
+    "group": "SHORT",
+    "route": "固定短卡：《西游记》孙悟空片段",
+    "kind": "short",
+    "cue": "Describe an interesting video you watched",
+    "cuePoints": [
+      "when and where you watched it",
+      "what happened in the video",
+      "why you watched it",
+      "and explain why it was interesting"
+    ],
+    "segments": [
+      {
+        "type": "custom",
+        "source": "视频题外壳",
+        "text": "An interesting video I watched recently was a short clip from the 1986 television version of Journey to the West. I found it on a Chinese video platform while resting at home."
+      },
+      {
+        "type": "shared",
+        "source": "SHORT-Journey-characters",
+        "text": "The Monkey King is clever, powerful and rebellious, while Pigsy is lazy, funny and very human."
+      },
+      {
+        "type": "custom",
+        "source": "视频具体内容",
+        "text": "The short clip lasted only a few minutes. It showed the Monkey King changing his appearance to trick a monster. The effects looked simple by modern standards, but his facial expressions, quick movements and confident voice were still funny. I clicked because the title reminded me of a programme I watched as a child."
+      },
+      {
+        "type": "shared",
+        "source": "SHORT-Journey-appeal",
+        "text": "I like this fictional world because it combines adventure, humour and imagination."
+      },
+      {
+        "type": "custom",
+        "source": "视频评价",
+        "text": "The clip was interesting because it felt nostalgic and creative. In only a few minutes, it brought back childhood memories and showed that a strong character can remain enjoyable even when the technology now looks old."
+      }
+    ],
+    "note": "题目对象是具体短片；两句西游记黑色核心与其他题逐字共用。"
+  },
+  {
+    "id": "524",
+    "title": "喜欢的电视或网络节目",
+    "group": "SHORT",
+    "route": "固定短卡：1986版《西游记》",
+    "kind": "short",
+    "cue": "Describe a television or online programme you enjoy",
+    "cuePoints": [
+      "what the programme is",
+      "when you watch it",
+      "what it is about",
+      "and explain why you enjoy it"
+    ],
+    "segments": [
+      {
+        "type": "custom",
+        "source": "节目题外壳",
+        "text": "A television programme I still enjoy is the 1986 version of Journey to the West. I first watched it with my family as a child, and now I sometimes watch an episode online while eating or resting."
+      },
+      {
+        "type": "shared",
+        "source": "SHORT-Journey-world",
+        "text": "The story follows a monk travelling west to collect Buddhist scriptures. He is protected by several unusual companions, especially the Monkey King and Pigsy. They meet monsters, solve problems and face many tests during the journey."
+      },
+      {
+        "type": "shared",
+        "source": "SHORT-Journey-characters",
+        "text": "The Monkey King is clever, powerful and rebellious, while Pigsy is lazy, funny and very human."
+      },
+      {
+        "type": "custom",
+        "source": "节目观看习惯",
+        "text": "I normally choose a well-known episode instead of watching the whole series from beginning to end, so it is easy to enjoy without preparation."
+      },
+      {
+        "type": "shared",
+        "source": "SHORT-Journey-appeal",
+        "text": "I like this fictional world because it combines adventure, humour and imagination."
+      },
+      {
+        "type": "custom",
+        "source": "节目评价",
+        "text": "Children can enjoy the magic, while adults may notice teamwork and self-control. That is why the old programme still works for me, even decades later."
+      }
+    ],
+    "note": "版本、观看时间和方式均明确；三段黑色核心逐字共享。"
+  },
+  {
+    "id": "819",
+    "title": "近期观影",
+    "group": "SHORT",
+    "route": "《西游记》人物池转为《大话西游》",
+    "kind": "short",
+    "cue": "Describe a movie you watched recently and enjoyed",
+    "cuePoints": [
+      "what the movie was",
+      "when and where you watched it",
+      "what it was about",
+      "and explain why you enjoyed it"
+    ],
+    "segments": [
+      {
+        "type": "custom",
+        "source": "电影题外壳",
+        "text": "A film I rewatched recently was A Chinese Odyssey. I streamed it at home with my wife one weekend because we wanted a light Chinese film. I had first seen it years earlier, but this time I understood its emotional scenes much better."
+      },
+      {
+        "type": "shared",
+        "source": "SHORT-Journey-appeal",
+        "text": "I like this fictional world because it combines adventure, humour and imagination."
+      },
+      {
+        "type": "custom",
+        "source": "电影具体内容",
+        "text": "The film borrows the Monkey King and other ideas from Journey to the West, but tells a different story with comedy, fantasy, time travel and romance. The main character gradually has to accept responsibility and give up something he wants."
+      },
+      {
+        "type": "shared",
+        "source": "SHORT-wife-experience",
+        "text": "Spending time with my wife makes an ordinary activity feel more enjoyable and memorable."
+      },
+      {
+        "type": "custom",
+        "source": "电影评价",
+        "text": "I enjoyed it because it made me laugh but became surprisingly moving near the end. I also noticed how the comedy slowly turned into a serious story. Some jokes are old-fashioned, yet the theme of growing through sacrifice still works for me."
+      }
+    ],
+    "note": "《大话西游》是独立电影；西游记吸引力和夫妻体验分别与其他题共享。"
+  },
+  {
+    "id": "1005",
+    "title": "不享受的音乐活动",
+    "group": "SHORT",
+    "route": "交响音乐会独立短壳",
+    "kind": "short",
+    "cue": "Describe a music event you attended but did not enjoy",
+    "cuePoints": [
+      "what the event was",
+      "where and when it took place",
+      "who you went with",
+      "and explain why you did not enjoy it"
+    ],
+    "segments": [
+      {
+        "type": "custom",
+        "source": "音乐活动题头",
+        "text": "A music event I did not really enjoy was a symphony concert at a local concert hall a few years ago. A classmate who loved classical music invited me."
+      },
+      {
+        "type": "custom",
+        "source": "音乐活动过程",
+        "text": "The hall was formal and quiet, and the performance lasted longer than I expected. The orchestra was clearly skilled, but the music was slow and serious, and I could not understand how the sections were connected."
+      },
+      {
+        "type": "custom",
+        "source": "本题当天状态",
+        "text": "I had also had a busy day, so after sitting still for a long time, I became sleepy. I could not easily leave without disturbing other people. The concert was not bad; it simply did not match my taste or energy that evening."
+      },
+      {
+        "type": "shared",
+        "source": "SHORT-energy-reflection",
+        "text": "The experience taught me that the same place or activity can feel very different depending on my energy level."
+      },
+      {
+        "type": "custom",
+        "source": "音乐题结尾",
+        "text": "My classmate enjoyed it much more than I did. I would still try a shorter performance in future, but I would learn about the pieces first."
+      }
+    ],
+    "note": "不贬低交响乐；黑色能量反思与无聊地点逐字共用。"
+  },
+  {
+    "id": "414",
+    "title": "自行车、摩托车或汽车旅行",
+    "group": "SHORT",
+    "route": "与妻子自驾云南",
+    "kind": "short",
+    "cue": "Describe a bicycle, motorbike or car journey you would like to take",
+    "cuePoints": [
+      "what vehicle you would use",
+      "where you would go",
+      "who you would go with",
+      "and explain why you would like to take this journey"
+    ],
+    "segments": [
+      {
+        "type": "custom",
+        "source": "未来旅行题头",
+        "text": "A journey I would like to take is a ten-day road trip through Yunnan by car with my wife."
+      },
+      {
+        "type": "custom",
+        "source": "云南路线",
+        "text": "We would start in Kunming, rent a car and then visit Dali and Lijiang. We would see Cangshan Mountain and Erhai Lake, stop in smaller towns and try local food instead of rushing between only famous sights."
+      },
+      {
+        "type": "custom",
+        "source": "交通工具理由",
+        "text": "I would choose a car rather than a plane or train because we could stop whenever the view was beautiful, change the route if needed and leave our luggage in the car."
+      },
+      {
+        "type": "shared",
+        "source": "SHORT-wife-experience",
+        "text": "Spending time with my wife makes an ordinary activity feel more enjoyable and memorable."
+      },
+      {
+        "type": "custom",
+        "source": "旅行结尾",
+        "text": "What attracts me is the freedom. We could also stop for photographs whenever we wanted, without following a fixed schedule. The drive itself would be part of the holiday rather than only a way to reach one destination. It might be tiring, but it would also be memorable."
+      }
+    ],
+    "note": "保持未来时态；夫妻体验与电影题逐字共享，其余均是云南红色外壳。"
+  },
+  {
+    "id": "993",
+    "title": "喜欢画画的孩子",
+    "group": "SHORT",
+    "route": "《西游记》转为画孙悟空的亲戚家孩子",
+    "kind": "short",
+    "cue": "Describe a child who likes drawing",
+    "cuePoints": [
+      "who the child is",
+      "how you know the child",
+      "what the child likes to draw",
+      "and explain why the child enjoys drawing"
+    ],
+    "segments": [
+      {
+        "type": "custom",
+        "source": "孩子题人物外壳",
+        "text": "A child who likes drawing is an eight-year-old child in my extended family. I see the child during family visits, and the parents share pictures in our family chat. They say drawing is a normal weekend activity at home."
+      },
+      {
+        "type": "shared",
+        "source": "SHORT-Journey-characters",
+        "text": "The Monkey King is clever, powerful and rebellious, while Pigsy is lazy, funny and very human."
+      },
+      {
+        "type": "custom",
+        "source": "画作具体细节",
+        "text": "The child's favourite subject is the Monkey King. One picture showed him holding his golden staff and jumping through a cloud, with a monster and several speech bubbles nearby. The child normally uses coloured pencils, keeps the finished pictures in a folder and may spend nearly an hour adding small details. The bright colours made the scene energetic."
+      },
+      {
+        "type": "custom",
+        "source": "孩子题原因与感受",
+        "text": "I think drawing lets the child continue the story freely by inventing a monster or changing the ending. The pictures always feel really playful, and I encourage the child instead of correcting every small mistake too quickly."
+      }
+    ],
+    "note": "已去掉未确认性别；孙悟空人物句与其他西游记题逐字共享。"
+  },
+  {
+    "id": "990",
+    "title": "禁止使用手机的场合",
+    "group": "A",
+    "route": "A重要决定转为博士入学考试室",
+    "kind": "short",
+    "cue": "Describe an occasion when people were not allowed to use their phones",
+    "cuePoints": [
+      "when and where it happened",
+      "what the rule was",
+      "why phones were not allowed",
+      "and explain how you felt about it"
+    ],
+    "segments": [
+      {
+        "type": "custom",
+        "source": "禁用手机题外壳",
+        "text": "An occasion when phones were banned was a doctoral entrance examination I took in a university examination room. It happened after I had made the important decision to continue towards a PhD."
+      },
+      {
+        "type": "mother",
+        "source": "A",
+        "text": "I made this decision in 2025, when I was close to finishing my master's. Clinical residency seemed like a more stable, traditional path, but I also had the chance to apply for a PhD at HKU. I wanted to broaden my horizons, study in a more international environment, and learn something beyond traditional dentistry."
+      },
+      {
+        "type": "custom",
+        "source": "考试室规则",
+        "text": "Before the exam, staff told everyone to switch off their phone, place it inside a bag and leave the bag at the front. Phones were banned to prevent cheating, avoid interruptions and keep the rules fair."
+      },
+      {
+        "type": "custom",
+        "source": "本题感受",
+        "text": "I felt uncomfortable at first because I normally use my phone to manage information. Once it was out of reach, however, I focused completely on the paper. The rule was reasonable and became a small but memorable part of an important decision."
+      }
+    ],
+    "note": "是考场明确规则，不是主动不用；A背景逐字复用。"
+  },
+  {
+    "id": "909",
+    "title": "想见的名人",
+    "group": "B",
+    "route": "固定短卡：Sam Altman",
+    "kind": "short",
+    "cue": "Describe a famous person you would like to meet",
+    "cuePoints": [
+      "who the person is",
+      "how you know about him",
+      "why you would like to meet him",
+      "and explain what you would ask him"
+    ],
+    "segments": [
+      {
+        "type": "custom",
+        "source": "名人题头",
+        "text": "The famous person I would most like to meet works in the AI industry."
+      },
+      {
+        "type": "shared",
+        "source": "SHORT-Sam-core",
+        "text": "Sam Altman is closely connected with the development of modern AI, and I first learned about him through AI news and product announcements."
+      },
+      {
+        "type": "shared",
+        "source": "SHORT-AI-utility",
+        "text": "AI tools can help people organise information, write code and solve practical problems more efficiently."
+      },
+      {
+        "type": "custom",
+        "source": "见面原因",
+        "text": "I use these tools in research to organise notes, check code and improve technical workflows, so the topic is personally relevant. I would like to hear how someone at the centre of this change thinks about its future, especially in healthcare and scientific research."
+      },
+      {
+        "type": "custom",
+        "source": "具体问题与结尾",
+        "text": "I would ask how young researchers can combine real subject knowledge with AI skills without becoming too dependent on the tool. I would also ask what human skills will remain valuable as the technology improves. His answer might affect how I learn and work. I do not only want to watch this change; I hope to take part responsibly."
+      }
+    ],
+    "note": "如何知道、见面原因和具体问题均完整；两段黑色与其他Sam题逐字复用。"
+  },
+  {
+    "id": "1024",
+    "title": "商业上很成功的人",
+    "group": "B",
+    "route": "固定短卡：Sam Altman",
+    "kind": "short",
+    "cue": "Describe a person who is successful in business",
+    "cuePoints": [
+      "who the person is",
+      "what business he is involved in",
+      "how you know about him",
+      "and explain why you think he is successful"
+    ],
+    "segments": [
+      {
+        "type": "custom",
+        "source": "商业人物题头",
+        "text": "The business figure I have in mind works at OpenAI on advanced AI products for ordinary users around the world."
+      },
+      {
+        "type": "shared",
+        "source": "SHORT-Sam-core",
+        "text": "Sam Altman is closely connected with the development of modern AI, and I first learned about him through AI news and product announcements."
+      },
+      {
+        "type": "shared",
+        "source": "SHORT-AI-utility",
+        "text": "AI tools can help people organise information, write code and solve practical problems more efficiently."
+      },
+      {
+        "type": "custom",
+        "source": "商业成功证据",
+        "text": "This matters to me because I use AI tools in research almost every day. I think he helped turn advanced AI from a specialist topic into products that ordinary people can use. He also seems able to explain a long-term goal clearly, attract skilled people and improve products through feedback."
+      },
+      {
+        "type": "custom",
+        "source": "商业题评价",
+        "text": "What impresses me most is that the tools are useful, not just widely discussed. AI companies still face questions about cost, safety and responsibility, but his ability to connect technology, users and a clear vision makes him a strong modern business leader."
+      }
+    ],
+    "note": "不背公司数字；Sam和AI价值两段与广告、名人题逐字共享。"
+  }
+]

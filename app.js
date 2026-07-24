@@ -1,5 +1,5 @@
 /* Shared engine for the 10-day IELTS sprint — speaking + writing. */
-const VERSION='40';
+const VERSION='43';
 const DAY=window.DAY_CONFIG?window.DAY_CONFIG.day:'x';
 const KEY='ielts_sprint_20260715_day'+DAY+'_v3';
 const PROGRESS_KEY='ielts_sprint_20260715_progress';
@@ -340,7 +340,7 @@ function renderList(){
   const cfg=window.DAY_CONFIG;
   const done=ITEMS.filter(isDone).length, ov=weightedPercent(ITEMS);
   const guidance=window.DAY_CONFIG.moduleOrder?'<b>最终复习：</b>主动回答或复述 → 核对材料 → 记录弱点 → 完成一次输出。每项只打一个完成勾。':ITEMS.length===1?`<b>今天只做这一件：</b>${esc(ITEMS[0].title)}，不追加其他任务。`:'<b>顺序：</b>先完成新内容 → P1 短回答 → P2 看链复述 → 作文框架回忆 → 输出。';
-  let h=`<div class="top"><a class="home" href="../">← 总复习首页</a></div>
+  let h=`<div class="top"><a class="home" href="../">← 首页</a><a class="home" href="../speaking.html">口语</a><a class="home" href="../part1.html">P1</a><a class="home" href="../part2.html">P2</a><a class="home" href="../part3.html">P3</a><a class="home" href="../writing.html">作文</a></div>
    <div class="dayeyebrow">${esc(cfg.moduleKicker||'模块训练')} · 建议 ${cfg.minutes||90} 分钟</div><h1>${esc(cfg.displayTitle||cfg.newLabel||cfg.title)}</h1><div class="muted">${cfg.note||''}</div>
    <div class="overall"><div class="ov-top"><div class="ov-num"><b>${done}</b> / ${ITEMS.length} 完成</div><div class="muted">${cfg.moduleOrder?'本轮':'今日'} ${ov}%</div></div><div class="bar"><i style="width:${ov}%"></i></div></div>
    <div class="tierhint">${guidance}</div>`;

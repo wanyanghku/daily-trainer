@@ -1,223 +1,915 @@
 [
-{"topic":"Work or Studies","cn":"学习/工作","tier":"A","qa":[
-{"q":"What subjects are you studying? / What do you do?","a":"I'm currently doing a PhD in Dentistry at HKU. My research is quite interdisciplinary because it combines dental science, basic biomedical research, and AI. So I'd say I'm somewhere between dentistry and AI."},
-{"q":"Why did you choose to study that subject?","a":"I chose this field because I've studied stomatology for many years. For my PhD, I wanted to combine dentistry with AI because I believe AI is going to transform healthcare, and I want to be part of that change, not just watch it happen."},
-{"q":"Do you like your subject? / Do you want to change your major?","a":"Yes, I genuinely enjoy it. What I like most is the interdisciplinary part — I'm not just doing pure dentistry, but also exploring AI tools, coding, and research workflows. So I don't want to change my major, but I do want to keep learning new skills."},
-{"q":"How much time do you spend on your studies each week?","a":"Quite a lot, actually. As a PhD student, I probably spend around 50 to 60 hours a week. Most of my time goes into reading papers, doing experiments, writing, and sometimes coding."},
-{"q":"Do you prefer to study in the mornings or in the afternoons?","a":"Definitely mornings. My brain works better before noon, so I do deep work in the morning, like reading difficult papers or coding. In the afternoon, I prefer easier tasks like emails, meetings, or organizing notes."},
-{"q":"What technology do you use when you study / at work?","a":"I rely heavily on AI tools, especially ChatGPT and Claude. I use them almost every day for reading papers, brainstorming ideas, writing code, and even drafting emails. They have completely changed the way I work."},
-{"q":"Do you have any plans for the next five years?","a":"In the next five years, my main goal is to finish my PhD and publish some solid papers. But beyond the degree, I want to become a well-rounded researcher with skills in dentistry, AI, coding, and product thinking."},
-{"q":"What do you think is the most important at the moment?","a":"Right now, the most important thing is learning by doing and gaining more hands-on experience. This PhD stage is a rare chance to make myself harder to replace."},
-{"q":"Is your subject popular in your country?","a":"Dentistry is quite popular in China because it's seen as a stable, respected career. But combining dentistry with AI is still quite niche, so what I'm doing is not very common yet."},
-{"q":"What are the benefits of being your age?","a":"I'm in my mid-twenties, and I think it's a great age. I still have a lot of energy and curiosity, and I'm open to new ideas, especially fast-changing things like AI."},
-{"q":"What changes would you like to see in your school?","a":"HKU is already a great university, but I'd like to see more interdisciplinary collaboration, for example between the dental school and the computer science school. Bridging these fields would create amazing opportunities."},
-{"q":"Who helps you the most? And how?","a":"My supervisor helps me the most with the big picture, like research direction. Senior students give me practical advice. But on a day-to-day basis, AI tools also help me move much faster."}
-]},
-{"topic":"Life Stages","cn":"人生阶段","tier":"A","qa":[
-{"q":"What do you think is the most important at the moment?","a":"At the moment, the most important thing for me is learning as much as possible. I want to build transferable skills, like research thinking, English, coding, and AI workflows. This PhD stage is a rare chance to make myself more competitive in the long run."},
-{"q":"What did you often do with your friends in your childhood?","a":"When I was a child, I often played outside with my friends. We played simple games near home or after school, and sometimes watched cartoons together. Life felt simpler then, and most of our fun came from face-to-face activities."},
-{"q":"Do you have any plans for the next five years?","a":"In the next five years, my main plan is to finish my PhD at HKU and publish some solid research papers. Beyond the degree, I want to become a well-rounded researcher with skills in dentistry, AI, coding, and product thinking. I also want to keep improving my English."},
-{"q":"How do people remember each stage of their lives?","a":"I think people remember life stages through photos, important people, and major changes. For example, moving to a new city, starting university, or beginning a PhD can all become markers of a life stage. These moments help people divide their memories into different chapters."},
-{"q":"Do you enjoy being the age you are now?","a":"Yes, I do. I'm still young enough to have energy and curiosity, but old enough to make more serious decisions. There is some pressure at this age, but it's also a good time to learn fast and take some risks."},
-{"q":"At what age do you think people are the happiest?","a":"I don't think there is a fixed age. People can be happy at different ages if they have health, freedom, meaningful goals, and good relationships. For me, happiness is more about life condition than age itself."}
-]},
-{"topic":"Hometown","cn":"家乡","tier":"A","qa":[
-{"q":"Where is your hometown? / Please describe your hometown.","a":"My hometown is Yan'an, a city in northern Shaanxi Province. It's not huge, but it's well known as the 'Red Capital' of China, with an important revolutionary history. It's on the Loess Plateau and surrounded by mountains. In recent years it has become more modern, but it still keeps its historical atmosphere."},
-{"q":"Do you like your hometown? / Do you like living there?","a":"Yes, definitely. I feel very emotionally connected to it because I grew up there. What I like most is the relaxed lifestyle and the people. Life there is much less stressful, and people are more down-to-earth. I probably won't live there permanently, but I want to go back regularly."},
-{"q":"Is there anything you dislike? / Is it good for careers / young people?","a":"The people are both the best part and the most challenging part. They're very warm and supportive, with a strong sense of human connection. But it's not a highly market-driven city, so career opportunities are still somewhat limited compared with larger cities."},
-{"q":"Did you learn about the history / culture of your hometown?","a":"Yes, definitely. In Yan'an, history is kind of everywhere. Even as a child I learned a lot about the city's revolutionary background. Schools often organized visits to historical sites, and that environment made me more reflective."}
-]},
-{"topic":"The City You Live In","cn":"居住城市:香港","tier":"A","qa":[
-{"q":"What city do you live in? / How long have you lived here?","a":"I'm currently living in Hong Kong because I recently moved here for my PhD. I've only been here for about a month, so I'm still adapting to the lifestyle."},
-{"q":"Do you like this city? Why? / Is it your permanent residence?","a":"To be honest, I have mixed feelings. On one hand, Hong Kong is very international and full of opportunities. But on the other hand, it's much more crowded than I expected. So I'm here mainly for my PhD, and probably won't stay permanently — the pace of life is a bit too stressful long-term."},
-{"q":"Are there big changes in this city?","a":"Yes. Hong Kong has changed a lot in daily convenience and transportation. Mobile payment, online shopping, and delivery have become much more common, and the MTR system keeps improving."},
-{"q":"Is the city friendly to children and old people?","a":"Yeah, definitely. You see people of all ages everywhere. The city cares a lot about children's safety, and there are many job opportunities for seniors, like driving taxis. I think that's quite impressive."},
-{"q":"What's the weather like where you live?","a":"It's usually very humid and rainy, quite different from northern China. At first I wasn't used to the strong air conditioning indoors — sometimes it's so cold that classmates wear down jackets in the lab."},
-{"q":"Would you recommend your city to others?","a":"Yeah, I would. Hong Kong is a great place to experience a different lifestyle and broaden your horizons. It's more international and fast-paced, and living here, even temporarily, can really change the way you see things."}
-]},
-{"topic":"Home & The Area","cn":"住房与社区","tier":"A","qa":[
-{"q":"Do you live in an apartment or a house?","a":"I live in a very small single room in Sai Ying Pun. It's definitely not spacious, but it's enough for me as a first-year PhD student. The best thing is it's quite close to HKU and my lab."},
-{"q":"Can you describe the place where you live?","a":"I live in Sai Ying Pun, a very lively and crowded area on Hong Kong Island. My room is small, but the location is really practical — MTR stations, restaurants, shops, and steep slopes everywhere."},
-{"q":"Are the transport facilities to your home good?","a":"Yes, pretty good. The MTR is nearby and I can walk to many places, including my school. The only annoying part is that my place is on a hill, so I walk up a steep slope every day."},
-{"q":"How long have you lived there? / Do you plan to live there long?","a":"Only about a month. Since my PhD will last around four years, I may stay in this area for a long time. I don't see it as my permanent home, but it's a practical place for this stage of my life."},
-{"q":"Do you like the area that you live in? / Are people friendly?","a":"Yes, I do. I'm still getting familiar with the area because I only moved here recently. It's quite lively and convenient, but at the same time it also has a relaxed side, especially near the seaside. People here are generally very warm-hearted — even though I can't speak Cantonese yet, they always help me patiently and speak slowly."},
-{"q":"Where do you like to go in that area? / What do you do there?","a":"I really enjoy walking around the streets in Sai Ying Pun. The area has a very unique feeling because the roads go uphill and downhill, and there are many small cafes, old buildings, and local shops. Sometimes I also walk near the seaside because it helps me relax after working in the lab."},
-{"q":"Do you often see your neighbors?","a":"Not really. I've barely seen my neighbors since moving here. Sometimes I only hear doors opening or footsteps in the hallway. I think many people here are probably students or office workers, so everyone is quite busy."},
-{"q":"Do you live in a noisy or a quiet area? / What changes recently?","a":"I think the area is quite energetic and busy, especially during the daytime. There are lots of restaurants, small shops, and people from different backgrounds. At night, though, some streets by the harbour become much calmer and more relaxing."},
-{"q":"Do you know any famous people in your area?","a":"Not personally, of course. But I've heard that some Hong Kong actors and singers have lived in or visited this area before. Since Sai Ying Pun is close to Central and also has a strong local culture, I guess it's not surprising."},
-{"q":"What kind of accommodation do you want in the future?","a":"In the future, I'd like a slightly larger apartment with enough sunlight and a quiet study space. It doesn't have to be luxurious, but comfortable and close to public transport. After living in a tiny room, I've realized how important space is."}
-]},
-{"topic":"Websites","cn":"网站","tier":"A","qa":[
-{"q":"What kinds of websites do you often visit?","a":"I often visit learning websites and tool-based platforms. These days I use ChatGPT the most — it's almost become my starting point on the internet. I also use GitHub, Google Scholar, and university library pages for research."},
-{"q":"What is your favourite website?","a":"If I had to choose one, I'd say GitHub. Recently I've used it a lot to learn about AI workflows and look at real projects. I also like X (Twitter) because I can follow researchers and developers there."},
-{"q":"Are there any changes to the websites you visit?","a":"Yes. In the past I'd start from portal websites and visit sites one by one. But now I usually start from ChatGPT, clarify my question first, and then go to sources like GitHub, papers, or official websites."},
-{"q":"What kinds of websites are popular in your country?","a":"In China people use many websites and platforms: WeChat for communication, Taobao and JD for shopping, Douyin and Bilibili for videos, and Xiaohongshu for lifestyle tips."},
-{"q":"Do you prefer getting information from websites or books?","a":"I definitely prefer websites. They're faster, more up-to-date, and more interactive, especially when I use AI tools to ask follow-up questions. Books are still useful for building a system, but for daily learning, websites and AI are more efficient."},
-{"q":"Would you like to have your own website?","a":"Yes. Our lab already has one, which made me realize how useful it can be. In the future I'd like to build a small academic portfolio to show my research, papers, projects, and maybe some AI workflow notes."}
-]},
-{"topic":"Social Media","cn":"社交媒体","tier":"A","qa":[
-{"q":"Have you ever posted anything on social media?","a":"Yes, I sometimes post on WeChat Moments, mostly about daily life or personal check-ins, like fitness progress. But I don't post very often, because I'm quite selective about what I share."},
-{"q":"Do you think you spend too much time on social media?","a":"Yes, sometimes. There are too many apps now, all trying to grab my attention, especially short-video apps. So I'm trying to control my screen time and spend more time on study and research."},
-{"q":"When did you start using social media?","a":"Quite early, probably in primary school, when QQ was popular. At first I mainly used it to chat with friends and check their updates. Social media felt much simpler back then."},
-{"q":"Do your friends use social media?","a":"Yes, almost all of them. Most use WeChat to keep in touch, and some use Xiaohongshu or Instagram. But after coming to Hong Kong, I noticed people use email a lot for work and formal communication."},
-{"q":"What do people often do on social media?","a":"Many things — share daily life, follow news, watch short videos, and look for recommendations. Recently short dramas have become really popular, and I often see people watching them on the MTR."}
-]},
-{"topic":"Reading","cn":"阅读","tier":"A","qa":[
-{"q":"Do you like reading?","a":"Yes, I've always liked books, but I don't enjoy reading in the same way as before. These days I read more for study and research, so it feels more practical and goal-oriented."},
-{"q":"Do you prefer to read on paper or on a screen?","a":"I prefer reading on a screen. It's more efficient because I can see information clearly, search for keywords, and move between different sources quickly."},
-{"q":"When do you need to read carefully, and when not?","a":"I read carefully when I'm learning something new, especially a difficult concept. But if I just want a general idea, I read quickly and scan for the main points. Both ways are useful."},
-{"q":"Do you prefer scanning or detailed reading?","a":"I need both. Scanning helps me decide whether something is worth reading. But for important methods or key ideas, I need detailed reading, and honestly I'm still learning to balance the two."}
-]},
-{"topic":"Morning Time","cn":"早晨","tier":"A","qa":[
-{"q":"Do you like getting up early in the morning?","a":"Yes, I do. Getting up early makes me feel like the day is longer, almost like I've gained extra time. It gives me a better start, especially with study or research tasks."},
-{"q":"What do you usually do in the morning?","a":"I usually go to the lab or the university library. I like to start my tasks early because my mind is clearer then. Sometimes I also use the morning to plan my day."},
-{"q":"What did you do in the morning when you were little?","a":"Mornings were mainly about getting ready for school. I had breakfast quickly and went to class. I didn't really have my own routine; I just followed the school schedule."},
-{"q":"Differences between mornings now and in the past?","a":"A big difference. In the past I got up because I had to go to school, but now I really want to get up early. Taking a shower and starting early makes me feel fresh and motivated."},
-{"q":"Same things on weekends and weekdays?","a":"More or less. On weekdays I go to the lab earlier; on weekends I start a bit more slowly. Still, I like to do something meaningful in the morning, even if it's just reading or planning."}
-]},
-{"topic":"Tidiness","cn":"整洁","tier":"A","qa":[
-{"q":"Do you like to keep things tidy?","a":"Yes, I do, but I'm not a perfectionist. I just like my space to be reasonably tidy, especially my desk. If everything is too messy, I find it harder to focus."},
-{"q":"Did you use to keep your room tidy as a child?","a":"Not really. When I was a child, I didn't realize how important tidiness was. I only started to care more about it when I grew up and had more study and work tasks to manage."},
-{"q":"How do you keep your work or study space tidy?","a":"I try to put things back right after I use them. In places like the lab or the library, I keep my space simple and only leave the things I really need on the desk. This helps me stay organized."},
-{"q":"Do you think that it is necessary to be tidy?","a":"Yes, definitely. Being tidy can reduce stress and help people focus better. For me, a tidy environment makes it easier to start working and stay calm."}
-]},
-{"topic":"Walking","cn":"走路","tier":"A","qa":[
-{"q":"Do you walk a lot? / Do you often walk?","a":"Yes. Since I moved to Hong Kong, my daily life is basically walking or taking the MTR. I walk to school, to the lab, and around my neighborhood almost every day."},
-{"q":"Do you like walking?","a":"Yes, I quite like it. Walking around Hong Kong can be fun because the streets are lively and there's always something to see. But walking uphill can be tiring, especially around Sai Ying Pun."},
-{"q":"Where did you walk recently?","a":"Recently I walked uphill from my place to the lab. It wasn't far, but the slope was steep, so it felt like exercise. That's probably one of the most typical walking experiences in Hong Kong for me."},
-{"q":"Did you walk a lot when you were a child?","a":"Yes. As a child I walked around a lot because I liked playing outside. But back then walking was more about having fun, while now it's more about commuting and daily life."}
-]},
-{"topic":"Public Gardens and Parks","cn":"公园","tier":"A","qa":[
-{"q":"Did you like going to parks as a child? / Do you still go now?","a":"Not really. I don't go to parks on purpose, but I pass by them when I walk around. If I do go, I usually take a walk and listen to music to relax and clear my mind."},
-{"q":"Why do people like going to parks?","a":"People like parks because they can relax, exercise, and get away from busy streets. For children they're places to play; for adults, places to slow down. In a busy city, that's important."},
-{"q":"Do you think parks are important in cities?","a":"Yes, definitely. A city cannot exist only with buildings, roads, and shopping malls. Parks are important for people's mental health — they give space to relax, exercise, and breathe a little."},
-{"q":"What do you like to do when visiting a park?","a":"If I go to a park, I usually take a walk and listen to music. It's a simple way to relax and clear my mind. I don't really do anything special there."},
-{"q":"Would you prefer a personal garden or a public garden/park?","a":"I'd probably prefer a public park because it feels more open and lively. A personal garden is quieter, but living in a small room in Hong Kong, I don't really have the space for one."},
-{"q":"How are the parks today different from those you visited as a kid?","a":"I think parks today are more modern and well-designed, with better facilities. The ones I visited as a kid were simpler and more basic, but they still felt fun back then."}
-]},
-{"topic":"Science","cn":"科学","tier":"A","qa":[
-{"q":"Do you like science?","a":"Yes, I do. I especially like science that can solve real problems and explain the principles behind things. For me, science isn't just theories; it's about understanding how the world works."},
-{"q":"Which science subject is interesting to you?","a":"I'd say computer science, especially AI. I'm very interested in how AI can be used in healthcare and research. Since my PhD is related to dentistry, I think AI could help us analyze data and solve medical problems more efficiently."},
-{"q":"What interesting things have you done with science?","a":"Quite a lot, because I'm a PhD student. I read papers, think about research questions, and use AI tools to improve my research workflow. What I enjoy most is turning an abstract idea into something testable or useful."},
-{"q":"Do you think science is important?","a":"Yes, definitely. Science drives productivity and innovation. It changes medicine, communication, and almost every part of modern life. Without science, many problems would be much harder to solve."},
-{"q":"Do you like watching science TV programs?","a":"Yes, I do, especially documentary-style ones. They're a relaxing way to learn — I can pick up interesting knowledge without reading heavy papers. They also make complex topics easier to understand."},
-{"q":"Do Chinese people often visit science museums?","a":"Yes, I'd say it's quite common, especially parents taking their children on weekends or holidays. Science museums are becoming more popular and interactive, so they're seen as both fun and educational."}
-]},
-{"topic":"Outer Space and Stars","cn":"外太空","tier":"B","qa":[
-{"q":"Have you ever learnt about outer space and stars?","a":"Yes, a little, mainly from school and science videos. I study tiny things like cells, so I find space fascinating because it is huge but also very complex."},
-{"q":"Have you ever learned about outer space?","a":"Yes, a little, mainly from school and science videos. I study tiny things like cells, so I find space fascinating because it is huge but also very complex."},
-{"q":"Do you want to go into outer space?","a":"It sounds cool in my imagination, but I probably wouldn't dare to do it in real life. I'm afraid I would get dizzy or feel physically uncomfortable in space."},
-{"q":"Do you like science fiction movies?","a":"Yes, sometimes. I like science-fiction movies about space and AI because they make me imagine how technology could change society."}
-]},
-{"topic":"Music","cn":"音乐","tier":"B","qa":[
-{"q":"Do you prefer sad or happy music?","a":"I prefer happy or positive music. I especially like songs that feel youthful and motivating. They give me energy, especially when I'm walking, commuting, or trying to start a task."},
-{"q":"Does happy music make you feel more excited?","a":"Yes, definitely. Happy music makes me feel more motivated and awake. When I feel tired or lazy, a positive song can help me get into a better mood."}
-]},
-{"topic":"Singing","cn":"唱歌","tier":"B","qa":[
-{"q":"Do you like singing? Why?","a":"Yes, I still like it. I don't sing very seriously, but I sometimes hum or sing along. It's relaxing, and it helps me release stress after a long day."},
-{"q":"Did you like singing when you were a child?","a":"Yes. As a child I liked humming songs, even though I wasn't trained. Children are usually less shy, so singing felt quite natural back then."},
-{"q":"Who do you want to sing for?","a":"Honestly, I'd rather sing for myself. I don't see singing as a performance. For me it's more of a private way to relax and express my feelings."},
-{"q":"Do you think singing can bring happiness to people?","a":"Yes, of course. Singing helps people release stress and express emotions. People don't need to sing perfectly — sometimes the act of singing itself can make them feel happier."},
-{"q":"Do you like listening to other people sing?","a":"Yes. I like singers who sound sincere and make me feel something. For me, emotion matters more than perfect technique."},
-{"q":"Have you ever taken a singing class?","a":"Only normal music classes at school — I've never taken a specialized singing lesson. We just learned some basic songs, so there was nothing very professional about it."}
-]},
-{"topic":"Typing","cn":"打字","tier":"B","qa":[
-{"q":"Do you prefer typing or handwriting?","a":"I definitely prefer typing. Almost everything I do is by typing — notes, emails, using ChatGPT, and sometimes coding. Handwriting is useful for quick ideas, but typing is much more efficient."},
-{"q":"Do you type on a desktop or laptop every day?","a":"Yes, every day. I use my laptop in the lab or library to write research notes, emails and code."},
-{"q":"When did you learn how to type?","a":"In primary school, because my family had a computer. At first I practised through QQ chatting. Later I became much faster because I needed to type for study and work."},
-{"q":"How do you improve your typing?","a":"I never practised deliberately. I just type a lot for research, emails and coding, so my speed improved naturally."}
-]},
-{"topic":"Shopping","cn":"购物","tier":"B","qa":[
-{"q":"Do you like shopping?","a":"Not very much. I usually shop only when I need something, and I prefer buying online because walking around malls is tiring."},
-{"q":"Online shopping or in-store shopping?","a":"I prefer shopping online because it saves time and makes it easy to compare prices and reviews. I shop in person only when I need to try something on."},
-{"q":"Have you ever returned anything bought online?","a":"Yes, especially shoes. Sometimes the size isn't right, or they don't feel comfortable after I try them on. That's why I'm quite careful when buying shoes online."}
-]},
-{"topic":"Gifts","cn":"礼物","tier":"B","qa":[
-{"q":"What do you consider when choosing a gift?","a":"I mainly think about the person's interests and whether the gift is useful. A thoughtful gift does not need to be expensive."},
-{"q":"Have you ever sent handmade gifts?","a":"Yes. I once prepared a Christmas gift with handmade packaging and decorations. It wasn't expensive, but it felt more personal and thoughtful."},
-{"q":"Have you ever received a great gift? / received recently?","a":"Yes. Recently I received a badminton racket. I liked it because it was useful and also encouraged me to do more exercise — better than something purely decorative."},
-{"q":"Are you good at choosing gifts?","a":"I think I'm quite good at it. I pay attention to people's personality and interests before choosing. I prefer gifts that feel personal, not just expensive."}
-]},
-{"topic":"Food","cn":"食物","tier":"B","qa":[
-{"q":"What is your favourite food?","a":"My favourite food is hot pot. I like it because it's spicy, warm, and very social. It's not just about eating; it's about sitting together and enjoying the atmosphere."},
-{"q":"What food did you like when you were young?","a":"When I was young, I really liked spicy snacks, especially latiao. It wasn't exactly healthy, but it was very popular among students. I remember eating it at school — a small pleasure back then."},
-{"q":"Has your favourite food changed since childhood?","a":"Not really. I've always liked spicy food, especially hot pot. Even if the form changes, it's usually something similar, like malatang or maocai."},
-{"q":"Do you eat different foods in different seasons?","a":"Not really. My food choices aren't strongly affected by seasons. In summer I may prefer something lighter, but generally I like spicy and warm food all year round."}
-]},
-{"topic":"Clothing","cn":"衣服","tier":"B","qa":[
-{"q":"What kind of clothes do you like to wear?","a":"I like comfortable and quick-dry clothes. Hong Kong is quite hot and humid, so comfort matters a lot. I don't really care about fashion that much in daily life."},
-{"q":"Comfortable casual clothes or smart clothes?","a":"Definitely casual clothes. I walk a lot and spend most days in the lab or library, so I save formal clothes for special occasions."},
-{"q":"Do you like wearing T-shirts? / Do you spend much time choosing clothes?","a":"Yes. T-shirts are simple, comfortable, and easy to match. I even bought many similar ones because I don't want to spend too much time choosing clothes in the morning."},
-{"q":"What colour clothes do you like?","a":"I like black and white. They're simple, clean, and easy to match. Also, they don't go out of style easily."}
-]},
-{"topic":"Scenery & Views","cn":"风景","tier":"B","qa":[
-{"q":"Do you look out the window at the scenery when travelling?","a":"Yes, I usually look out of the window. I grew up around mountains, so mountain views feel familiar and calming to me."},
-{"q":"Do you like to take scenery pictures?","a":"Yes. I'm not a professional photographer, but I enjoy taking pictures casually when I see a nice view. For me it's a way to record the moment."},
-{"q":"The most beautiful sight you've seen while travelling?","a":"The sunset from the Chi Wah Learning Commons is one of the best views I have seen in Hong Kong. It brings the harbour, coastline and distant skyline together."},
-{"q":"Urban views or rural views?","a":"It depends. I enjoy Hong Kong's energetic city views, but when I need to relax, I prefer mountains or the sea."}
-]},
-{"topic":"Building","cn":"建筑","tier":"B","qa":[
-{"q":"Are there any tall buildings near your home?","a":"Yes, there are many tall buildings near my home in Hong Kong — the buildings are very dense. It's convenient, but sometimes it can feel a bit crowded."},
-{"q":"Is there a building you would like to visit?","a":"When I visit my childhood friend in Sydney, I would like to see one of the university libraries there. I enjoy quiet academic spaces."},
-{"q":"Do you want to live in a tall building?","a":"I would, if the flat had enough space and a good view. Height alone does not matter because Hong Kong apartments can be very small."},
-{"q":"Do you take photos of buildings?","a":"Not really. I may take photos if a building looks very special, but not on purpose. I'm more interested in natural views or the overall atmosphere of a place."}
-]},
-{"topic":"Teachers","cn":"老师","tier":"B","qa":[
-{"q":"Do you have a favourite teacher?","a":"My favourite teacher was my primary-school English teacher. She made the lessons enjoyable and encouraged me to keep learning English, so I still remember her clearly."},
-{"q":"What kind of teacher do you like?","a":"I like patient teachers who use real examples and let students ask questions. That makes a difficult class easier to follow and keeps students involved."},
-{"q":"Do you want to be a teacher in the future?","a":"Possibly, although probably not full-time. I once worked as a tutor and enjoyed helping students, so I'd still like to teach or share knowledge occasionally."},
-{"q":"Teachers now vs teachers in the past?","a":"Teachers today use much more technology — online platforms, slides, even AI tools. But they also face more pressure from diverse expectations. So they have more tools, but also more constraints."}
-]},
-{"topic":"Childhood Activities","cn":"童年活动","tier":"B","qa":[
-{"q":"What were your favourite activities when you were a child?","a":"As a child I enjoyed playing outside with other children, and I liked watching cartoons, especially Ultraman. My childhood activities were simple but memorable."},
-{"q":"Did you often play with other children?","a":"Yes, very often. I was quite active, almost like a little leader among the kids. I enjoyed organizing games and playing with classmates or children near my home."},
-{"q":"Do children today do the same activities as you did?","a":"Not really. Children today have more choices, especially digital entertainment like phones and online games. When I was young, we spent more time playing outside and interacting face-to-face."},
-{"q":"Are childhood activities important?","a":"Yes, definitely. They influence a child's personality, social skills, and physical health. I think playing is also a form of learning, not just a waste of time."}
-]},
-{"topic":"Hobby","cn":"爱好","tier":"B","qa":[
-{"q":"Do you have any hobbies?","a":"My main hobbies are walking and listening to music. Both are simple, but they help me relax after spending a long day in the lab."},
-{"q":"Did you have any hobbies when you were a child?","a":"Yes. As a child I liked reading and playing small computer games. They were simple but fun, and made me curious about stories and technology."},
-{"q":"Do you have a hobby you've had since childhood?","a":"Yes, I've always enjoyed walking and being outdoors. As a child I walked around with friends, and now I walk around Hong Kong to relax."},
-{"q":"Do you have the same hobbies as your family?","a":"Not really. I enjoy walking and listening to music, while my wife prefers activities like karate, singing and diving. We still support each other's hobbies."}
-]},
-{"topic":"Headphones","cn":"耳机","tier":"C","qa":[
-{"q":"Do you use headphones?","a":"Yes, quite often. I use open-ear clip-on headphones when I walk or exercise because they're comfortable, but I take them off when I need to focus in the lab."},
-{"q":"What type of headphones do you use?","a":"I use open-ear clip-on headphones. I like them because they don't go directly into my ears, so they feel more comfortable, and they're convenient when I'm walking around."},
-{"q":"When would you not use headphones?","a":"When I need to concentrate fully, especially during experiments. I need to pay attention to details and be aware of what's happening around me."}
-]},
-{"topic":"Watch","cn":"手表","tier":"C","qa":[
-{"q":"Do you wear a watch?","a":"Yes, I wear a smartwatch, mainly because it's practical. It helps me check the time, track my activity, and receive simple notifications."},
-{"q":"Have you ever got a watch as a gift?","a":"Yes, I once got an Apple Watch as a gift. I liked it because it was not only useful, but also felt quite personal."},
-{"q":"Why do some people wear expensive watches?","a":"Some people see an expensive watch as a status symbol. It can show their taste, although I personally care more about useful functions."},
-{"q":"Is it important to wear a watch?","a":"It depends. For me a smartwatch is useful because of its many functions. But if someone only needs to know the time, a phone is enough."}
-]},
-{"topic":"Mirrors","cn":"镜子","tier":"C","qa":[
-{"q":"Do you like looking at yourself in the mirror?","a":"Not really. I only use a mirror to check that I look neat before going out, rather than spending a long time on my appearance."},
-{"q":"Do you usually take a mirror with you?","a":"No, I don't think it's necessary. If I really need to check something, I can just use my phone camera."},
-{"q":"Would you use mirrors to decorate your room?","a":"Probably not. I see mirrors more as practical items than decorations. Since my room is small, I prefer to keep things simple."}
-]},
-{"topic":"Cars","cn":"汽车","tier":"C","qa":[
-{"q":"Did you enjoy traveling by car when you were a kid?","a":"Not really, because I often got carsick as a child. I enjoy car trips more now, especially in a quiet and spacious car."},
-{"q":"Do you prefer to be a driver or a passenger?","a":"I prefer to be a passenger. It's more relaxing — I can look out of the window, listen to something, or just rest. Driving gives more control, but also more pressure."},
-{"q":"What do you do when there is a traffic jam?","a":"If I'm a passenger, I usually scroll on my phone, chat, or listen to podcasts. Podcasts make the waiting feel less wasted. But honestly, traffic jams are still annoying."},
-{"q":"Do you think car colours are important?","a":"To some extent. I prefer simple colours like white or black because they look clean and modern without attracting too much attention."}
-]},
-{"topic":"Sports Team","cn":"团队运动","tier":"C","qa":[
-{"q":"Have you ever been part of a sports team?","a":"Yes, although not in a professional way. I've played badminton mixed doubles and joined some basketball games. They were fun because I had to cooperate with others, not just focus on myself."},
-{"q":"Are team sports popular in your culture?","a":"Yes, very popular. In China, basketball, football, volleyball, and badminton doubles are common, especially at school. Team sports are a good way to make friends and build a sense of belonging."},
-{"q":"Do you like watching team games? Why?","a":"Yes. I enjoy the atmosphere and teamwork. I still remember watching the Warriors in the 2022 playoffs because their energy and trust in one another were impressive."},
-{"q":"Differences between team sports and individual sports?","a":"Team sports require more cooperation, communication, and trust — you think about your teammates. Individual sports are more flexible, but rely more on self-discipline and personal performance."}
-]},
-{"topic":"Pets and Animals","cn":"宠物与动物","tier":"C","qa":[
-{"q":"What's your favourite animal? Why?","a":"My favourite animal is the panda. It looks calm and friendly, and I also like it because it's one of China's best-known animals."},
-{"q":"Where do you prefer to keep a pet, indoors or outdoors?","a":"Indoors. It feels safer, and I can interact with it more often. Of course, a dog still needs some outdoor time for exercise."},
-{"q":"Are there many people keeping pets in your country?","a":"Yes, definitely, especially cats and dogs. The pet industry has grown a lot — pet food, pet hospitals, grooming, and even customized pet meals."},
-{"q":"Should schools teach students about animals?","a":"Yes. Learning about animals can develop children's curiosity and sense of responsibility, and teach them how to treat animals safely and kindly."}
-]},
-{"topic":"Jokes & Comedies","cn":"笑话与喜剧","tier":"C","qa":[
-{"q":"Are you good at telling jokes?","a":"I'm fairly good at dry jokes. I like Chandler from Friends because he delivers sarcastic jokes very calmly, which makes them even funnier."},
-{"q":"Do you like to watch comedies?","a":"Yes, very much. I've liked Stephen Chow's comedies since I was a child. They're funny on the surface, but sometimes there's also sadness or social meaning behind the humour."},
-{"q":"Have you ever watched a live show?","a":"Not in person. I've watched clips of live stand-up shows online, and the audience's reaction makes the jokes feel more lively than ordinary videos."},
-{"q":"Are comedy shows popular in China?","a":"Yes, very popular. There are many forms — stand-up, sketch comedy, comedy variety shows, and funny short videos. Modern life is stressful, so comedy gives people a quick way to relax."}
-]}
+  {
+    "topic": "Work or Studies",
+    "cn": "学习/工作",
+    "tier": "A",
+    "qa": [
+      {
+        "q": "What subjects are you studying? / What do you do?",
+        "a": "I'm currently doing a PhD in Dentistry at HKU. My research is quite interdisciplinary because it combines dental science, basic biomedical research, and AI. So I'd say I'm somewhere between dentistry and AI."
+      },
+      {
+        "q": "Why did you choose to study that subject?",
+        "a": "I chose this field because I've studied stomatology for many years. For my PhD, I wanted to combine dentistry with AI because I believe AI is going to transform healthcare, and I want to be part of that change, not just watch it happen."
+      },
+      {
+        "q": "Do you like your subject? / Do you want to change your major?",
+        "a": "Yes, I genuinely enjoy it. What I like most is the interdisciplinary part — I'm not just doing pure dentistry, but also exploring AI tools, coding, and research workflows. So I don't want to change my major, but I do want to keep learning new skills."
+      },
+      {
+        "q": "How much time do you spend on your studies each week?",
+        "a": "Quite a lot, actually. As a PhD student, I probably spend around 50 to 60 hours a week. Most of my time goes into reading papers, doing experiments, writing, and sometimes coding."
+      },
+      {
+        "q": "Do you prefer to study in the mornings or in the afternoons?",
+        "a": "Definitely mornings. My brain works better before noon, so I do deep work in the morning, like reading difficult papers or coding. In the afternoon, I prefer easier tasks like emails, meetings, or organizing notes."
+      },
+      {
+        "q": "What technology do you use when you study / at work?",
+        "a": "I rely heavily on AI tools, especially ChatGPT and Claude. I use them almost every day for reading papers, brainstorming ideas, writing code, and even drafting emails. They have completely changed the way I work."
+      },
+      {
+        "q": "Do you have any plans for the next five years?",
+        "a": "In the next five years, my main goal is to finish my PhD and publish some solid papers. But beyond the degree, I want to become a well-rounded researcher with skills in dentistry, AI, coding, and product thinking."
+      },
+      {
+        "q": "What do you think is the most important at the moment?",
+        "a": "Right now, the most important thing is learning by doing and gaining more hands-on experience. This PhD stage is a rare chance to make myself harder to replace."
+      },
+      {
+        "q": "Is your subject popular in your country?",
+        "a": "Dentistry is quite popular in China because it's seen as a stable, respected career. But combining dentistry with AI is still quite niche, so what I'm doing is not very common yet."
+      },
+      {
+        "q": "What are the benefits of being your age?",
+        "a": "I'm in my mid-twenties, and I think it's a great age. I still have a lot of energy and curiosity, and I'm open to new ideas, especially fast-changing things like AI."
+      },
+      {
+        "q": "What changes would you like to see in your school?",
+        "a": "HKU is already a great university, but I'd like to see more interdisciplinary collaboration, for example between the dental school and the computer science school. Bridging these fields would create amazing opportunities."
+      },
+      {
+        "q": "Who helps you the most? And how?",
+        "a": "My supervisor helps me the most with the big picture, like research direction. Senior students give me practical advice. But on a day-to-day basis, AI tools also help me move much faster."
+      }
+    ]
+  },
+  {
+    "topic": "Life Stages",
+    "cn": "人生阶段",
+    "tier": "A",
+    "qa": [
+      {
+        "q": "What do you think is the most important at the moment?",
+        "a": "At the moment, the most important thing for me is learning as much as possible. I want to build transferable skills, like research thinking, English, coding, and AI workflows. This PhD stage is a rare chance to make myself more competitive in the long run."
+      },
+      {
+        "q": "What did you often do with your friends in your childhood?",
+        "a": "When I was a child, I often played outside with my friends. We played simple games near home or after school, and sometimes watched cartoons together. Life felt simpler then, and most of our fun came from face-to-face activities."
+      },
+      {
+        "q": "Do you have any plans for the next five years?",
+        "a": "In the next five years, my main plan is to finish my PhD at HKU and publish some solid research papers. Beyond the degree, I want to become a well-rounded researcher with skills in dentistry, AI, coding, and product thinking. I also want to keep improving my English."
+      },
+      {
+        "q": "How do people remember each stage of their lives?",
+        "a": "I think people remember life stages through photos, important people, and major changes. For example, moving to a new city, starting university, or beginning a PhD can all become markers of a life stage. These moments help people divide their memories into different chapters."
+      },
+      {
+        "q": "Do you enjoy being the age you are now?",
+        "a": "Yes, I do. I'm still young enough to have energy and curiosity, but old enough to make more serious decisions. There is some pressure at this age, but it's also a good time to learn fast and take some risks."
+      },
+      {
+        "q": "At what age do you think people are the happiest?",
+        "a": "I don't think there is a fixed age. People can be happy at different ages if they have health, freedom, meaningful goals, and good relationships. For me, happiness is more about life condition than age itself."
+      }
+    ]
+  },
+  {
+    "topic": "Hometown",
+    "cn": "家乡",
+    "tier": "A",
+    "qa": [
+      {
+        "q": "Where is your hometown? / Please describe your hometown.",
+        "a": "My hometown is Yan'an, a city in northern Shaanxi Province. It's not huge, but it's well known as the 'Red Capital' of China, with an important revolutionary history. It's on the Loess Plateau and surrounded by mountains. In recent years it has become more modern, but it still keeps its historical atmosphere."
+      },
+      {
+        "q": "Do you like your hometown? / Do you like living there?",
+        "a": "Yes, definitely. I feel very emotionally connected to it because I grew up there. What I like most is the relaxed lifestyle and the people. Life there is much less stressful, and people are more down-to-earth. I probably won't live there permanently, but I want to go back regularly."
+      },
+      {
+        "q": "Is there anything you dislike? / Is it good for careers / young people?",
+        "a": "The people are both the best part and the most challenging part. They're very warm and supportive, with a strong sense of human connection. But it's not a highly market-driven city, so career opportunities are still somewhat limited compared with larger cities."
+      },
+      {
+        "q": "Did you learn about the history / culture of your hometown?",
+        "a": "Yes, definitely. In Yan'an, history is kind of everywhere. Even as a child I learned a lot about the city's revolutionary background. Schools often organized visits to historical sites, and that environment made me more reflective."
+      }
+    ]
+  },
+  {
+    "topic": "The City You Live In",
+    "cn": "居住城市:香港",
+    "tier": "A",
+    "qa": [
+      {
+        "q": "What city do you live in? / How long have you lived here?",
+        "a": "I'm currently living in Hong Kong because I recently moved here for my PhD. I've only been here for about a month, so I'm still adapting to the lifestyle."
+      },
+      {
+        "q": "Do you like this city? Why? / Is it your permanent residence?",
+        "a": "To be honest, I have mixed feelings. On one hand, Hong Kong is very international and full of opportunities. But on the other hand, it's much more crowded than I expected. So I'm here mainly for my PhD, and probably won't stay permanently — the pace of life is a bit too stressful long-term."
+      },
+      {
+        "q": "Are there big changes in this city?",
+        "a": "Yes. Hong Kong has changed a lot in daily convenience and transportation. Mobile payment, online shopping, and delivery have become much more common, and the MTR system keeps improving."
+      },
+      {
+        "q": "Is the city friendly to children and old people?",
+        "a": "Yeah, definitely. You see people of all ages everywhere. The city cares a lot about children's safety, and there are many job opportunities for seniors, like driving taxis. I think that's quite impressive."
+      },
+      {
+        "q": "What's the weather like where you live?",
+        "a": "It's usually very humid and rainy, quite different from northern China. At first I wasn't used to the strong air conditioning indoors — sometimes it's so cold that classmates wear down jackets in the lab."
+      },
+      {
+        "q": "Would you recommend your city to others?",
+        "a": "Yeah, I would. Hong Kong is a great place to experience a different lifestyle and broaden your horizons. It's more international and fast-paced, and living here, even temporarily, can really change the way you see things."
+      }
+    ]
+  },
+  {
+    "topic": "Home & The Area",
+    "cn": "住房与社区",
+    "tier": "A",
+    "qa": [
+      {
+        "q": "Do you live in an apartment or a house?",
+        "a": "I live in a very small single room in Sai Ying Pun. It's definitely not spacious, but it's enough for me as a first-year PhD student. The best thing is it's quite close to HKU and my lab."
+      },
+      {
+        "q": "Can you describe the place where you live?",
+        "a": "I live in Sai Ying Pun, a very lively and crowded area on Hong Kong Island. My room is small, but the location is really practical — MTR stations, restaurants, shops, and steep slopes everywhere."
+      },
+      {
+        "q": "Are the transport facilities to your home good?",
+        "a": "Yes, pretty good. The MTR is nearby and I can walk to many places, including my school. The only annoying part is that my place is on a hill, so I walk up a steep slope every day."
+      },
+      {
+        "q": "How long have you lived there? / Do you plan to live there long?",
+        "a": "Only about a month. Since my PhD will last around four years, I may stay in this area for a long time. I don't see it as my permanent home, but it's a practical place for this stage of my life."
+      },
+      {
+        "q": "Do you like the area that you live in? / Are people friendly?",
+        "a": "Yes, I do. I'm still getting familiar with the area because I only moved here recently. It's quite lively and convenient, but at the same time it also has a relaxed side, especially near the seaside. People here are generally very warm-hearted — even though I can't speak Cantonese yet, they always help me patiently and speak slowly."
+      },
+      {
+        "q": "Where do you like to go in that area? / What do you do there?",
+        "a": "I really enjoy walking around the streets in Sai Ying Pun. The area has a very unique feeling because the roads go uphill and downhill, and there are many small cafes, old buildings, and local shops. Sometimes I also walk near the seaside because it helps me relax after working in the lab."
+      },
+      {
+        "q": "Do you often see your neighbors?",
+        "a": "Not really. I've barely seen my neighbors since moving here. Sometimes I only hear doors opening or footsteps in the hallway. I think many people here are probably students or office workers, so everyone is quite busy."
+      },
+      {
+        "q": "Do you live in a noisy or a quiet area? / What changes recently?",
+        "a": "I think the area is quite energetic and busy, especially during the daytime. There are lots of restaurants, small shops, and people from different backgrounds. At night, though, some streets by the harbour become much calmer and more relaxing."
+      },
+      {
+        "q": "Do you know any famous people in your area?",
+        "a": "Not personally, of course. But I've heard that some Hong Kong actors and singers have lived in or visited this area before. Since Sai Ying Pun is close to Central and also has a strong local culture, I guess it's not surprising."
+      },
+      {
+        "q": "What kind of accommodation do you want in the future?",
+        "a": "In the future, I'd like a slightly larger apartment with enough sunlight and a quiet study space. It doesn't have to be luxurious, but comfortable and close to public transport. After living in a tiny room, I've realized how important space is."
+      }
+    ]
+  },
+  {
+    "topic": "Websites",
+    "cn": "网站",
+    "tier": "A",
+    "qa": [
+      {
+        "q": "What kinds of websites do you often visit?",
+        "a": "I often visit learning websites and tool-based platforms. These days I use ChatGPT the most — it's almost become my starting point on the internet. I also use GitHub, Google Scholar, and university library pages for research."
+      },
+      {
+        "q": "What is your favourite website?",
+        "a": "If I had to choose one, I'd say GitHub. Recently I've used it a lot to learn about AI workflows and look at real projects. I also like X (Twitter) because I can follow researchers and developers there."
+      },
+      {
+        "q": "Are there any changes to the websites you visit?",
+        "a": "Yes. In the past I'd start from portal websites and visit sites one by one. But now I usually start from ChatGPT, clarify my question first, and then go to sources like GitHub, papers, or official websites."
+      },
+      {
+        "q": "What kinds of websites are popular in your country?",
+        "a": "In China people use many websites and platforms: WeChat for communication, Taobao and JD for shopping, Douyin and Bilibili for videos, and Xiaohongshu for lifestyle tips."
+      },
+      {
+        "q": "Do you prefer getting information from websites or books?",
+        "a": "I definitely prefer websites. They're faster, more up-to-date, and more interactive, especially when I use AI tools to ask follow-up questions. Books are still useful for building a system, but for daily learning, websites and AI are more efficient."
+      },
+      {
+        "q": "Would you like to have your own website?",
+        "a": "Yes. Our lab already has one, which made me realize how useful it can be. In the future I'd like to build a small academic portfolio to show my research, papers, projects, and maybe some AI workflow notes."
+      }
+    ]
+  },
+  {
+    "topic": "Social Media",
+    "cn": "社交媒体",
+    "tier": "A",
+    "qa": [
+      {
+        "q": "Have you ever posted anything on social media?",
+        "a": "Yes, I sometimes post on WeChat Moments, mostly about daily life or personal check-ins, like fitness progress. But I don't post very often, because I'm quite selective about what I share."
+      },
+      {
+        "q": "Do you think you spend too much time on social media?",
+        "a": "Yes, sometimes. There are too many apps now, all trying to grab my attention, especially short-video apps. So I'm trying to control my screen time and spend more time on study and research."
+      },
+      {
+        "q": "When did you start using social media?",
+        "a": "Quite early, probably in primary school, when QQ was popular. At first I mainly used it to chat with friends and check their updates. Social media felt much simpler back then."
+      },
+      {
+        "q": "Do your friends use social media?",
+        "a": "Yes, almost all of them. Most use WeChat to keep in touch, and some use Xiaohongshu or Instagram. But after coming to Hong Kong, I noticed people use email a lot for work and formal communication."
+      },
+      {
+        "q": "What do people often do on social media?",
+        "a": "Many things — share daily life, follow news, watch short videos, and look for recommendations. Recently short dramas have become really popular, and I often see people watching them on the MTR."
+      }
+    ]
+  },
+  {
+    "topic": "Reading",
+    "cn": "阅读",
+    "tier": "A",
+    "qa": [
+      {
+        "q": "Do you like reading?",
+        "a": "Yes, I've always liked books, but I don't enjoy reading in the same way as before. These days I read more for study and research, so it feels more practical and goal-oriented."
+      },
+      {
+        "q": "Do you prefer to read on paper or on a screen?",
+        "a": "I prefer reading on a screen. It's more efficient because I can see information clearly, search for keywords, and move between different sources quickly."
+      },
+      {
+        "q": "When do you need to read carefully, and when not?",
+        "a": "I read carefully when I'm learning something new, especially a difficult concept. But if I just want a general idea, I read quickly and scan for the main points. Both ways are useful."
+      },
+      {
+        "q": "Do you prefer scanning or detailed reading?",
+        "a": "I need both. Scanning helps me decide whether something is worth reading. But for important methods or key ideas, I need detailed reading, and honestly I'm still learning to balance the two."
+      }
+    ]
+  },
+  {
+    "topic": "Morning Time",
+    "cn": "早晨",
+    "tier": "A",
+    "qa": [
+      {
+        "q": "Do you like getting up early in the morning?",
+        "a": "Yes, I do. Getting up early makes me feel like the day is longer, almost like I've gained extra time. It gives me a better start, especially with study or research tasks."
+      },
+      {
+        "q": "What do you usually do in the morning?",
+        "a": "I usually go to the lab or the university library. I like to start my tasks early because my mind is clearer then. Sometimes I also use the morning to plan my day."
+      },
+      {
+        "q": "What did you do in the morning when you were little?",
+        "a": "Mornings were mainly about getting ready for school. I had breakfast quickly and went to class. I didn't really have my own routine; I just followed the school schedule."
+      },
+      {
+        "q": "Differences between mornings now and in the past?",
+        "a": "A big difference. In the past I got up because I had to go to school, but now I really want to get up early. Taking a shower and starting early makes me feel fresh and motivated."
+      },
+      {
+        "q": "Same things on weekends and weekdays?",
+        "a": "More or less. On weekdays I go to the lab earlier; on weekends I start a bit more slowly. Still, I like to do something meaningful in the morning, even if it's just reading or planning."
+      }
+    ]
+  },
+  {
+    "topic": "Tidiness",
+    "cn": "整洁",
+    "tier": "A",
+    "qa": [
+      {
+        "q": "Do you like to keep things tidy?",
+        "a": "Yes, I do, but I'm not a perfectionist. I just like my space to be reasonably tidy, especially my desk. If everything is too messy, I find it harder to focus."
+      },
+      {
+        "q": "Did you use to keep your room tidy as a child?",
+        "a": "Not really. When I was a child, I didn't realize how important tidiness was. I only started to care more about it when I grew up and had more study and work tasks to manage."
+      },
+      {
+        "q": "How do you keep your work or study space tidy?",
+        "a": "I try to put things back right after I use them. In places like the lab or the library, I keep my space simple and only leave the things I really need on the desk. This helps me stay organized."
+      },
+      {
+        "q": "Do you think that it is necessary to be tidy?",
+        "a": "Yes, definitely. Being tidy can reduce stress and help people focus better. For me, a tidy environment makes it easier to start working and stay calm."
+      }
+    ]
+  },
+  {
+    "topic": "Walking",
+    "cn": "走路",
+    "tier": "A",
+    "qa": [
+      {
+        "q": "Do you walk a lot? / Do you often walk?",
+        "a": "Yes. Since I moved to Hong Kong, my daily life is basically walking or taking the MTR. I walk to school, to the lab, and around my neighborhood almost every day."
+      },
+      {
+        "q": "Do you like walking?",
+        "a": "Yes, I quite like it. Walking around Hong Kong can be fun because the streets are lively and there's always something to see. But walking uphill can be tiring, especially around Sai Ying Pun."
+      },
+      {
+        "q": "Where did you walk recently?",
+        "a": "Recently I walked uphill from my place to the lab. It wasn't far, but the slope was steep, so it felt like exercise. That's probably one of the most typical walking experiences in Hong Kong for me."
+      },
+      {
+        "q": "Did you walk a lot when you were a child?",
+        "a": "Yes. As a child I walked around a lot because I liked playing outside. But back then walking was more about having fun, while now it's more about commuting and daily life."
+      }
+    ]
+  },
+  {
+    "topic": "Public Gardens and Parks",
+    "cn": "公园",
+    "tier": "A",
+    "qa": [
+      {
+        "q": "Did you like going to parks as a child? / Do you still go now?",
+        "a": "Not really. I don't go to parks on purpose, but I pass by them when I walk around. If I do go, I usually take a walk and listen to music to relax and clear my mind."
+      },
+      {
+        "q": "Why do people like going to parks?",
+        "a": "People like parks because they can relax, exercise, and get away from busy streets. For children they're places to play; for adults, places to slow down. In a busy city, that's important."
+      },
+      {
+        "q": "Do you think parks are important in cities?",
+        "a": "Yes, definitely. A city cannot exist only with buildings, roads, and shopping malls. Parks are important for people's mental health — they give space to relax, exercise, and breathe a little."
+      },
+      {
+        "q": "What do you like to do when visiting a park?",
+        "a": "If I go to a park, I usually take a walk and listen to music. It's a simple way to relax and clear my mind. I don't really do anything special there."
+      },
+      {
+        "q": "Would you prefer a personal garden or a public garden/park?",
+        "a": "I'd probably prefer a public park because it feels more open and lively. A personal garden is quieter, but living in a small room in Hong Kong, I don't really have the space for one."
+      },
+      {
+        "q": "How are the parks today different from those you visited as a kid?",
+        "a": "I think parks today are more modern and well-designed, with better facilities. The ones I visited as a kid were simpler and more basic, but they still felt fun back then."
+      }
+    ]
+  },
+  {
+    "topic": "Science",
+    "cn": "科学",
+    "tier": "A",
+    "qa": [
+      {
+        "q": "Do you like science?",
+        "a": "Yes, I do. I especially like science that can solve real problems and explain the principles behind things. For me, science isn't just theories; it's about understanding how the world works."
+      },
+      {
+        "q": "Which science subject is interesting to you?",
+        "a": "I'd say computer science, especially AI. I'm very interested in how AI can be used in healthcare and research. Since my PhD is related to dentistry, I think AI could help us analyze data and solve medical problems more efficiently."
+      },
+      {
+        "q": "What interesting things have you done with science?",
+        "a": "Quite a lot, because I'm a PhD student. I read papers, think about research questions, and use AI tools to improve my research workflow. What I enjoy most is turning an abstract idea into something testable or useful."
+      },
+      {
+        "q": "Do you think science is important?",
+        "a": "Yes, definitely. Science drives productivity and innovation. It changes medicine, communication, and almost every part of modern life. Without science, many problems would be much harder to solve."
+      },
+      {
+        "q": "Do you like watching science TV programs?",
+        "a": "Yes, I do, especially documentary-style ones. They're a relaxing way to learn — I can pick up interesting knowledge without reading heavy papers. They also make complex topics easier to understand."
+      },
+      {
+        "q": "Do Chinese people often visit science museums?",
+        "a": "Yes, I'd say it's quite common, especially parents taking their children on weekends or holidays. Science museums are becoming more popular and interactive, so they're seen as both fun and educational."
+      }
+    ]
+  },
+  {
+    "topic": "Outer Space and Stars",
+    "cn": "外太空",
+    "tier": "B",
+    "qa": [
+      {
+        "q": "Have you ever learnt about outer space and stars?",
+        "a": "Yes, a little, mainly from school and science videos. I study tiny things like cells, so I find space fascinating because it is huge but also very complex."
+      },
+      {
+        "q": "Have you ever learned about outer space?",
+        "a": "Yes, a little, mainly from school and science videos. I study tiny things like cells, so I find space fascinating because it is huge but also very complex."
+      },
+      {
+        "q": "Do you want to go into outer space?",
+        "a": "It sounds cool in my imagination, but I probably wouldn't dare to do it in real life. I'm afraid I would get dizzy or feel physically uncomfortable in space."
+      },
+      {
+        "q": "Do you like science fiction movies?",
+        "a": "Yes, sometimes. I like science-fiction movies about space and AI because they make me imagine how technology could change society."
+      }
+    ]
+  },
+  {
+    "topic": "Music",
+    "cn": "音乐",
+    "tier": "B",
+    "qa": [
+      {
+        "q": "Do you prefer sad or happy music?",
+        "a": "It depends on my mood. Most of the time, I prefer happy and positive music because it gives me energy, especially when I'm walking or commuting."
+      },
+      {
+        "q": "Does happy music make you feel more excited?",
+        "a": "Yes, definitely. Happy music makes me feel more motivated and awake. When I feel lazy or down, it can cheer me up."
+      }
+    ]
+  },
+  {
+    "topic": "Singing",
+    "cn": "唱歌",
+    "tier": "B",
+    "qa": [
+      {
+        "q": "Do you like singing? Why?",
+        "a": "Yes, I do. I enjoy humming because it helps me relax and clear my mind."
+      },
+      {
+        "q": "Did you like singing when you were a child?",
+        "a": "Yes. As a child I liked humming songs, even though I wasn't trained. Children are usually less shy, so singing felt quite natural back then."
+      },
+      {
+        "q": "Who do you want to sing for?",
+        "a": "I'd probably sing for my family or close friends. I would feel much more relaxed around them, and I wouldn't worry about making mistakes."
+      },
+      {
+        "q": "Do you think singing can bring happiness to people?",
+        "a": "Yes, I do. Singing can help people relax, express their emotions, and reduce stress. It can also bring people together and create a positive atmosphere."
+      },
+      {
+        "q": "Do you like listening to other people sing?",
+        "a": "Yes, I do. I think everyone has their own style, so it's interesting to hear the differences. That's what makes singing enjoyable."
+      },
+      {
+        "q": "Have you ever taken a singing class?",
+        "a": "Yes, but only at school. I took a few basic music classes, where we learned some simple singing skills, but I've never had any professional training."
+      }
+    ]
+  },
+  {
+    "topic": "Typing",
+    "cn": "打字",
+    "tier": "B",
+    "qa": [
+      {
+        "q": "Do you prefer typing or handwriting?",
+        "a": "I definitely prefer typing because it’s much more convenient. I can save my work easily and open it on different devices whenever I need it. I use it for writing papers, chatting, coding, and taking notes, so I rarely write anything by hand these days."
+      },
+      {
+        "q": "Do you type on a desktop or laptop every day?",
+        "a": "Yes, every day. I mainly use my laptop because it's easy to carry around, whether I'm in the lab, the library, or at home. Its performance is also good enough for everything I do, like writing papers, replying to emails, coding, and taking notes."
+      },
+      {
+        "q": "When did you learn how to type?",
+        "a": "I learned how to type in primary school. My family had a computer at home, so I often used it to play games and browse the web. I also had information technology classes at school, where I learned some basic typing skills."
+      },
+      {
+        "q": "How do you improve your typing?",
+        "a": "I never really practised typing on purpose. Once I learned the basic keyboard skills and some useful shortcuts, I just kept using them in my daily life. Since I spend a lot of time doing research, writing papers, replying to emails, and coding, my typing speed improved naturally through practice."
+      }
+    ]
+  },
+  {
+    "topic": "Shopping",
+    "cn": "购物",
+    "tier": "B",
+    "qa": [
+      {
+        "q": "Do you like shopping?",
+        "a": "Not really. I usually shop only when I need something. For example, I have several identical T-shirts and pairs of shoes because I don't like spending too much time choosing clothes."
+      },
+      {
+        "q": "Online shopping or in-store shopping?",
+        "a": "I prefer shopping online because it saves time and makes it easy to compare prices and reviews. I shop in person only when I need to try something on."
+      },
+      {
+        "q": "Have you ever returned anything bought online?",
+        "a": "Yes, especially shoes. Sometimes the size isn't right, or they don't feel comfortable after I try them on. That's why I'm quite careful when buying shoes online."
+      }
+    ]
+  },
+  {
+    "topic": "Gifts",
+    "cn": "礼物",
+    "tier": "B",
+    "qa": [
+      {
+        "q": "What do you consider when choosing a gift?",
+        "a": "I mainly think about the person's interests and whether the gift is useful. A thoughtful gift does not need to be expensive."
+      },
+      {
+        "q": "Have you ever sent handmade gifts?",
+        "a": "Yes, I have. One Christmas, I made Santa Claus figures out of paper and gave them to many of my classmates. They were simple, but everyone seemed to like them."
+      },
+      {
+        "q": "Have you ever received a great gift? / received recently?",
+        "a": "Yes. I recently received an attack-oriented badminton racket as a gift, and I really like it. I had always used balanced or speed-focused rackets before, so it feels quite different."
+      },
+      {
+        "q": "Are you good at choosing gifts?",
+        "a": "I think I'm quite good at it. I pay attention to people's personality and interests before choosing. I prefer gifts that feel personal, not just expensive."
+      }
+    ]
+  },
+  {
+    "topic": "Food",
+    "cn": "食物",
+    "tier": "B",
+    "qa": [
+      {
+        "q": "What is your favourite food?",
+        "a": "My favourite food is hot pot. I like it because it's spicy, warm, and very social. It's not just about eating; it's about sitting together and enjoying the atmosphere."
+      },
+      {
+        "q": "What food did you like when you were young?",
+        "a": "When I was young, I really liked spicy snacks, especially latiao. It wasn't exactly healthy, but it was very popular among students."
+      },
+      {
+        "q": "Has your favourite food changed since childhood?",
+        "a": "Not really. I've always liked spicy food, especially hot pot. Even if the form changes, it's usually something similar, like malatang or maocai."
+      },
+      {
+        "q": "Do you eat different foods in different seasons?",
+        "a": "Yes, I do. It mainly depends on the weather. In winter, I prefer hot food like hot pot, while in summer I usually choose lighter dishes, such as cold noodles."
+      }
+    ]
+  },
+  {
+    "topic": "Clothing",
+    "cn": "衣服",
+    "tier": "B",
+    "qa": [
+      {
+        "q": "What kind of clothes do you like to wear?",
+        "a": "I prefer comfortable, quick-drying clothes because Hong Kong is hot and humid, and I tend to sweat a lot. Clothes also take a long time to dry there."
+      },
+      {
+        "q": "Comfortable casual clothes or smart clothes?",
+        "a": "I definitely prefer comfortable casual clothes. I spend most of my day studying or working in the lab, so comfort is much more important to me than looking formal."
+      },
+      {
+        "q": "Do you like wearing T-shirts? / Do you spend much time choosing clothes?",
+        "a": "Yes. T-shirts are simple, comfortable, and easy to match. I even bought many similar ones because I don't want to spend too much time choosing clothes in the morning."
+      },
+      {
+        "q": "What colour clothes do you like?",
+        "a": "I like black and white. They're simple, clean, and easy to match. Also, they don't go out of style easily."
+      }
+    ]
+  },
+  {
+    "topic": "Scenery & Views",
+    "cn": "风景",
+    "tier": "B",
+    "qa": [
+      {
+        "q": "Do you look out the window at the scenery when travelling?",
+        "a": "Yes, I do. Watching the scenery outside helps me relax and gradually get into the mood for the trip. I enjoy seeing how the landscape changes along the way."
+      },
+      {
+        "q": "Do you like to take scenery pictures?",
+        "a": "Yes. I'm not a professional photographer, but I enjoy taking pictures casually when I see a nice view. For me it's a way to record the moment."
+      },
+      {
+        "q": "The most beautiful sight you've seen while travelling?",
+        "a": "The most beautiful sight I've seen was the snow-capped mountains in Yunnan at sunrise. Seeing the golden sunlight shining on the mountain peaks was unforgettable."
+      },
+      {
+        "q": "Urban views or rural views?",
+        "a": "It depends. I enjoy energetic city views, but when I need to relax, I prefer mountains or the sea."
+      }
+    ]
+  },
+  {
+    "topic": "Building",
+    "cn": "建筑",
+    "tier": "B",
+    "qa": [
+      {
+        "q": "Are there any tall buildings near your home?",
+        "a": "Yes, there are. Most of them are quite old high-rise buildings. Since there are many steep roads in my neighbourhood, they look even taller."
+      },
+      {
+        "q": "Is there a building you would like to visit?",
+        "a": "Yes. I'd like to visit the Chong Yuet Ming Building at HKU because it's said to be haunted. I'm just curious."
+      },
+      {
+        "q": "Do you want to live in a tall building?",
+        "a": "Yes, I'd love to. I enjoy looking at the city skyline at night. As long as the lifts aren't too crowded, I'd be happy to live in a tall building."
+      },
+      {
+        "q": "Do you take photos of buildings?",
+        "a": "Not really. I may take photos if a building looks very special, but not on purpose. I'm more interested in natural views."
+      }
+    ]
+  },
+  {
+    "topic": "Teachers",
+    "cn": "老师",
+    "tier": "B",
+    "qa": [
+      {
+        "q": "Do you have a favourite teacher?",
+        "a": "My favourite teacher was my primary school English teacher. She made her lessons enjoyable and encouraged me to keep learning English, so I still remember her fondly."
+      },
+      {
+        "q": "What kind of teacher do you like?",
+        "a": "I like teachers who are good at giving examples because they make difficult ideas easier to understand. I also find teachers with a slight accent more memorable."
+      },
+      {
+        "q": "Do you want to be a teacher in the future?",
+        "a": "Maybe. I've worked as a part-time teacher before, and I really enjoyed it. If I have the opportunity, I'd be happy to teach again."
+      },
+      {
+        "q": "Teachers now vs teachers in the past?",
+        "a": "Teachers today use much more technology, such as online platforms and AI tools. However, they also face more pressure and higher expectations than teachers in the past."
+      }
+    ]
+  },
+  {
+    "topic": "Childhood Activities",
+    "cn": "童年活动",
+    "tier": "B",
+    "qa": [
+      {
+        "q": "What were your favourite activities when you were a child?",
+        "a": "When I was a child, I loved pretending to fight imaginary characters. I used to jump around on the sofa, and I even broke two sofas during those intense battles."
+      },
+      {
+        "q": "Did you often play with other children?",
+        "a": "Yes, very often. I was quite active and was usually the one who organized games. I enjoyed playing with children in my neighbourhood."
+      },
+      {
+        "q": "Do children today do the same activities as you did?",
+        "a": "Not really. I think many children spend more time on tablets, video games, and short videos nowadays, so they play outdoors less than my generation did."
+      },
+      {
+        "q": "Are childhood activities important?",
+        "a": "Yes, I think they are. Childhood activities help children develop social skills, creativity, and confidence. They also create many happy memories."
+      }
+    ]
+  },
+  {
+    "topic": "Hobby",
+    "cn": "爱好",
+    "tier": "B",
+    "qa": [
+      {
+        "q": "Do you have any hobbies?",
+        "a": "Yes, I do. I enjoy working out, watching films, and going for walks. They help me relax and take a break from studying and work."
+      },
+      {
+        "q": "Did you have any hobbies when you were a child?",
+        "a": "Yes. As a child I liked reading and playing small computer games. They were simple but fun, and made me curious about stories and technology."
+      },
+      {
+        "q": "Do you have a hobby you've had since childhood?",
+        "a": "Yes. I've enjoyed going for walks since I was a child. It's a simple way to relax, clear my mind, and enjoy the surroundings."
+      },
+      {
+        "q": "Do you have the same hobbies as your family?",
+        "a": "My father and I both enjoy going for walks, although we hardly ever do it together."
+      }
+    ]
+  },
+  {
+    "topic": "Headphones",
+    "cn": "耳机",
+    "tier": "C",
+    "qa": [
+      {
+        "q": "Do you use headphones?",
+        "a": "Yes, I do. I usually wear open-ear headphones to listen to music or podcasts. They let me enjoy the audio while still being aware of my surroundings."
+      },
+      {
+        "q": "What type of headphones do you use?",
+        "a": "I use open-ear headphones. I like them because they don't go directly into my ears, so they feel more comfortable, and they're convenient when I'm walking around."
+      },
+      {
+        "q": "When would you not use headphones?",
+        "a": "I don't wear headphones when I need to concentrate. I also don't wear them while swimming because of the water, or when playing badminton because they could easily fall off."
+      }
+    ]
+  },
+  {
+    "topic": "Watch",
+    "cn": "手表",
+    "tier": "C",
+    "qa": [
+      {
+        "q": "Do you wear a watch?",
+        "a": "Yes, I wear a smartwatch, mainly because it's practical. It helps me check the time, track my activity, and receive timely notifications."
+      },
+      {
+        "q": "Have you ever got a watch as a gift?",
+        "a": "Yes, I have. After I finished the college entrance examination, my parents gave me a red Casio quartz watch as a gift. Although I mainly wear a smartwatch these days, I still keep it because it reminds me of an important stage in my life. It's very meaningful to me."
+      },
+      {
+        "q": "Why do some people wear expensive watches?",
+        "a": "I think it's mainly because expensive watches are a symbol of status and success. Some people wear them to express their personal style, while others simply enjoy collecting high-quality watches."
+      },
+      {
+        "q": "Is it important to wear a watch?",
+        "a": "It depends. For me a smartwatch is useful because of its many functions. But if someone only needs to know the time, a phone is enough."
+      }
+    ]
+  },
+  {
+    "topic": "Mirrors",
+    "cn": "镜子",
+    "tier": "C",
+    "qa": [
+      {
+        "q": "Do you like looking at yourself in the mirror?",
+        "a": "Not particularly. I usually look in the mirror only when I'm getting ready to go out or checking whether my clothes or hair look neat."
+      },
+      {
+        "q": "Do you usually take a mirror with you?",
+        "a": "No, I don't think it's necessary. If I really need to check something, I can just use my phone camera."
+      },
+      {
+        "q": "Would you use mirrors to decorate your room?",
+        "a": "Probably not. To me, a mirror is more of a practical tool than a decoration. I also wouldn't feel very comfortable with too many mirrors in my room."
+      }
+    ]
+  },
+  {
+    "topic": "Cars",
+    "cn": "汽车",
+    "tier": "C",
+    "qa": [
+      {
+        "q": "Did you enjoy traveling by car when you were a kid?",
+        "a": "Not really, because I often got carsick as a child. I enjoy car trips more now, especially in a quiet and spacious car."
+      },
+      {
+        "q": "Do you prefer to be a driver or a passenger?",
+        "a": "I prefer to be a passenger. It's more relaxing — I can look out of the window, listen to something, or just rest. Driving gives more control, but also more pressure."
+      },
+      {
+        "q": "What do you do when there is a traffic jam?",
+        "a": "If I'm not driving, I usually use my phone to pass the time. I often check the live comments on map apps to see what's causing the traffic jam. If it's going to take a while, I might just take a short nap."
+      },
+      {
+        "q": "Do you think car colours are important?",
+        "a": "Yes, I do. I think the colour of a car reflects the owner's personal taste. It can also affect how easy the car is to keep clean and, to some extent, its resale value. So I think it's an important factor when buying a car."
+      }
+    ]
+  },
+  {
+    "topic": "Sports Team",
+    "cn": "团队运动",
+    "tier": "C",
+    "qa": [
+      {
+        "q": "Have you ever been part of a sports team?",
+        "a": "Yes, I have. I've played mixed doubles in badminton and taken part in a few basketball competitions. We finished in third place both times, which was quite interesting."
+      },
+      {
+        "q": "Are team sports popular in your culture?",
+        "a": "Yes, they are. Sports like basketball and football are very popular, especially among students. Team sports not only improve physical fitness but also help people develop teamwork skills."
+      },
+      {
+        "q": "Do you like watching team games? Why?",
+        "a": "Yes, I do. I enjoy watching team games because they require teamwork and strategy rather than just individual ability. I also find them more exciting and unpredictable."
+      },
+      {
+        "q": "Differences between team sports and individual sports?",
+        "a": "I think the biggest difference is that team sports require cooperation, while individual sports depend more on personal ability and self-discipline."
+      }
+    ]
+  },
+  {
+    "topic": "Pets and Animals",
+    "cn": "宠物与动物",
+    "tier": "C",
+    "qa": [
+      {
+        "q": "What's your favourite animal? Why?",
+        "a": "My favourite animal is the panda. I think they're adorable, and I really like their black-and-white colouring. They also seem very relaxed, which makes watching them enjoyable."
+      },
+      {
+        "q": "Where do you prefer to keep a pet, indoors or outdoors?",
+        "a": "I prefer keeping a pet indoors. It's safer and easier to keep clean, and pets can also provide more companionship when they live with their owners."
+      },
+      {
+        "q": "Are there many people keeping pets in your country?",
+        "a": "Yes, definitely, especially cats and dogs. The pet industry has grown a lot — pet food, pet hospitals, and even customized pet meals."
+      },
+      {
+        "q": "Should schools teach students about animals?",
+        "a": "Yes. Learning about animals can develop children's curiosity and sense of responsibility, and teach them how to treat animals safely and kindly."
+      }
+    ]
+  },
+  {
+    "topic": "Jokes & Comedies",
+    "cn": "笑话与喜剧",
+    "tier": "C",
+    "qa": [
+      {
+        "q": "Are you good at telling jokes?",
+        "a": "I think so. I enjoy telling dry jokes and seeing people's reactions, even if they don't always find them funny."
+      },
+      {
+        "q": "Do you like to watch comedies?",
+        "a": "Yes, I do. I especially enjoy Stephen Chow's films because I like his unique sense of humour. His stories often focus on ordinary people, and I find them both funny and memorable."
+      },
+      {
+        "q": "Have you ever watched a live show?",
+        "a": "Yes, I have. I once watched a live stand-up comedy show. I really enjoyed the interaction between the comedian and the audience, which made the performance much more engaging."
+      },
+      {
+        "q": "Are comedy shows popular in China?",
+        "a": "Yes, they are. Comedy shows have become increasingly popular in China, especially with the success of some variety shows. They have attracted a much wider audience in recent years."
+      }
+    ]
+  },
+  {
+    "topic": "Feeling Bored",
+    "cn": "感到无聊",
+    "tier": "B",
+    "qa": [
+      {
+        "q": "Do you often feel bored?",
+        "a": "Only occasionally. It usually happens during a holiday or a gap period, when I do not have a clear task to work on."
+      },
+      {
+        "q": "Did you ever find school boring when you were a child?",
+        "a": "Yes. I found the principal's speech and the school-wide morning exercises every Monday quite boring because they were repetitive and took a long time."
+      },
+      {
+        "q": "What sort of things are boring to you?",
+        "a": "Running can be boring to me because the movement is repetitive, especially when I run alone on the same route."
+      },
+      {
+        "q": "What do you do to stop yourself from feeling bored?",
+        "a": "I often listen to Friends, especially Season 5, Episode 1, when the group is in London and Chandler and Monica keep being interrupted. I also listen to music."
+      },
+      {
+        "q": "When would you feel bored?",
+        "a": "I usually feel bored during a holiday or a gap period, when I have no clear task and too much free time."
+      },
+      {
+        "q": "What do you do when you feel bored?",
+        "a": "I listen to Friends or music. A familiar episode is easy to follow, so it gives me something enjoyable to focus on."
+      },
+      {
+        "q": "Do you think childhood or adulthood is more boring?",
+        "a": "For me, adulthood can be more boring because my threshold for excitement is higher now. As a child, even simple games could make me happy."
+      }
+    ]
+  },
+  {
+    "topic": "Daily Routine",
+    "cn": "日常规律",
+    "tier": "B",
+    "qa": [
+      {
+        "q": "What is your daily study routine?",
+        "a": "I usually take a shower, then go to the lab or library. I do difficult work in the morning when my mind is clear, and leave easier tasks for the afternoon."
+      },
+      {
+        "q": "Have you ever changed your routine?",
+        "a": "Yes. Since moving to Hong Kong, I have started taking a shower every morning. It helps me wake up and makes the start of my day feel more organised."
+      },
+      {
+        "q": "Is it important to have a daily study routine?",
+        "a": "Yes. A regular routine gives me a sense of calm and stability, especially when I have many study or research tasks."
+      },
+      {
+        "q": "What part of your day do you like best?",
+        "a": "I like the morning best because my mind is clearest before noon. I can concentrate on difficult work without feeling tired."
+      },
+      {
+        "q": "Do you often go to bed late or early?",
+        "a": "I normally go to bed at around eleven because I want to keep a healthy routine, unless there is something extremely urgent."
+      }
+    ]
+  }
 ]
