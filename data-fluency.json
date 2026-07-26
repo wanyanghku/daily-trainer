@@ -1,0 +1,198 @@
+[
+  {
+    "id": "D1",
+    "label": "Day 1",
+    "focus": "向外国同事解释 ExM",
+    "type": "机制讲解",
+    "goal": "用非专业听众也能跟上的语言，说清 ExM 是什么、为什么有效、最终能看到什么。",
+    "anchor": "ExM 经典文献入门与 mechanism teach-back。",
+    "review": "无旧词块；先录一段90秒基线，作为本轮比较起点。",
+    "chunks": [
+      {"en": "The basic idea is to ...", "zh": "基本思路是……", "use": "引出核心机制"},
+      {"en": "Instead of improving the microscope, we ...", "zh": "我们不是提升显微镜本身，而是……", "use": "说明替代路径"},
+      {"en": "This allows us to ...", "zh": "这使我们能够……", "use": "解释方法收益"},
+      {"en": "The key step is ...", "zh": "关键步骤是……", "use": "突出决定性步骤"},
+      {"en": "In practical terms, ...", "zh": "从实际操作或意义上说……", "use": "把原理落到实验意义"}
+    ],
+    "listening": {
+      "title": "Explaining the principle of ExM",
+      "text": "The basic idea is to physically expand a biological sample before imaging it. Instead of improving the microscope, we increase the distance between labeled structures inside the sample. This allows us to distinguish features that were previously too close together. The key step is to link the sample to a swellable polymer network that is designed to preserve the relative positions of the labels during expansion. In practical terms, expansion microscopy lets us use a conventional fluorescence microscope to examine structures at a smaller effective scale. The method does not create new information by magnification alone; it makes nearby signals easier to resolve.",
+      "sourceTitle": "iBiology · X10 Expansion Microscopy",
+      "sourceUrl": "https://www.ibiology.org/techniques/x10-expansion-microscopy/",
+      "sourceTask": "听 13:12–20:00。第一遍抓主旨，第二遍记下3句因果表达；不要先开 transcript。"
+    },
+    "output": {
+      "prompt": "Without notes, explain to a new international lab member what expansion microscopy is, why it works, and what it allows us to see. Remove unnecessary jargon in the second recording.",
+      "structure": ["What ExM is", "What is physically changed", "Why resolution improves", "What the method allows us to see"],
+      "target": "90秒"
+    }
+  },
+  {
+    "id": "D2",
+    "label": "Day 2",
+    "focus": "比较三篇 ExM 基础文献",
+    "type": "文献比较",
+    "goal": "把方法变化、设计目的和证据边界分开讲，不把后续方法简单说成更好。",
+    "anchor": "Chen 2015、Tillberg 2016、Gambarotto 2019 crosswalk。",
+    "review": "用8分钟闭卷复述 Day 1 的5个词块，并用其中2个重新解释 ExM。",
+    "chunks": [
+      {"en": "Compared with the original method, ...", "zh": "与原始方法相比……", "use": "跨文献比较"},
+      {"en": "The main modification is ...", "zh": "主要改动是……", "use": "点出方法变化"},
+      {"en": "This was introduced to ...", "zh": "引入这一改动是为了……", "use": "说明设计目的"},
+      {"en": "The trade-off is ...", "zh": "相应的取舍是……", "use": "表达收益与代价"},
+      {"en": "The evidence supports X, but not Y.", "zh": "证据支持X，但不足以支持Y。", "use": "限制结论范围"}
+    ],
+    "listening": {
+      "title": "Comparing methods without overclaiming",
+      "text": "Compared with the original method, each later ExM variant changes part of the workflow to solve a specific problem. The main modification may involve when proteins are labeled, how biomolecules are anchored, or how the sample is homogenized. This was introduced to improve label retention, structural preservation or compatibility with particular specimens. The trade-off is that a gain in one area can add complexity or create a new source of distortion. When comparing papers, the evidence supports the performance demonstrated under the reported conditions, but not every possible sample, target or application.",
+      "sourceTitle": "iBiology · Reproducibility in Science",
+      "sourceUrl": "https://www.ibiology.org/professional-development/reproducibility-in-science/",
+      "sourceTask": "听 0:00–5:10。找出至少两个结果难复现的原因，再各用一句话对应自己的 ExM 工作。"
+    },
+    "output": {
+      "prompt": "Compare original ExM, proExM and U-ExM. For each paper, state only what changed, why it changed, and what the evidence does not allow you to claim.",
+      "structure": ["Original ExM", "proExM", "U-ExM", "Shared trade-offs and evidence boundary"],
+      "target": "3分钟"
+    }
+  },
+  {
+    "id": "D3",
+    "label": "Day 3",
+    "focus": "讲清图像分析链",
+    "type": "分析讲解",
+    "goal": "从 raw image 讲到 metric 和独立复核，避免把 segmentation 或 AI 当成黑箱。",
+    "anchor": "Nature Protocols / GelMap analysis demo：raw image → segmentation → registration / metric → independent verification。",
+    "review": "用8分钟复习 Day 1；闭卷说出5个词块，并任选3个解释今天的分析对象。",
+    "chunks": [
+      {"en": "We start from the raw image and ...", "zh": "我们从原始图像开始，然后……", "use": "交代分析输入"},
+      {"en": "We define the region of interest as ...", "zh": "我们把感兴趣区域定义为……", "use": "给出操作定义"},
+      {"en": "To avoid bias, we ...", "zh": "为了避免偏差，我们……", "use": "说明质量控制"},
+      {"en": "This metric captures ...", "zh": "这个指标反映的是……", "use": "解释指标含义"},
+      {"en": "I can verify this step by ...", "zh": "我可以通过……独立核对这一步", "use": "说明复核路径"}
+    ],
+    "listening": {
+      "title": "Explaining an analysis pipeline",
+      "text": "We start from the raw image and first check its channels, scale and acquisition context. We define the region of interest as the biological object that will contribute to the final measurement. To avoid bias, we apply the same rule across samples and record any manual correction. Segmentation produces a mask, but the mask is not automatically ground truth. This metric captures one specific property of the image, not the whole biological mechanism. I can verify this step by tracing the calculation on a small example, comparing it with manual inspection, and checking whether the result is stable under reasonable parameter changes.",
+      "sourceTitle": "iBiology · Bioimage Analysis 3: Segmentation",
+      "sourceUrl": "https://www.ibiology.org/techniques/bioimage-analysis/",
+      "sourceTask": "选择 Part 3: Segmentation，听 0:00–10:00。记下 segmentation、ROI、thresholding 的朴素英文定义。"
+    },
+    "output": {
+      "prompt": "Use one current GelMap or micropattern dataset to explain the analysis chain: the input, how the mask is produced, where manual correction occurs, what the output metric means, and how you will verify it independently.",
+      "structure": ["Raw input", "ROI and mask", "Manual correction", "Metric", "Independent verification"],
+      "target": "4分钟"
+    }
+  },
+  {
+    "id": "D4",
+    "label": "Day 4",
+    "focus": "像汇报一样讲 Ezrin figure",
+    "type": "图表汇报",
+    "goal": "引导听众看证据，严格分开直接观察、解释与限制，不逐元素念图。",
+    "anchor": "Ezrin embryo ROI、embryo-level summary 与 figure 生产。",
+    "review": "用8分钟复习 Day 2；先说5个比较词块，再用其中2个描述这张图的比较关系。",
+    "chunks": [
+      {"en": "This panel shows ...", "zh": "这一面板显示……", "use": "指向具体 panel"},
+      {"en": "The main comparison is between ...", "zh": "主要比较的是……", "use": "确定比较组"},
+      {"en": "What stands out is ...", "zh": "最明显的是……", "use": "提炼直接观察"},
+      {"en": "This is consistent with ...", "zh": "这与……一致", "use": "把观察连接到解释"},
+      {"en": "I would interpret this cautiously because ...", "zh": "我会谨慎解释，因为……", "use": "主动交代限制"}
+    ],
+    "listening": {
+      "title": "Guiding an audience through a figure",
+      "text": "This panel shows the Ezrin signal in the regions selected for comparison. The main comparison is between groups defined at the same biological level. What stands out should first be described as a visible or measured pattern, without immediately assigning a mechanism. The observation may be consistent with a change in polarity, but that interpretation requires support beyond the image itself. I would interpret this cautiously because segmentation choices, embryo-to-embryo variation and sample size can influence the summary. The figure should therefore guide the audience from the question to the evidence before moving to interpretation.",
+      "sourceTitle": "iBiology · Designing Effective Scientific Presentations",
+      "sourceUrl": "https://www.ibiology.org/professional-development/scientific-presentations/",
+      "sourceTask": "听 16:15–24:25。重点记录讲者如何删减 paper figure，以及如何引导观众看真正的数据。"
+    },
+    "output": {
+      "prompt": "Present one current Ezrin figure. Do not read every visual element. Move from the question to what is shown, the direct observation, your interpretation, and one limitation.",
+      "structure": ["Question", "What is shown", "Direct observation", "Interpretation", "Limitation"],
+      "target": "3–4分钟"
+    }
+  },
+  {
+    "id": "D5",
+    "label": "Day 5",
+    "focus": "解释 U-ExM protocol 与排错",
+    "type": "方法复现",
+    "goal": "把动作、机制、预期读出和故障检查连起来，只使用已经核实的参数。",
+    "anchor": "Nature Protocols v0.2→v0.3、Step ID 冻结、source protocol 与执行 SOP 分层。",
+    "review": "用8分钟复习 Day 3；闭卷复述5个分析词块，并说出一个可以独立复核的步骤。",
+    "chunks": [
+      {"en": "This step is critical because ...", "zh": "这一步至关重要，因为……", "use": "连接动作与机制"},
+      {"en": "Make sure that ...", "zh": "务必确保……", "use": "给出关键操作提醒"},
+      {"en": "The expected outcome is ...", "zh": "预期结果是……", "use": "描述正常读出"},
+      {"en": "If this happens, the most likely cause is ...", "zh": "如果出现这种情况，最可能的原因是……", "use": "定位故障"},
+      {"en": "The procedure differs from X in that ...", "zh": "这个流程与X的区别在于……", "use": "比较 protocol 变体"}
+    ],
+    "listening": {
+      "title": "Describing a reproducible procedure",
+      "text": "This step is critical because it determines whether the sample remains compatible with the next stage of expansion. Make sure that the reagent identity, concentration, time and physical sample are verified before starting. The expected outcome is a defined intermediate state that can be checked before the protocol continues. If a failure occurs, the most likely cause should not be guessed from memory; it should be traced through the recorded conditions and physical handling. The procedure differs from a related variant in that its order or chemistry may change. A reproducible protocol states what was done, what should be observed and how a failure is diagnosed.",
+      "sourceTitle": "iBiology · Making Scientific Writing Painless",
+      "sourceUrl": "https://www.ibiology.org/professional-development/making-scientific-writing-painless/",
+      "sourceTask": "听 7:50–10:00。重点听 Materials and Methods 如何支持 replication 与 reproducibility。"
+    },
+    "output": {
+      "prompt": "Choose anchoring, gelation or denaturation. Explain its purpose, input, verified critical conditions, expected outcome, one common failure and how you would check it. Do not state any parameter you have not verified.",
+      "structure": ["Purpose", "Input", "Critical conditions", "Expected outcome", "Failure and diagnostic check"],
+      "target": "4分钟"
+    }
+  },
+  {
+    "id": "D6",
+    "label": "Day 6",
+    "focus": "给导师做真实进展汇报",
+    "type": "导师汇报",
+    "goal": "用证据和下一步组织五分钟 update，并以一个导师可以直接回答的问题收尾。",
+    "anchor": "近期四线：ExM 基础阅读、Nature Protocols 分析、Ezrin figure、R13 micropattern maintenance。",
+    "review": "用8分钟复习 Day 4；闭卷说出5个图表词块，并用1分钟复述上一张 Ezrin 图。",
+    "chunks": [
+      {"en": "Here is where things stand.", "zh": "目前进展是这样的。", "use": "自然开始状态汇报"},
+      {"en": "What we have confirmed so far is ...", "zh": "目前已经确认的是……", "use": "陈述已确认事实"},
+      {"en": "What remains unclear is ...", "zh": "仍不清楚的是……", "use": "指出未解决问题"},
+      {"en": "My next step is ...", "zh": "我的下一步是……", "use": "给出具体行动"},
+      {"en": "I'd like your input on ...", "zh": "我希望听听您对……的意见", "use": "提出具体请教"}
+    ],
+    "listening": {
+      "title": "Giving a concise project update",
+      "text": "Here is where things stand. What we have confirmed so far is that the main workstreams now have explicit evidence layers and next actions. The ExM reading is moving toward a mechanism teach-back, the analysis work is being checked from raw image to metric, and the Ezrin figure is being organized around embryo-level evidence. What remains unclear is which gap creates the greatest risk for the next milestone. My next step is to finish the highest-value verification before expanding the scope. I'd like your input on whether the analysis demonstration or the figure argument should receive priority this week.",
+      "sourceTitle": "iBiology · Designing Effective Scientific Presentations",
+      "sourceUrl": "https://www.ibiology.org/professional-development/scientific-presentations/",
+      "sourceTask": "听 25:31–31:30。重点听 big question、transition，以及讲者如何让听众跟上逻辑。"
+    },
+    "output": {
+      "prompt": "Give a real supervisor update on four workstreams: ExM foundational reading, Nature Protocols analysis, the Ezrin figure, and R13 micropattern maintenance. For each, state progress, evidence, risk and next step. End with one specific question your supervisor can answer.",
+      "structure": ["Here is where things stand", "Progress and evidence", "Risk or uncertainty", "Next step", "One specific question"],
+      "target": "5分钟"
+    }
+  },
+  {
+    "id": "D7",
+    "label": "Day 7",
+    "focus": "围绕综述方向做学术 Q&A",
+    "type": "学术问答",
+    "goal": "在30–45秒内给出有边界的回答，并把不确定性转成文献或实验验证路径。",
+    "anchor": "Nature Reviews Bioengineering《Engineering Cells with Programmable Biophysical Cues》框架与参考文献扩展。",
+    "review": "用8分钟复习 Day 1 与 Day 5；各选3个词块，先讲机制，再讲一个 protocol 风险。",
+    "chunks": [
+      {"en": "That's an important point.", "zh": "这是一个重要的问题。", "use": "接住问题并争取组织时间"},
+      {"en": "My current interpretation is ...", "zh": "我目前的理解是……", "use": "给出当前判断"},
+      {"en": "I don't have enough evidence to conclude that yet.", "zh": "目前证据还不足以得出这个结论。", "use": "守住证据边界"},
+      {"en": "One alternative explanation is ...", "zh": "另一种可能的解释是……", "use": "提出竞争性解释"},
+      {"en": "We could test this by ...", "zh": "我们可以通过……来检验", "use": "把问题转成验证路径"}
+    ],
+    "listening": {
+      "title": "Answering within the evidence boundary",
+      "text": "That's an important point. My current interpretation is that programmable biophysical cues can shape cell behavior by changing the physical context in which cells sense and organize themselves. I don't have enough evidence to conclude that one cue or pathway is dominant across systems. One alternative explanation is that the observed response reflects a coupled chemical or material change rather than mechanics alone. We could test this by separating the variables experimentally, comparing appropriate controls and checking whether the result persists across models. A strong answer distinguishes what a review framework suggests from what a particular experiment has actually demonstrated.",
+      "sourceTitle": "iBiology · Developing a Research Question",
+      "sourceUrl": "https://www.ibiology.org/nrmn-resources/developing-a-research-question/",
+      "sourceTask": "任选连续8分钟。只记录回答者如何复述问题、限定范围，并把问题转成下一步。"
+    },
+    "output": {
+      "prompt": "Ask me five questions about programmable biophysical cues. Let me answer each in 30–45 seconds. At least once, challenge me to state that the evidence is insufficient and explain how I would verify the point through literature or experiment.",
+      "structure": ["Restate the question", "Current interpretation", "Evidence boundary", "Alternative explanation", "Verification path"],
+      "target": "5题，每题30–45秒"
+    }
+  }
+]
