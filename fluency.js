@@ -1,8 +1,9 @@
-const VERSION='44';
+const VERSION='45';
 const STATE_KEY='english_lab_cycle_v1';
 let days=[];
 let activeIndex=0;
 let state=loadState();
+let activeAudio=null;
 
 function todayISO(){
   const now=new Date();
@@ -40,10 +41,11 @@ function progress(record){
 function fullDayDone(id){return progress(dayState(id)).completed===7;}
 function chunkHTML(item,index,record){
   const checked=(record.chunks||[]).includes(index);
+  const audio=`audio-fluency-${days[activeIndex].id}-chunk-${index+1}.m4a?v=${VERSION}`;
   return `<label class="chunk" data-chunk="${index}">
     <input class="chunk-check" type="checkbox" data-chunk-check="${index}" ${checked?'checked':''} aria-label="已能脱口说出：${esc(item.en)}">
     <span><strong class="chunk-en">${esc(item.en)}</strong><span class="chunk-zh">${esc(item.zh)}</span><span class="chunk-use">${esc(item.use)}</span></span>
-    <button class="speak" type="button" data-speak="${esc(item.en)}" aria-label="播放词块">▶</button>
+    <button class="speak" type="button" data-audio="${audio}" data-rate="1" aria-label="播放词块">▶</button>
   </label>`;
 }
 function gptPrompt(day){
@@ -95,7 +97,7 @@ function render(){
         <div class="listening-label">Controlled input · 约2分钟</div>
         <h3>${esc(day.listening.title)}</h3>
         <p>盲听两遍 → 打开原稿核对 → 选4句跟读 → 60秒复述。</p>
-        <div class="actions"><button class="action" type="button" data-speech="${esc(day.listening.text)}" data-rate="0.88">▶ 0.88×</button><button class="action secondary" type="button" data-speech="${esc(day.listening.text)}" data-rate="1">▶ 1.0×</button><button class="action ghost" id="stop-speech" type="button">停止</button></div>
+        <div class="actions"><button class="action" type="button" data-audio="audio-fluency-${esc(day.id)}.m4a?v=${VERSION}" data-rate="0.9">▶ 慢速</button><button class="action secondary" type="button" data-audio="audio-fluency-${esc(day.id)}.m4a?v=${VERSION}" data-rate="1">▶ 原速</button><button class="action ghost" id="stop-speech" type="button">停止</button></div>
         <details class="transcript"><summary>完成盲听后打开英文稿</summary><p>${esc(day.listening.text)}</p></details>
       </div>
       <div class="listening-block">
@@ -126,14 +128,21 @@ function render(){
     </section>`;
   bind();
 }
-function speak(text,rate=1){
-  if(!('speechSynthesis' in window)){toast('当前浏览器不支持系统朗读');return;}
-  speechSynthesis.cancel();
-  const utterance=new SpeechSynthesisUtterance(text);
-  utterance.lang='en-US';utterance.rate=Number(rate)||1;utterance.pitch=1;
-  const voices=speechSynthesis.getVoices();
-  utterance.voice=voices.find(voice=>voice.lang.startsWith('en')&&/Samantha|Ava|Daniel|Karen/i.test(voice.name))||voices.find(voice=>voice.lang.startsWith('en'))||null;
-  speechSynthesis.speak(utterance);
+function stopAudio(){
+  if(!activeAudio)return;
+  activeAudio.pause();
+  activeAudio.currentTime=0;
+  activeAudio=null;
+}
+function playAudio(url,rate=1){
+  stopAudio();
+  const audio=new Audio(url);
+  activeAudio=audio;
+  audio.preload='auto';
+  audio.playbackRate=Number(rate)||1;
+  audio.addEventListener('ended',()=>{if(activeAudio===audio)activeAudio=null;},{once:true});
+  audio.addEventListener('error',()=>{if(activeAudio===audio)activeAudio=null;toast('音频加载失败，请刷新后重试');},{once:true});
+  audio.play().catch(()=>toast('请再次点击播放'));
 }
 async function copyText(text){
   if(navigator.clipboard&&window.isSecureContext)return navigator.clipboard.writeText(text);
@@ -150,9 +159,8 @@ function bind(){
     const index=Number(input.dataset.chunkCheck),set=new Set(record.chunks||[]);
     input.checked?set.add(index):set.delete(index);record.chunks=[...set].sort((a,b)=>a-b);saveState();render();
   }));
-  document.querySelectorAll('[data-speak]').forEach(button=>button.addEventListener('click',event=>{event.preventDefault();speak(button.dataset.speak,.9);}));
-  document.querySelectorAll('[data-speech]').forEach(button=>button.addEventListener('click',()=>speak(button.dataset.speech,button.dataset.rate)));
-  document.getElementById('stop-speech').addEventListener('click',()=>{if('speechSynthesis' in window)speechSynthesis.cancel();});
+  document.querySelectorAll('[data-audio]').forEach(button=>button.addEventListener('click',event=>{event.preventDefault();playAudio(button.dataset.audio,button.dataset.rate);}));
+  document.getElementById('stop-speech').addEventListener('click',stopAudio);
   document.getElementById('recall-toggle').addEventListener('click',()=>{
     document.getElementById('chunks').classList.toggle('recall-mode');
     document.getElementById('recall-toggle').textContent=document.getElementById('chunks').classList.contains('recall-mode')?'显示英文':'闭卷模式';
